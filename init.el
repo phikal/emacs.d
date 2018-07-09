@@ -1,0 +1,10 @@
+;; (package-initialize) - prevent package.el from adding stuff
+(require 'cl)
+(let ((file-name-handler-alist nil)
+      (gc-cons-threshold (lsh 1 28))
+      (conf-org (expand-file-name "conf.org" user-emacs-directory))
+      (conf-el (expand-file-name "conf.el" user-emacs-directory)))
+  (if (file-newer-than-file-p conf-org conf-el)
+      (progn (message (concat "parsing " conf-org))
+	     (org-babel-load-file conf-org))
+    (load-file conf-el)))

@@ -1,0 +1,1462 @@
+#+TITLE:    A Semi-literate Emacs Configuration
+#+OPTIONS:  num:nil toc:nil tags:t email:t
+#+KEYWORDS: emacs dotfile config
+
+* Introductory comments
+  This document is [[https://dyst.ax.lt/~phi/][my]] configuration for [[https://gnu.org/s/emacs][GNU Emacs]], using [[https://org-mode.org/][Org Mode's]]
+  [[https://en.wikipedia.org/wiki/Literate_programming][Literate Programming]] facilities to automatically extract and
+  evaluate all the relevant code snippets, ignoring the documenting
+  comments.
+
+  To load this configuration, make sure you have the ~.org~ file
+  locally on your system, and call it using
+  ~org-babel-load-file~. Furthermore, make sure that you've loaded the
+  ~cl~ module with ~require~. Eventually you will have to load ~org~
+  too.
+
+  This document, it's code and comments, are in the public domain.
+
+  The following configuration *hasn't* been tested on multiple
+  systems, with different Emacs versions, etc. I only know that it
+  works on my device™, and sometimes I'm not even sure about that. No
+  backwards compatibility beyond Emacs ~25.1~ is intended.
+
+** Personal Emacs History
+   My first encounters with Emacs must have been somewhere around late
+   2014, when I was looking around to find a proper text
+   editor. Overwhelmed by the options, I tried a lot of things out,
+   such as Sublime Text or Geany, but all of them felt missing,
+   faulted incomplete or simply wrong. It didn't take long for me to
+   understand that the two main players turned out to be some of the
+   oldest ones: vi (ie. vim) and Emacs (ie. GNU Emacs).
+
+   Knowing nothing, I trusted common opinion and went with Vi(m). And
+   it was cool -- a +sin+ penance to say in an Emacs
+   configuration. But while the foundations were good, it had problems
+   with being extended, personalized, etc. Ultimately, I came to the
+   conclusion that one shouldn't customize Vi(m), or at the very least
+   keep it as minimal as possible (hence I use =nvi= and =vis= instead
+   of Vim nowadays).
+
+   Yet this conclusion wasn't achieved by itself. It took Emacs to
+   prove this, by demonstrating a properly extendable "environment" to
+   teach me...
+
+   I remember that there was a bit of a gap between installing and
+   using Emacs. For a while I even had issues remembering and
+   recognizing the name! A particularly vivid memory is me looking
+   through the Gnome (or Unity?) configuration program, and
+   encountering the "input method" option, among which "Emacs" was an
+   option -- I assumed it was related to Apple's computer brand... But
+   when I opened Emacs for the first few times it seemed a bit
+   overwhelming, (unnecessarily) complex and unhandy: everything was
+   different. From names over the workflow (which I didn't even
+   understand) to the keybindings. All I used to do, was open a file
+   (=C-x C-f=), maybe move up and down (=M-v= and =C-v=) change the
+   theme (using the menu bar) and then close Emacs (=C-x C-x=). That
+   was pretty much all I knew.
+
+   But somewhere around early 2015 (if not earlier) for some reason I
+   can't quite remember I was drawn towards Emacs. Possibilities could
+   be
+   1. Me having have met "real" Emacs users, and drawing my attention to
+      the Editor, making me realize that it's not just a notepad
+      with inconvenient keybindings.
+   2. Me having have engaged with Lisp, while to be fair not knowing all
+      it's potential understanding it's beauty.
+      
+   So I slowly started trying to configure Emacs. Retroactively it
+   seems to me that the resources were far harder to find. Having no
+   idea what to do (and lacking the patience to sit through the [[info:Emacs][Emacs
+   Manual]]), I copied a few things from some blogs, a few things from
+   some dotfile, some stuff from YouTube descriptions and others from
+   Stackoverflow questions -- to put it simply, it was a mess, and
+   stuff broke quite freqently. I kept on reading that Org mode was
+   great, but I didn't ever get why (I did eventually). But for some
+   reason I didn't stop using Emacs, but neither did I go too deep.
+
+   After some 2 1/2 years of bare survival, ups and downs, I started
+   to find out that people were writing literate configurations. It
+   then took me a while, and I decided to rewrite my ~100-150 line
+   configuration. And so, since February 2018 I have been maintaining
+   this file.
+
+** Why use org/babel?
+   While it might appear to be a inconvenience at first, extracting
+   ones configuration into a format like this one has multiple
+   advantages, of which the main ones are:
+
+   - My actual =init.el= is very short. All I do, disable filename
+     handlers, increase the garbage collection threshold, and (if
+     necessary) call Org/Babel. If the extracted file newer than the
+     this org file, I just load that file.
+   - Writing text with code (as opposed to code with comments) is much
+	 more informative, and makes me justify whatever I add. This,
+     one the one hand contributes to simplicity, but also helps people
+     who are configuring their config get a better feeling for what to
+     do /and/ why.
+   - After a while, every novice /should/ entirely rewrite their
+     configuration. In the beginning, one might just copy stuff
+     from Manuals, Wikis and Blogs -- and keep what sicks, but this
+     results in code that's hard to maintain and keep an overview. I
+     pushed myself to rewrite my configuration I started to write
+     around 2014-15 and I enjoy a far better experience that had
+     before. My potential had increased and I have used the
+     opportunity to learn more about Emacs itself.
+
+** Inspirations for writing this configuration
+   Emacs is a tool you can use for years and always learn something
+   new, which make you feel stupid for not having known. The fun part
+   when writing a configuration like this one is that one actively
+   learns these things, instead of accidentally pressing the wrong
+   keybinding, and then going back to =C-h l= to find out what just
+   happened.
+
+   So for my own assistance, and maybe also for other lost souls,
+   reading this in the lookout for tricks and wizardry (note: you
+   probably won't find any of this in my config), I list here other
+   very interesting configurations:
+
+   - [[https://doc.norang.ca/org-mode.html][Org Mode -- Organize Your Life in Plain Text!]] :: this is not
+		strictly a config, but it's an overall great
+        =org-mode= overview
+   - [[https://www.freebsd.org/doc/en/books/developers-handbook/emacs.htm][Using Emacs as a Development Environment]] :: this offered a few
+		c-mode related tricks
+   - [[https://www.dgp.toronto.edu/~ghali/emacs.html][Sheruf Ghali's Emacs config]] :: recommendable due to being an
+		expansive document with good (although not "literate")
+        documentation and commentary.
+   - [[https://caolan.org/dotfiles/emacs.html][Caolan McMahon's Emacs Configuration]] :: A lot of packages with
+		helpful commentary. Very well structured.
+   - [[https://github.com/jwiegley/dot-emacs][John Wiegley's (=use-package= creator) "dot-emacs"]] :: Always up to
+		date and permanently changing, this configuration
+        shows a lot of maturity.
+   - [[https:tuhdo.github.io/emacs-tutor3.html][Tu Do's "Emacs Mini Manual (PART 3)"]] :: Part of a series that
+		starts from nothing and gives a great introduction to
+        Emacs. The last part (linked here) introduces and explains a
+        lot of useful packages, as well as basic elisp concepts
+        (=defun=, =add-to-list=, =mapc=, ...)
+
+* General Setup
+** Package Management
+   #+BEGIN_SRC emacs-lisp
+     (require 'package)
+     (add-to-list 'package-archives
+                  '("melpa-stable" . "https://stable.melpa.org/packages/"))
+     (setq package-enable-at-startup nil)
+     (package-initialize)
+   #+END_SRC
+
+   Only use ~melpa-stabe~ besides the standard gnu repository (which
+   should be in ~package-archives~ by default). This makes sure that
+   all the packages (see /[[Packages%20and%20Other%20Configurations][Packages]]/).
+
+** Appearance
+   #+BEGIN_SRC emacs-lisp
+     (scroll-bar-mode -1) 
+     (menu-bar-mode -1)
+     (tool-bar-mode -1)
+     (blink-cursor-mode -1)
+     (tooltip-mode -1)
+   #+END_SRC
+
+   Since I usually don't need my mouse to use Emacs, I turn off all GUI
+   related tools, like scroll- toolbars, etc. This is done early on to
+   avoid redrawing during startup.
+
+   #+BEGIN_SRC emacs-lisp
+     (set-face-attribute 'default nil :font "Liberation Mono" :height 130)
+     (set-face-attribute 'variable-pitch nil :family "Liberation Sans" :height 130)
+   #+END_SRC
+
+   My fonts are configured and changed frequently, making any more
+   significant commentary on this code redundant.
+
+   #+BEGIN_SRC emacs-lisp
+     (show-paren-mode t) 
+     (display-time-mode t)
+     (display-battery-mode t)
+   #+END_SRC
+
+   To extend the default Emacs appearance, matching parentheses are
+   highlighted, which is helpful when working with Lisp
+   code. Furthermore the mode bar displays the current column of the
+   active point and the current time, since I usually use Emacs in
+   full screen mode withing a window manager without a built in clock
+   facility.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq inhibit-startup-screen t
+           inhibit-startup-buffer-menu t
+           inhibit-startup-message t
+           inhibit-startup-hooks t)
+   #+END_SRC
+
+   In accordance to a minimalist and fast startup, I tell Emacs to not
+   open the standard startup buffer (with a timestamp of when I opened
+   Emacs), since I never use it anyways.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq-default fill-column 72 
+                   tab-width 4)
+   #+END_SRC
+
+   These settings are purely personal preferences.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq confirm-kill-emacs 'yes-or-no-p)
+   #+END_SRC
+
+   While it's not quite "appearance"-related, this will prevent Emacs
+   from being accidentally closed when I type =C-x C-c= instead of
+   =C-c C-x=.
+
+   #+BEGIN_SRC emacs-lisp
+	 (setq-default select-enable-clipboard t
+				   x-select-enable-clipboard t)
+   #+END_SRC
+
+   Having the ability to interact with the system clipboard is very
+   welcome, especially when copying code from a (now =eww=) web
+   browser.
+
+   #+BEGIN_SRC emacs-lisp
+	 (setq show-trailing-whitespace t)
+   #+END_SRC
+
+   Since there is no mode I know of or know I use, which /needs/
+   trailing whitespaces, this minor mode does a good job of helping me
+   to avoid these.
+   
+** Cross-session Configuration
+   #+BEGIN_SRC emacs-lisp
+     (setq-default history-delete-duplicates t
+                   savehist-save-minibuffer-history t
+                   savehist-additional-variables '(kill-ring
+                                                   search-ring
+                                                   eshell-history-ring
+                                                   compile-command
+                                                   recentf-list
+                                                   calc-stack)
+                   savehist-ignored-variables '(tmm--history
+                                                yes-or-no-p-history))
+     (savehist-mode t)
+   #+END_SRC
+
+   The preceding two function calls make sure that in-between opening
+   and closing Emacs (for example when I have to shut down my
+   computer) buffers and windows are saved, as well as minibuffer
+   inputs plus the contents of ~kill-ring~, ~search-ring~ and
+   ~compile-command~. Other variables, which are not needed are
+   disregarded.
+
+   #+BEGIN_SRC emacs-lisp
+     ;; (setq-default desktop-dirname (expand-file-name "~/.emacs.d/desktop/"))
+     ;; (desktop-save-mode t)
+   #+END_SRC
+
+   Additionally, buffers should be preserved between sessions, and the
+   =.desktop= files containting the relevant information are to be
+   stored together -- currently disabled.
+
+** Backups
+   #+BEGIN_SRC emacs-lisp
+     (setq-default backup-directory-alist '(("" . "~/.emacs.d/backup/"))
+                   auto-save-default nil
+                   backup-by-copying t 
+                   version-control t
+                   kept-old-versions 3
+                   kept-new-versions 8
+                   delete-old-versions t)
+   #+END_SRC
+
+   The default Emacs backup system is pretty annoying, so these are a
+   some helpful tips I've gathered from around the internet, with a
+   few modifications based on experience (eg. having have been saved
+   by the backup system, more than just a few times).
+
+   *Note:* This is also probably one of the oldest parts on my
+   configuration, staying mostly unchanged since mid-late 2014, when
+   copied the code from [[https://stackoverflow.com/users/11138/jfm3][this StackOverflow question]].
+
+** Defaults
+*** User information
+	#+BEGIN_SRC emacs-lisp
+      (setq user-full-name "Philip K." 
+            user-mail-address "philip@warpmail.net")
+	#+END_SRC
+
+	Personal data?
+
+*** Aliases
+	#+BEGIN_SRC emacs-lisp
+      (defalias 'html-mode 'web-mode) 
+      (defalias 'css-mode 'web-mode)
+      (defalias 'yes-or-no-p 'y-or-n-p)
+      (defalias 'perl-mode 'cperl-mode) 
+      (defalias 'open 'find-file) ; for eshell
+	#+END_SRC
+
+	Don't use =html-mode=, =css-mode= or =perl-mode=. And instead
+	of having to type "yes" or "no" when emacs asks a question,
+	respectively accept "y" or "n" instead.
+
+*** Emacs-generated files
+	#+BEGIN_SRC emacs-lisp
+      (let ((custom-el (expand-file-name "~/.emacs.d/custom.el")))
+        (setq-default custom-file custom-el)
+        (when (file-exists-p custom-el)
+          (load custom-file)))
+	#+END_SRC
+
+	I previously attempted to set =custom-file= to =/dev/null/=,
+	but sadly I kept getting the message that the find could not
+	be found. Therefore, to not clutter =init.el=, I dump all the
+	configurations in =~/.emacs.d/custom.el=.
+
+*** Sentences
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default sentence-end "[.!?][\W_]*[[:space:]]+")
+	#+END_SRC
+
+	I dislike the standard sentence definition Emacs uses, since
+	for me a sentence is just a publication mark, followed by
+	white space.  Optionally, non-word characters are acceptable
+	between the punctuation and the whitespace, like when writing
+	=_No!_= in Markdown.
+
+*** Recent files
+	#+BEGIN_SRC 
+	(recentf-mode t)
+	#+END_SRC
+	
+	For tools like [[projectile-mode][Projectile]], recentf is enabled, so to easily access
+	recently opened files.
+	
+*** Setting the right mode
+	#+BEGIN_SRC emacs-lisp
+      (setq-default major-mode
+                    (lambda () (if buffer-file-name
+                                   (fundamental-mode)
+                                 (let ((buffer-file-name (buffer-name)))
+                                   (set-auto-mode)))))
+	#+END_SRC
+	
+	When creating new buffers, use =auto-mode-alist= to automatically set
+	the major mode. Snippet from [[https://emacs.stackexchange.com/a/2555][Stackoverflow]].
+
+*** Browser
+	#+BEGIN_SRC emacs-lisp
+      (setq-default browse-url-browser-function 'eww-browse-url
+                    eww-download-directory (expand-file-name "~/dl"))
+	#+END_SRC
+
+	Use =eww= as the default browser, when opening =http://= links.
+
+*** Global minor modes
+	#+BEGIN_SRC emacs-lisp
+	  (show-paren-mode t)
+	#+END_SRC
+
+	I remember reading somewhere that an early Lisp'er, I know not who,
+	remarked that any self-respecting Editor must have some kind of a
+	mechanism to highlight/mark matching parentheses. This is exactly
+	that is being offered here, but not only for parentheses, but also
+	other matching syntactical constructs, in languages as Ruby (=do= and
+	=end=) or in shell scripts (=if= and =fi=).
+
+	#+BEGIN_SRC emacs-lisp
+	  (delete-selection-mode t)
+	#+END_SRC
+
+	I enable this, more due to habit, rather than due to some particular
+	advantage I gain from enabling it.
+	
+*** Abbrevations
+	#+BEGIN_SRC emacs-lisp
+      (setq abbrev-file-name "~/.emacs.d/abbrev.defs"
+            save-abbrevs 'silent)
+	#+END_SRC
+	
+	This setup will automatically initialize and save new abbreviations,
+	which are used for [[Writing][writing]].
+	
+*** Shell comands
+	#+BEGIN_SRC emacs-lisp
+      (setq-default async-shell-command-display-buffer nil
+                    async-shell-command-buffer 'new-buffer)
+	#+END_SRC
+	
+	When asynchronously running commands, only create a /new/
+	output buffer, if one is needed.
+** Spell Checking
+   #+BEGIN_SRC emacs-lisp
+	 (setq-default ispell-program-name (executable-find "aspell"))
+   #+END_SRC
+
+   Just use Aspell.
+
+** Line Numbering
+   #+BEGIN_SRC emacs-lisp
+     (when (version< "26.1" emacs-version)
+       (setq-default display-line-numbers-grow-only nil
+                     display-line-numbers-width nil
+                     display-line-numbers-width-start t))
+   #+END_SRC
+
+   For Emacs 26.1 and above, =linum-mode= is obsolete, and has been
+   replaced with the native =display-number-mode= -- yet some
+   reconfiguration is necessary, to make using it a bit more pleasant,
+   for example by forcing it to calculate how wide the margin must be.
+   
+   For other systems, don't use margin'd line numbering.
+   
+** Time and Date
+*** Week
+	#+BEGIN_SRC emacs-lisp
+      (setq-default calendar-week-start-day 1)
+	#+END_SRC
+
+	Let the week start on Monday.
+
+** Registers
+   #+BEGIN_SRC emacs-lisp
+	 (let ((files `((?c . "~/.emacs.d/conf.org")
+				   	(?n . "~/doc/org/notes.org")
+				   	(?h . "~")
+				   	(?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
+				   	(?u . "~/code/uni/")
+				   	(?o . "~/doc/org/")
+				   	(?r . "~/doc/read/"))))
+	   (mapc (lambda (c)
+			   (let ((file (expand-file-name (cdr c))))
+				 (set-register (car c) (cons 'file file))))
+			 files))
+   #+END_SRC
+
+   To quickly access certain files I tend to frequently use, I use
+   Emacs's [[info:emacs#File%20Registers][file registers]].
+
+* Packages and Other Configurations
+  #+BEGIN_SRC emacs-lisp
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents) (package-install 'use-package t))
+    (require 'bind-key)
+    (setq-default use-package-always-defer t
+                  use-package-always-ensure t)
+  #+END_SRC
+
+  Generally, always defer packages and ensure their installation,
+  unless otherwise specified. It is assumed that =use-package= has
+  already been installed.
+
+** Utilities
+*** Dired
+	#+BEGIN_SRC emacs-lisp
+      (setq-default dired-dwim-target t
+                    dired-recursive-copies 'always
+                    dired-recursive-deletes 'top
+                    dired-ls-F-marks-symlinks t
+                    dired-ls-sorting-switches "t"
+                    dired-listing-switches "-aBhl --group-directories-first")
+
+      (put 'dired-find-alternate-file 'disabled nil)
+	#+END_SRC
+
+	Not much to say: For the most part, a under-customized dired
+	configuration.
+
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default wdired-allow-to-change-permissions t
+					wdired-allow-to-redirect-links t)
+	#+END_SRC
+
+	Wdired by default only allows one to edit file names. Setting
+	these variables, extends the abilities of this very
+	interesting minor mode.
+
+*** Helm
+	#+BEGIN_SRC emacs-lisp
+      (use-package helm
+        :disabled
+        :init
+        (setq helm-ff-guess-ffap-filenames t
+              helm-M-x-fuzzy-match t
+              helm-buffers-fuzzy-matching t
+              helm-recentf-fuzzy-match t)
+        :config
+        (helm-autoresize-mode t)
+        (helm-mode t)
+        :bind (("M-x" . helm-M-x)
+               ("C-h a" . helm-apropos)
+               ("C-x b" . helm-mini)
+               ("C-x C-b" . helm-buffers-list)
+               ("C-x C-f" . helm-find-files)
+               ("C-c h o" . helm-occur)))
+	#+END_SRC
+	
+	This is my Helm setup, if I were to use it, which I currently don't.
+
+*** Eshell
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default eshell-banner-message "")
+	#+END_SRC
+
+	I don't need to know I am using eshell, thanks.
+
+*** Mail
+**** Gnus
+	 #+BEGIN_SRC emacs-lisp
+       (use-package gnus
+         :init
+         (setq-default gnus-select-method '(nnnil "")
+                       gnus-secondary-select-methods '((nnimap "imap.fastmail.com"
+                                                               (nnimap-streaming t)
+                                                               (nnimap-expunge t))
+                                                       (nnimap "faumail.fau.de"
+                                                               (nnimap-streaming t)
+                                                               (nnimap-expunge t)))
+                       mail-sources '((imap :server "faumail.fau.de")
+                                      (imap :server "imap.fastmail.com"))
+                       gnus-group-sort-function 'gnus-group-sort-by-unread
+                       gnus-fetch-old-headers 'some
+                       gnus-thread-sort-functions '((not gnus-thread-sort-by-number)
+                                                    gnus-thread-sort-by-score)
+                       message-directory "~/etc/mail/"
+                       gnus-directory "~/etc/news/"
+                       gnus-treat-from-gravatar 'head
+                       gnus-treat-mail-gravatar 'head
+                       gnus-posting-styles '(("faumail.fau.de"
+                                              (signature "Hochachtungsvoll\nPhilip K.")
+                                              (address "philip.kaludercic@fau.de"))
+                                             ("imap.fastmail.com"
+                                              (signature "Sincerely\nPhilip K.")
+                                              (address "philip@warpmail.net")))
+                       gnus-agent t
+                       gnus-expert-user t)
+         (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
+         :config
+         (gnus-demon-add-disconnection)
+         (gnus-demon-add-scanmail)
+         :bind ("C-c n" . gnus))
+	 #+END_SRC
+
+	 My current mail setup is still a bit unstable, since I wrote in it
+	 less than a day, yet it seems to be working. It is set up to work
+	 equally well with my university-, as well as my personal address.
+
+**** SMTP
+	 #+BEGIN_SRC emacs-lisp
+       (setq message-send-mail-function 'message-send-mail-with-sendmail
+             message-sendmail-extra-arguments '("--read-envelope-from")
+             message-sendmail-f-is-evil t
+             message-sendmail-envelope-from 'header
+             message-kill-buffer-on-exit t
+             sendmail-program (executable-find "msmtp"))
+	 #+END_SRC
+
+	 Instead of using Emacs' internal SMTP service, I use msmtp, simply
+	 for the sake of speed. Additionally, this setup automatically
+	 chooses what server to contact, based on the =From:= field.
+
+**** BBDB
+	 #+BEGIN_SRC emacs-lisp
+       (use-package bbdb
+         :init
+         (setq bbdb-mua-auto-update-p 'query
+               bbdb-complete-mail-allow-cycling t
+               bbdb-mua-pop-up nil
+               bbdb-completion-display-record nil
+               bbdb-file "~/.emacs.d/bbdb")
+         :config
+         (bbdb-initialize 'gnus 'message 'pgp)
+         (bbdb-mua-auto-update-init 'message)
+         (bbdb-mua-auto-update-init 'gnus 'message)
+         (define-key message-mode-map (kbd "M-<tab>") 'bbdb-complete-mail)
+         (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+         :after gnus)
+	 #+END_SRC
+
+	 Install and setup /BBDB/ (Insidious Big Brother Database) for contact
+	 management, and enable completion in message buffers.
+ 
+*** Ido
+**** Basic
+	 #+BEGIN_SRC emacs-lisp
+       (use-package ido
+         :config
+         (setq ido-enable-flex-matching t
+               ido-enable-tramp-completion t
+               ido-create-new-buffer 'always
+               ido-ignore-extensions t
+               ido-max-prospects 6)
+         :init 
+         (ido-mode t)
+         (ido-everywhere t))
+	 #+END_SRC
+
+	 In spite of many suggestions to the contrary (or rather in support
+	 of Helm), I use =Ido= to extend the default =find-file=,
+	 =switch-to-buffer=, ... commands. I didn't derive any read advantages
+	 from Helm, and =Ido= did everything I had to.
+
+**** Vertical
+	 #+BEGIN_SRC emacs-lisp
+       (use-package ido-vertical-mode
+         :init
+         (ido-vertical-mode t)
+         :after ido)
+	 #+END_SRC
+
+	 Vertically displaying ido queries doesn't really change anything
+	 substantially, but instead just offers a nice visual feeling, and
+	 maybe a slightly cleaner overview.
+
+**** Smex
+	 #+BEGIN_SRC emacs-lisp
+       (use-package smex
+         :config
+         (setq smex-save-file "~/.emacs.d/smex-items")
+         :bind (("M-x" . smex)
+                ("M-X" . smex-major-mode-commands))
+         :after ido)
+	 #+END_SRC
+
+	 =Smex= doesn't do much more than adding Ido-support to the default
+	 =execute-extended-command= (=M-x=) keybinding.
+ 
+*** =flyspell-mode=
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default flyspell-issue-welcome-flag nil
+					flyspell-issue-message-flag nil)
+	#+END_SRC
+
+	When writing prose, or just comments, =flyspell-mode= (and
+	=flyspell-prog-mode=) prove themselves to be valuable
+	utilities, albeit a bit slow and cumbersome from time to
+	time...
+*** =woman-mode=
+	#+BEGIN_SRC emacs-lisp
+      (setq woman-manpath "/usr/share/man/"
+            woman-use-topic-at-point t
+            woman-use-extended-font t
+            woman-use-own-frame nil)
+	#+END_SRC
+
+	=woman-mode= (w/o man) is a pure elisp alternative to
+	=man-mode= and in general, seems to produce a few better
+	results, due to seemingly being more easily configurable, as
+	shown above.
+*** =calc=
+	#+BEGIN_SRC emacs-lisp
+      (setq-default calc-angle-mode 'rad calc-shift-prefix t
+                    calc-symbolic-mode t
+                    calc-infinite-mode t
+                    calc-vector-brackets nil
+                    calc-vector-commas nil
+                    calc-matrix-just 'right
+                    calc-matrix-brackets '(R O)
+                    calc-complex-format 'i)
+	#+END_SRC
+
+	I have grown fond of Emacs Calc, even though it might is be
+	big complicated to go beyond the basics. Most of these options
+	have been taken from the auto generated =calc.el= file.
+*** LaTeX/AUCTeX
+   	#+BEGIN_SRC emacs-lisp
+      (use-package auctex
+        :config
+        (add-hook 'LaTeX-mode-hook
+                  (lambda ()
+                    (local-set-key "$" (lambda () 'self-insert-command))
+                    (setq-local company-backends '((company-latex-commands company-math)))
+                    (prettify-symbols-mode)
+                    (flycheck-mode)
+                    (turn-on-reftex)
+                    (TeX-fold-mode)))
+        (add-hook 'LaTeX-language-de-hook (lambda ()
+                                            (ispell-change-dictionary "de_DE")))
+        (add-hook 'TeX-after-compilation-finished-functions
+                  'TeX-revert-document-buffer)
+        :init
+        (setq-default TeX-view-program-selection '((output-pdf "PDF Tools"))
+                      TeX-source-correlate-start-server t
+                      TeX-auto-save t
+                      TeX-parse-self t
+                      TeX-master nil
+                      TeX-PDF-mode t
+                      reftex-plug-into-AUCTeX t
+                      reftex-enable-partial-scans t)
+        :mode ("\\.tex\\'" . LaTeX-mode))
+   	#+END_SRC
+
+   	Partially rewritten LaTeX configuration.
+
+*** =org-mode=
+	#+BEGIN_SRC emacs-lisp
+	  (use-package org
+		:init
+	#+END_SRC
+
+	The following configuration is wrapped in a =use-package= macro...
+
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default org-hide-emphasis-markers t
+					org-completion-use-ido t
+					org-startup-folded t
+					org-highlight-latex-and-related '(latex)
+					org-alphabetical-lists t
+					org-support-shift-select t)
+	#+END_SRC
+
+	Basic stylistic and movment options (especially enabling using
+	the shift key to mark a region).
+
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default org-src-fontify-natively t
+					org-src-tab-acts-natively t
+					org-src-window-setup 'current-window)
+	#+END_SRC
+
+	Especially this document uses a lot of source blocks, so
+	highlighting and indenting them appropriately is very
+	convenient.
+
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default org-directory "~/doc/org/"
+					org-agenda-files (list org-directory)
+					org-default-notes-file
+	  (expand-file-name "notes.org" org-directory))
+	#+END_SRC
+
+	Within my documents directory (=~/doc/=) I have an =org=
+	directory just for org files, which I notify =org-mode=
+	of. Furthermore, I inform Org about my notes and agenda file.
+	 #+BEGIN_SRC emacs-lisp
+	   (setq org-capture-templates
+			 '(("a" "Appointment" entry (file+headline "pers.org" "Appointments") "* %^t %?\n")
+			   ("p" "Plans" entry (file+headline "pers.org" "Plan") "* %^t %?\n")
+			   ("t" "Todo" entry (file "todo.org") "* TODO %?\n %T\n\n%i")
+			   ("c" "Comments" entry (file org-default-notes-file) "* %?\n ")
+			   ("l" "Link" entry (file org-default-notes-file) "* %?\n %a")))
+	 #+END_SRC
+
+	 Having special /capture templates/ will probably help in
+	 getting used to using org-mode for taking notes.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (setq org-todo-keywords 
+			 '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")))
+	 #+END_SRC
+
+	 Since I don't require a complex TODO setup, I have chosen to
+	 keep the default keywords, as one often finds them
+	 recommended.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (setq org-latex-packages-alist 
+			 '(("" "microtype")
+			   ("" "lmodern")))
+	 #+END_SRC
+
+	 By default, exporting to LaTeX would produce visually
+	 unpleasing code. But by enabling [[https://www.ctan.org/texarchive/macros/latex/contrib/minted][minted]], this issue is
+	 mitigated quite easily.
+
+	 Furthermore, a few extra default packages are added, which I
+	 always enable.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (add-hook 'org-mode-hook
+				 (lambda () 
+				   (auto-fill-mode t)
+				   (flyspell-mode-off)
+				   (flyspell-prog-mode)))
+	 #+END_SRC
+
+	 Since most of the text I write in org-mode is prose,
+	 =auto-fill-mode= seems to show itself to be convenient. I no
+	 longer require myself to use =M-q= after each sentence or
+	 even work. Instead I can focus (or at least try to) on the
+	 actual text I am writing.
+
+	 #+BEGIN_SRC emacs-lisp 
+	  :bind (("C-c c" . org-capture)
+			 ("C-c a" . org-agenda)
+			 ("C-c l" . org-store-link)
+			 :map org-mode-map 
+			 ("M-<tab>" . pcomplete))
+	 #+END_SRC
+
+	 Here I set a few convenient keybindings for globally interacting
+	 with my org ecosystem. 
+	 
+	 Also: [[=flyspell-mode=][Flyspell]] sadly shadows org's auto-complete functionality, with
+	 an alternative I never use. When instead re-binding =pcomplete=, one
+	 get's a lot more out of Org, without having to look up everyhing in
+	 the manual.
+	 
+	 #+BEGIN_SRC emacs-lisp 
+       :config
+       (add-to-list 'org-structure-template-alist
+                    '("E" "#+BEGIN_SRC emacs-lisp\n\n#+END_SRC"
+                      "<src lang=\"emacs-lisp\">n\n</src>"))
+ 	 #+END_SRC
+	   
+	 Adding this code to =org-structure-template-alist=, makes it easier
+	 to maintain files like these, since expands =<E= to a source block
+	 with emacs-lisp automatically chosen as the language. Due to a
+	 org-mode bug, this has to be evaluated after the document has
+	 been loaded.
+	 #+BEGIN_SRC emacs-lisp
+       (setq org-latex-preview-ltxpng-directory "/tmp/ltxpng/")
+       (plist-put 'org-format-latex-options :scale 1.25)
+	 #+END_SRC
+	 
+	 LaTeX previews can be a bit small and clutter the working
+	 directory, so the following options should migrate these issues.
+	 
+	 #+BEGIN_SRC emacs-lisp
+	   :mode ("\\.org\\'" . org-mode))
+	 #+END_SRC
+	 
+	 Finally, defer interpretation until a =.org= file is found, and close
+	 the =use-package= block.
+
+*** Ledger
+	#+BEGIN_SRC emacs-lisp
+      (use-package ledger-mode
+        :init
+        (setq ledger-source-directory (expand-file-name "~/doc/ledger")
+              ledger-master-file (expand-file-name "master.lg" ledger-source-directory)
+              ledger-highlight-xact-under-point nil)
+        (add-hook 'ledger-mode-hook
+                  (lambda () (company-mode) (flyspell-mode-off)))
+        :mode ("\\.lg\\'" . ledger-mode))
+	#+END_SRC
+
+	In an effort to use ledger, I have set up =ledger-mode= with
+	some sane defaults.
+
+*** Rcirc
+	#+BEGIN_SRC emacs-lisp
+      (setq-default rcirc-time-format "%Y-%m-%d %H:%M "
+                    rcirc-default-nick "zge"
+                    rcirc-default-user-name "zge"
+                    rcirc-default-full-name user-full-name
+                    rcirc-default-port 6669
+                    rcirc-server-alist `(("dyst.ax.lt" :user
+                                          "zge" :encryption tls)))
+      ; (rcirc-track-minor-mode t)
+	#+END_SRC
+
+	For IRC, I use ERC's little sibling, rcirc, and connect to my
+	bouncer server.
+
+*** Ibuffer
+	#+BEGIN_SRC emacs-lisp
+      (setq ibuffer-expert t
+            ibuffer-saved-filter-groups '(("default")
+                                          ("personal"
+                                           ("emacs" (or (name . "^\\*scratch\\*$")
+                                                        (name . "^\\*Messages\\*$")
+                                                        (name . "^\\*Help\\*$")
+                                                        (name . "^\\*Completions\\*$")
+                                                        (filename . ".emacs.d/")))
+                                           ("org" (mode . org-mode))
+                                           ("go" (filename . "code/go"))
+                                           ("web" (filename . "code/web"))
+                                           ("lisp" (filename . "code/lisp"))
+                                           ("c" (filename . "code/c"))
+                                           ("media" (or (mode . pdf-view-mode)
+                                                        (mode . image-mode)))
+                                           ("dired" (mode . dired-mode)))))
+	#+END_SRC
+
+	Ibuffer has turned out to be quite a nifty alternative to
+	=list-buffers=. Not only does it support filter-groups, as
+	presented here, but buffers can be filtered by modes, content
+	or miscellaneous attributes. This presents itself as very
+	helpful, when managing a large amount (more than 100) of
+	buffer.
+
+	The above snippet is based on an [[https://www.emacswiki.org/emacs/IbufferMode#toc6][EmacsWiki example]].
+
+*** Google Translate
+	#+BEGIN_SRC emacs-lisp
+      (use-package google-translate
+        :init
+        (setq google-translate-show-phonetic t
+              google-translate-enable-ido-completion t
+              google-translate-default-source-language "en"
+              google-translate-default-target-language "de")
+        :bind (("C-c t" . google-translate-at-point)
+               ("C-c r" . google-translate-at-point-reverse) 
+               ("C-c T" . google-translate-query-translate)
+               ("C-c R" . google-translate-query-translate-reverse)))
+	#+END_SRC
+
+	When translating or writing texts, this package shows itself
+	to be quite helpful, when I can't thing of a word.
+
+** Programming
+*** gnuplot
+	#+BEGIN_SRC emacs-lisp
+	  (use-package gnuplot
+		:interpreter ("gnuplot" . gnuplot-mode)
+		:mode ("\\.gp\\'" . gnuplot-mode))
+	#+END_SRC
+
+	=gnuplot= [sic] has been my go-to plotter for a few years
+	now. Most of the time I use it in it's REPL, but especially
+	when working with scripts, =gnuplot-mode= proves itself to be
+	helpful.
+
+	Due to the wierd package name, and the fact that I use =.gp=
+	as the file extention for gnuplot files, as few things have to
+	be re-aliased for the mode to work properly.
+
+*** SLIME
+	#+BEGIN_SRC emacs-lisp
+      (use-package slime
+        :config
+        (setq inferior-lisp-program (executable-find "sbcl")
+              slime-contribs '(slime-fancy))
+        (add-hook 'lisp-mode-hook 'slime)
+        :interpreter ("sbcl" . lisp-mode)
+        :mode (("\\.lisp\\'" . lisp-mode)
+               ("\\.cl\\'" . lisp-mode)))
+
+      (use-package slime-company :after slime)
+	#+END_SRC
+
+	Since Elisp and Common Lisp share a common ancestry in Maclisp
+	and Franzlisp (more so that Scheme), it should be worthwhile
+	to learn CL. Additionally, the =cl= library for Emacs seems to
+	be quite popular -- and what better place to learn Common Lisp
+	than in Emacs itself with the popular SLIME (The Superior Lisp
+	Interaction Mode for Emacs) environment?
+
+*** Unto Tree
+	#+BEGIN_SRC emacs-lisp
+	  (use-package undo-tree
+		:diminish undo-tree-mode
+		:init
+		(add-hook 'prog-mode-hook 'undo-tree-mode)
+		:config
+		(setq-default undo-tree-visualizer-timestamps t
+					  undo-tree-visualizer-diff t))
+	#+END_SRC
+
+	=Undo-tree= offers the ability to visualize ones editing
+	history as a tree of changes, and to jump from one "branch" to
+	another. I use it in every programming mode, so I "diminish"
+	the minor mode, since it clutters up the mode line more than
+	it has to.
+
+*** =multiple-cursors=
+	#+BEGIN_SRC emacs-lisp
+      (use-package multiple-cursors
+        :bind (("C-c m t" . mc/mark-all-like-this)
+               ("C-c m m" . mc/mark-all-like-this-dwim)
+               ("C-c m l" . mc/edit-lines)
+               ("C-S-n" . mc/mark-next-lines)
+               ("C-S-p" . mc/mark-previous-lines)
+               ("C-c m e" . mc/edit-ends-of-lines)
+               ("C-c m a" . mc/edit-beginnings-of-lines)))
+	#+END_SRC
+
+	It doesn't take long to adjust to =multiple-cursors-mode=, and
+	it is a feature one turns out to use surprisingly often. While
+	it's not as native or quick, as in other editors (I'm thinking
+	of [[https://github.com/martanne/vis][vis]]), it's for the most part entirely sufficient for my
+	causes.
+
+*** =web-mode=
+	#+BEGIN_SRC emacs-lisp
+	 (use-package web-mode :mode "\\.html\\'")
+	#+END_SRC
+
+	I conciser =web-mode= an improvement upon =html-mode= in
+	nearly all aspects, which for the first time gave me a
+	comfortable environment to edit HTML and related code. I
+	require no additional configuration, besides informing Emacs
+	about my preferences.
+
+*** Geiser
+	#+BEGIN_SRC emacs-lisp
+      (use-package geiser
+        :init
+        (setq geiser-repl-use-other-window nil
+              geiser-active-implementations '(mit guile chicken chez mit))
+        (add-hook 'scheme-mode-hook 'geiser-mode)
+        :mode ("\\.scm\\'" . scheme-mode))
+	#+END_SRC
+
+	When properly set up, geiser gives an MIT Scheme-like editing
+	experience. It's not perfect, and it sometimes drags the whole
+	editor down, but for the amount of Scheme programming I do
+	it's entirely sufficient.
+
+*** =ace-jump-mode=
+	#+BEGIN_SRC emacs-lisp
+	  (use-package ace-jump-mode
+		:init
+		(setq ace-jump-allow-invisible t)
+		:diminish ace-jump-mode
+		:bind (("C-c SPC" . ace-jump-mode)))
+	#+END_SRC
+
+	When rewriting my configuration, I took the time to reread a
+	lot of other Emacs configurations published online. One of the
+	things I often saw people use was =ace-jump-mode= -- something
+	I was conscious that it existed, but never used myself.
+
+*** GUD/GDB
+	#+BEGIN_SRC emacs-lisp
+	  (setq gdb-display-io-nopopup t)
+	#+END_SRC
+
+	Currently my only option is to disable a "dedicated" I/O
+	buffer, when running a debugger.
+
+*** Yasnipppets
+	#+BEGIN_SRC emacs-lisp
+      (use-package yasnippet
+        :init
+        (add-hook 'prog-mode-hook 'yas-minor-mode)
+        (setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt))
+        :config
+        (yas-reload-all)
+        (define-key yas-minor-mode-map (kbd "<tab>")
+          (lambda ()
+            (interactive)
+            (if (and (eq last-command 'self-insert-command)
+                     (not (nth 3 (syntax-ppss)))  ; in string
+                     (not (nth 4 (syntax-ppss)))) ; in comment
+                (yas-expand) 
+              (indent-for-tab-command)))))
+	#+END_SRC
+
+	While I have previously had problems with yasnippets, mainly
+	due to snippets expanding when I don't want them to, recent
+	experience has made me long for a snippet system again. The current
+	system, could work: on =<tab>= snippets are only expanded if the last
+	command was =self-insert-command=, i.e. user input. Otherwise, code
+	will be aligned.
+
+*** Projectile
+	#+BEGIN_SRC emacs-lisp
+	  (use-package projectile
+		:diminish projectile-mode
+		:init
+		(setq projectile-enable-caching t)
+		(projectile-global-mode))
+	#+END_SRC
+
+	While I for the most part dislike using global modes, it seems
+	like the project management package /projectile/ works best
+	this way, hence it is set up to work globally.
+
+*** Dumb Jump
+	#+BEGIN_SRC emacs-lisp
+      (use-package dumb-jump
+        :init
+        (add-hook 'prog-mode-hook 'dumb-jump-mode))
+	#+END_SRC
+
+	In addition to projectile, and to avoid using =TAGS= files,
+	=dumb-jump= offers clean and simple say to navigate a project,
+	and find places where variables were declare and used.
+
+*** Markdown
+	#+BEGIN_SRC emacs-lisp
+	  (use-package markdown-mode
+		:init
+		(setq-default markdown-enable-math t
+					  markdown-command "markdown"
+					  markdown-italic-underscore t)
+		:mode "\\.md\\'")
+	#+END_SRC
+
+	Markdown is probably one of the most popular markup languages
+	around nowadays, and tools like [[https://pandoc.org/][Pandoc]] really bring out it's
+	inner potential (or rather create it in the first
+	place). =Markdown-mode= offers nice support for quite a few
+	Pandoc features, so it's usually my default choice when I have
+	to work with medium to longer sized documents.
+
+	For simple previews, I've set [[https://kristaps.bsd.lv/lowdown][lowdown]] as my markdown
+	processor, due to it's speed (as compared to =markdown.pl= or
+	Pandoc).
+
+*** =c-mode=
+	#+BEGIN_SRC emacs-lisp
+      (setq-default c-electric-flag t
+                    c-auto-newline nil
+                    c-delete-function 'backward-delete-char
+                    c-default-style "k&r"
+                    c-cleanup-list '(set-from-style
+                                     empty-defun-braces
+                                     defun-close-semi
+                                     one-liner-defun
+                                     brace-else-brace
+                                     brace-elseif-brace) ;; not properly configured
+                    c-tab-always-indent t)
+
+      (add-hook 'c-mode-hook 'zge/autoformat-on-save)
+	#+END_SRC
+
+	From what one can see, it is obvious that I still have to get
+	around to properly set up my C editing environment.
+	
+*** Haskell
+	#+BEGIN_SRC emacs-lisp
+      (use-package haskell-mode
+        :init
+        (add-hook 'haskell-mode-hook
+                  (lambda ()
+                    (haskell-doc-mode)
+                    (interactive-haskell-mode)))
+        :mode "\\.hs\\'"
+        :interpreter "runghc"
+        :bind (:map haskell-mode-map
+                    ("C-," . haskell-move-nested-left)
+                    ("C-." . haskell-move-nested-right)
+                    ("C-c C-." . haskell-mode-format-imports)
+                    ("C-c C-l" . haskell-process-load-or-reload)
+                    ("C-c C-t" . haskell-process-do-type)
+                    ("C-c C-i" . haskell-process-do-info)
+                    ("C-c C-c" . haskell-process-cabal-build)
+                    ("C-c C-k" . haskell-interactive-mode-clear)
+                    ("C-c c" . haskell-process-cabal)))
+	#+END_SRC
+
+	Programming Haskell can be a very nice experience in Emacs, but as
+	always, it has to be properly set up. The keybindings have been
+	copied from [[https://www.reddit.com/r/haskell/comments/3jww0s/can_you_post_your_emacs_configuration_for/cut9j5i][here]].
+
+	#+BEGIN_SRC emacs-lisp
+      (use-package company-ghc
+        :config
+        (add-to-list 'company-backends 'company-ghc)
+        :after haskell-mode)
+	#+END_SRC
+
+	For improved interaction, intelligent and informative auto
+	completion is always appreciated.
+
+*** Ediff
+	#+BEGIN_SRC emacs-lisp
+	 (setq ediff-window-setup-function 'ediff-setup-windows-multiframe)
+	#+END_SRC
+
+	When using Ediff, don't create a new window.
+
+*** PDF-Tools
+	#+BEGIN_SRC emacs-lisp
+	  (use-package pdf-tools
+		:config
+		(pdf-tools-install)
+		:mode ("\\.pdf\\'" . pdf-view-mode))
+	#+END_SRC
+
+	Adding PDF-Tools let's me use emacs properly for opening PDFs,
+	making me less dependant on external tools and window
+	managers.
+
+*** =go-mode=
+	#+BEGIN_SRC emacs-lisp
+      (use-package company-go) (use-package go-eldoc) (use-package
+      go-mode
+        :init
+        (add-hook 'go-mode-hook
+                  (lambda ()
+                    (add-hook 'before-save-hook
+                              'gofmt-before-save t t)
+                    (set (make-local-variable 'compile-command)
+                         "go build -v && go test -v && go vet")
+                    (set (make-local-variable 'company-backends)
+                         '(company-go))
+                    (go-eldoc-setup)))
+        :config
+        (setenv "GOPATH" "/home/phi/code/go/")
+        :mode "\\.go\\'"
+        :bind (:map go-mode-map
+                    ("M-." . godef-jump)
+                    ("C-c ." . godoc-at-point)
+                    ("C-c C-r" . go-remove-unused-imports)))
+	#+END_SRC
+
+	Go can be very fragile, but after having have set up the right
+	files and installed the right extensions, my setup gives a
+	fairly smooth editing experience.
+
+	Currently, the following packages are installed
+	- [[https://github.com/mdempsky/gocode][gocode]]
+	- [[https://github.com/regpeppe/godef][godef]]
+
+*** =company=
+	#+BEGIN_SRC emacs-lisp
+      (use-package company
+        :config
+        (setq-default company-begin-commands '()
+                      company-tooltip-align-annotations t
+                      company-tooltip-minimum-width 30 
+                      company-echo-delay 0
+                      company-idle-delay .25
+                      company-tooltip-limit 20
+                      company-selection-wrap-around t)
+        :init
+        (add-hook 'prog-mode-hook 'company-mode)
+        :bind (:map company-mode-map
+                    ("M-<tab>" . company-complete)))
+	#+END_SRC
+
+	Generally speaking, I have had a better experiance with
+	=company= as compared to =auto-complete-mode=. The
+
+*** =magit=
+	#+BEGIN_SRC emacs-lisp
+      (use-package magit
+        :init
+        (setq-default magit-diff-options "-b --patience")
+        :bind (("C-x g" . magit-status)))
+	#+END_SRC
+
+	Magit has been noted to be "a git wrapper that's better than
+	git itself" (most definitely not /sic/), and from my
+	experience, this is true, for the most part. Generally
+	speaking, I do think it has a great user experience, and it
+	uses Emacs potential far better than certain other
+	modes. Another way to compliment it, would be to point out how
+	minimal it's configuration needs to be (at least for me),
+	without being in any sense annoying or otherwise inconvenient.
+
+*** =flycheck=
+	#+BEGIN_SRC emacs-lisp
+	  (use-package flycheck
+		:config
+		(setq-default flycheck-disabled-checkers
+		'(emacs-lisp-checkdoc))
+		:bind (("C-c <right>" . next-error)
+			   ("C-c <left>" . previous-error)))
+	#+END_SRC
+
+	Besides installing flycheck, also disable the Elisp warning
+	regarding checkdoc warnings (/first line must be so and so/,
+	/last line must contain this and that/, ...).
+
+*** Paredit
+	#+BEGIN_SRC emacs-lisp
+      (use-package paredit
+        :diminish paredit-mode
+        :init
+        (add-hook 'scheme-mode-hook 'enable-paredit-mode)
+        (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+        (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
+	#+END_SRC
+
+	Paredit isn't easy to get used to, but after a while (and a
+	few failed attempts) it becomes natural and one expects it.
+
+*** Rust
+	#+BEGIN_SRC emacs-lisp
+      (use-package rust-mode
+        :init (setq rust-format-on-save t)
+        :mode "\\.rs\\'")
+	#+END_SRC
+	
+	When playing around with Rust, having a Emacs mode installed is
+	convenient.
+
+	#+BEGIN_SRC emacs-lisp
+      (use-package cargo
+        :after rust-mode
+        :init
+        (add-hook 'rust-mode-hook #'cargo-minor-mode))
+
+      (use-package racer
+        :after rust-mode
+        :init
+        (add-hook 'rust-mode-hook #'racer-mode)
+        (add-hook 'racer-mode-hook #'eldoc-mode))
+	#+END_SRC
+
+	Additionally, /cargo/ and /racer/ are lazily loaded, as soon as rust is
+	required.
+	
+*** Javadoc
+	#+BEGIN_SRC emacs-lisp
+      (use-package javadoc-lookup
+        :init
+        (require 'cc-mode)
+        :bind (:map java-mode-map
+                    ("C-c C-j" . javadoc-lookup)
+                    ("C-c C-i" . javadoc-add-import)))
+	#+END_SRC
+
+	=javadoc-lookup= is a function I found far too late, and I
+	find terribly useful. Furthermore, I had modified the javadoc
+	directory, by copying it's content to =/usr/local/doc/api=,
+	and removed the unnecessary headers and footers.
+
+* Functions
+  All private functions and variables shall be prefixed with =zge/=.
+
+** Toggle dictionary
+   #+BEGIN_SRC emacs-lisp
+     (defvar zge/dicts '("en" "de") "list of dictionaries")
+
+     (defvar zge/dict-ring
+       (let ((ring (make-ring (length zge/dicts))))
+         (mapc (lambda (l)
+                 (ring-insert ring l))
+               zge/dicts)
+         ring)
+       "ring of dictionary-codes")
+
+     (defun zge/toggle-dictionary ()
+       "Toggle the Ispell dictionary from English to German and vice versa."
+       (interactive)
+       (let ((next-dict (ring-remove zge/dict-ring)))
+         (ispell-change-dictionary next-dict)
+         (ring-insert zge/dict-ring next-dict))
+       (save-excursion
+         (flyspell-large-region (point-min) (point-max))))
+   #+END_SRC
+
+   Since I regularly have to switch between English and German, and I
+   am a horrible speller, having a quick function to toggle between
+   just the two (using [[%3Dflyspell-mode%3D][flyspell-mode]]) had been very nice.
+
+** Toggle theme
+   #+BEGIN_SRC emacs-lisp
+     (defconst zge/light-theme 'tango "constant holding my
+       perfered light theme")
+
+     (defconst zge/dark-theme 'tango-dark "constant holding my
+       perfered light theme")
+
+     (defvar zge/current-theme zge/dark-theme "variable holding my
+       current theme")
+
+     (defun zge/toggle-theme nil
+       "Toggle the current theme from light to dark and vice versa"
+       (interactive)
+       (let* ((next-theme (if (eq zge/current-theme zge/light-theme)
+                              zge/dark-theme zge/light-theme)))
+         (disable-theme zge/current-theme)
+         (setf zge/current-theme next-theme)
+         (load-theme next-theme t)))
+   #+END_SRC
+
+   Analogously to =toggle-dictionary=, this function is a quick way to
+   switch between the two variations of the theme I use (see
+   [[Appearance]]).
+
+   #+BEGIN_SRC emacs-lisp
+     (load-theme zge/current-theme)
+   #+END_SRC
+
+   Finally, load the current theme, while Emacs is still starting.
+
+** Autoformat on save
+   #+BEGIN_SRC emacs-lisp
+     (defvar zge/dont-autoformat t "prevent a buffer from
+     formatting before saving")
+
+     (defun zge/autoformat-on-save (&optional arg)
+       "Mark the  current paragraph and indent it."
+       (interactive)
+       (when (not zge/dont-autoformat)
+         (save-excursion
+           (if arg
+               (progn (push-mark (point))
+                      (push-mark (point-max) nil t)
+                      (goto-char (point-min)))
+             (mark-paragraph))
+           (indent-region (point-min) (point-max)))))
+   #+END_SRC
+
+   Under some programming modes, it is convenient to have Emacs format
+   the buffer before saving it. If this function is added to the
+   =before-save-hook= (as is done in the =[[%3Dc-mode%3D][c-mode]]= section), Emacs will
+   do this.
+
+   In case the feature is not wished for, since the file is too big or
+   has a specific formatting, this can be disabled by locally setting
+   =zge/dont-autoformat=.
+
+* Global Keybindings
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "M-\"") 'eshell)
+    (global-set-key (kbd "C-x p") 'proced)
+    (global-set-key (kbd "<f5>") 'zge/toggle-dictionary)
+    (global-set-key (kbd "<f6>") 'zge/toggle-theme)
+    (global-set-key (kbd "C-x M-k") 'kill-buffer-and-window)
+    (global-set-key (kbd "C-c M-k") 'recompile)
+    (global-set-key (kbd "C-x w") 'woman)
+    (global-set-key (kbd "M-p") 'backward-paragraph)
+    (global-set-key (kbd "M-n") 'forward-paragraph)
+    (global-set-key (kbd "C-c f") 'ffap)
+    (global-set-key (kbd "C-x j") 'jump-to-register)
+  #+END_SRC
+
+  These are juts a few self-explanatory global keybindings, I find
+  useful.
+
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "C-x C-b") 'ibuffer)
+    (global-set-key (kbd "C-z") 'yank)
+    (global-set-key (kbd "M-z") 'yank-pop)
+  #+END_SRC
+
+  While the above listed commands create new keybindings, these
+  override defaults offered by emacs. =C-z= might be noteworthy: since
+  I switch between QWERTZ and QWERTY keyboards, having =C-z/M-z=
+  suspend my current frame can be very incontinent, if I just want to
+  yank some text -- thus I use both =C-z= and =M-z= as synonyms for
+  the =*-y= equivalents.
+
+* Hooks
+  Most of the mode specific hooks were already set up in the [[Packages%20and%20Other%20Configurations][Packages
+  and Other Configurations]] section, so this part only adds a few more
+  general hooks, which apply to more than just one mode.
+
+** Programming
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'prog-mode-hook
+               (lambda ()
+                 (add-hook 'before-save-hook 'delete-trailing-whitespace t t)
+                 (local-set-key (kbd "C-;") 'comment-dwim)
+                 (local-set-key (kbd "RET") 'newline-and-indent)
+                 (local-set-key (kbd "C-:") 'indent-region)
+                 (local-set-key (kbd "C-c C-k") 'compile)
+                 (local-set-key (kbd "C-c w") 'whitespace-mode)
+                 (eval-when (version< "26.1" emacs-version)
+                   (display-line-numbers-mode))
+                 (hs-minor-mode t)
+                 (subword-mode t)
+                 (electric-indent-mode t)
+                 (electric-pair-mode t)
+                 (flycheck-mode t)
+                 (flyspell-prog-mode)))
+   #+END_SRC
+
+   This lambda function is turned on for every programming mode, and
+   specially enables a few keybindings I find useful only when
+   programming.
+
+** Writing
+   #+BEGIN_SRC emacs-lisp
+	 (add-hook 'text-mode-hook 'flyspell-mode)
+   #+END_SRC
+
+   The only minor-mode I really use when writing text is flyspell. If
+   I do need something else, I turn it on manually.
+
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'text-mode 'abbrev-mode)
+   #+END_SRC
+
+   Currently experimental: use =abbrev-mode= when writing.
