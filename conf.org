@@ -287,6 +287,17 @@
 
 	Personal data?
 
+*** Uniquify
+	#+BEGIN_SRC emacs-lisp
+      (setq uniquify-buffer-name-style 'forward
+            uniquify-after-kill-buffer-p t
+            uniquify-ignore-buffers-re "^\\*")
+	#+END_SRC
+
+	It happens far too often that I open two files with the same name,
+	eg. two =Makefile= or =.gitignore= files. To make this "mistake" more
+	pleasant, I customize the default behavior.
+
 *** Aliases
 	#+BEGIN_SRC emacs-lisp
       (defalias 'html-mode 'web-mode) 
