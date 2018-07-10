@@ -1471,7 +1471,6 @@
                  (eval-when (version< "26.1" emacs-version)
                    (display-line-numbers-mode))
                  (hs-minor-mode t)
-                 (subword-mode t)
                  (electric-indent-mode t)
                  (electric-pair-mode t)
                  (flycheck-mode t)
