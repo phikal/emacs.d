@@ -485,6 +485,29 @@
 	these variables, extends the abilities of this very
 	interesting minor mode.
 
+*** Hippie-Expand
+	#+BEGIN_SRC emacs-lisp
+      (setq hippie-expand-try-functions-list
+            '(try-complete-file-name-partially
+              try-complete-file-name
+              try-expand-dabbrev
+              try-expand-dabbrev-all-buffers
+              try-expand-dabbrev-from-kill
+              try-expand-list
+              try-expand-line
+              try-expand-all-abbrevs
+              try-complete-lisp-symbol-partially
+              try-complete-lisp-symbol))
+	#+END_SRC
+
+	For some reason =hippie-expand= (and it's little sister =dabbrev=) was
+	one of the tools I never noticed but couldn't forget about when I
+	did. Expanding dynamically and even quite intelligently, in all
+	buffers is something one might not quite understand at first, or
+	even find confusing, but especially in the context of Emacs is
+	really cool. To aid this experience, I've set and ordered a few
+	extra expand functions, I find helpful.
+
 *** Helm
 	#+BEGIN_SRC emacs-lisp
       (use-package helm
@@ -1411,6 +1434,7 @@
     (global-set-key (kbd "M-n") 'forward-paragraph)
     (global-set-key (kbd "C-c f") 'ffap)
     (global-set-key (kbd "C-x j") 'jump-to-register)
+    (global-set-key "\M- " 'hippie-expand)
   #+END_SRC
 
   These are juts a few self-explanatory global keybindings, I find
