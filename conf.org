@@ -565,7 +565,9 @@
                                              ("imap.fastmail.com"
                                               (signature "Sincerely\nPhilip K.")
                                               (address "philip@warpmail.net")))
+                       epa-pinentry-mode 'loopback
                        gnus-agent t
+                       gnus-use-full-window nil
                        gnus-expert-user t)
          (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
          :config
@@ -577,6 +579,17 @@
 	 My current mail setup is still a bit unstable, since I wrote in it
 	 less than a day, yet it seems to be working. It is set up to work
 	 equally well with my university-, as well as my personal address.
+
+	 Since my =.authsource= is encrypted, I have to enter my password from
+	 time to time to access my mail. This also requires
+	 =~/.gnupg/.gpg-agent.conf= to contain the following two lines,
+
+	 #+BEGIN_EXAMPLE
+	 allow-emacs-pinentry
+	 allow-loopback-pinentry
+	 #+END_EXAMPLE
+
+	 so that "pintetry" is used for query my paraphrase.
 
 **** SMTP
 	 #+BEGIN_SRC emacs-lisp
@@ -591,6 +604,13 @@
 	 Instead of using Emacs' internal SMTP service, I use msmtp, simply
 	 for the sake of speed. Additionally, this setup automatically
 	 chooses what server to contact, based on the =From:= field.
+
+	 #+BEGIN_SRC emacs-lisp
+       (add-hook 'message-mode-hook 'turn-on-orgstruct)
+	 #+END_SRC
+
+	 Furthermore, =orgstruct= is enabled to help writing and structuring
+	 emails similarly to =org-mode= buffers.
 
 **** BBDB
 	 #+BEGIN_SRC emacs-lisp
