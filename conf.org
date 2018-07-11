@@ -1447,6 +1447,8 @@
     (global-set-key (kbd "C-x p") 'proced)
     (global-set-key (kbd "<f5>") 'zge/toggle-dictionary)
     (global-set-key (kbd "<f6>") 'zge/toggle-theme)
+    (global-set-key (kbd "<f7>") 'toggle-truncate-lines)
+    (global-set-key (kbd "<f8>") 'insert-char)
     (global-set-key (kbd "C-x M-k") 'kill-buffer-and-window)
     (global-set-key (kbd "C-c M-k") 'recompile)
     (global-set-key (kbd "C-x w") 'woman)
@@ -1454,7 +1456,7 @@
     (global-set-key (kbd "M-n") 'forward-paragraph)
     (global-set-key (kbd "C-c f") 'ffap)
     (global-set-key (kbd "C-x j") 'jump-to-register)
-    (global-set-key "\M- " 'hippie-expand)
+    (global-set-key (kbd "M-\\") 'hippie-expand)
   #+END_SRC
 
   These are juts a few self-explanatory global keybindings, I find
