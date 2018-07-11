@@ -21,6 +21,9 @@
   works on my device™, and sometimes I'm not even sure about that. No
   backwards compatibility beyond Emacs ~25.1~ is intended.
 
+  This configuration is occasionally updated [[https://dyst.ax.lt/~phi/emacs.d.html][on my website]], and the [[https://dyst.ax.lt/~phi/git/.emacs.d/][Git
+  history]] (+source) is also public.
+
 ** Personal Emacs History
    My first encounters with Emacs must have been somewhere around late
    2014, when I was looking around to find a proper text
