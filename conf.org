@@ -1460,6 +1460,10 @@
     (global-set-key (kbd "C-c f") 'ffap)
     (global-set-key (kbd "C-x j") 'jump-to-register)
     (global-set-key (kbd "M-\\") 'hippie-expand)
+    (global-set-key (kbd "C-c <left>")  'windmove-left)
+    (global-set-key (kbd "C-c <right>") 'windmove-right)
+    (global-set-key (kbd "C-c <up>")    'windmove-up)
+    (global-set-key (kbd "C-c <down>")  'windmove-down)
   #+END_SRC
 
   These are juts a few self-explanatory global keybindings, I find
