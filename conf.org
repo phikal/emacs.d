@@ -693,10 +693,10 @@
 	time...
 *** =woman-mode=
 	#+BEGIN_SRC emacs-lisp
-      (setq woman-manpath "/usr/share/man/"
-            woman-use-topic-at-point t
-            woman-use-extended-font t
-            woman-use-own-frame nil)
+      (setq-default woman-manpath "/usr/share/man/"
+                    woman-use-topic-at-point t
+                    woman-use-extended-font t
+                    woman-use-own-frame nil)
 	#+END_SRC
 
 	=woman-mode= (w/o man) is a pure elisp alternative to
