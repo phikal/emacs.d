@@ -743,7 +743,6 @@
         :config
         (add-hook 'LaTeX-mode-hook
                   (lambda ()
-                    (local-set-key "$" (lambda () 'self-insert-command))
                     (setq-local company-backends '((company-latex-commands company-math)))
                     (prettify-symbols-mode)
                     (flycheck-mode)
@@ -753,9 +752,11 @@
                                             (ispell-change-dictionary "de_DE")))
         (add-hook 'TeX-after-compilation-finished-functions
                   'TeX-revert-document-buffer)
+        (define-key LaTeX-mode-map (kbd "$") 'self-insert-command)
         :init
         (setq-default TeX-view-program-selection '((output-pdf "PDF Tools"))
                       TeX-source-correlate-start-server t
+                      LaTeX-electric-left-right-brace t
                       TeX-auto-save t
                       TeX-parse-self t
                       TeX-master nil
