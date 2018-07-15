@@ -263,7 +263,7 @@
 
 ** Backups
    #+BEGIN_SRC emacs-lisp
-     (setq-default backup-directory-alist '(("" . "~/.emacs.d/backup/"))
+     (setq-default backup-directory-alist `(("" . ,(expand-file-name "backup/" user-emacs-directory)))
                    auto-save-default nil
                    backup-by-copying t 
                    version-control t
@@ -316,7 +316,7 @@
 
 *** Emacs-generated files
 	#+BEGIN_SRC emacs-lisp
-      (let ((custom-el (expand-file-name "~/.emacs.d/custom.el")))
+      (let ((custom-el (expand-file-name "custom.el" user-emacs-directory)))
         (setq-default custom-file custom-el)
         (when (file-exists-p custom-el)
           (load custom-file)))
@@ -387,7 +387,7 @@
 	
 *** Abbrevations
 	#+BEGIN_SRC emacs-lisp
-      (setq abbrev-file-name "~/.emacs.d/abbrev.defs"
+      (setq abbrev-file-name (expand-file-name "abbrev.defs" user-emacs-directory)
             save-abbrevs 'silent)
 	#+END_SRC
 	
@@ -434,17 +434,17 @@
 
 ** Registers
    #+BEGIN_SRC emacs-lisp
-	 (let ((files `((?c . "~/.emacs.d/conf.org")
-				   	(?n . "~/doc/org/notes.org")
-				   	(?h . "~")
-				   	(?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
-				   	(?u . "~/code/uni/")
-				   	(?o . "~/doc/org/")
-				   	(?r . "~/doc/read/"))))
-	   (mapc (lambda (c)
-			   (let ((file (expand-file-name (cdr c))))
-				 (set-register (car c) (cons 'file file))))
-			 files))
+     (let ((files `((?c . ,(expand-file-name "conf.org" user-emacs-directory))
+                    (?n . "~/doc/org/notes.org")
+                    (?h . "~")
+                    (?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
+                    (?u . "~/code/uni/")
+                    (?o . "~/doc/org/")
+                    (?r . "~/doc/read/"))))
+       (mapc (lambda (c)
+               (let ((file (expand-file-name (cdr c))))
+                 (set-register (car c) (cons 'file file))))
+             files))
    #+END_SRC
 
    To quickly access certain files I tend to frequently use, I use
@@ -623,7 +623,7 @@
                bbdb-complete-mail-allow-cycling t
                bbdb-mua-pop-up nil
                bbdb-completion-display-record nil
-               bbdb-file "~/.emacs.d/bbdb")
+               bbdb-file (expand-file-name "bbdb" user-emacs-directory))
          :config
          (bbdb-initialize 'gnus 'message 'pgp)
          (bbdb-mua-auto-update-init 'message)
@@ -672,7 +672,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package smex
          :config
-         (setq smex-save-file "~/.emacs.d/smex-items")
+         (setq smex-save-file (expand-file-name "smex-items" user-emacs-directory))
          :bind (("M-x" . smex)
                 ("M-X" . smex-major-mode-commands))
          :after ido)
@@ -912,13 +912,13 @@
 *** Ibuffer
 	#+BEGIN_SRC emacs-lisp
       (setq ibuffer-expert t
-            ibuffer-saved-filter-groups '(("default")
+            ibuffer-saved-filter-groups `(("default")
                                           ("personal"
                                            ("emacs" (or (name . "^\\*scratch\\*$")
                                                         (name . "^\\*Messages\\*$")
                                                         (name . "^\\*Help\\*$")
                                                         (name . "^\\*Completions\\*$")
-                                                        (filename . ".emacs.d/")))
+                                                        (filename . ,user-emacs-directory)))
                                            ("org" (mode . org-mode))
                                            ("go" (filename . "code/go"))
                                            ("web" (filename . "code/web"))
