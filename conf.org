@@ -378,6 +378,13 @@
 
 	Use =eww= as the default browser, when opening =http://= links.
 
+*** Time Locale
+	#+BEGIN_SRC emacs-lisp
+      (setq system-time-locale "C")
+	#+END_SRC
+
+	Force Emacs (especially =org-mode=) to use English timestamps.
+
 *** Global minor modes
 	#+BEGIN_SRC emacs-lisp
 	  (show-paren-mode t)
