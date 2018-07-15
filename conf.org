@@ -1035,6 +1035,8 @@
       (use-package multiple-cursors
         :bind (("C-c m t" . mc/mark-all-like-this)
                ("C-c m m" . mc/mark-all-like-this-dwim)
+               ("C-<" . mc/mark-previous-like-this)
+               ("C->" . mc/mark-next-like-this)
                ("C-c m l" . mc/edit-lines)
                ("C-S-n" . mc/mark-next-lines)
                ("C-S-p" . mc/mark-previous-lines)
