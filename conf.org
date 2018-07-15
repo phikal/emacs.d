@@ -337,6 +337,18 @@
 	white space.  Optionally, non-word characters are acceptable
 	between the punctuation and the whitespace, like when writing
 	=_No!_= in Markdown.
+*** Scratch Buffer
+	#+BEGIN_SRC emacs-lisp
+      (setq initial-scratch-message
+            (mapconcat (lambda (str)
+                         (if (equal str "") "\n" (concat ";; " str)))
+                       (split-string (shell-command-to-string "fortune  -s") "\n")
+                       "\n"))
+	#+END_SRC
+
+	I use the =*scratch*= buffer quite a lot, but I don't want it to be
+	boring: to mitigate this serious issue, I replace the default
+	message with a fortune cookie.
 
 *** Recent files
 	#+BEGIN_SRC 
