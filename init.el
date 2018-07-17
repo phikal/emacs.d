@@ -1,5 +1,5 @@
 ;; (package-initialize) - prevent package.el from adding stuff
-(require 'cl)
+(require 'cl-lib)
 (let ((file-name-handler-alist nil)
       (gc-cons-threshold (lsh 1 28))
       (conf-org (expand-file-name "conf.org" user-emacs-directory))
