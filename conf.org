@@ -372,8 +372,8 @@
 	between the punctuation and the whitespace, like when writing
 	=_No!_= in Markdown.
 *** Recent files
-	#+BEGIN_SRC
-	(recentf-mode t)
+	#+BEGIN_SRC emacs-lisp
+      (recentf-mode t)
 	#+END_SRC
 
 	For tools like [[projectile-mode][Projectile]], recentf is enabled, so to easily access
