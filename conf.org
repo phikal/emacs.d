@@ -2,6 +2,8 @@
 #+OPTIONS:	num:nil toc:nil tags:t email:t H:4
 #+KEYWORDS: emacs dotfile config
 
+#+HTML_HEAD: <style>body{max-width:50em;text-align:justify;margin:2% auto;}</style>
+
 * Introductory comments
   This document is [[https://dyst.ax.lt/~phi/][my]] configuration for [[https://gnu.org/s/emacs][GNU Emacs]], using [[https://org-mode.org/][Org Mode's]]
   [[https://en.wikipedia.org/wiki/Literate_programming][Literate Programming]] facilities to automatically extract and
@@ -169,11 +171,11 @@
 * General Setup
 ** Package Management
    #+BEGIN_SRC emacs-lisp
-	 (require 'package)
-	 (add-to-list 'package-archives
-				  '("melpa-stable" . "https://stable.melpa.org/packages/"))
-	 (setq package-enable-at-startup nil)
-	 (package-initialize)
+     (require 'package)
+     (add-to-list 'package-archives
+                  '("melpa-stable" . "https://stable.melpa.org/packages/"))
+     (setq package-enable-at-startup nil)
+     (package-initialize)
    #+END_SRC
 
    Only use ~melpa-stabe~ besides the standard gnu repository (which
@@ -183,11 +185,11 @@
 ** Appearance
 *** Initially deactivated Modes
 	#+BEGIN_SRC emacs-lisp
-	  (scroll-bar-mode -1)
-	  (menu-bar-mode -1)
-	  (tool-bar-mode -1)
-	  (blink-cursor-mode -1)
-	  (tooltip-mode -1)
+      (scroll-bar-mode -1)
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (blink-cursor-mode -1)
+      (tooltip-mode -1)
 	#+END_SRC
 
 	Since I usually don't need my mouse to use Emacs, I turn off all GUI
@@ -196,8 +198,8 @@
 
 *** Fonts
 	#+BEGIN_SRC emacs-lisp
-	  (set-face-attribute 'default nil :font "Liberation Mono" :height 130)
-	  (set-face-attribute 'variable-pitch nil :family "Liberation Sans" :height 130)
+      (set-face-attribute 'default nil :font "Liberation Mono" :height 130)
+      (set-face-attribute 'variable-pitch nil :family "Liberation Sans" :height 130)
 	#+END_SRC
 
 	My fonts are configured and changed frequently, making any more
@@ -205,9 +207,9 @@
 
 *** Mode-bar customisations
 	#+BEGIN_SRC emacs-lisp
-	  (show-paren-mode t)
-	  (display-time-mode t)
-	  (display-battery-mode t)
+      (show-paren-mode t)
+      (display-time-mode t)
+      (display-battery-mode t)
 	#+END_SRC
 
 	To extend the default Emacs appearance, matching parentheses are
@@ -219,10 +221,10 @@
 
 *** Startup actions
 	#+BEGIN_SRC emacs-lisp
-	  (setq inhibit-startup-screen t
-			inhibit-startup-buffer-menu t
-			inhibit-startup-message t
-			inhibit-startup-hooks t)
+      (setq inhibit-startup-screen t
+            inhibit-startup-buffer-menu t
+            inhibit-startup-message t
+            inhibit-startup-hooks t)
 	#+END_SRC
 
 	In accordance to a minimalist and fast startup, I tell Emacs to not
@@ -231,15 +233,15 @@
 
 *** Whitespace and Formatting
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default fill-column 72
-					tab-width 4)
+      (setq-default fill-column 72
+                    tab-width 4)
 	#+END_SRC
 
 	These settings are purely personal preferences.
 
 *** Exiting Emacs
 	#+BEGIN_SRC emacs-lisp
-	  (setq confirm-kill-emacs 'yes-or-no-p)
+      (setq confirm-kill-emacs 'yes-or-no-p)
 	#+END_SRC
 
 	While it's not quite "appearance"-related, this will prevent Emacs
@@ -248,8 +250,8 @@
 
 *** Extra-Emacs Clipboard
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default select-enable-clipboard t
-					x-select-enable-clipboard t)
+      (setq-default select-enable-clipboard t
+                    x-select-enable-clipboard t)
 	#+END_SRC
 
 	Having the ability to interact with the system clipboard is very
@@ -258,17 +260,17 @@
 
 ** Cross-session Configuration
    #+BEGIN_SRC emacs-lisp
-	 (setq-default history-delete-duplicates t
-				   savehist-save-minibuffer-history t
-				   savehist-additional-variables '(kill-ring
-												   search-ring
-												   eshell-history-ring
-												   compile-command
-												   recentf-list
-												   calc-stack)
-				   savehist-ignored-variables '(tmm--history
-												yes-or-no-p-history))
-	 (savehist-mode t)
+     (setq-default history-delete-duplicates t
+                   savehist-save-minibuffer-history t
+                   savehist-additional-variables '(kill-ring
+                                                   search-ring
+                                                   eshell-history-ring
+                                                   compile-command
+                                                   recentf-list
+                                                   calc-stack)
+                   savehist-ignored-variables '(tmm--history
+                                                yes-or-no-p-history))
+     (savehist-mode t)
    #+END_SRC
 
    The preceding two function calls make sure that in-between opening
@@ -279,8 +281,8 @@
    disregarded.
 
    #+BEGIN_SRC emacs-lisp
-	 ;; (setq-default desktop-dirname (expand-file-name "~/.emacs.d/desktop/"))
-	 ;; (desktop-save-mode t)
+     ;; (setq-default desktop-dirname (expand-file-name "~/.emacs.d/desktop/"))
+     ;; (desktop-save-mode t)
    #+END_SRC
 
    Additionally, buffers should be preserved between sessions, and the
@@ -289,13 +291,13 @@
 
 ** Backups
    #+BEGIN_SRC emacs-lisp
-	 (setq-default backup-directory-alist `(("" . ,(expand-file-name "backup/" user-emacs-directory)))
-				   auto-save-default nil
-				   backup-by-copying t
-				   version-control t
-				   kept-old-versions 3
-				   kept-new-versions 8
-				   delete-old-versions t)
+     (setq-default backup-directory-alist `(("" . ,(expand-file-name "backup/" user-emacs-directory)))
+                   auto-save-default nil
+                   backup-by-copying t
+                   version-control t
+                   kept-old-versions 3
+                   kept-new-versions 8
+                   delete-old-versions t)
    #+END_SRC
 
    The default Emacs backup system is pretty annoying, so these are a
@@ -310,24 +312,24 @@
 ** Defaults
 *** User information
 	#+BEGIN_SRC emacs-lisp
-	  (setq user-full-name "Philip K."
-			user-mail-address "philip@warpmail.net")
+      (setq user-full-name "Philip K."
+            user-mail-address "philip@warpmail.net")
 	#+END_SRC
 
 	Personal data?
 
 *** "Large Files"
 	#+BEGIN_SRC emacs-lisp
-	  (setq large-file-warning-threshold 40000000)
+      (setq large-file-warning-threshold 40000000)
 	#+END_SRC
 
 	Don't warn me about /larger-but-not-actually-that-large/ files.
 
 *** Uniquify
 	#+BEGIN_SRC emacs-lisp
-	  (setq uniquify-buffer-name-style 'forward
-			uniquify-after-kill-buffer-p t
-			uniquify-ignore-buffers-re "^\\*")
+      (setq uniquify-buffer-name-style 'forward
+            uniquify-after-kill-buffer-p t
+            uniquify-ignore-buffers-re "^\\*")
 	#+END_SRC
 
 	It happens far too often that I open two files with the same name,
@@ -336,10 +338,10 @@
 
 *** Aliases
 	#+BEGIN_SRC emacs-lisp
-	  (defalias 'html-mode 'web-mode)
-	  (defalias 'css-mode 'web-mode)
-	  (defalias 'yes-or-no-p 'y-or-n-p)
-	  (defalias 'perl-mode 'cperl-mode)
+      (defalias 'html-mode 'web-mode)
+      (defalias 'css-mode 'web-mode)
+      (defalias 'yes-or-no-p 'y-or-n-p)
+      (defalias 'perl-mode 'cperl-mode)
 	#+END_SRC
 
 	Don't use =html-mode=, =css-mode= or =perl-mode=. And instead
@@ -348,10 +350,10 @@
 
 *** Emacs-generated files
 	#+BEGIN_SRC emacs-lisp
-	  (let ((custom-el (expand-file-name "custom.el" user-emacs-directory)))
-		(setq-default custom-file custom-el)
-		(when (file-exists-p custom-el)
-		  (load custom-file)))
+      (let ((custom-el (expand-file-name "custom.el" user-emacs-directory)))
+        (setq-default custom-file custom-el)
+        (when (file-exists-p custom-el)
+          (load custom-file)))
 	#+END_SRC
 
 	I previously attempted to set =custom-file= to =/dev/null/=,
@@ -361,7 +363,7 @@
 
 *** Sentences
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default sentence-end "[.!?][\W_]*[[:space:]]+")
+      (setq-default sentence-end "[.!?][\W_]*[[:space:]]+")
 	#+END_SRC
 
 	I dislike the standard sentence definition Emacs uses, since
@@ -401,14 +403,14 @@
 
 *** Time Locale
 	#+BEGIN_SRC emacs-lisp
-	  (setq system-time-locale "C")
+      (setq system-time-locale "C")
 	#+END_SRC
 
 	Force Emacs (especially =org-mode=) to use English timestamps.
 
 *** Global minor modes
 	#+BEGIN_SRC emacs-lisp
-	  (show-paren-mode t)
+      (show-paren-mode t)
 	#+END_SRC
 
 	I remember reading somewhere that an early Lisp'er, I know not who,
@@ -419,7 +421,7 @@
 	=end=) or in shell scripts (=if= and =fi=).
 
 	#+BEGIN_SRC emacs-lisp
-	  (delete-selection-mode t)
+      (delete-selection-mode t)
 	#+END_SRC
 
 	I enable this, more due to habit, rather than due to some particular
@@ -427,8 +429,8 @@
 
 *** Abbrevations
 	#+BEGIN_SRC emacs-lisp
-	  (setq abbrev-file-name (expand-file-name "abbrev.defs" user-emacs-directory)
-			save-abbrevs 'silent)
+      (setq abbrev-file-name (expand-file-name "abbrev.defs" user-emacs-directory)
+            save-abbrevs 'silent)
 	#+END_SRC
 
 	This setup will automatically initialize and save new abbreviations,
@@ -436,22 +438,22 @@
 
 *** Shell comands
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default async-shell-command-display-buffer nil
-					async-shell-command-buffer 'new-buffer)
+      (setq-default async-shell-command-display-buffer nil
+                    async-shell-command-buffer 'new-buffer)
 	#+END_SRC
 
 	When asynchronously running commands, only create a /new/
 	output buffer, if one is needed.
 *** Week
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default calendar-week-start-day 1)
+      (setq-default calendar-week-start-day 1)
 	#+END_SRC
 
 	Let the week start on Monday.
 ** Spell Checking
    #+BEGIN_SRC emacs-lisp
-	 (setq-default ispell-program-name (executable-find "aspell")
-				   ispell-extra-args '("--sug-mode=ultra"))
+     (setq-default ispell-program-name (executable-find "aspell")
+                   ispell-extra-args '("--sug-mode=ultra"))
    #+END_SRC
 
    Just use Aspell.
@@ -476,11 +478,11 @@
 
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
-	(unless (package-installed-p 'use-package)
-	  (package-refresh-contents) (package-install 'use-package t))
-	(require 'bind-key)
-	(setq-default use-package-always-defer t
-				  use-package-always-ensure t)
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents) (package-install 'use-package t))
+    (require 'bind-key)
+    (setq-default use-package-always-defer t
+                  use-package-always-ensure t)
   #+END_SRC
 
   Generally, always defer packages and ensure their installation,
@@ -490,22 +492,22 @@
 ** Utilities
 *** Dired
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default dired-dwim-target t
-					dired-recursive-copies 'always
-					dired-recursive-deletes 'top
-					dired-ls-F-marks-symlinks t
-					dired-ls-sorting-switches "t"
-					dired-listing-switches "-aBhl --group-directories-first")
+      (setq-default dired-dwim-target t
+                    dired-recursive-copies 'always
+                    dired-recursive-deletes 'top
+                    dired-ls-F-marks-symlinks t
+                    dired-ls-sorting-switches "t"
+                    dired-listing-switches "-aBhl --group-directories-first")
 
-	  (put 'dired-find-alternate-file 'disabled nil)
+      (put 'dired-find-alternate-file 'disabled nil)
 	#+END_SRC
 
 	Not much to say: For the most part, a under-customized dired
 	configuration.
 
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default wdired-allow-to-change-permissions t
-					wdired-allow-to-redirect-links t)
+      (setq-default wdired-allow-to-change-permissions t
+                    wdired-allow-to-redirect-links t)
 	#+END_SRC
 
 	Wdired by default only allows one to edit file names. Setting
@@ -537,29 +539,29 @@
 
 *** Helm
 	#+BEGIN_SRC emacs-lisp
-	  (use-package helm
-		:disabled
-		:init
-		(setq helm-ff-guess-ffap-filenames t
-			  helm-M-x-fuzzy-match t
-			  helm-buffers-fuzzy-matching t
-			  helm-recentf-fuzzy-match t)
-		:config
-		(helm-autoresize-mode t)
-		(helm-mode t)
-		:bind (("M-x" . helm-M-x)
-			   ("C-h a" . helm-apropos)
-			   ("C-x b" . helm-mini)
-			   ("C-x C-b" . helm-buffers-list)
-			   ("C-x C-f" . helm-find-files)
-			   ("C-c h o" . helm-occur)))
+      (use-package helm
+        :disabled
+        :init
+        (setq helm-ff-guess-ffap-filenames t
+              helm-M-x-fuzzy-match t
+              helm-buffers-fuzzy-matching t
+              helm-recentf-fuzzy-match t)
+        :config
+        (helm-autoresize-mode t)
+        (helm-mode t)
+        :bind (("M-x" . helm-M-x)
+               ("C-h a" . helm-apropos)
+               ("C-x b" . helm-mini)
+               ("C-x C-b" . helm-buffers-list)
+               ("C-x C-f" . helm-find-files)
+               ("C-c h o" . helm-occur)))
 	#+END_SRC
 
 	This is my Helm setup, if I were to use it, which I currently don't.
 
 *** Eshell
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default eshell-banner-message "")
+      (setq-default eshell-banner-message "")
 	#+END_SRC
 
 	I don't need to know I am using eshell, thanks.
@@ -567,40 +569,40 @@
 *** Mail
 **** Gnus
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package gnus
-		 :init
-		 (setq-default gnus-select-method '(nnnil "")
-					   gnus-secondary-select-methods '((nnimap "imap.fastmail.com"
-															   (nnimap-streaming t)
-															   (nnir-search-engine imap))
-													   (nnimap "faumail.fau.de"
-															   (nnimap-streaming t)
-															   (nnir-search-engine imap)))
-					   mail-sources '((imap :server "faumail.fau.de")
-									  (imap :server "imap.fastmail.com"))
-					   gnus-group-sort-function 'gnus-group-sort-by-unread
-					   gnus-fetch-old-headers 'some
-					   gnus-thread-sort-functions '((not gnus-thread-sort-by-number)
-													gnus-thread-sort-by-score)
-					   message-directory "~/etc/mail/"
-					   gnus-directory "~/etc/news/"
-					   gnus-treat-from-gravatar 'head
-					   gnus-treat-mail-gravatar 'head
-					   gnus-posting-styles '(("faumail.fau.de"
-											  (signature "Hochachtungsvoll\nPhilip K.")
-											  (address "philip.kaludercic@fau.de"))
-											 ("imap.fastmail.com"
-											  (signature "Sincerely\nPhilip K.")
-											  (address "philip@warpmail.net")))
-					   epa-pinentry-mode 'loopback
-					   gnus-agent t
-					   gnus-use-full-window nil
-					   gnus-expert-user t)
-		 (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
-		 :config
-		 (gnus-demon-add-disconnection)
-		 (gnus-demon-add-scanmail)
-		 :bind ("C-c n" . gnus))
+       (use-package gnus
+         :init
+         (setq-default gnus-select-method '(nnnil "")
+                       gnus-secondary-select-methods '((nnimap "imap.fastmail.com"
+                                                               (nnimap-streaming t)
+                                                               (nnir-search-engine imap))
+                                                       (nnimap "faumail.fau.de"
+                                                               (nnimap-streaming t)
+                                                               (nnir-search-engine imap)))
+                       mail-sources '((imap :server "faumail.fau.de")
+                                      (imap :server "imap.fastmail.com"))
+                       gnus-group-sort-function 'gnus-group-sort-by-unread
+                       gnus-fetch-old-headers 'some
+                       gnus-thread-sort-functions '((not gnus-thread-sort-by-number)
+                                                    gnus-thread-sort-by-score)
+                       message-directory "~/etc/mail/"
+                       gnus-directory "~/etc/news/"
+                       gnus-treat-from-gravatar 'head
+                       gnus-treat-mail-gravatar 'head
+                       gnus-posting-styles '(("faumail.fau.de"
+                                              (signature "Hochachtungsvoll\nPhilip K.")
+                                              (address "philip.kaludercic@fau.de"))
+                                             ("imap.fastmail.com"
+                                              (signature "Sincerely\nPhilip K.")
+                                              (address "philip@warpmail.net")))
+                       epa-pinentry-mode 'loopback
+                       gnus-agent t
+                       gnus-use-full-window nil
+                       gnus-expert-user t)
+         (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
+         :config
+         (gnus-demon-add-disconnection)
+         (gnus-demon-add-scanmail)
+         :bind ("C-c n" . gnus))
 	 #+END_SRC
 
 	 My current mail setup is still a bit unstable, since I wrote in it
@@ -620,12 +622,12 @@
 
 **** SMTP
 	 #+BEGIN_SRC emacs-lisp
-	   (setq message-send-mail-function 'message-send-mail-with-sendmail
-			 message-sendmail-extra-arguments '("--read-envelope-from")
-			 message-sendmail-f-is-evil t
-			 message-sendmail-envelope-from 'header
-			 message-kill-buffer-on-exit t
-			 sendmail-program (executable-find "msmtp"))
+       (setq message-send-mail-function 'message-send-mail-with-sendmail
+             message-sendmail-extra-arguments '("--read-envelope-from")
+             message-sendmail-f-is-evil t
+             message-sendmail-envelope-from 'header
+             message-kill-buffer-on-exit t
+             sendmail-program (executable-find "msmtp"))
 	 #+END_SRC
 
 	 Instead of using Emacs' internal SMTP service, I use msmtp, simply
@@ -633,7 +635,7 @@
 	 chooses what server to contact, based on the =From:= field.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (add-hook 'message-mode-hook 'turn-on-orgstruct)
+       (add-hook 'message-mode-hook 'turn-on-orgstruct)
 	 #+END_SRC
 
 	 Furthermore, =orgstruct= is enabled to help writing and structuring
@@ -641,20 +643,20 @@
 
 **** BBDB
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package bbdb
-		 :init
-		 (setq bbdb-mua-auto-update-p 'query
-			   bbdb-complete-mail-allow-cycling t
-			   bbdb-mua-pop-up nil
-			   bbdb-completion-display-record nil
-			   bbdb-file (expand-file-name "bbdb" user-emacs-directory))
-		 :config
-		 (bbdb-initialize 'gnus 'message 'pgp)
-		 (bbdb-mua-auto-update-init 'message)
-		 (bbdb-mua-auto-update-init 'gnus 'message)
-		 (define-key message-mode-map (kbd "M-<tab>") 'bbdb-complete-mail)
-		 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-		 :after gnus)
+       (use-package bbdb
+         :init
+         (setq bbdb-mua-auto-update-p 'query
+               bbdb-complete-mail-allow-cycling t
+               bbdb-mua-pop-up nil
+               bbdb-completion-display-record nil
+               bbdb-file (expand-file-name "bbdb" user-emacs-directory))
+         :config
+         (bbdb-initialize 'gnus 'message 'pgp)
+         (bbdb-mua-auto-update-init 'message)
+         (bbdb-mua-auto-update-init 'gnus 'message)
+         (define-key message-mode-map (kbd "M-<tab>") 'bbdb-complete-mail)
+         (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+         :after gnus)
 	 #+END_SRC
 
 	 Install and setup /BBDB/ (Insidious Big Brother Database) for contact
@@ -663,16 +665,16 @@
 *** Ido
 **** Basic
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package ido
-		 :config
-		 (setq ido-enable-flex-matching t
-			   ido-enable-tramp-completion t
-			   ido-create-new-buffer 'always
-			   ido-ignore-extensions t
-			   ido-max-prospects 6)
-		 :init
-		 (ido-mode t)
-		 (ido-everywhere t))
+       (use-package ido
+         :config
+         (setq ido-enable-flex-matching t
+               ido-enable-tramp-completion t
+               ido-create-new-buffer 'always
+               ido-ignore-extensions t
+               ido-max-prospects 6)
+         :init
+         (ido-mode t)
+         (ido-everywhere t))
 	 #+END_SRC
 
 	 In spite of many suggestions to the contrary (or rather in support
@@ -682,10 +684,10 @@
 
 **** Vertical
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package ido-vertical-mode
-		 :init
-		 (ido-vertical-mode t)
-		 :after ido)
+       (use-package ido-vertical-mode
+         :init
+         (ido-vertical-mode t)
+         :after ido)
 	 #+END_SRC
 
 	 Vertically displaying ido queries doesn't really change anything
@@ -694,12 +696,12 @@
 
 **** Smex
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package smex
-		 :config
-		 (setq smex-save-file (expand-file-name "smex-items" user-emacs-directory))
-		 :bind (("M-x" . smex)
-				("M-X" . smex-major-mode-commands))
-		 :after ido)
+       (use-package smex
+         :config
+         (setq smex-save-file (expand-file-name "smex-items" user-emacs-directory))
+         :bind (("M-x" . smex)
+                ("M-X" . smex-major-mode-commands))
+         :after ido)
 	 #+END_SRC
 
 	 =Smex= doesn't do much more than adding Ido-support to the default
@@ -707,8 +709,8 @@
 
 *** =flyspell-mode=
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default flyspell-issue-welcome-flag nil
-					flyspell-issue-message-flag nil)
+      (setq-default flyspell-issue-welcome-flag nil
+                    flyspell-issue-message-flag nil)
 	#+END_SRC
 
 	When writing prose, or just comments, =flyspell-mode= (and
@@ -717,10 +719,10 @@
 	time...
 *** =woman-mode=
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default woman-manpath "/usr/share/man/"
-					woman-use-topic-at-point t
-					woman-use-extended-font t
-					woman-use-own-frame nil)
+      (setq-default woman-manpath "/usr/share/man/"
+                    woman-use-topic-at-point t
+                    woman-use-extended-font t
+                    woman-use-own-frame nil)
 	#+END_SRC
 
 	=woman-mode= (w/o man) is a pure elisp alternative to
@@ -729,14 +731,15 @@
 	shown above.
 *** =calc=
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default calc-angle-mode 'rad calc-shift-prefix t
-					calc-symbolic-mode t
-					calc-infinite-mode t
-					calc-vector-brackets nil
-					calc-vector-commas nil
-					calc-matrix-just 'right
-					calc-matrix-brackets '(R O)
-					calc-complex-format 'i)
+      (setq-default calc-angle-mode 'rad
+                    calc-shift-prefix t
+                    calc-symbolic-mode t
+                    calc-infinite-mode t
+                    calc-vector-brackets nil
+                    calc-vector-commas nil
+                    calc-matrix-just 'right
+                    calc-matrix-brackets '(R O)
+                    calc-complex-format 'i)
 	#+END_SRC
 
 	I have grown fond of Emacs Calc, even though it might is be
@@ -744,40 +747,40 @@
 	have been taken from the auto generated =calc.el= file.
 *** LaTeX/AUCTeX
 	#+BEGIN_SRC emacs-lisp
-            (use-package auctex
-              :config
-              (progn
-                (add-hook 'LaTeX-mode-hook
-                          (lambda ()
-                            (setq-local company-backends '((company-latex-commands
-                                                            company-math)))
-                            (flycheck-mode)
-                            (turn-on-reftex)
-                            (TeX-fold-mode)))
-                (add-hook 'LaTeX-language-de-hook
-                          (lambda () (ispell-change-dictionary "de_DE")))
-                (add-hook 'TeX-after-compilation-finished-functions
-                          'TeX-revert-document-buffer))
-              :init
-              (setq-default TeX-view-program-selection '((output-pdf "PDF Tools"))
-                            TeX-source-correlate-start-server t
-                            LaTeX-electric-left-right-brace t
-                            TeX-auto-save t
-                            TeX-parse-self t
-                            TeX-master nil
-                            TeX-PDF-mode t
-                            reftex-plug-into-AUCTeX t
-                            reftex-enable-partial-scans t)
-              :mode ("\\.tex\\'" . LaTeX-mode))
+      (use-package auctex
+        :config
+        (progn
+          (add-hook 'LaTeX-mode-hook
+                    (lambda ()
+                      (setq-local company-backends '((company-latex-commands
+                                                      company-math)))
+                      (flycheck-mode)
+                      (turn-on-reftex)
+                      (TeX-fold-mode)))
+          (add-hook 'LaTeX-language-de-hook
+                    (lambda () (ispell-change-dictionary "de_DE")))
+          (add-hook 'TeX-after-compilation-finished-functions
+                    'TeX-revert-document-buffer))
+        :init
+        (setq-default TeX-view-program-selection '((output-pdf "PDF Tools"))
+                      TeX-source-correlate-start-server t
+                      LaTeX-electric-left-right-brace t
+                      TeX-auto-save t
+                      TeX-parse-self t
+                      TeX-master nil
+                      TeX-PDF-mode t
+                      reftex-plug-into-AUCTeX t
+                      reftex-enable-partial-scans t)
+        :mode ("\\.tex\\'" . LaTeX-mode))
 	#+END_SRC
 
 	Partially rewritten LaTeX configuration.
 
 	#+BEGIN_SRC emacs-lisp
-	  (use-package cdlatex
-		:init
-		(add-hook 'LaTeX-mode-hook 'cdlatex-mode)
-		:after auctex)
+      (use-package cdlatex
+        :init
+        (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+        :after auctex)
 	#+END_SRC
 
 	Additionally, CDLaTeX provides a more comfortable input and
@@ -785,20 +788,20 @@
 
 *** =org-mode=
 	#+BEGIN_SRC emacs-lisp
-	  (use-package org
-		:init
+      (use-package org
+        :init
 	#+END_SRC
 
 	The following configuration is wrapped in a =use-package= macro...
 
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default org-hide-emphasis-markers t
-					org-completion-use-ido t
-					org-startup-folded t
-					org-highlight-latex-and-related '(latex)
-					org-alphabetical-lists t
-					org-export-date-timestamp-format "%x"
-					org-support-shift-select t)
+      (setq-default org-hide-emphasis-markers t
+                    org-completion-use-ido t
+                    org-startup-folded t
+                    org-highlight-latex-and-related '(latex)
+                    org-alphabetical-lists t
+                    org-export-date-timestamp-format "%x"
+                    org-support-shift-select t)
 	#+END_SRC
 
 	Basic stylistic and movment options (especially enabling using
@@ -814,9 +817,9 @@
 	convenient.
 
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default org-directory (expand-file-name "~/doc/org/")
-					org-agenda-files (list org-directory)
-					org-default-notes-file (expand-file-name "notes.org" org-directory))
+      (setq-default org-directory (expand-file-name "~/doc/org/")
+                    org-agenda-files (list org-directory)
+                    org-default-notes-file (expand-file-name "notes.org" org-directory))
 	#+END_SRC
 
 	Within my documents directory (=~/doc/=) I have an =org=
@@ -824,19 +827,19 @@
 	of. Furthermore, I inform Org about my notes and agenda file.
 	
 	 #+BEGIN_SRC emacs-lisp
-	   (setq org-capture-templates
-			 '(("a" "Appointment" entry (file "pers.org") "* %^t %?\n")
-			   ("t" "Todo" entry (file "todo.org") "* TODO %?\n %T\n\n%i")
-			   ("c" "Comments" entry (file org-default-notes-file) "* %?\n ")
-			   ("l" "Link" entry (file org-default-notes-file) "* %?\n %a")))
+       (setq org-capture-templates
+             '(("a" "Appointment" entry (file "pers.org") "* %^t %?\n")
+               ("t" "Todo" entry (file "todo.org") "* TODO %?\n %T\n\n%i")
+               ("c" "Comments" entry (file org-default-notes-file) "* %?\n ")
+               ("l" "Link" entry (file org-default-notes-file) "* %?\n %a")))
 	 #+END_SRC
 
 	 Having special /capture templates/ will probably help in
 	 getting used to using org-mode for taking notes.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (setq org-todo-keywords
-			 '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")))
+       (setq org-todo-keywords
+             '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")))
 	 #+END_SRC
 
 	 Since I don't require a complex TODO setup, I have chosen to
@@ -844,9 +847,9 @@
 	 recommended.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (setq org-latex-packages-alist
-			 '(("" "microtype")
-			   ("" "lmodern")))
+       (setq org-latex-packages-alist
+             '(("" "microtype")
+               ("" "lmodern")))
 	 #+END_SRC
 
 	 By default, exporting to LaTeX would produce visually
@@ -857,11 +860,11 @@
 	 always enable.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (add-hook 'org-mode-hook
-				 (lambda ()
-				   (auto-fill-mode t)
-				   (flyspell-mode-off)
-				   (flyspell-prog-mode)))
+       (add-hook 'org-mode-hook
+                 (lambda ()
+                   (auto-fill-mode t)
+                   (flyspell-mode-off)
+                   (flyspell-prog-mode)))
 	 #+END_SRC
 
 	 Since most of the text I write in org-mode is prose,
@@ -871,11 +874,11 @@
 	 actual text I am writing.
 
 	 #+BEGIN_SRC emacs-lisp
-	  :bind (("C-c c" . org-capture)
-			 ("C-c a" . org-agenda)
-			 ("C-c l" . org-store-link)
-			 :map org-mode-map
-			 ("M-<tab>" . pcomplete))
+       :bind (("C-c c" . org-capture)
+              ("C-c a" . org-agenda)
+              ("C-c l" . org-store-link)
+              :map org-mode-map
+              ("M-<tab>" . pcomplete))
 	 #+END_SRC
 
 	 Here I set a few convenient keybindings for globally interacting
@@ -887,17 +890,17 @@
 	 the manual.
 
 	 #+BEGIN_SRC emacs-lisp
-	   :config
-	   (require 'ox-md)
+       :config
+       (require 'ox-md)
 	 #+END_SRC
 
 	 As soon as Org is required, I load the export modules for Markdown
 	 and the OpenDocument exporters.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (add-to-list 'org-structure-template-alist
-					'("E" "#+BEGIN_SRC emacs-lisp\n\n#+END_SRC"
-					  "<src lang=\"emacs-lisp\">n\n</src>"))
+       (add-to-list 'org-structure-template-alist
+                    '("E" "#+BEGIN_SRC emacs-lisp\n\n#+END_SRC"
+                      "<src lang=\"emacs-lisp\">                        n\n</src>"))
 	 #+END_SRC
 
 	 Adding this code to =org-structure-template-alist=, makes it easier
@@ -907,15 +910,15 @@
 	 been loaded.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (setq org-latex-preview-ltxpng-directory "/tmp/ltxpng/")
-	   (plist-put 'org-format-latex-options :scale 1.25)
+       (setq org-latex-preview-ltxpng-directory "/tmp/ltxpng/")
+       (plist-put 'org-format-latex-options :scale 1.25)
 	 #+END_SRC
 
 	 LaTeX previews can be a bit small and clutter the working
 	 directory, so the following options should migrate these issues.
 
 	 #+BEGIN_SRC emacs-lisp
-	   :mode ("\\.org\\'" . org-mode))
+       :mode ("\\.org\\'" . org-mode))
 	 #+END_SRC
 
 	 Finally, defer interpretation until a =.org= file is found, and close
@@ -923,14 +926,14 @@
 
 *** Ledger
 	#+BEGIN_SRC emacs-lisp
-	  (use-package ledger-mode
-		:init
-		(setq ledger-source-directory (expand-file-name "~/doc/ledger")
-			  ledger-master-file (expand-file-name "master.lg" ledger-source-directory)
-			  ledger-highlight-xact-under-point nil)
-		(add-hook 'ledger-mode-hook
-				  (lambda () (company-mode) (flyspell-mode-off)))
-		:mode ("\\.lg\\'" . ledger-mode))
+      (use-package ledger-mode
+        :init
+        (setq ledger-source-directory (expand-file-name "~/doc/ledger")
+              ledger-master-file (expand-file-name "master.lg" ledger-source-directory)
+              ledger-highlight-xact-under-point nil)
+        (add-hook 'ledger-mode-hook
+                  (lambda () (company-mode) (flyspell-mode-off)))
+        :mode ("\\.lg\\'" . ledger-mode))
 	#+END_SRC
 
 	In an effort to use ledger, I have set up =ledger-mode= with
@@ -938,31 +941,31 @@
 
 *** Rcirc
 	#+BEGIN_SRC emacs-lisp
-	  (use-package erc
-		:load-path (lambda () (expand-file-name "lisp/znc" user-emacs-directory))
-		:init
-		(setq erc-join-buffer 'bury
-			  erc-server-coding-system '(utf-8 . utf-8)
-			  erc-kill-buffer-on-part t
-			  erc-kill-queries-on-quit t
-			  erc-rename-buffers t
-			  erc-interpret-mirc-color t
-			  erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-										"324" "329" "332" "333" "353" "477")
-			  erc-log-channels-directory (expand-file-name "erc-logs/" user-emacs-directory)
-			  erc-prompt ">"
-			  erc-nick '("zge"))
-		:config
-		(Require 'znc))
+      (use-package erc
+        :load-path (lambda () (expand-file-name "lisp/znc" user-emacs-directory))
+        :init
+        (setq erc-join-buffer 'bury
+              erc-server-coding-system '(utf-8 . utf-8)
+              erc-kill-buffer-on-part t
+              erc-kill-queries-on-quit t
+              erc-rename-buffers t
+              erc-interpret-mirc-color t
+              erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                        "324" "329" "332" "333" "353" "477")
+              erc-log-channels-directory (expand-file-name "erc-logs/" user-emacs-directory)
+              erc-prompt ">"
+              erc-nick '("zge"))
+        :config
+        (Require 'znc))
 
-	  ;; (setq-default rcirc-time-format "%Y-%m-%d %H:%M "
-	  ;;			   rcirc-default-nick "zge"
-	  ;;			   rcirc-default-user-name "zge"
-	  ;;			   rcirc-default-full-name user-full-name
-	  ;;			   rcirc-default-port 6669
-	  ;;			   rcirc-server-alist `(("dyst.ax.lt" :user
-	  ;;									 "zge" :encryption tls)))
-	  ; (rcirc-track-minor-mode t)
+      ;; (setq-default rcirc-time-format "%Y-%m-%d %H:%M "
+      ;;               rcirc-default-nick "zge"
+      ;;               rcirc-default-user-name "zge"
+      ;;               rcirc-default-full-name user-full-name
+      ;;               rcirc-default-port 6669
+      ;;               rcirc-server-alist `(("dyst.ax.lt" :user
+      ;;                                     "zge" :encryption tls)))
+      ; (rcirc-track-minor-mode t)
 	#+END_SRC
 
 	For IRC, I use ERC's little sibling, rcirc, and connect to my
@@ -970,22 +973,22 @@
 
 *** Ibuffer
 	#+BEGIN_SRC emacs-lisp
-	  (setq ibuffer-expert t
-			ibuffer-saved-filter-groups `(("default")
-										  ("personal"
-										   ("emacs" (or (name . "^\\*scratch\\*$")
-														(name . "^\\*Messages\\*$")
-														(name . "^\\*Help\\*$")
-														(name . "^\\*Completions\\*$")
-														(filename . ,user-emacs-directory)))
-										   ("org" (mode . org-mode))
-										   ("go" (filename . "code/go"))
-										   ("web" (filename . "code/web"))
-										   ("lisp" (filename . "code/lisp"))
-										   ("c" (filename . "code/c"))
-										   ("media" (or (mode . pdf-view-mode)
-														(mode . image-mode)))
-										   ("dired" (mode . dired-mode)))))
+      (setq ibuffer-expert t
+            ibuffer-saved-filter-groups `(("default")
+                                          ("personal"
+                                           ("emacs" (or (name . "^\\*scratch\\*$")
+                                                        (name . "^\\*Messages\\*$")
+                                                        (name . "^\\*Help\\*$")
+                                                        (name . "^\\*Completions\\*$")
+                                                        (filename . ,user-emacs-directory)))
+                                           ("org" (mode . org-mode))
+                                           ("go" (filename . "code/go"))
+                                           ("web" (filename . "code/web"))
+                                           ("lisp" (filename . "code/lisp"))
+                                           ("c" (filename . "code/c"))
+                                           ("media" (or (mode . pdf-view-mode)
+                                                        (mode . image-mode)))
+                                           ("dired" (mode . dired-mode)))))
 	#+END_SRC
 
 	Ibuffer has turned out to be quite a nifty alternative to
@@ -999,16 +1002,16 @@
 
 *** Google Translate
 	#+BEGIN_SRC emacs-lisp
-	  (use-package google-translate
-		:init
-		(setq google-translate-show-phonetic t
-			  google-translate-enable-ido-completion t
-			  google-translate-default-source-language "en"
-			  google-translate-default-target-language "de")
-		:bind (("C-c t" . google-translate-at-point)
-			   ("C-c r" . google-translate-at-point-reverse)
-			   ("C-c T" . google-translate-query-translate)
-			   ("C-c R" . google-translate-query-translate-reverse)))
+      (use-package google-translate
+        :init
+        (setq google-translate-show-phonetic t
+              google-translate-enable-ido-completion t
+              google-translate-default-source-language "en"
+              google-translate-default-target-language "de")
+        :bind (("C-c t" . google-translate-at-point)
+               ("C-c r" . google-translate-at-point-reverse)
+               ("C-c T" . google-translate-query-translate)
+               ("C-c R" . google-translate-query-translate-reverse)))
 	#+END_SRC
 
 	When translating or writing texts, this package shows itself
@@ -1017,9 +1020,9 @@
 ** Programming
 *** gnuplot
 	#+BEGIN_SRC emacs-lisp
-	  (use-package gnuplot
-		:interpreter ("gnuplot" . gnuplot-mode)
-		:mode ("\\.gp\\'" . gnuplot-mode))
+      (use-package gnuplot
+        :interpreter ("gnuplot" . gnuplot-mode)
+        :mode ("\\.gp\\'" . gnuplot-mode))
 	#+END_SRC
 
 	=gnuplot= [sic] has been my go-to plotter for a few years
@@ -1033,16 +1036,16 @@
 
 *** SLIME
 	#+BEGIN_SRC emacs-lisp
-	  (use-package slime
-		:config
-		(setq inferior-lisp-program (executable-find "sbcl")
-			  slime-contribs '(slime-fancy))
-		(add-hook 'lisp-mode-hook 'slime)
-		:interpreter ("sbcl" . lisp-mode)
-		:mode (("\\.lisp\\'" . lisp-mode)
-			   ("\\.cl\\'" . lisp-mode)))
+      (use-package slime
+        :config
+        (setq inferior-lisp-program (executable-find "sbcl")
+              slime-contribs '(slime-fancy))
+        (add-hook 'lisp-mode-hook 'slime)
+        :interpreter ("sbcl" . lisp-mode)
+        :mode (("\\.lisp\\'" . lisp-mode)
+               ("\\.cl\\'" . lisp-mode)))
 
-	  (use-package slime-company :after slime)
+      (use-package slime-company :after slime)
 	#+END_SRC
 
 	Since Elisp and Common Lisp share a common ancestry in Maclisp
@@ -1054,13 +1057,13 @@
 
 *** Unto Tree
 	#+BEGIN_SRC emacs-lisp
-	  (use-package undo-tree
-		:diminish undo-tree-mode
-		:init
-		(add-hook 'prog-mode-hook 'undo-tree-mode)
-		:config
-		(setq-default undo-tree-visualizer-timestamps t
-					  undo-tree-visualizer-diff t))
+      (use-package undo-tree
+        :diminish undo-tree-mode
+        :init
+        (add-hook 'prog-mode-hook 'undo-tree-mode)
+        :config
+        (setq-default undo-tree-visualizer-timestamps t
+                      undo-tree-visualizer-diff t))
 	#+END_SRC
 
 	=Undo-tree= offers the ability to visualize ones editing
@@ -1071,16 +1074,16 @@
 
 *** =multiple-cursors=
 	#+BEGIN_SRC emacs-lisp
-	  (use-package multiple-cursors
-		:bind (("C-c m t" . mc/mark-all-like-this)
-			   ("C-c m m" . mc/mark-all-like-this-dwim)
-			   ("C-<" . mc/mark-previous-like-this)
-			   ("C->" . mc/mark-next-like-this)
-			   ("C-c m l" . mc/edit-lines)
-			   ("C-S-n" . mc/mark-next-lines)
-			   ("C-S-p" . mc/mark-previous-lines)
-			   ("C-c m e" . mc/edit-ends-of-lines)
-			   ("C-c m a" . mc/edit-beginnings-of-lines)))
+      (use-package multiple-cursors
+        :bind (("C-c m t" . mc/mark-all-like-this)
+               ("C-c m m" . mc/mark-all-like-this-dwim)
+               ("C-<" . mc/mark-previous-like-this)
+               ("C->" . mc/mark-next-like-this)
+               ("C-c m l" . mc/edit-lines)
+               ("C-S-n" . mc/mark-next-lines)
+               ("C-S-p" . mc/mark-previous-lines)
+               ("C-c m e" . mc/edit-ends-of-lines)
+               ("C-c m a" . mc/edit-beginnings-of-lines)))
 	#+END_SRC
 
 	It doesn't take long to adjust to =multiple-cursors-mode=, and
@@ -1091,7 +1094,7 @@
 
 *** =web-mode=
 	#+BEGIN_SRC emacs-lisp
-	 (use-package web-mode :mode "\\.html\\'")
+      (use-package web-mode :mode "\\.html\\'")
 	#+END_SRC
 
 	I conciser =web-mode= an improvement upon =html-mode= in
@@ -1102,12 +1105,12 @@
 
 *** Geiser
 	#+BEGIN_SRC emacs-lisp
-	  (use-package geiser
-		:init
-		(setq geiser-repl-use-other-window nil
-			  geiser-active-implementations '(mit guile chicken chez mit))
-		(add-hook 'scheme-mode-hook 'geiser-mode)
-		:mode ("\\.scm\\'" . scheme-mode))
+      (use-package geiser
+        :init
+        (setq geiser-repl-use-other-window nil
+              geiser-active-implementations '(mit guile chicken chez mit))
+        (add-hook 'scheme-mode-hook 'geiser-mode)
+        :mode ("\\.scm\\'" . scheme-mode))
 	#+END_SRC
 
 	When properly set up, geiser gives an MIT Scheme-like editing
@@ -1117,11 +1120,11 @@
 
 *** =ace-jump-mode=
 	#+BEGIN_SRC emacs-lisp
-	  (use-package ace-jump-mode
-		:init
-		(setq ace-jump-allow-invisible t)
-		:diminish ace-jump-mode
-		:bind (("C-c SPC" . ace-jump-mode)))
+      (use-package ace-jump-mode
+        :init
+        (setq ace-jump-allow-invisible t)
+        :diminish ace-jump-mode
+        :bind (("C-c SPC" . ace-jump-mode)))
 	#+END_SRC
 
 	When rewriting my configuration, I took the time to reread a
@@ -1131,7 +1134,7 @@
 
 *** GUD/GDB
 	#+BEGIN_SRC emacs-lisp
-	  (setq gdb-display-io-nopopup t)
+      (setq gdb-display-io-nopopup t)
 	#+END_SRC
 
 	Currently my only option is to disable a "dedicated" I/O
@@ -1163,17 +1166,17 @@
 	will be aligned.
 
 	#+BEGIN_SRC emacs-lisp
-	  (use-package yasnippet-classic-snippets :after yasnippets)
-	  (use-package yasnippet-snippets :after yasnippet)
+      (use-package yasnippet-classic-snippets :after yasnippets)
+      (use-package yasnippet-snippets :after yasnippet)
 	#+END_SRC
 
 *** Projectile
 	#+BEGIN_SRC emacs-lisp
-	  (use-package projectile
-		:diminish projectile-mode
-		:init
-		(setq projectile-enable-caching t)
-		(projectile-global-mode))
+      (use-package projectile
+        :diminish projectile-mode
+        :init
+        (setq projectile-enable-caching t)
+        (projectile-global-mode))
 	#+END_SRC
 
 	While I for the most part dislike using global modes, it seems
@@ -1182,9 +1185,9 @@
 
 *** Dumb Jump
 	#+BEGIN_SRC emacs-lisp
-	  (use-package dumb-jump
-		:init
-		(add-hook 'prog-mode-hook 'dumb-jump-mode))
+      (use-package dumb-jump
+        :init
+        (add-hook 'prog-mode-hook 'dumb-jump-mode))
 	#+END_SRC
 
 	In addition to projectile, and to avoid using =TAGS= files,
@@ -1193,12 +1196,12 @@
 
 *** Markdown
 	#+BEGIN_SRC emacs-lisp
-	  (use-package markdown-mode
-		:init
-		(setq-default markdown-enable-math t
-					  markdown-command "markdown"
-					  markdown-italic-underscore t)
-		:mode "\\.md\\'")
+      (use-package markdown-mode
+        :init
+        (setq-default markdown-enable-math t
+                      markdown-command "markdown"
+                      markdown-italic-underscore t)
+        :mode "\\.md\\'")
 	#+END_SRC
 
 	Markdown is probably one of the most popular markup languages
@@ -1214,19 +1217,19 @@
 
 *** =c-mode=
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default c-electric-flag t
-					c-auto-newline nil
-					c-delete-function 'backward-delete-char
-					c-default-style "k&r"
-					c-cleanup-list '(set-from-style
-									 empty-defun-braces
-									 defun-close-semi
-									 one-liner-defun
-									 brace-else-brace
-									 brace-elseif-brace) ;; not properly configured
-					c-tab-always-indent t)
+      (setq-default c-electric-flag t
+                    c-auto-newline nil
+                    c-delete-function 'backward-delete-char
+                    c-default-style "k&r"
+                    c-cleanup-list '(set-from-style
+                                     empty-defun-braces
+                                     defun-close-semi
+                                     one-liner-defun
+                                     brace-else-brace
+                                     brace-elseif-brace) ;; not properly configured
+                    c-tab-always-indent t)
 
-	  (add-hook 'c-mode-hook 'zge/autoformat-on-save)
+      (add-hook 'c-mode-hook 'zge/autoformat-on-save)
 	#+END_SRC
 
 	From what one can see, it is obvious that I still have to get
@@ -1234,33 +1237,33 @@
 
 *** Haskell
 	#+BEGIN_SRC emacs-lisp
-	  (use-package haskell-mode
-		:init
-		(setq haskell-process-show-debug-tips nil
-			  haskell-process-type 'ghci
-			  haskell-process-suggest-hoogle-imports t
-			  haskell-process-suggest-remove-import-lines t
-			  haskell-process-auto-import-loaded-modules t
-			  haskell-process-log t
-			  haskell-process-log t)
-		(add-hook 'haskell-mode-hook
-				  (lambda ()
-					(haskell-doc-mode)
-					(interactive-haskell-mode)))
-		(add-hook 'haskell-interactive-mode-hook
-				  'haskell-doc-mode)
-		:mode "\\.hs\\'"
-		:interpreter "ghci"
-		:bind (:map haskell-mode-map
-					("C-," . haskell-move-nested-left)
-					("C-." . haskell-move-nested-right)
-					("C-c C-." . haskell-mode-format-imports)
-					("C-c C-l" . haskell-process-load-or-reload)
-					("C-c C-t" . haskell-process-do-type)
-					("C-c C-i" . haskell-process-do-info)
-					("C-c C-c" . haskell-process-cabal-build)
-					("C-c C-k" . haskell-interactive-mode-clear)
-					("C-c c" . haskell-process-cabal)))
+      (use-package haskell-mode
+        :init
+        (setq haskell-process-show-debug-tips nil
+              haskell-process-type 'ghci
+              haskell-process-suggest-hoogle-imports t
+              haskell-process-suggest-remove-import-lines t
+              haskell-process-auto-import-loaded-modules t
+              haskell-process-log t
+              haskell-process-log t)
+        (add-hook 'haskell-mode-hook
+                  (lambda ()
+                    (haskell-doc-mode)
+                    (interactive-haskell-mode)))
+        (add-hook 'haskell-interactive-mode-hook
+                  'haskell-doc-mode)
+        :mode "\\.hs\\'"
+        :interpreter "ghci"
+        :bind (:map haskell-mode-map
+                    ("C-," . haskell-move-nested-left)
+                    ("C-." . haskell-move-nested-right)
+                    ("C-c C-." . haskell-mode-format-imports)
+                    ("C-c C-l" . haskell-process-load-or-reload)
+                    ("C-c C-t" . haskell-process-do-type)
+                    ("C-c C-i" . haskell-process-do-info)
+                    ("C-c C-c" . haskell-process-cabal-build)
+                    ("C-c C-k" . haskell-interactive-mode-clear)
+                    ("C-c c" . haskell-process-cabal)))
 	#+END_SRC
 
 	Programming Haskell can be a very nice experience in Emacs, but as
@@ -1268,10 +1271,10 @@
 	copied from [[https://www.reddit.com/r/haskell/comments/3jww0s/can_you_post_your_emacs_configuration_for/cut9j5i][here]].
 
 	#+BEGIN_SRC emacs-lisp
-	  (use-package company-ghc
-		:config
-		(add-to-list 'company-backends 'company-ghc)
-		:after haskell-mode)
+      (use-package company-ghc
+        :config
+        (add-to-list 'company-backends 'company-ghc)
+        :after haskell-mode)
 	#+END_SRC
 
 	For improved interaction, intelligent and informative auto
@@ -1279,17 +1282,17 @@
 	
 *** Ediff
 	#+BEGIN_SRC emacs-lisp
-	 (setq ediff-window-setup-function 'ediff-setup-windows-multiframe)
+      (setq ediff-window-setup-function 'ediff-setup-windows-multiframe)
 	#+END_SRC
 
 	When using Ediff, don't create a new window.
 
 *** PDF-Tools
 	#+BEGIN_SRC emacs-lisp
-	  (use-package pdf-tools
-		:config
-		(pdf-tools-install)
-		:mode ("\\.pdf\\'" . pdf-view-mode))
+      (use-package pdf-tools
+        :config
+        (pdf-tools-install)
+        :mode ("\\.pdf\\'" . pdf-view-mode))
 	#+END_SRC
 
 	Adding PDF-Tools let's me use emacs properly for opening PDFs,
@@ -1334,19 +1337,19 @@
 
 *** =company=
 	#+BEGIN_SRC emacs-lisp
-	  (use-package company
-		:config
-		(setq-default company-begin-commands '()
-					  company-tooltip-align-annotations t
-					  company-tooltip-minimum-width 30
-					  company-echo-delay 0
-					  company-idle-delay .25
-					  company-tooltip-limit 20
-					  company-selection-wrap-around t)
-		:init
-		(add-hook 'prog-mode-hook 'company-mode)
-		:bind (:map company-mode-map
-					("M-<tab>" . company-complete)))
+      (use-package company
+        :config
+        (setq-default company-begin-commands '()
+                      company-tooltip-align-annotations t
+                      company-tooltip-minimum-width 30
+                      company-echo-delay 0
+                      company-idle-delay .25
+                      company-tooltip-limit 20
+                      company-selection-wrap-around t)
+        :init
+        (add-hook 'prog-mode-hook 'company-mode)
+        :bind (:map company-mode-map
+                    ("M-<tab>" . company-complete)))
 	#+END_SRC
 
 	Generally speaking, I have had a better experiance with
@@ -1354,10 +1357,10 @@
 
 *** =magit=
 	#+BEGIN_SRC emacs-lisp
-	  (use-package magit
-		:init
-		(setq-default magit-diff-options "-b --patience")
-		:bind (("C-x g" . magit-status)))
+      (use-package magit
+        :init
+        (setq-default magit-diff-options "-b --patience")
+        :bind (("C-x g" . magit-status)))
 	#+END_SRC
 
 	Magit has been noted to be "a git wrapper that's better than
@@ -1371,12 +1374,12 @@
 
 *** =flycheck=
 	#+BEGIN_SRC emacs-lisp
-	  (use-package flycheck
-		:config
-		(setq-default flycheck-disabled-checkers
-		'(emacs-lisp-checkdoc))
-		:bind (("C-c <right>" . next-error)
-			   ("C-c <left>" . previous-error)))
+      (use-package flycheck
+        :config
+        (setq-default flycheck-disabled-checkers
+        '(emacs-lisp-checkdoc))
+        :bind (("C-c <right>" . next-error)
+               ("C-c <left>" . previous-error)))
 	#+END_SRC
 
 	Besides installing flycheck, also disable the Elisp warning
@@ -1385,12 +1388,12 @@
 
 *** Paredit
 	#+BEGIN_SRC emacs-lisp
-	  (use-package paredit
-		:diminish paredit-mode
-		:init
-		(add-hook 'scheme-mode-hook 'enable-paredit-mode)
-		(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-		(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
+      (use-package paredit
+        :diminish paredit-mode
+        :init
+        (add-hook 'scheme-mode-hook 'enable-paredit-mode)
+        (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+        (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
 	#+END_SRC
 
 	Paredit isn't easy to get used to, but after a while (and a
@@ -1398,25 +1401,25 @@
 
 *** Rust
 	#+BEGIN_SRC emacs-lisp
-	  (use-package rust-mode
-		:init (setq rust-format-on-save t)
-		:mode "\\.rs\\'")
+      (use-package rust-mode
+        :init (setq rust-format-on-save t)
+        :mode "\\.rs\\'")
 	#+END_SRC
 
 	When playing around with Rust, having a Emacs mode installed is
 	convenient.
 
 	#+BEGIN_SRC emacs-lisp
-	  (use-package cargo
-		:after rust-mode
-		:init
-		(add-hook 'rust-mode-hook #'cargo-minor-mode))
+      (use-package cargo
+        :after rust-mode
+        :init
+        (add-hook 'rust-mode-hook #'cargo-minor-mode))
 
-	  (use-package racer
-		:after rust-mode
-		:init
-		(add-hook 'rust-mode-hook #'racer-mode)
-		(add-hook 'racer-mode-hook #'eldoc-mode))
+      (use-package racer
+        :after rust-mode
+        :init
+        (add-hook 'rust-mode-hook #'racer-mode)
+        (add-hook 'racer-mode-hook #'eldoc-mode))
 	#+END_SRC
 
 	Additionally, /cargo/ and /racer/ are lazily loaded, as soon as rust is
@@ -1441,53 +1444,56 @@
 
 ** Toggle dictionary
    #+BEGIN_SRC emacs-lisp
-	 (defconst zge/dicts '("en" "de")
-	   "list of dictionaries")
+     (defconst zge/dicts '("en" "de")
+       "list of dictionaries")
 
-	 (defconst zge/input-alist '(("en" . nil)
-								 ("de" . "german-postfix")))
+     (defconst zge/input-alist '(("en" . nil)
+                                 ("de" . "german-postfix")))
 
-	 (defconst zge/dict-ring
-	   (let ((ring (make-ring (length zge/dicts))))
-		 (mapc (lambda (l) (ring-insert ring l))
-			   zge/dicts)
-		 ring)
-	   "ring of dictionary-codes")
+     (defconst zge/dict-ring
+       (let ((ring (make-ring (length zge/dicts))))
+         (mapc (lambda (l) (ring-insert ring l))
+               zge/dicts)
+         ring)
+       "ring of dictionary-codes")
 
-	 (defun zge/toggle-dictionary (&optional lang)
-	   "Toggle the Ispell dictionary from English to German and vice versa."
-	   (interactive "s")
-	   (let ((or lang (next-dict (ring-remove zge/dict-ring))))
-		 (ispell-change-dictionary next-dict)
-		 (ring-insert zge/dict-ring next-dict))
-	   (save-excursion
-		 (flyspell-large-region (point-min) (point-max))))
+     (defun zge/toggle-dictionary (&optional lang)
+       "Toggle the Ispell dictionary from English to German and vice versa."
+       (interactive)
+       (let* ((next-dict (or lang (ring-remove zge/dict-ring)))
+              (next-im (assoc next-dict zge/input-alist)))
+         (ispell-change-dictionary next-dict)
+         (ring-insert zge/dict-ring next-dict)
+         (when (and next-im (or (derived-mode-p 'text-mode)))
+           (set-input-method (cdr next-im))))
+       (save-excursion
+         (flyspell-large-region (point-min) (point-max))))
    #+END_SRC
 
-   Since I regularly have to switch between English and German, and I
-   am a horrible speller, having a quick function to toggle between
-   just the two (using [[%3Dflyspell-mode%3D][flyspell-mode]]) had been very nice. Additionally,
-   my input method is changed based on =zge/input-alist=.
+   Since I regularly have to switch between English and German, and I am
+   a horrible speller, having a quick function to toggle between just
+   the two (using [[%3Dflyspell-mode%3D][flyspell-mode]]) had been very nice. Additionally, my
+   input method is changed based on =zge/input-alist=.
 
 ** Toggle theme
    #+BEGIN_SRC emacs-lisp
-	 (defconst zge/light-theme 'tango "constant holding my
-	   perfered light theme")
+     (defconst zge/light-theme 'tango "constant holding my
+       perfered light theme")
 
-	 (defconst zge/dark-theme 'tango-dark "constant holding my
-	   perfered light theme")
+     (defconst zge/dark-theme 'tango-dark "constant holding my
+       perfered light theme")
 
-	 (defvar zge/current-theme zge/dark-theme "variable holding my
-	   current theme")
+     (defvar zge/current-theme zge/dark-theme "variable holding my
+       current theme")
 
-	 (defun zge/toggle-theme nil
-	   "Toggle the current theme from light to dark and vice versa"
-	   (interactive)
-	   (let* ((next-theme (if (eq zge/current-theme zge/light-theme)
-							  zge/dark-theme zge/light-theme)))
-		 (disable-theme zge/current-theme)
-		 (setf zge/current-theme next-theme)
-		 (load-theme next-theme t)))
+     (defun zge/toggle-theme nil
+       "Toggle the current theme from light to dark and vice versa"
+       (interactive)
+       (let* ((next-theme (if (eq zge/current-theme zge/light-theme)
+                              zge/dark-theme zge/light-theme)))
+         (disable-theme zge/current-theme)
+         (setf zge/current-theme next-theme)
+         (load-theme next-theme t)))
    #+END_SRC
 
    Analogously to =toggle-dictionary=, this function is a quick way to
@@ -1495,27 +1501,27 @@
    [[Appearance]]).
 
    #+BEGIN_SRC emacs-lisp
-	 (load-theme zge/current-theme)
+     (load-theme zge/current-theme)
    #+END_SRC
 
    Finally, load the current theme, while Emacs is still starting.
 
 ** Autoformat on save
    #+BEGIN_SRC emacs-lisp
-	 (defvar zge/dont-autoformat t "prevent a buffer from
-	 formatting before saving")
+     (defvar zge/dont-autoformat t "prevent a buffer from
+     formatting before saving")
 
-	 (defun zge/autoformat-on-save (&optional arg)
-	   "Mark the  current paragraph and indent it."
-	   (interactive)
-	   (when (not zge/dont-autoformat)
-		 (save-excursion
-		   (if arg
-			   (progn (push-mark (point))
-					  (push-mark (point-max) nil t)
-					  (goto-char (point-min)))
-			 (mark-paragraph))
-		   (indent-region (point-min) (point-max)))))
+     (defun zge/autoformat-on-save (&optional arg)
+       "Mark the  current paragraph and indent it."
+       (interactive)
+       (when (not zge/dont-autoformat)
+         (save-excursion
+           (if arg
+               (progn (push-mark (point))
+                      (push-mark (point-max) nil t)
+                      (goto-char (point-min)))
+             (mark-paragraph))
+           (indent-region (point-min) (point-max)))))
    #+END_SRC
 
    Under some programming modes, it is convenient to have Emacs format
@@ -1529,38 +1535,38 @@
 
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
-	(dolist (bind '(("M-\"" . eshell)
-					("C-x p" . proced)
-					("<f5>" . zge/toggle-dictionary)
-					("<f6>" . zge/toggle-theme)
-					("<f7>" . toggle-truncate-lines)
-					("<f8>" . insert-char)
-					("C-x M-k" . kill-buffer-and-window)
-					("C-c M-k" . recompile)
-					("C-x w" . woman)
-					("M-p" . backward-paragraph)
-					("M-n" . forward-paragraph)
-					("C-c f" . ffap)
-					("C-x j" . jump-to-register)
-					("M-\\" . hippie-expand)
-					("C-c <left>"  . windmove-left)
-					("C-c <right>" . windmove-right)
-					("C-c <up>"	   . windmove-up)
-					("C-c <down>"  . windmove-down)))
-	  (global-set-key (kbd (car bind)) (cdr bind)))
+    (dolist (bind '(("M-\"" . eshell)
+                    ("C-x p" . proced)
+                    ("<f5>" . zge/toggle-dictionary)
+                    ("<f6>" . zge/toggle-theme)
+                    ("<f7>" . toggle-truncate-lines)
+                    ("<f8>" . insert-char)
+                    ("C-x M-k" . kill-buffer-and-window)
+                    ("C-c M-k" . recompile)
+                    ("C-x w" . woman)
+                    ("M-p" . backward-paragraph)
+                    ("M-n" . forward-paragraph)
+                    ("C-c f" . ffap)
+                    ("C-x j" . jump-to-register)
+                    ("M-\\" . hippie-expand)
+                    ("C-c <left>"  . windmove-left)
+                    ("C-c <right>" . windmove-right)
+                    ("C-c <up>"    . windmove-up)
+                    ("C-c <down>"  . windmove-down)))
+      (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
   These are juts a few self-explanatory global keybindings, I find
   useful.
 
   #+BEGIN_SRC emacs-lisp
-	(dolist (bind '(("C-x C-b" . ibuffer)
-					("C-z" . yank)
-					("M-z" . yank-pop)
-					("M-l" . downcase-dwim)
-					("M-c" . capitalize-dwim)
-					("M-u" . upcase-dwim)))
-	  (global-set-key (kbd (car bind)) (cdr bind)))
+    (dolist (bind '(("C-x C-b" . ibuffer)
+                    ("C-z" . yank)
+                    ("M-z" . yank-pop)
+                    ("M-l" . downcase-dwim)
+                    ("M-c" . capitalize-dwim)
+                    ("M-u" . upcase-dwim)))
+      (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
   While the above listed commands create new keybindings, these
@@ -1577,19 +1583,19 @@
 
 ** Programming
    #+BEGIN_SRC emacs-lisp
-	 (add-hook 'prog-mode-hook
-			   (lambda ()
-				 (add-hook 'before-save-hook 'delete-trailing-whitespace t t)
-				 (local-set-key (kbd "C-;") 'comment-dwim)
-				 (local-set-key (kbd "RET") 'newline-and-indent)
-				 (local-set-key (kbd "C-:") 'indent-region)
-				 (local-set-key (kbd "C-c C-k") 'compile)
-				 (local-set-key (kbd "C-c w") 'whitespace-mode)
-				 (hs-minor-mode t)
-				 (electric-indent-mode t)
-				 (electric-pair-mode t)
-				 (flycheck-mode t)
-				 (flyspell-prog-mode)))
+     (add-hook 'prog-mode-hook
+               (lambda ()
+                 (add-hook 'before-save-hook 'delete-trailing-whitespace t t)
+                 (local-set-key (kbd "C-;") 'comment-dwim)
+                 (local-set-key (kbd "RET") 'newline-and-indent)
+                 (local-set-key (kbd "C-:") 'indent-region)
+                 (local-set-key (kbd "C-c C-k") 'compile)
+                 (local-set-key (kbd "C-c w") 'whitespace-mode)
+                 (hs-minor-mode t)
+                 (electric-indent-mode t)
+                 (electric-pair-mode t)
+                 (flycheck-mode t)
+                 (flyspell-prog-mode)))
    #+END_SRC
 
    This lambda function is turned on for every programming mode, and
@@ -1598,14 +1604,14 @@
 
 ** Writing
    #+BEGIN_SRC emacs-lisp
-	 (add-hook 'text-mode-hook 'flyspell-mode)
+     (add-hook 'text-mode-hook 'flyspell-mode)
    #+END_SRC
 
    The only minor-mode I really use when writing text is flyspell. If
    I do need something else, I turn it on manually.
 
    #+BEGIN_SRC emacs-lisp
-	 (add-hook 'text-mode 'abbrev-mode)
+     (add-hook 'text-mode 'abbrev-mode)
    #+END_SRC
 
    Currently experimental: use =abbrev-mode= when writing.
