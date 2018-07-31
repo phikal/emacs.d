@@ -327,15 +327,13 @@
 
 *** Aliases
 	#+BEGIN_SRC emacs-lisp
-      (defalias 'html-mode 'web-mode)
-      (defalias 'css-mode 'web-mode)
       (defalias 'yes-or-no-p 'y-or-n-p)
       (defalias 'perl-mode 'cperl-mode)
 	#+END_SRC
 
-	Don't use =html-mode=, =css-mode= or =perl-mode=. And instead
-	of having to type "yes" or "no" when emacs asks a question,
-	respectively accept "y" or "n" instead.
+	Don't use =perl-mode=, but =cperl-mode=! And instead of having to type
+	"yes" or "no" when emacs asks a question, respectively accept "y" or
+	"n" instead.
 
 *** Emacs-generated files
 	#+BEGIN_SRC emacs-lisp
