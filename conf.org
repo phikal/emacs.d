@@ -649,7 +649,8 @@
                bbdb-complete-mail-allow-cycling t
                bbdb-mua-pop-up nil
                bbdb-completion-display-record nil
-               bbdb-file (expand-file-name "bbdb" user-emacs-directory))
+               bbdb-file (expand-file-name "bbdb" user-emacs-directory)
+               compose-mail-user-agent-warnings nil)
          :config
          (bbdb-initialize 'gnus 'message 'pgp)
          (bbdb-mua-auto-update-init 'message)
