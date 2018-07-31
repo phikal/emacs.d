@@ -1545,11 +1545,7 @@
                     ("M-n" . forward-paragraph)
                     ("C-c f" . ffap)
                     ("C-x j" . jump-to-register)
-                    ("M-\\" . hippie-expand)
-                    ("C-c <left>"  . windmove-left)
-                    ("C-c <right>" . windmove-right)
-                    ("C-c <up>"    . windmove-up)
-                    ("C-c <down>"  . windmove-down)))
+                    ("M-\\" . hippie-expand)))
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
