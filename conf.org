@@ -1303,9 +1303,11 @@
                   (lambda ()
                     (add-hook 'before-save-hook
                               'gofmt-before-save t t)
-                    (setq-local compile-command "go build -v && go test -v && go vet")))
+                    (setq-local compile-command
+                                "go generate && go build -v && go test -v && go vet")))
         :config
         (setenv "GOPATH" "/home/phi/code/go/")
+        (setenv "PATH" (concat (getenv "PATH") ":/home/phi/code/go/bin"))
         :mode "\\.go\\'"
         :bind (:map go-mode-map
                     ("M-." . godef-jump)
