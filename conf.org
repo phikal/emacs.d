@@ -547,6 +547,16 @@
 
 	This is my Helm setup, if I were to use it, which I currently don't.
 
+*** Expand Region
+	#+BEGIN_SRC emacs-lisp
+      (use-package expand-region
+        :bind ("C-=" . er/expand-region))
+	#+END_SRC
+
+	The =expand-region= utility is a helpful function that let's the user
+	select increasingly larger semantically meaningful regions. I've
+	bound it to the recommended default
+
 *** Eshell
 	#+BEGIN_SRC emacs-lisp
       (setq-default eshell-banner-message "")
