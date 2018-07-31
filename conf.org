@@ -1425,7 +1425,8 @@
 *** Javadoc
 	#+BEGIN_SRC emacs-lisp
       (use-package javadoc-lookup
-        :after cc-mode
+        :init
+        (require 'cc-mode)
         :bind (:map java-mode-map
                     ("C-c C-j" . javadoc-lookup)
                     ("C-c C-i" . javadoc-add-import)))
