@@ -695,6 +695,17 @@
 	 substantially, but instead just offers a nice visual feeling, and
 	 maybe a slightly cleaner overview.
 
+**** Flexible search
+	 #+BEGIN_SRC emacs-lisp
+       (use-package flx-ido
+         :init
+         (flx-ido-mode t)
+         :after ido)
+	 #+END_SRC
+
+	 To enable better easier input, /flexible/ searching (ie. arbitrary
+	 sub-sequences are ignored) is enabled after =ido= loads.
+
 **** Smex
 	 #+BEGIN_SRC emacs-lisp
        (use-package smex
