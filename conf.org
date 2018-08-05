@@ -1516,6 +1516,22 @@
 
    Finally, load the current theme, while Emacs is still starting.
 
+** Swap keybindings
+   #+BEGIN_SRC emacs-lisp
+     (defun swap-keys (kb1 kb2 &optional map)
+       "Swap the functions behind KB1 and KB2 in MAP"
+       (interactive "kFirst key: \nkSecond key: ")
+       (let* ((m (or map (current-global-map)))
+              (f1 (lookup-key m kb1))
+              (f2 (lookup-key m kb2)))
+         (define-key m kb1 f2)
+         (define-key m kb2 f1)))
+   #+END_SRC
+
+   First mentioned [[https://lobste.rs/s/a0uem2/why_neovim_is_better_than_vim_2015#c_gfs3m7][here]], to argue for elisp v.s. vim script, I don't
+   need this function that often, nevertheless I keep in here, just in
+   case.
+
 ** Autoformat on save
    #+BEGIN_SRC emacs-lisp
      (defvar zge/dont-autoformat t "prevent a buffer from
