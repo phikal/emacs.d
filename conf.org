@@ -1185,8 +1185,9 @@
       (use-package projectile
         :diminish projectile-mode
         :init
-        (setq projectile-enable-caching t)
-        (projectile-global-mode))
+        (setq projectile-enable-caching t
+              projectile-keymap-prefix (kbd "C-c C-p"))
+        (projectile-mode t))
 	#+END_SRC
 
 	While I for the most part dislike using global modes, it seems like
