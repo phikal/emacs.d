@@ -1382,10 +1382,12 @@
       (use-package company
         :config
         (setq-default company-begin-commands '()
+                      company-transformers '(company-sort-by-occurrence)
                       company-tooltip-align-annotations t
                       company-tooltip-minimum-width 30
                       company-echo-delay 0
-                      company-idle-delay .25
+                      company-idle-delay 0
+                      company-minimum-prefix-length 2
                       company-tooltip-limit 20
                       company-selection-wrap-around t)
         :init
