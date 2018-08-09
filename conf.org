@@ -313,6 +313,13 @@
 
 	Personal data?
 
+*** Encoding
+	#+BEGIN_SRC emacs-lisp
+      (prefer-coding-system 'utf-8)
+	#+END_SRC
+
+	Assume UTF8 by default.
+
 *** "Large Files"
 	#+BEGIN_SRC emacs-lisp
       (setq large-file-warning-threshold 40000000)
