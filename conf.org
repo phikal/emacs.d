@@ -517,8 +517,8 @@
                     dired-recursive-copies 'always
                     dired-recursive-deletes 'top
                     dired-ls-F-marks-symlinks t
-                    dired-ls-sorting-switches "t"
-                    dired-listing-switches "-aBhl --group-directories-first")
+                    dired-ls-sorting-switches "v"
+                    dired-listing-switches "-ABhl --group-directories-first")
 
       (put 'dired-find-alternate-file 'disabled nil)
 	#+END_SRC
@@ -534,6 +534,14 @@
 	Wdired by default only allows one to edit file names. Setting these
 	variables, extends the abilities of this very interesting minor
 	mode.
+
+	#+BEGIN_SRC emacs-lisp
+      (use-package diredfl
+        :init
+        (diredfl-global-mode))
+	#+END_SRC
+
+	Enable extra coloring in dired buffers.
 
 *** Hippie Expand
 	#+BEGIN_SRC emacs-lisp
