@@ -1192,9 +1192,13 @@
       (use-package projectile
         :diminish projectile-mode
         :init
+        (projectile-mode t)
+        :config
         (setq projectile-enable-caching t
-              projectile-keymap-prefix (kbd "C-c C-p"))
-        (projectile-mode t))
+              projectile-require-project-root nil
+              projectile-keymap-prefix (kbd "C-x C-p")
+              projectile-switch-project-action 'projectile-dired)
+        :bind (("C-c v" . projectile-ag)))
 	#+END_SRC
 
 	While I for the most part dislike using global modes, it seems like
