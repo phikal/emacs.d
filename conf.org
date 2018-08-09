@@ -1608,6 +1608,7 @@
                     ("M-n" . forward-paragraph)
                     ("C-c f" . ffap)
                     ("C-x j" . jump-to-register)
+                    ("M-SPC" . cycle-spacing)
                     ("M-/" . hippie-expand)))
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
