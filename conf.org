@@ -618,6 +618,7 @@
                        epa-pinentry-mode 'loopback
                        gnus-agent t
                        gnus-use-full-window nil
+                       gnus-novice-user nil
                        gnus-expert-user t)
          (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
          :config
@@ -667,7 +668,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package bbdb
          :init
-         (setq bbdb-mua-auto-update-p 'query
+         (setq bbdb-mua-auto-update-p 'update
                bbdb-complete-mail-allow-cycling t
                bbdb-mua-pop-up nil
                bbdb-completion-display-record nil
