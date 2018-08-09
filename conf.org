@@ -135,6 +135,16 @@
    - [[https://gitlab.com/j3kyl/dots/blob/master/gnu/.emacs.d/init.el][j3kyl's =init.el=]] :: Very extensive and occasionally obscure
         settings, structured and documented well enough to be
         understandable.
+   - [[https://github.com/larstvei/dot-emacs/][Lard Tveito's "dot-emacs"]] :: Another literate configuration that
+        demonstrates multiple packages with well written and helpful
+        comments.
+   - [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][Harry R. Schwarz' (hrs) "dotfiles"]] :: Part of his overall
+        configuration, hrs (Organizer of the NYC Emacs meetup) provides
+        an extensive list of packages, tricks and tips.
+
+   All of these configurations are worth reading and re-reading from
+   time to time, since one can always find out something new to adopt
+   into his/her own configuration.
 
 ** Short note on my directory structure
    While this configuration aims for a certain degree of portability,
