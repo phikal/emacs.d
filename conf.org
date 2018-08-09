@@ -1599,6 +1599,20 @@
    need this function that often, nevertheless I keep in here, just in
    case.
 
+** Wicd configuration
+   #+BEGIN_SRC emacs-lisp
+     (defvar wicd-curses "wicd-curses"
+       "Name of the binary that `wicd' should call")
+
+     (defun wicd nil
+       "Start a terminal session to configure the WiFi connection"
+       (interactive)
+       (term (executable-find wicd-curses)))
+   #+END_SRC
+
+   If my device uses Wicd for networking, this auxiliary function makes
+   it easier to set up connections.
+
 ** Autoformat on save
    #+BEGIN_SRC emacs-lisp
      (defvar zge/dont-autoformat t "prevent a buffer from
