@@ -389,11 +389,12 @@
 
 *** Setting the right mode
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default major-mode
-					(lambda () (if buffer-file-name
-								   (fundamental-mode)
-								 (let ((buffer-file-name (buffer-name)))
-								   (set-auto-mode)))))
+            (setq-default major-mode
+                          (lambda ()
+                            (if buffer-file-name
+                                (fundamental-mode)
+                              (let ((buffer-file-name (buffer-name)))
+                                (set-auto-mode)))))
 	#+END_SRC
 
 	When creating new buffers, use =auto-mode-alist= to automatically set
@@ -488,7 +489,8 @@
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
     (unless (package-installed-p 'use-package)
-      (package-refresh-contents) (package-install 'use-package t))
+      (package-refresh-contents)
+      (package-install 'use-package t))
     (require 'bind-key)
     (setq-default use-package-always-defer t
                   use-package-always-ensure t)
@@ -963,7 +965,9 @@
               ledger-master-file (expand-file-name "master.lg" ledger-source-directory)
               ledger-highlight-xact-under-point nil)
         (add-hook 'ledger-mode-hook
-                  (lambda () (company-mode) (flyspell-mode-off)))
+                  (lambda ()
+                    (company-mode)
+                    (flyspell-mode-off)))
         :mode ("\\.lg\\'" . ledger-mode))
 	#+END_SRC
 
