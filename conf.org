@@ -588,6 +588,21 @@
 
 	This is my Helm setup, if I were to use it, which I currently don't.
 
+*** Terminal
+	#+BEGIN_SRC emacs-lisp
+      (setq explicit-shell-file-name (executable-find "sh"))
+	#+END_SRC
+
+	Use =sh= instead of =bash= as the =term= subshell.
+
+	#+BEGIN_SRC emacs-lisp
+      (advice-add 'term-handle-exit :after
+                  (lambda (&rest args)
+                    (kill-buffer (current-buffer))))
+	#+END_SRC
+
+	Don't keep the buffer around as soon as the process ends.
+
 *** Expand Region
 	#+BEGIN_SRC emacs-lisp
       (use-package expand-region
