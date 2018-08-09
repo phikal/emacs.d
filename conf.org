@@ -641,7 +641,8 @@
 	 chooses what server to contact, based on the =From:= field.
 
 	 #+BEGIN_SRC emacs-lisp
-       (add-hook 'message-mode-hook 'turn-on-orgstruct)
+       (add-hook 'message-mode-hook 'turn-on-orgstruct++)
+       (add-hook 'message-mode-hook 'turn-on-orgtbl)
 	 #+END_SRC
 
 	 Furthermore, =orgstruct= is enabled to help writing and structuring
