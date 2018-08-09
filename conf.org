@@ -364,6 +364,14 @@
 	Optionally, non-word characters are acceptable between the
 	punctuation and the whitespace, like when writing =_No!_= in Markdown.
 
+*** Save Place
+	#+BEGIN_SRC emacs-lisp
+      (save-place-mode t)
+	#+END_SRC
+
+	When re-entering a file, return to that place where I was when I
+	left it the last time.
+
 *** Recent files
 	#+BEGIN_SRC emacs-lisp
       (recentf-mode t)
