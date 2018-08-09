@@ -161,8 +161,14 @@
 
    When porting or copying from this configuration, these notes might
    help.
-
 * General Setup
+** Lexical Scoping
+   #+BEGIN_SRC emacs-lisp
+     ;;; -*- lexical-binding: t -*-
+   #+END_SRC
+
+   All code written in this file, shall be [[https://stackoverflow.com/questions/1047454/what-is-lexical-scope]["Lexically Scoped"]].
+
 ** Package Management
    #+BEGIN_SRC emacs-lisp
      (require 'package)
