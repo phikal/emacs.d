@@ -1650,7 +1650,7 @@
                     ("<f8>" . insert-char)
                     ("C-x M-k" . kill-buffer-and-window)
                     ("C-c M-k" . recompile)
-                    ("C-x w" . woman)
+                    ("C-x w" . man)
                     ("M-p" . backward-paragraph)
                     ("M-n" . forward-paragraph)
                     ("C-c f" . ffap)
