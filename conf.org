@@ -880,6 +880,7 @@
 
 	#+BEGIN_SRC emacs-lisp
       (setq-default org-src-fontify-natively t
+                    org-src-tab-acts-natively t
                     org-src-window-setup 'current-window)
 	#+END_SRC
 
