@@ -920,9 +920,9 @@
        (setq org-html-head "<style>body{max-width:50em;text-align:justify;margin:2% auto;}</style>"
              org-latex-listings 'minted
              org-latex-pdf-process
-             '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-               "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-               "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+             '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+               "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+               "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f")
              org-latex-packages-alist '(("" "microtype")
                                         ("" "babel")
                                         ("" "minted")
