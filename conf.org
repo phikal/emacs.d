@@ -208,8 +208,8 @@
 
 *** Fonts
 	#+BEGIN_SRC emacs-lisp
-      (set-face-attribute 'default nil :font "Liberation Mono" :height 130)
-      (set-face-attribute 'variable-pitch nil :family "Liberation Sans" :height 130)
+      (set-face-attribute 'default nil :font "Liberation Mono" :height 110)
+      (set-face-attribute 'variable-pitch nil :family "Liberation Sans" :height 110)
 	#+END_SRC
 
 	My fonts are configured and changed frequently, making any more
