@@ -1112,7 +1112,10 @@
         :mode (("\\.lisp\\'" . lisp-mode)
                ("\\.cl\\'" . lisp-mode)))
 
-      (use-package slime-company :after slime)
+      (use-package slime-company
+        :config
+        (slime-setup '(slime-company))
+        :after slime)
 	#+END_SRC
 
 	Since Elisp and Common Lisp share a common ancestry in Maclisp and
