@@ -1712,7 +1712,7 @@
 
 ** Writing
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'text-mode-hook 'flyspell-mode)
+     (add-hook 'text-mode-hook 'turn-on-flyspell)
    #+END_SRC
 
    The only minor-mode I really use when writing text is flyspell. If I
