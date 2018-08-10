@@ -726,8 +726,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package ido
          :config
-         (setq ido-enable-flex-matching t
-               ido-enable-tramp-completion t
+         (setq ido-enable-tramp-completion t
                ido-create-new-buffer 'always
                ido-ignore-extensions t
                ido-max-prospects 6)
