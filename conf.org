@@ -939,6 +939,14 @@
 	 (or at least try to) on the actual text I am writing.
 
 	 #+BEGIN_SRC emacs-lisp
+       (setq org-clock-persist 'history
+             org-clock-into-drawer t)
+       (org-clock-persistence-insinuate)
+	 #+END_SRC
+
+	 Configure org-mode clocking.
+
+	 #+BEGIN_SRC emacs-lisp
        :bind (("C-c c" . org-capture)
               ("C-c a" . org-agenda)
               ("C-c l" . org-store-link)
