@@ -1276,10 +1276,7 @@
 	#+BEGIN_SRC emacs-lisp
       (use-package markdown-mode
         :init
-        (setq-default markdown-enable-math t
-                      markdown-command "markdown"
-                      markdown-italic-underscore t)
-        :mode "\\.md\\'")
+        (setq markdown-italic-underscore t)
 	#+END_SRC
 
 	Markdown is probably one of the most popular markup languages around
