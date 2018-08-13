@@ -1613,6 +1613,32 @@
    If my device uses Wicd for networking, this auxiliary function makes
    it easier to set up connections.
 
+** Timestamp
+   #+BEGIN_SRC emacs-lisp
+     (defun zge/add-timestamp (arg)
+       "Prepend a UNIX timestamp to buffer, if it doesn't alreay exits.
+
+     Force prepending timestamp when ARG is non-nil."
+       (interactive "P")
+       (save-excursion
+         (goto-char (point-min))
+
+         (if arg (kill-line 2)
+           (uncomment-region (line-beginning-position)
+                             (line-end-position)))
+
+         (unless (and (string-match-p "^[[:digit:]]+$"
+                                      (string-trim (thing-at-point 'line t)))
+                      (not arg))
+           (insert (format-time-string "%s"))
+           (newline 2)
+           (previous-line 2))
+
+         (comment-line 1)))
+   #+END_SRC
+
+   For my ad-hoc blog, I insert a UNIX timestamp 
+
 ** Autoformat on save
    #+BEGIN_SRC emacs-lisp
      (defvar zge/dont-autoformat t
