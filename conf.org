@@ -1169,8 +1169,8 @@
         (setq web-mode-engines-alist '(("go". "\\.gtl\\'"))
               web-mode-enable-engine-detection t
               web-mode-enable-auto-pairing nil)
-        :mode ("\\.html\\'" . web-mode)
-        ("\\.css\\'" . web-mode))
+        :mode (("\\.html\\'" . web-mode)
+               ("\\.css\\'" . web-mode)))
 	#+END_SRC
 
 	I conciser =web-mode= an improvement upon =html-mode= in nearly all
