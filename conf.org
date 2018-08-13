@@ -1204,6 +1204,16 @@
 	often saw people use was =ace-jump-mode= -- something I was conscious
 	that it existed, but never used myself.
 
+*** ace-window
+	#+BEGIN_SRC emacs-lisp
+      (use-package ace-window
+        :bind ("M-o" . ace-window))
+	#+END_SRC
+
+	For easy and quick window navigation, =ace-window= in installed and
+	bound to =M-o= (recommended default) without any further
+	configuration.
+
 *** GUD/GDB
 	#+BEGIN_SRC emacs-lisp
       (setq gdb-display-io-nopopup t)
