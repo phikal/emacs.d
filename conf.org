@@ -429,17 +429,6 @@
 
 *** Global minor modes
 	#+BEGIN_SRC emacs-lisp
-      (show-paren-mode t)
-	#+END_SRC
-
-	I remember reading somewhere that an early Lisp'er, I know not who,
-	remarked that any self-respecting Editor must have some kind of a
-	mechanism to highlight/mark matching parentheses. This is exactly
-	that is being offered here, but not only for parentheses, but also
-	other matching syntactical constructs, in languages as Ruby (=do= and
-	=end=) or in shell scripts (=if= and =fi=).
-
-	#+BEGIN_SRC emacs-lisp
       (delete-selection-mode t)
 	#+END_SRC
 
