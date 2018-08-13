@@ -1549,14 +1549,14 @@
 
 ** Toggle theme
    #+BEGIN_SRC emacs-lisp
-     (defconst zge/light-theme 'tango "constant holding my
-       perfered light theme")
+     (defconst zge/light-theme 'tango
+       "constant holding my perfered light theme")
 
-     (defconst zge/dark-theme 'tango-dark "constant holding my
-       perfered light theme")
+     (defconst zge/dark-theme 'tango-dark
+       "constant holding my perfered light theme")
 
-     (defvar zge/current-theme zge/dark-theme "variable holding my
-       current theme")
+     (defvar zge/current-theme zge/dark-theme
+       "variable holding my current theme")
 
      (defun zge/toggle-theme nil
        "Toggle the current theme from light to dark and vice versa"
@@ -1610,8 +1610,8 @@
 
 ** Autoformat on save
    #+BEGIN_SRC emacs-lisp
-     (defvar zge/dont-autoformat t "prevent a buffer from
-     formatting before saving")
+     (defvar zge/dont-autoformat t
+       "Prevent a buffer from formatting before saving")
 
      (defun zge/autoformat-on-save (&optional arg)
        "Mark the  current paragraph and indent it."
