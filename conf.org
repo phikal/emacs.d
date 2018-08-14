@@ -115,9 +115,9 @@
    probably won't find any of this in my config), I list here other very
    interesting configurations:
 
-   - [[https://doc.norang.ca/org-mode.html][Org Mode -- Organize Your Life in Plain Text!]] :: this is not
+   - [[http://archive.is/qw0r8][Org Mode -- Organize Your Life in Plain Text!]] :: this is not
         strictly a config, but it's an overall great =org-mode= overview
-   - [[https://www.freebsd.org/doc/en/books/developers-handbook/emacs.htm][Using Emacs as a Development Environment]] :: this offered a few
+   - [[https://www.freebsd.org/doc/en/books/developers-handbook/emacs.html][Using Emacs as a Development Environment]] :: this offered a few
         c-mode related tricks
    - [[https://www.dgp.toronto.edu/~ghali/emacs.html][Sheruf Ghali's Emacs config]] :: recommendable due to being an
         expansive document with good (although not "literate")
@@ -127,7 +127,7 @@
    - [[https://github.com/jwiegley/dot-emacs][John Wiegley's (=use-package= creator) "dot-emacs"]] :: Always up to
         date and permanently changing, this configuration shows a lot of
         maturity.
-   - [[https:tuhdo.github.io/emacs-tutor3.html][Tu Do's "Emacs Mini Manual (PART 3)"]] :: Part of a series that
+   - [[https://tuhdo.github.io/emacs-tutor3.html][Tu Do's "Emacs Mini Manual (PART 3)"]] :: Part of a series that
         starts from nothing and gives a great introduction to Emacs. The
         last part (linked here) introduces and explains a lot of useful
         packages, as well as basic elisp concepts (=defun=, =add-to-list=,
