@@ -615,36 +615,34 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package gnus
          :init
-         (setq-default gnus-select-method '(nnnil "")
-                       gnus-secondary-select-methods
-                       '((nnimap "imap.fastmail.com"
-                                 (nnimap-streaming t)
-                                 (nnir-search-engine imap))
-                         (nnimap "faumail.fau.de"
-                                 (nnimap-streaming t)
-                                 (nnir-search-engine imap)))
-                       mail-sources '((imap :server "faumail.fau.de")
-                                      (imap :server "imap.fastmail.com"))
-                       gnus-group-sort-function 'gnus-group-sort-by-unread
-                       gnus-fetch-old-headers 'some
-                       gnus-thread-sort-functions '((not gnus-thread-sort-by-number)
-                                                    gnus-thread-sort-by-score)
-                       message-directory "~/etc/mail/"
-                       gnus-directory "~/etc/news/"
-                       gnus-treat-from-gravatar 'head
-                       gnus-treat-mail-gravatar 'head
-                       gnus-posting-styles
-                       '(("faumail.fau.de"
-                          (signature "Hochachtungsvoll\nPhilip K.")
-                          (address "philip.kaludercic@fau.de"))
-                         ("imap.fastmail.com"
-                          (signature "Sincerely\nPhilip K.")
-                          (address "philip@warpmail.net")))
-                       epa-pinentry-mode 'loopback
-                       gnus-agent t
-                       gnus-use-full-window nil
-                       gnus-novice-user nil
-                       gnus-expert-user t)
+         (setq gnus-select-method '(nnnil "")
+               gnus-secondary-select-methods '((nnimap "imap.fastmail.com"
+                                                       (nnimap-streaming t)
+                                                       (nnir-search-engine imap))
+                                               (nnimap "faumail.fau.de"
+                                                       (nnimap-streaming t)
+                                                       (nnir-search-engine imap)))
+               mail-sources '((imap :server "faumail.fau.de")
+                              (imap :server "imap.fastmail.com"))
+               gnus-group-sort-function 'gnus-group-sort-by-unread
+               gnus-fetch-old-headers 'some
+               gnus-thread-sort-functions '((not gnus-thread-sort-by-number)
+                                            gnus-thread-sort-by-score)
+               message-directory "~/etc/mail/"
+               gnus-directory "~/etc/news/"
+               gnus-treat-from-gravatar 'head
+               gnus-treat-mail-gravatar 'head
+               gnus-posting-styles '(("faumail.fau.de"
+                                      (signature "Hochachtungsvoll\nPhilip K.")
+                                      (address "philip.kaludercic@fau.de"))
+                                     ("imap.fastmail.com"
+                                      (signature "Sincerely\nPhilip K.")
+                                      (address "philip@warpmail.net")))
+               epa-pinentry-mode 'loopback
+               gnus-agent t
+               gnus-use-full-window nil
+               gnus-novice-user nil
+               gnus-expert-user t)
          (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
          :config
          (gnus-demon-add-disconnection)
@@ -823,15 +821,15 @@
           (add-hook 'TeX-after-compilation-finished-functions
                     'TeX-revert-document-buffer))
         :init
-        (setq-default TeX-view-program-selection '((output-pdf "PDF Tools"))
-                      TeX-source-correlate-start-server t
-                      LaTeX-electric-left-right-brace t
-                      TeX-auto-save t
-                      TeX-parse-self t
-                      TeX-master nil
-                      TeX-PDF-mode t
-                      reftex-plug-into-AUCTeX t
-                      reftex-enable-partial-scans t)
+        (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+              TeX-source-correlate-start-server t
+              LaTeX-electric-left-right-brace t
+              TeX-auto-save t
+              TeX-parse-self t
+              TeX-master nil
+              TeX-PDF-mode t
+              reftex-plug-into-AUCTeX t
+              reftex-enable-partial-scans t)
         :mode ("\\.tex\\'" . LaTeX-mode))
 	#+END_SRC
 
@@ -1131,8 +1129,8 @@
         :init
         (add-hook 'prog-mode-hook 'undo-tree-mode)
         :config
-        (setq-default undo-tree-visualizer-timestamps t
-                      undo-tree-visualizer-diff t))
+        (setq undo-tree-visualizer-timestamps t
+              undo-tree-visualizer-diff t))
 	#+END_SRC
 
 	=Undo-tree= offers the ability to visualize ones editing history as a
@@ -1425,15 +1423,15 @@
 	#+BEGIN_SRC emacs-lisp
       (use-package company
         :config
-        (setq-default company-begin-commands '()
-                      company-transformers '(company-sort-by-occurrence)
-                      company-tooltip-align-annotations t
-                      company-tooltip-minimum-width 30
-                      company-echo-delay 0
-                      company-idle-delay 0
-                      company-minimum-prefix-length 2
-                      company-tooltip-limit 20
-                      company-selection-wrap-around t)
+        (setq company-begin-commands '()
+              company-transformers '(company-sort-by-occurrence)
+              company-tooltip-align-annotations t
+              company-tooltip-minimum-width 30
+              company-echo-delay 0
+              company-idle-delay 0
+              company-minimum-prefix-length 2
+              company-tooltip-limit 20
+              company-selection-wrap-around t)
         :init
         (add-hook 'prog-mode-hook 'company-mode)
         :bind (:map company-mode-map
@@ -1447,7 +1445,7 @@
 	#+BEGIN_SRC emacs-lisp
       (use-package magit
         :init
-        (setq-default magit-diff-options "-b --patience")
+        (setq magit-diff-options "-b --patience")
         :bind (("C-x g" . magit-status)))
 	#+END_SRC
 
