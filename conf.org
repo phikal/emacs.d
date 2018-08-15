@@ -1741,7 +1741,6 @@
                     ("<f5>" . zge/toggle-dictionary)
                     ("<f6>" . zge/toggle-theme)
                     ("<f7>" . toggle-truncate-lines)
-                    ("<f8>" . insert-char)
                     ("C-x M-k" . kill-buffer-and-window)
                     ("C-c M-k" . recompile)
                     ("C-x w" . man)
@@ -1749,8 +1748,6 @@
                     ("M-n" . forward-paragraph)
                     ("C-c f" . ffap)
                     ("C-x j" . jump-to-register)
-                    ("M-SPC" . cycle-spacing)
-                    ("M-/" . hippie-expand)))
                     ("C-x x" . calendar)))
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
@@ -1764,7 +1761,9 @@
                     ("M-z" . yank-pop)
                     ("M-l" . downcase-dwim)
                     ("M-c" . capitalize-dwim)
-                    ("M-u" . upcase-dwim)))
+                    ("M-u" . upcase-dwim)
+                    ("M-SPC" . cycle-spacing)
+                    ("M-/" . hippie-expand)))
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
