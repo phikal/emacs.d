@@ -1598,7 +1598,7 @@
 
 ** Toggle dictionary
    #+BEGIN_SRC emacs-lisp
-     (defconst zge/dicts '("en" "de")
+     (defconst zge/dicts '("de" "en")
        "list of dictionaries")
 
      (defconst zge/input-alist '(("en" . nil)
