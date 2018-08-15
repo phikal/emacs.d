@@ -1676,6 +1676,20 @@
    need this function that often, nevertheless I keep in here, just in
    case.
 
+** Curl to buffer
+   #+BEGIN_SRC emacs-lisp
+     (defun zge/curl (url)
+       "Paste the content behind URL into a new buffer."
+       (interactive "Murl: ")
+       (let ((buf (get-buffer-create (file-name-base url))))
+         (shell-command (concat "curl --silent " url) buf)
+         (with-current-buffer buf (set-auto-mode))
+         (switch-to-buffer buf)))
+   #+END_SRC
+
+   Sometimes I just want to easily view some code in emacs (eg. a raw
+   github gist), and this functions just makes it easier.
+
 ** Wicd configuration
    #+BEGIN_SRC emacs-lisp
      (defvar wicd-curses "wicd-curses"
