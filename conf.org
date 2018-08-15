@@ -1287,6 +1287,7 @@
       (use-package markdown-mode
         :init
         (setq markdown-italic-underscore t)
+        (add-hook 'markdown-mode-hook 'turn-on-auto-fill))
 	#+END_SRC
 
 	Markdown is probably one of the most popular markup languages around
