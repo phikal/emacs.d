@@ -903,13 +903,14 @@
 *** Org
 	#+BEGIN_SRC emacs-lisp
       (use-package org
+        :demand t
         :init
 	#+END_SRC
 
 	The following configuration is wrapped in a =use-package= macro...
 
 	#+BEGIN_SRC emacs-lisp
-      (setq-default org-hide-emphasis-markers t
+      (setq org-hide-emphasis-markers t
                     org-completion-use-ido t
                     org-startup-folded t
                     org-highlight-latex-and-related '(latex)
@@ -922,18 +923,19 @@
 	shift key to mark a region).
 
 	#+BEGIN_SRC emacs-lisp
-      (setq-default org-src-fontify-natively t
-                    org-src-tab-acts-natively t
-                    org-src-window-setup 'current-window)
+      (setq org-src-fontify-natively t
+            org-src-tab-acts-natively t
+            org-src-window-setup 'current-window)
 	#+END_SRC
 
 	Especially this document uses a lot of source blocks, so
 	highlighting and indenting them appropriately is very convenient.
 
 	#+BEGIN_SRC emacs-lisp
-      (setq-default org-directory (expand-file-name "~/doc/org/")
-                    org-agenda-files (list org-directory)
-                    org-default-notes-file (expand-file-name "notes.org" org-directory))
+      (setq org-directory (expand-file-name "~/doc/org/")
+            org-agenda-files (list org-directory)
+            org-agenda-include-diary t
+            org-default-notes-file (expand-file-name "notes.org" org-directory))
 	#+END_SRC
 
 	Within my documents directory (=~/doc/=) I have an =org= directory just
@@ -981,7 +983,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (add-hook 'org-mode-hook
                  (lambda ()
-                   (auto-fill-mode t)
+                   (turn-on-auto-fill)
                    (flyspell-mode-off)
                    (flyspell-prog-mode)))
 	 #+END_SRC
