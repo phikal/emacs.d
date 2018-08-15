@@ -475,6 +475,7 @@
                     (?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
                     (?u . "~/code/uni/")
                     (?o . "~/doc/org/")
+                    (?w . "~/code/web/www/")
                     (?r . "~/doc/read/"))))
        (mapc (lambda (c)
                (let ((file (expand-file-name (cdr c))))
