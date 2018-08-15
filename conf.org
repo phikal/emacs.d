@@ -455,10 +455,65 @@
 
 *** Week
 	#+BEGIN_SRC emacs-lisp
-      (setq-default calendar-week-start-day 1)
+      (setq-default calendar-week-start-day 1
+                    calendar-longitude 10.9887
+                    calendar-latitude 49.4771
+                    calendar-date-style 'iso
+                    calendar-christian-all-holidays-flag t
+                    calendar-mark-diary-entries-flag t)
 	#+END_SRC
 
-	Let the week start on Monday.
+	The default Emacs calendar configuration is a bit simplistic and
+	peculiar. I've always been used to weeks starting on Monday and
+	prefer ISO over the American date format, so I set calendar to work
+	accordingly. Furthermore, I request holidays and diary entries to be
+	highlighted.
+
+	#+BEGIN_SRC emacs-lisp
+      (add-hook 'calendar-move-hook
+            (lambda ()
+              (when (calendar-check-holidays (calendar-cursor-to-date t nil))
+                (calendar-cursor-holidays))))
+	#+END_SRC
+
+	This hook prints the holiday under the cursor to the minibuffer, in
+	there there is any, since this seemingly cannot be enabled by
+	default.
+
+	#+BEGIN_SRC emacs-lisp
+      (setq solar-n-hemi-seasons
+            '("Frühlingsanfang" "Sommeranfang" "Herbstanfang" "Winteranfang"))
+
+      (setq holiday-general-holidays
+            '((holiday-fixed 1 1 "Neujahr")
+              (holiday-fixed 5 1 "1. Mai")
+              (holiday-fixed 10 3 "Tag der Deutschen Einheit")
+              (holiday-fixed 12 31 "Sylvester")))
+
+      (setq holiday-christian-holidays
+            '((holiday-fixed 1 6 "Heilige Drei Könige")
+              (holiday-easter-etc -48 "Rosenmontag")
+              (holiday-easter-etc  -2 "Karfreitag")
+              (holiday-easter-etc   0 "Ostersonntag")
+              (holiday-easter-etc  +1 "Ostermontag")
+              (holiday-easter-etc +39 "Christi Himmelfahrt")
+              (holiday-easter-etc +49 "Pfingstsonntag")
+              (holiday-easter-etc +50 "Pfingstmontag")
+              (holiday-easter-etc +60 "Fronleichnam")
+              (holiday-fixed 8 15 "Mariae Himmelfahrt")
+              (holiday-fixed 11 1 "Allerheiligen")
+              (holiday-float 11 0 1 "Totensonntag" 20)
+              (holiday-float 12 0 -4 "1. Advent" 24)
+              (holiday-float 12 0 -3 "2. Advent" 24)
+              (holiday-float 12 0 -2 "3. Advent" 24)
+              (holiday-float 12 0 -1 "4. Advent" 24)
+              (holiday-fixed 12 25 "1. Weihnachtstag")
+              (holiday-fixed 12 26 "2. Weihnachtstag")))
+	#+END_SRC
+
+	Based on the [[https://www.emacswiki.org/emacs/CalendarLocalization#toc32][EmacsWiki /Calendar Localization/ Article]], I list inform
+	Emacs German/Bavarian holidays, since these are relevant to me.
+
 ** Spell Checking
    #+BEGIN_SRC emacs-lisp
      (setq-default ispell-program-name (executable-find "aspell")
@@ -1692,6 +1747,7 @@
                     ("C-x j" . jump-to-register)
                     ("M-SPC" . cycle-spacing)
                     ("M-/" . hippie-expand)))
+                    ("C-x x" . calendar)))
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
