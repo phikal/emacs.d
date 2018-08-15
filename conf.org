@@ -718,7 +718,6 @@
          :config
          (setq ido-enable-tramp-completion t
                ido-buffer-disable-smart-matches t
-               ido-use-filename-at-point t
                ido-create-new-buffer 'always
                ido-ignore-extensions t
                ido-max-prospects 6)
