@@ -1328,7 +1328,7 @@
         :config
         (setq projectile-enable-caching t
               projectile-require-project-root nil
-              projectile-keymap-prefix (kbd "C-x C-p")
+              projectile-keymap-prefix (kbd "M-p")
               projectile-switch-project-action 'projectile-dired)
         :bind (("C-c v" . projectile-ag)))
 	#+END_SRC
@@ -1768,8 +1768,6 @@
                     ("C-x M-k" . kill-buffer-and-window)
                     ("C-c M-k" . recompile)
                     ("C-x w" . man)
-                    ("M-p" . backward-paragraph)
-                    ("M-n" . forward-paragraph)
                     ("C-c f" . ffap)
                     ("C-x j" . jump-to-register)
                     ("C-x x" . calendar)))
