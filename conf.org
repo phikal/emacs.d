@@ -1779,13 +1779,14 @@
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
-  These are juts a few self-explanatory global keybindings, I find
-  useful.
+  These are juts a few self-explanatory global, /personal/ keybindings, I
+  find useful. All of this is done using the =dolist= macro, to keep
+  everything cleaner and easier to read.
 
   #+BEGIN_SRC emacs-lisp
     (dolist (bind '(("C-x C-b" . ibuffer)
-                    ("C-z" . yank)
-                    ("M-z" . yank-pop)
+                    ("C-z" . ignore)
+                    ("M-z" . ignore)
                     ("M-l" . downcase-dwim)
                     ("M-c" . capitalize-dwim)
                     ("M-u" . upcase-dwim)
@@ -1794,11 +1795,9 @@
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
-  While the above listed commands create new keybindings, these override
-  defaults offered by emacs. =C-z= might be noteworthy: since I switch
-  between QWERTZ and QWERTY keyboards, having =C-z/M-z= suspend my current
-  frame can be very incontinent, if I just want to yank some text --
-  thus I use both =C-z= and =M-z= as synonyms for the =*-y= equivalents.
+  These on the other hand, overrride existing, /default/ keybindings with
+  different (eg. =C-z= to ignore), or better (eg. =M-SPC= to cycle-spacing)
+  commands.
 
 * Hooks
   Most of the mode specific hooks were already set up in the [[Packages%20and%20Other%20Configurations][Packages
