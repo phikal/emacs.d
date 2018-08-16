@@ -1764,6 +1764,7 @@
                     ("<f5>" . zge/toggle-dictionary)
                     ("<f6>" . zge/toggle-theme)
                     ("<f7>" . toggle-truncate-lines)
+                    ("<f8>" . org-agenda-list)
                     ("C-x M-k" . kill-buffer-and-window)
                     ("C-c M-k" . recompile)
                     ("C-x w" . man)
