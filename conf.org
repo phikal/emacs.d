@@ -314,9 +314,7 @@
 
    *Note:* This is also probably one of the oldest parts on my
    configuration, staying mostly unchanged since mid-late 2014, when
-   copied the code from
-   [[https://stackoverflow.com/users/11138/jfm3][this StackOverflow
-   question]].
+   copied the code from [[https://stackoverflow.com/users/11138/jfm3][this StackOverflow question]].
 
 ** Defaults
 *** User information
@@ -1082,18 +1080,9 @@
                                         "324" "329" "332" "333" "353" "477")
               erc-log-channels-directory (expand-file-name "erc-logs/" user-emacs-directory)
               erc-prompt ">"
-              erc-nick '("zge"))
+              erc-nick '("zge" "zge_" "zge__"))
         :config
-        (Require 'znc))
-
-      ;; (setq-default rcirc-time-format "%Y-%m-%d %H:%M "
-      ;;               rcirc-default-nick "zge"
-      ;;               rcirc-default-user-name "zge"
-      ;;               rcirc-default-full-name user-full-name
-      ;;               rcirc-default-port 6669
-      ;;               rcirc-server-alist `(("dyst.ax.lt" :user
-      ;;                                     "zge" :encryption tls)))
-      ; (rcirc-track-minor-mode t)
+        (require 'znc))
 	#+END_SRC
 
 	For IRC, I use ERC's little sibling, rcirc, and connect to my
@@ -1633,7 +1622,6 @@
    a horrible speller, having a quick function to toggle between just
    the two (using [[%3Dflyspell-mode%3D][flyspell-mode]]) had been very nice. Additionally, my
    input method is changed based on =zge/input-alist=.
-
 ** Toggle theme
    #+BEGIN_SRC emacs-lisp
      (defconst zge/light-theme 'tango
