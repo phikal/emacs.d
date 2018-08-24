@@ -489,9 +489,9 @@
 
 	#+BEGIN_SRC emacs-lisp
       (add-hook 'calendar-move-hook
-            (lambda ()
-              (when (calendar-check-holidays (calendar-cursor-to-date t nil))
-                (calendar-cursor-holidays))))
+                (lambda ()
+                  (when (calendar-check-holidays (calendar-cursor-to-date t nil))
+                    (calendar-cursor-holidays))))
 	#+END_SRC
 
 	This hook prints the holiday under the cursor to the minibuffer, in
@@ -499,12 +499,9 @@
 	default.
 
 	#+BEGIN_SRC emacs-lisp
-      (setq solar-n-hemi-seasons
-            '("Frühlingsanfang" "Sommeranfang" "Herbstanfang" "Winteranfang"))
-
       (setq holiday-general-holidays
-            '((holiday-fixed 1 1 "Neujahr")
-              (holiday-fixed 5 1 "1. Mai")
+            '((holiday-fixed 1 1 "New Year")
+              (holiday-fixed 5 1 "1st Mai")
               (holiday-fixed 10 3 "Tag der Deutschen Einheit")
               (holiday-fixed 12 31 "Sylvester")))
 
