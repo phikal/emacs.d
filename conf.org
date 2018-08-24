@@ -1335,7 +1335,6 @@
         (projectile-mode t)
         :config
         (setq projectile-enable-caching t
-              projectile-require-project-root nil
               projectile-keymap-prefix (kbd "M-p")
               projectile-switch-project-action 'projectile-dired)
         :bind (("C-c v" . projectile-ag)))
