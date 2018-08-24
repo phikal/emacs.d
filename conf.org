@@ -287,6 +287,14 @@
 	Having the ability to interact with the system clipboard is very
 	welcome, especially when copying code from a (now =eww=) web browser.
 
+*** Frame resizing
+	#+BEGIN_SRC emacs-lisp
+      (setq frame-resize-pixelwise t)
+	#+END_SRC
+
+	When using graphical Emacs, this option enables more flexible
+	resizing of the entire frame.
+
 ** Cross-session Configuration
    #+BEGIN_SRC emacs-lisp
      (setq-default history-delete-duplicates t
