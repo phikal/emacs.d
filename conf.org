@@ -696,8 +696,7 @@
                               (imap :server "imap.fastmail.com"))
                gnus-group-sort-function 'gnus-group-sort-by-unread
                gnus-fetch-old-headers 'some
-               gnus-thread-sort-functions '((not gnus-thread-sort-by-number)
-                                            gnus-thread-sort-by-score)
+               gnus-thread-sort-functions '((not gnus-thread-sort-by-number))
                message-directory "~/etc/mail/"
                gnus-directory "~/etc/news/"
                gnus-treat-from-gravatar 'head
@@ -710,6 +709,8 @@
                                       (address "philip@warpmail.net")))
                epa-pinentry-mode 'loopback
                gnus-agent t
+               gnus-agent-go-online t
+               gnus-agent-consider-all-articles t
                gnus-use-full-window nil
                gnus-novice-user nil
                gnus-expert-user t)
