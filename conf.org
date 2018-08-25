@@ -319,6 +319,20 @@
    contents of ~kill-ring~, ~search-ring~ and ~compile-command~. Other
    variables, which are not needed are disregarded.
 
+   #+BEGIN_SRC emacs-lisp
+     (setq desktop-restore-frames nil
+           desktop-restore-eager t)
+
+     (desktop-save-mode t)
+   #+END_SRC
+
+   To not loose all the buffers between sessions, =desktop-save-mode=
+   keeps track of buffers before Emacs exists, /but/ doesn't keep track of
+   the frame layout. Furthermore, no buffers are "lazily" restored, but
+   instead all at once, since otherwise this leads to an annoying
+   behavior where buffers are being restored and Emacs, but because I
+   stopped typing for a second.
+
 ** Backups
    #+BEGIN_SRC emacs-lisp
      (setq-default backup-directory-alist
