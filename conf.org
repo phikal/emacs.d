@@ -453,14 +453,6 @@
 
 	Force Emacs (especially =org-mode=) to use English timestamps.
 
-*** Global minor modes
-	#+BEGIN_SRC emacs-lisp
-      (delete-selection-mode t)
-	#+END_SRC
-
-	I enable this, more due to habit, rather than due to some particular
-	advantage I gain from enabling it.
-
 *** Abbrevations
 	#+BEGIN_SRC emacs-lisp
       (setq abbrev-file-name (expand-file-name "abbrev.defs" user-emacs-directory)
@@ -1782,6 +1774,7 @@
                     ("C-x w" . man)
                     ("C-c f" . ffap)
                     ("C-x j" . jump-to-register)
+                    ("C-M-<backspace>" . delete-region)
                     ("C-x x" . calendar)))
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
