@@ -663,6 +663,22 @@
 
 	Don't keep the buffer around as soon as the process ends.
 
+*** =which-key=
+	#+BEGIN_SRC emacs-lisp
+      (use-package which-key
+        :config
+        (which-key-mode t)
+        :init
+        (setq which-key-idle-delay 2.5
+              which-key-popup-type 'minibuffer))
+	#+END_SRC
+
+	Sometimes one forgets all the keybindings, and what commands are
+	hidden behind them. In fact this is one of the major criticisms
+	behind more "classical" editors like Emacs or vi. =C-h b= works, but
+	=which-key= helps, buy quickly and quietly popping up when I pause for
+	too long (> 2.5s) while in the middle of /some/ keybinding.
+
 *** Expand Region
 	#+BEGIN_SRC emacs-lisp
       (use-package expand-region
