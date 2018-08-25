@@ -1019,9 +1019,7 @@
 	 (or at least try to) on the actual text I am writing.
 
 	 #+BEGIN_SRC emacs-lisp
-       (setq org-clock-persist 'history
-             org-clock-into-drawer t)
-       (org-clock-persistence-insinuate)
+       (setq org-clock-into-drawer t)
 	 #+END_SRC
 
 	 Configure org-mode clocking.
