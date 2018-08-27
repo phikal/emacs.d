@@ -157,10 +157,15 @@
    - [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][Harry R. Schwarz' (hrs) "dotfiles"]] :: Part of his overall
         configuration, hrs (Organizer of the NYC Emacs meetup) provides
         an extensive list of packages, tricks and tips.
+   - [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]] :: /Very/ comprehensive but a bit
+        disordered (IMO) literate configuration by the maintainer of the
+        (very recommendable) [[http://sachachua.com/blog/category/emacs/][Emacs News]] newsletter.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
    into his/her own configuration.
+
+   A more comprehensive list can be found [[https://github.com/caisah/emacs.dz][here]].
 
 ** Short note on my directory structure
    While this configuration aims for a certain degree of portability,
