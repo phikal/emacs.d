@@ -820,10 +820,12 @@
        (use-package ido
          :config
          (setq ido-enable-tramp-completion t
-               ido-buffer-disable-smart-matches t
                ido-create-new-buffer 'always
                ido-ignore-extensions t
-               ido-max-prospects 6)
+               ido-auto-merge-work-directories-length -1
+               ido-max-dir-file-cache 0
+               ido-max-work-file-list 0
+               ido-max-prospects 8)
          :init
          (ido-mode t)
          (ido-everywhere t))
