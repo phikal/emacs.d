@@ -453,12 +453,16 @@
 *** Browser
 	#+BEGIN_SRC emacs-lisp
       (setq-default browse-url-browser-function 'browse-url-xdg-open
-                    eww-download-directory (expand-file-name "~/dl"))
+                    eww-download-directory (expand-file-name "~/dl")
+                    shr-color-visible-luminance-min 15
+                    shr-color-visible-distance-min 5)
 	#+END_SRC
 
 	Use whatever is set as the default browser on the current system,
 	when opening =http://= links. (But still let =eww= be properly
-	configured.)
+	configured.) Additionally, the contrast is increased to make
+	webpages (and HTML emails) with peculiar background colors render
+	better.
 
 *** Time Locale
 	#+BEGIN_SRC emacs-lisp
