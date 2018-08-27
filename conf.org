@@ -740,6 +740,7 @@
                gnus-directory "~/etc/news/"
                gnus-treat-from-gravatar 'head
                gnus-treat-mail-gravatar 'head
+               mm-discouraged-alternatives '("text/html" "text/richtext")
                gnus-posting-styles '(("faumail.fau.de"
                                       (signature "Hochachtungsvoll\nPhilip K.")
                                       (address "philip.kaludercic@fau.de"))
@@ -762,7 +763,19 @@
 
 	 My current mail setup is still a bit unstable, since I wrote in it
 	 less than a day, yet it seems to be working. It is set up to work
-	 equally well with my university-, as well as my personal address.
+	 equally well with my university-, as well as my personal
+	 address.
+
+	 Note the following peculiarities:
+	 - =gnus-thread-sort-functions= is set to place the newest messages on
+       the top, disregarding the scoring system (since I don't use or
+       need it)
+	 - =mm-discouraged-alternatives= makes sure I don't have to view HTML
+       or richtext mail, if plaintext is also delivered
+	 - =gnus-use-full-window= prevents Gnus from disturbing my current
+       window setup, and instead tries to just use the current window
+	 - =gnus-novice-user= and =gnus-expert-user= disable unnecessary questions
+
 
 	 Since my =.authsource= is encrypted, I have to enter my password from
 	 time to time to access my mail. This also requires
