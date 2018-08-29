@@ -916,7 +916,6 @@
 	#+BEGIN_SRC emacs-lisp
       (setq-default calc-angle-mode 'rad
                     calc-shift-prefix t
-                    calc-symbolic-mode t
                     calc-infinite-mode t
                     calc-vector-brackets nil
                     calc-vector-commas nil
