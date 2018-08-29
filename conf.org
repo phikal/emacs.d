@@ -3,7 +3,7 @@
 #+KEYWORDS: emacs dotfile config
 
 * Introductory comments
-  This document is [[https://zge.us.to/][my]] configuration for [[https://gnu.org/s/emacs][GNU Emacs]], using [[https://org-mode.org/][Org Mode's]]
+  This document is my configuration for [[https://gnu.org/s/emacs][GNU Emacs]], using [[https://org-mode.org/][Org Mode's]]
   [[https://en.wikipedia.org/wiki/Literate_programming][Literate Programming]] facilities to automatically extract and evaluate
   all the relevant code snippets, ignoring the documenting comments.
 
