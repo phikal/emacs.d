@@ -969,12 +969,13 @@
 
 	#+BEGIN_SRC emacs-lisp
       (setq org-hide-emphasis-markers t
-                    org-completion-use-ido t
-                    org-startup-folded t
-                    org-highlight-latex-and-related '(latex)
-                    org-alphabetical-lists t
-                    org-export-date-timestamp-format "%x"
-                    org-support-shift-select t)
+            org-yank-adjusted-subtrees t
+            org-completion-use-ido t
+            org-startup-folded t
+            org-highlight-latex-and-related '(latex)
+            org-alphabetical-lists t
+            org-export-date-timestamp-format "%x"
+            org-support-shift-select t)
 	#+END_SRC
 
 	Basic stylistic and movment options (especially enabling using the
@@ -1022,6 +1023,9 @@
 
 	 #+BEGIN_SRC emacs-lisp
        (setq org-html-head "<style>body{max-width:50em;text-align:justify;margin:2% auto;}</style>"
+             org-html-doctype "xhtml5"
+             org-html-link-home "/"
+             org-html-html5-fancy t
              org-latex-listings 'minted
              org-latex-pdf-process
              '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
