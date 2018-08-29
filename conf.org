@@ -689,6 +689,7 @@
 *** =which-key=
 	#+BEGIN_SRC emacs-lisp
       (use-package which-key
+        :diminish which-key-mode
         :config
         (which-key-mode t)
         :init
