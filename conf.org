@@ -160,6 +160,9 @@
    - [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]] :: /Very/ comprehensive but a bit
         disordered (IMO) literate configuration by the maintainer of the
         (very recommendable) [[http://sachachua.com/blog/category/emacs/][Emacs News]] newsletter.
+   - [[https://github.com/codemac/config/blob/master/emacs.d/boot.org][Jeff Mickey's (codemac) Emacs]] :: A bit untidy but extensive/long
+        and quite clever literate configuration. Many variables worth
+        knowing about, as well as good, thoughtful commentary.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
