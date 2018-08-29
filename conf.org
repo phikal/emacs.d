@@ -1280,9 +1280,14 @@
         :init
         (setq web-mode-engines-alist '(("go". "\\.gtl\\'"))
               web-mode-enable-engine-detection t
+              web-mode-markup-indent-offset 4
+              web-mode-enable-auto-quoting t
+              web-mode-enable-auto-closing t
+              web-mode-enable-auto-expanding t
               web-mode-enable-auto-pairing nil)
         :mode (("\\.html\\'" . web-mode)
-               ("\\.css\\'" . web-mode)))
+               ("\\.css\\'" . web-mode)
+               ("\\.gtl\\'" . web-mode)))
 	#+END_SRC
 
 	I conciser =web-mode= an improvement upon =html-mode= in nearly all
