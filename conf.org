@@ -1839,7 +1839,7 @@
 
   #+BEGIN_SRC emacs-lisp
     (dolist (bind '(("C-x C-b" . ibuffer)
-                    ("C-z" . ignore)
+                    ("C-z" . repeat)
                     ("M-z" . ignore)
                     ("M-l" . downcase-dwim)
                     ("M-c" . capitalize-dwim)
@@ -1850,7 +1850,7 @@
   #+END_SRC
 
   These on the other hand, overrride existing, /default/ keybindings with
-  different (eg. =C-z= to ignore), or better (eg. =M-SPC= to cycle-spacing)
+  different (eg. =C-z= to repeat), or better (eg. =M-SPC= to cycle-spacing)
   commands.
 
 * Hooks
