@@ -9,18 +9,17 @@
 
   To load this configuration, make sure you have the ~.org~ file locally
   on your system, and call it using ~org-babel-load-file~. Furthermore,
-  make sure that you've loaded the ~cl~ module with ~require~. Eventually
-  you will have to load ~org~ too.
+  make sure that you've loaded the ~cl-lib~ module with ~require~.
 
   This document, it's code and comments, are in the public domain.
 
-  The following configuration *hasn't* been tested on multiple systems,
-  with different Emacs versions, etc. I only know that it works on my
-  device™, and sometimes I'm not even sure about that. No backwards
-  compatibility beyond Emacs ~25.1~ is intended.
+  The following configuration has been tested on a few different
+  systems, with different Emacs versions, but nothing below 25. Ideally
+  don't just copy the everything but read and adopt the code snippets
+  you think will help /your/ configuration work better for /your/ use case.
 
   This configuration is more regularly updated [[https://zge.us.to/emacs.d.html][on my website]], and the
-  [[https://zge.us.to/git/.emacs.d/][Git history]] (+source) is also public (alternatively also to be found
+  [[https://zge.us.to/git/emacs.d/][Git history]] (+source) is also public (alternatively also to be found
   on [[https://github.com/phikal/emacs.d/][GitHub]]).
 
 ** Personal Emacs History
