@@ -19,8 +19,9 @@
   device™, and sometimes I'm not even sure about that. No backwards
   compatibility beyond Emacs ~25.1~ is intended.
 
-  This configuration is occasionally updated [[https://zge.us.to/emacs.d.html][on my website]], and the [[https://zge.us.to/git/.emacs.d/][Git
-  history]] (+source) is also public.
+  This configuration is more regularly updated [[https://zge.us.to/emacs.d.html][on my website]], and the
+  [[https://zge.us.to/git/.emacs.d/][Git history]] (+source) is also public (alternatively also to be found
+  on [[https://github.com/phikal/emacs.d/][GitHub]]).
 
 ** Personal Emacs History
    My first encounters with Emacs must have been somewhere around late
@@ -447,12 +448,12 @@
 
 *** Setting the right mode
 	#+BEGIN_SRC emacs-lisp
-            (setq-default major-mode
-                          (lambda ()
-                            (if buffer-file-name
-                                (fundamental-mode)
-                              (let ((buffer-file-name (buffer-name)))
-                                (set-auto-mode)))))
+      (setq-default major-mode
+                    (lambda ()
+                      (if buffer-file-name
+                          (fundamental-mode)
+                        (let ((buffer-file-name (buffer-name)))
+                          (set-auto-mode)))))
 	#+END_SRC
 
 	When creating new buffers, use =auto-mode-alist= to automatically set
@@ -587,7 +588,7 @@
     (unless (package-installed-p 'use-package)
       (package-refresh-contents)
       (package-install 'use-package t))
-    (require 'bind-key)
+    ;; (require 'bind-key)
     (setq-default use-package-always-defer t
                   use-package-always-ensure t)
   #+END_SRC
@@ -979,6 +980,8 @@
             org-highlight-latex-and-related '(latex)
             org-alphabetical-lists t
             org-export-date-timestamp-format "%x"
+            org-special-ctrl-a/e t
+            org-special-ctrl-k t
             org-support-shift-select t)
 	#+END_SRC
 
@@ -999,6 +1002,8 @@
             org-agenda-files (list org-directory)
             org-agenda-include-diary t
             org-agenda-window-setup 'current-window
+            org-agenda-sticky t
+            org-use-speed-commands t
             org-default-notes-file (expand-file-name "notes.org" org-directory))
 	#+END_SRC
 
@@ -1665,10 +1670,8 @@
                     ("C-c C-i" . javadoc-add-import)))
 	#+END_SRC
 
-	=javadoc-lookup= is a function I found far too late, and I find
-	terribly useful. Furthermore, I had modified the javadoc directory,
-	by copying it's content to =/usr/local/doc/api=, and removed the
-	unnecessary headers and footers.
+	When "programming" in Java, =javadoc-lookup= helps me easily manage
+	imports as well as open documentation in my preferred browser.
 
 * Functions
   All private functions and variables shall be prefixed with =zge/=.
@@ -1681,7 +1684,7 @@
      (defconst zge/input-alist '(("en" . nil)
                                  ("de" . "german-postfix")))
 
-     (defconst zge/dict-ring
+     (defvar-local zge/dict-ring
        (let ((ring (make-ring (length zge/dicts))))
          (mapc (lambda (l) (ring-insert ring l))
                zge/dicts)
@@ -1705,6 +1708,7 @@
    a horrible speller, having a quick function to toggle between just
    the two (using [[%3Dflyspell-mode%3D][flyspell-mode]]) had been very nice. Additionally, my
    input method is changed based on =zge/input-alist=.
+
 ** Toggle theme
    #+BEGIN_SRC emacs-lisp
      (defconst zge/light-theme 'whiteboard
