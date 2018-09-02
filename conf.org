@@ -1110,6 +1110,23 @@
 	 Finally, defer interpretation until a =.org= file is found, and
 	 close the =use-package= block.
 
+*** Elfeed
+	#+BEGIN_SRC emacs-lisp
+      (use-package elfeed
+        :init
+        (setq elfeed-use-curl t
+              elfeed-search-filter "@2-months-ago")
+        :bind ("C-c f" . elfeed))
+	#+END_SRC
+
+	My newsreader is even in Emacs! What a supp rise. Elfeed almost
+	certainly the most popular package for this task, and I can highly
+	recommend it, especially if ones gets a bit bored in between doing
+	"work".
+
+	My =elfeed-feeds= variable isn't specified here, but it's kept in my
+	=custom.el= file.
+
 *** Ledger
 	#+BEGIN_SRC emacs-lisp
       (use-package ledger-mode
@@ -1827,7 +1844,6 @@
                     ("C-x M-k" . kill-buffer-and-window)
                     ("C-c M-k" . recompile)
                     ("C-x w" . man)
-                    ("C-c f" . ffap)
                     ("C-x j" . jump-to-register)
                     ("C-M-<backspace>" . delete-region)
                     ("C-x x" . calendar)))
