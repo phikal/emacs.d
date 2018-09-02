@@ -1887,8 +1887,8 @@
                  (local-set-key (kbd "C-c C-k") 'compile)
                  (local-set-key (kbd "C-c w") 'whitespace-mode)
                  (hs-minor-mode t)
-                 (electric-indent-mode t)
-                 (electric-pair-mode t)
+                 (electric-indent-local-mode t)
+                 (electric-pair-local-mode t)
                  (flycheck-mode t)
                  (flyspell-prog-mode)))
    #+END_SRC
