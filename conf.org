@@ -385,6 +385,16 @@
 
 	Don't warn me about /larger-but-not-actually-that-large/ files.
 
+*** Disabled functions
+	#+BEGIN_SRC emacs-lisp
+      (setq disabled-command-function nil)
+	#+END_SRC
+
+	By default Emacs disables some commands that have to be manually
+	enabled by the user, when the keybinding is used or the function is
+	called. This snippet ([[https://www.emacswiki.org/emacs/DisabledCommands][source]]) disables this by default, thus
+	enabling all commands.
+
 *** Uniquify
 	#+BEGIN_SRC emacs-lisp
       (setq uniquify-buffer-name-style 'forward
