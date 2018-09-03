@@ -1,3 +1,0 @@
-[submodule "lisp/znc"]
-	path = lisp/znc
-	url = https://github.com/sshirokov/ZNC.el
