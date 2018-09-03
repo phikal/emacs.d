@@ -1001,7 +1001,6 @@
             org-agenda-files (list org-directory)
             org-agenda-include-diary t
             org-agenda-window-setup 'current-window
-            org-agenda-sticky t
             org-use-speed-commands t
             org-default-notes-file (expand-file-name "notes.org" org-directory))
 	#+END_SRC
