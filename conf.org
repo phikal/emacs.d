@@ -497,7 +497,7 @@
 	When asynchronously running commands, only create a /new/ output
 	buffer, if one is needed.
 
-*** Week
+*** Calendar
 	#+BEGIN_SRC emacs-lisp
       (setq-default calendar-week-start-day 1
                     calendar-longitude 10.9887
