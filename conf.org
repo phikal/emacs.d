@@ -1112,9 +1112,8 @@
 *** Elfeed
 	#+BEGIN_SRC emacs-lisp
       (use-package elfeed
-        :init
-        (setq elfeed-use-curl t
-              elfeed-search-filter "@2-months-ago")
+        :config
+        (run-at-time nil (* 60 60) #'elfeed-update)
         :bind ("C-c f" . elfeed))
 	#+END_SRC
 
