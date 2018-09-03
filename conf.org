@@ -817,6 +817,11 @@
          (setq bbdb-mua-auto-update-p 'update
                bbdb-complete-mail-allow-cycling t
                bbdb-mua-pop-up nil
+               bbdb-popup-target-lines 1
+               bbdb-electric-p t
+               bbdb-use-pop-up t
+               bbdb-elided-display t
+               bbbd-message-caching-enabled t
                bbdb-completion-display-record nil
                bbdb-file (expand-file-name "bbdb" user-emacs-directory)
                compose-mail-user-agent-warnings nil)
