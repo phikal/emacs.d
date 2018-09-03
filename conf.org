@@ -735,11 +735,7 @@
                                                (nnimap "faumail.fau.de"
                                                        (nnimap-streaming t)
                                                        (nnir-search-engine imap)))
-               mail-sources '((imap :server "faumail.fau.de")
-                              (imap :server "imap.fastmail.com"))
                gnus-group-sort-function 'gnus-group-sort-by-unread
-               gnus-fetch-old-headers 'some
-               gnus-thread-sort-functions '((not gnus-thread-sort-by-number))
                message-directory "~/etc/mail/"
                gnus-directory "~/etc/news/"
                gnus-treat-from-gravatar 'head
