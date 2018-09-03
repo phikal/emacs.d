@@ -1,5 +1,5 @@
 #+TITLE:	A Semi-literate Emacs Configuration
-#+OPTIONS:	num:nil toc:nil tags:t email:t H:4
+#+OPTIONS:	email:nil
 #+KEYWORDS: emacs dotfile config
 
 * Introductory comments
