@@ -1334,6 +1334,7 @@
               web-mode-enable-auto-quoting t
               web-mode-enable-auto-closing t
               web-mode-enable-auto-expanding t
+              web-mode-enable-auto-indentation nil
               web-mode-enable-auto-pairing nil)
         :mode (("\\.html\\'" . web-mode)
                ("\\.css\\'" . web-mode)
