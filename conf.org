@@ -1873,17 +1873,18 @@
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
     (dolist (bind '(("M-\"" . eshell)
-                    ("C-x p" . proced)
                     ("<f5>" . zge/toggle-dictionary)
                     ("<f6>" . zge/toggle-theme)
                     ("<f7>" . toggle-truncate-lines)
                     ("<f8>" . org-agenda-list)
-                    ("C-x M-k" . kill-buffer-and-window)
+                    ("C-c C-k" . compile)
                     ("C-c M-k" . recompile)
-                    ("C-x w" . man)
+                    ("C-c w" . man)
+                    ("C-c z" . proced)
+                    ("C-c d" . calendar)
+                    ("C-x M-k" . kill-buffer-and-window)
                     ("C-x j" . jump-to-register)
-                    ("C-M-<backspace>" . delete-region)
-                    ("C-x x" . calendar)))
+                    ("C-M-<backspace>" . delete-region)))
       (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
@@ -1921,7 +1922,6 @@
                  (local-set-key (kbd "C-;") 'comment-dwim)
                  (local-set-key (kbd "RET") 'newline-and-indent)
                  (local-set-key (kbd "C-:") 'indent-region)
-                 (local-set-key (kbd "C-c C-k") 'compile)
                  (local-set-key (kbd "C-c w") 'whitespace-mode)
                  (hs-minor-mode t)
                  (electric-indent-local-mode t)
