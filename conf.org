@@ -1128,6 +1128,7 @@
 	#+BEGIN_SRC emacs-lisp
       (use-package elfeed
         :config
+        (setq elfeed-search-filter "@1-month-ago +unread")
         (run-at-time nil (* 60 60) #'elfeed-update)
         :bind ("C-c f" . elfeed))
 	#+END_SRC
