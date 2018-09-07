@@ -1399,7 +1399,9 @@
 
 *** GUD/GDB
 	#+BEGIN_SRC emacs-lisp
-      (setq gdb-display-io-nopopup t)
+      (setq gdb-display-io-nopopup t
+            gdb-show-main t
+            gdb-many-windows t)
 	#+END_SRC
 
 	Currently my only option is to disable a "dedicated" I/O buffer,
