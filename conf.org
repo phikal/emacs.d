@@ -631,14 +631,6 @@
 	variables, extends the abilities of this very interesting minor
 	mode.
 
-	#+BEGIN_SRC emacs-lisp
-      (use-package diredfl
-        :init
-        (diredfl-global-mode))
-	#+END_SRC
-
-	Enable extra coloring in dired buffers.
-
 *** Hippie Expand
 	#+BEGIN_SRC emacs-lisp
       (setq hippie-expand-try-functions-list
