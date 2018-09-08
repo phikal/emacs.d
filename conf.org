@@ -1891,7 +1891,6 @@
   #+BEGIN_SRC emacs-lisp
     (dolist (bind '(("C-x C-b" . ibuffer)
                     ("C-z" . repeat)
-                    ("M-z" . ignore)
                     ("M-l" . downcase-dwim)
                     ("M-c" . capitalize-dwim)
                     ("M-u" . upcase-dwim)
