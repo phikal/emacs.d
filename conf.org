@@ -1382,8 +1382,7 @@
 	#+BEGIN_SRC emacs-lisp
       (use-package diff-hl
         :config
-        (global-diff-hl-mode)
-        (add-hook 'dired-mode-hook 'diff-hl-dired-mode))
+        (global-diff-hl-mode))
 	#+END_SRC
 
 	To display changes in version controlled files, =diff-hl= highlights
