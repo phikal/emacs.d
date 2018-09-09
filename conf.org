@@ -195,6 +195,23 @@
 
    When porting or copying from this configuration, these notes might
    help.
+
+** Software I have installed to aid Emacs
+   Emacs makes great use of external software, that's also installed on
+   the same system. The following list helps me remember what I have to
+   install on a new system, and for what purpose:
+
+   - msmtp :: [[SMTP][Mail configuration]]
+   - mpv :: [[Multimedia%20(EMMS)][Multimedia]]
+   - curl :: [[Elfeed][RSS/Atom feeds]]
+   - ledger :: [[Ledger][Double-entry accounting]]
+   - git :: [[Magit][Version controll]] (eg. for this file)
+   - aspell :: [[Spell%20Checking][Spell Checking]]
+
+   Compilers and interpreters for specific programming enjoyments aren't
+   listed here, since I don't necessarily have all of them installed,
+   even if they are set up to work in Emacs.
+
 * General Setup
 ** Lexical Scoping
    #+BEGIN_SRC emacs-lisp
