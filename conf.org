@@ -163,6 +163,10 @@
    - [[https://github.com/codemac/config/blob/master/emacs.d/boot.org][Jeff Mickey's (codemac) Emacs]] :: A bit untidy but extensive/long
         and quite clever literate configuration. Many variables worth
         knowing about, as well as good, thoughtful commentary.
+   - [[https://mrblog.nl/emacs/config.html][Marcel van der Boom's "Orgmode configuration"]] :: Impressively long
+        configuration with more-than-average commentary and many custom
+        functions to extend the default behavior of the many packages
+        mentioned. Seems to be written with a German keyboard in mind.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
