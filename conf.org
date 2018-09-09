@@ -586,6 +586,14 @@
 	Based on the [[https://www.emacswiki.org/emacs/CalendarLocalization#toc32][EmacsWiki /Calendar Localization/ Article]], I list inform
 	Emacs German/Bavarian holidays, since these are relevant to me.
 
+*** Writing while region is active
+	#+BEGIN_SRC emacs-lisp
+      (delete-selection-mode t)
+	#+END_SRC
+
+	When I've selected a region, and I type something, the region is
+	supposed to be deleted automatically.
+
 ** Spell Checking
    #+BEGIN_SRC emacs-lisp
      (setq-default ispell-program-name (executable-find "aspell")
