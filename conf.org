@@ -491,7 +491,7 @@
 
 *** Browser
 	#+BEGIN_SRC emacs-lisp
-      (setq-default browse-url-browser-function 'eww-browse-url
+      (setq-default browse-url-browser-function 'browse-url-firefox
                     eww-download-directory (expand-file-name "~/dl")
                     shr-color-visible-luminance-min 15
                     shr-color-visible-distance-min 5)
