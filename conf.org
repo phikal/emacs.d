@@ -1387,9 +1387,11 @@
 	#+BEGIN_SRC emacs-lisp
       (use-package ace-jump-mode
         :init
-        (setq ace-jump-allow-invisible t)
+        (setq ace-jump-allow-invisible t
+              ace-jump-mode-case-fold t
+              ace-jump-mode-move-keys '(?a ?s ?d ?f ?g ?h))
         :diminish ace-jump-mode
-        :bind (("C-c SPC" . ace-jump-mode)))
+        :bind ("C-c SPC" . ace-jump-mode))
 	#+END_SRC
 
 	When rewriting my configuration, I took the time to reread a lot of
