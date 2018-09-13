@@ -643,9 +643,10 @@
                     dired-recursive-deletes 'top
                     dired-ls-F-marks-symlinks t
                     dired-ls-sorting-switches "v"
+                    dired-omit-files-p nil
                     dired-listing-switches "-ABhl --group-directories-first")
 
-      (put 'dired-find-alternate-file 'disabled nil)
+      (require 'dired-x)
 	#+END_SRC
 
 	Not much to say: For the most part, a under-customized dired
