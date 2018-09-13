@@ -768,6 +768,7 @@
                                                        (nnimap-streaming t)
                                                        (nnir-search-engine imap)))
                gnus-group-sort-function 'gnus-group-sort-by-unread
+               gnus-thread-sort-functions '((not gnus-thread-sort-by-number))
                message-directory "~/etc/mail/"
                gnus-directory "~/etc/news/"
                gnus-treat-from-gravatar 'head
@@ -783,6 +784,9 @@
                gnus-agent t
                gnus-agent-go-online t
                gnus-agent-consider-all-articles t
+               gnus-save-newsrc-file nil
+               gnus-always-read-dribble-file t
+               gnus-message-archive-group nil
                gnus-use-full-window nil
                gnus-novice-user nil
                gnus-expert-user t)
@@ -790,7 +794,7 @@
          :config
          (gnus-demon-add-disconnection)
          (gnus-demon-add-scanmail)
-         :bind ("C-c n" . gnus))
+         :bind ("C-c m" . gnus))
 	 #+END_SRC
 
 	 My current mail setup is still a bit unstable, since I wrote in it
