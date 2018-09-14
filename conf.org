@@ -686,28 +686,6 @@
 	really cool. To aid this experience, I've set and ordered a few
 	extra expand functions, I find helpful.
 
-*** Helm
-	#+BEGIN_SRC emacs-lisp
-      (use-package helm
-        :disabled
-        :init
-        (setq helm-ff-guess-ffap-filenames t
-              helm-M-x-fuzzy-match t
-              helm-buffers-fuzzy-matching t
-              helm-recentf-fuzzy-match t)
-        :config
-        (helm-autoresize-mode t)
-        (helm-mode t)
-        :bind (("M-x" . helm-M-x)
-               ("C-h a" . helm-apropos)
-               ("C-x b" . helm-mini)
-               ("C-x C-b" . helm-buffers-list)
-               ("C-x C-f" . helm-find-files)
-               ("C-c h o" . helm-occur)))
-	#+END_SRC
-
-	This is my Helm setup, if I were to use it, which I currently don't.
-
 *** Terminal
 	#+BEGIN_SRC emacs-lisp
       (setq explicit-shell-file-name (executable-find "sh"))
