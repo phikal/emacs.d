@@ -891,9 +891,10 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package smex
          :config
-         (setq smex-save-file (expand-file-name "smex-items" user-emacs-directory))
-         :bind (("M-x" . smex)
-                ("M-X" . smex-major-mode-commands))
+         (setq smex-save-file (expand-file-name "smex-items" user-emacs-directory)
+               smex-flex-matching nil
+               smex-auto-update nil)
+         :bind ("M-x" . smex)
          :after ido)
 	 #+END_SRC
 
