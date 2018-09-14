@@ -206,11 +206,13 @@
    install on a new system, and for what purpose:
 
    - msmtp :: [[SMTP][Mail configuration]]
+   - gpg :: authinfo.gpg de-/encyrption
    - mpv :: [[Multimedia%20(EMMS)][Multimedia]]
    - curl :: [[Elfeed][RSS/Atom feeds]]
    - ledger :: [[Ledger][Double-entry accounting]]
    - git :: [[Magit][Version controll]] (eg. for this file)
    - aspell :: [[Spell%20Checking][Spell Checking]]
+   - ag :: [[Projectile][Project management]]
 
    Compilers and interpreters for specific programming enjoyments aren't
    listed here, since I don't necessarily have all of them installed,
