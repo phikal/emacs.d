@@ -361,7 +361,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (setq desktop-restore-frames nil
-           desktop-restore-eager t)
+           desktop-restore-eager 8)
 
      (desktop-save-mode t)
    #+END_SRC
