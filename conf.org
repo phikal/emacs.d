@@ -253,6 +253,15 @@
 	related tools, like scroll- toolbars, etc. This is done early on to
 	avoid redrawing during startup.
 
+	As an additional hack, I sometimes place the following in my
+	=.Xresources= file, which further improves the startup speed slightly:
+
+	#+BEGIN_EXAMPLE
+	emacs.toolBar: 0
+	emacs.menuBar: 0
+	emacs.verticalScrollBars: off
+	#+END_EXAMPLE
+
 *** Fonts
 	#+BEGIN_SRC emacs-lisp
       (set-face-attribute 'default nil
