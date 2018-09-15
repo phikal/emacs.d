@@ -1190,6 +1190,7 @@
               ledger-highlight-xact-under-point nil)
         (add-hook 'ledger-mode-hook
                   (lambda ()
+                    (add-hook 'before-save-hook 'ledger-mode-clean-buffer t t)
                     (company-mode)
                     (flyspell-mode-off)))
         :mode ("\\.lg\\'" . ledger-mode))
