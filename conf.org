@@ -1941,9 +1941,3 @@
 
    The only minor-mode I really use when writing text is flyspell. If I
    do need something else, I turn it on manually.
-
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'text-mode 'abbrev-mode)
-   #+END_SRC
-
-   Currently experimental: use =abbrev-mode= when writing.
