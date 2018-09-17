@@ -442,6 +442,7 @@
 	#+BEGIN_SRC emacs-lisp
       (defalias 'yes-or-no-p 'y-or-n-p)
       (defalias 'perl-mode 'cperl-mode)
+      (defalias 'ff 'find-file-other-window)
 	#+END_SRC
 
 	Don't use =perl-mode=, but =cperl-mode=! And instead of having to type
