@@ -1182,10 +1182,15 @@
         :config
         (emms-all)
         (emms-default-players)
+        (setq emms-source-file-default-directory "~/media/music")
         :bind (("C-c e SPC" . emms-pause)
                ("C-c e e" . emms)
                ("C-c e >" . emms-seek-forward)
-               ("C-c e <" . emms-seek-backward)))
+               ("C-c e <" . emms-seek-backward)
+               :map emms-playlist-mode-map
+               ("a" . emms-add-directory)
+               ("A" . emms-add-directory-tree)
+               ("M" . emms-mark-mode)))
 	#+END_SRC
 
 	In connection to [[elfeed]], I use emms (Emacs Multi-Media System) to
