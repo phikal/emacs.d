@@ -1466,7 +1466,8 @@
 	#+BEGIN_SRC emacs-lisp
       (use-package markdown-mode
         :init
-        (setq markdown-italic-underscore t)
+        (setq markdown-italic-underscore t
+              markdown-command "cmark")
         (add-hook 'markdown-mode-hook 'turn-on-auto-fill))
 	#+END_SRC
 
