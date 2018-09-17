@@ -764,6 +764,8 @@
                gnus-treat-from-gravatar 'head
                gnus-treat-mail-gravatar 'head
                mm-discouraged-alternatives '("text/html" "text/richtext")
+               mm-verify-option 'always
+               mm-decrypt-option 'always
                gnus-posting-styles '(("faumail.fau.de"
                                       (signature "Hochachtungsvoll\nPhilip K.")
                                       (address "philip.kaludercic@fau.de"))
@@ -777,6 +779,13 @@
                gnus-save-newsrc-file nil
                gnus-always-read-dribble-file t
                gnus-message-archive-group nil
+               gnus-message-replyencrypt t
+               gnus-message-replysign t
+               gnus-message-replysignencrypted t
+               mml2015-encrypt-to-self t
+               mml2015-always-trust nil
+               mml2015-sign-with-sender t
+               gnus-treat-x-pgp-sig t
                gnus-use-full-window nil
                gnus-novice-user nil
                gnus-expert-user t)
