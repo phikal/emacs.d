@@ -1211,36 +1211,17 @@
               erc-kill-queries-on-quit t
               erc-rename-buffers t
               erc-interpret-mirc-color t
-              erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                        "324" "329" "332" "333" "353" "477")
-              erc-log-channels-directory (expand-file-name "erc-logs/" user-emacs-directory)
-              erc-prompt ">"
-              erc-nick '("zge" "zge_" "zge__"))
-        :config
-        (require 'znc))
+              erc-prompt-for-password nil
+              erc-hide-list '("JOIN" "PART" "QUIT")
+              erc-prompt "> "
+              erc-nick '("zge" "zge_" "zge__")))
 	#+END_SRC
 
-	For IRC, I use ERC's little sibling, rcirc, and connect to my
-	bouncer server.
+	For IRC, I use ERC and connect to my bouncer server.
 
 *** Ibuffer
 	#+BEGIN_SRC emacs-lisp
-      (setq ibuffer-expert t
-            ibuffer-saved-filter-groups `(("default")
-                                          ("personal"
-                                           ("emacs" (or (name . "^\\*scratch\\*$")
-                                                        (name . "^\\*Messages\\*$")
-                                                        (name . "^\\*Help\\*$")
-                                                        (name . "^\\*Completions\\*$")
-                                                        (filename . ,user-emacs-directory)))
-                                           ("org" (mode . org-mode))
-                                           ("go" (filename . "code/go"))
-                                           ("web" (filename . "code/web"))
-                                           ("lisp" (filename . "code/lisp"))
-                                           ("c" (filename . "code/c"))
-                                           ("media" (or (mode . pdf-view-mode)
-                                                        (mode . image-mode)))
-                                           ("dired" (mode . dired-mode)))))
+      (setq ibuffer-expert t)
 	#+END_SRC
 
 	Ibuffer has turned out to be quite a nifty alternative to
