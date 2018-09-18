@@ -1088,11 +1088,10 @@
 	 enable.
 
 	 #+BEGIN_SRC emacs-lisp
-       (add-hook 'org-mode-hook
-                 (lambda ()
-                   (turn-on-auto-fill)
-                   (flyspell-mode-off)
-                   (flyspell-prog-mode)))
+       (dolist (hook '(turn-on-auto-fill
+                       flyspell-mode-off
+                       flyspell-prog-mode))
+         (add-hook 'org-mode-hook hook))
 	 #+END_SRC
 
 	 Since most of the text I write in org-mode is prose, =auto-fill-mode=
