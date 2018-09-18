@@ -1817,10 +1817,13 @@
      (defun zge/curl (url)
        "Paste the content behind URL into a new buffer."
        (interactive "Murl: ")
-       (let ((buf (get-buffer-create (file-name-base url))))
+       (let* ((bufname (file-name-base url))
+              (buf (get-buffer-create (if (string-empty-p bufname) "*curl*" bufname))))
          (shell-command (concat "curl --silent " url) buf)
          (with-current-buffer buf (set-auto-mode))
          (switch-to-buffer buf)))
+
+     (defalias 'curl 'zge/curl)
    #+END_SRC
 
    Sometimes I just want to easily view some code in emacs (eg. a raw
