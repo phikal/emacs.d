@@ -490,12 +490,10 @@
 
 *** Setting the right mode
 	#+BEGIN_SRC emacs-lisp
-      (setq-default major-mode
-                    (lambda ()
-                      (if buffer-file-name
-                          (fundamental-mode)
-                        (let ((buffer-file-name (buffer-name)))
-                          (set-auto-mode)))))
+      (setq-default major-mode (lambda ()
+                                 (unless buffer-file-name
+                                   (let ((buffer-file-name (buffer-name)))
+                                     (set-auto-mode)))))
 	#+END_SRC
 
 	When creating new buffers, use =auto-mode-alist= to automatically set
