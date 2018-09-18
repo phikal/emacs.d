@@ -1263,6 +1263,13 @@
 	When translating or writing texts, this package shows itself to be
 	quite helpful, when I can't thing of a word.
 
+*** Go/Baduk
+	#+BEGIN_SRC emacs-lisp
+      (use-package gnugo)
+	#+END_SRC
+
+	Play Go in Emacs.
+
 ** Programming
 *** gnuplot
 	#+BEGIN_SRC emacs-lisp
