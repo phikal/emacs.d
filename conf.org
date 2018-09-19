@@ -266,10 +266,10 @@
 	#+BEGIN_SRC emacs-lisp
       (set-face-attribute 'default nil
                           :font "Hack"
-                          :height 140)
+                          :height 130)
       (set-face-attribute 'variable-pitch nil
                           :font "Lato"
-                          :height 130)
+                          :height 120)
 	#+END_SRC
 
 	My fonts are configured and changed frequently, making any more
