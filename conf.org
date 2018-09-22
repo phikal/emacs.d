@@ -1095,16 +1095,16 @@
 	 enable.
 
 	 #+BEGIN_SRC emacs-lisp
-       (dolist (hook '(turn-on-auto-fill
-                       flyspell-mode-off
+       (dolist (hook '(flyspell-mode-off
                        flyspell-prog-mode))
          (add-hook 'org-mode-hook hook))
 	 #+END_SRC
 
-	 Since most of the text I write in org-mode is prose, =auto-fill-mode=
-	 seems to show itself to be convenient. I no longer require myself
-	 to use =M-q= after each sentence or even work. Instead I can focus
-	 (or at least try to) on the actual text I am writing.
+	 Default =flyspell-mode= complains about terms such as ~#+BEGIN_SRC~,
+	 but =flyspell-prog-mode= is intelligent enough to ignore these, make
+	 sure the former is turned off, while the latter is activated (it's
+	 activated in the first place because =org-mode= inherits =text-mode='s
+	 hooks).
 
 	 #+BEGIN_SRC emacs-lisp
        (setq org-clock-into-drawer t)
@@ -1497,8 +1497,7 @@
       (use-package markdown-mode
         :init
         (setq markdown-italic-underscore t
-              markdown-command "cmark")
-        (add-hook 'markdown-mode-hook 'turn-on-auto-fill))
+              markdown-command "cmark"))
 	#+END_SRC
 
 	Markdown is probably one of the most popular markup languages around
@@ -1975,3 +1974,7 @@
 
    The only minor-mode I really use when writing text is flyspell. If I
    do need something else, I turn it on manually.
+
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'text-mode-hook 'turn-on-auto-fill))
+   #+END_SRC
