@@ -1587,6 +1587,7 @@
       (use-package pdf-tools
         :config
         (pdf-tools-install)
+        (setq pdf-view-display-size 'fit-page)
         :mode ("\\.pdf\\'" . pdf-view-mode))
 	#+END_SRC
 
