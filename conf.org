@@ -417,15 +417,6 @@
 
 	Don't warn me about /larger-but-not-actually-that-large/ files.
 
-*** Full screening
-	#+BEGIN_SRC emacs-lisp
-      (when (file-exists-p (expand-file-name "~/.emacs.d/fullscreen"))
-        (toggle-frame-maximized))
-	#+END_SRC
-
-	Conditionally fullscreen the Emacs frame, if a (any) file names
-	=fullscreen= is found in =.emacs.d=.
-
 *** Disabled functions
 	#+BEGIN_SRC emacs-lisp
       (setq disabled-command-function nil)
