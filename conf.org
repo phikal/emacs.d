@@ -870,53 +870,21 @@
 	 Install and setup /BBDB/ (Insidious Big Brother Database) for contact
 	 management, and enable completion in message buffers.
 
-*** Ido
-**** Basic
-	 #+BEGIN_SRC emacs-lisp
-       (use-package ido
-         :config
-         (setq ido-enable-tramp-completion t
-               ido-create-new-buffer 'always
-               ido-ignore-extensions t
-               ido-auto-merge-work-directories-length -1
-               ido-max-dir-file-cache 0
-               ido-max-work-file-list 0
-               ido-max-prospects 8)
-         :init
-         (ido-mode t)
-         (ido-everywhere t))
-	 #+END_SRC
+*** Ivy
+	#+BEGIN_SRC emacs-lisp
+      (use-package ivy
+        :diminish ivy-mode
+        :init
+        (setq ivy-wrap t
+              ivy-use-virtual-buffers t
+              ivy-initial-inputs-alist nil)
+        :config
+        (ivy-mode t))
+	#+END_SRC
 
-	 In spite of many suggestions to the contrary (or rather in support
-	 of Helm), I use =Ido= to extend the default =find-file=,
-	 =switch-to-buffer=, ... commands. I didn't derive any read advantages
-	 from Helm, and =Ido= did everything I had to.
-
-**** Vertical
-	 #+BEGIN_SRC emacs-lisp
-       (use-package ido-vertical-mode
-         :init
-         (ido-vertical-mode t)
-         :after ido)
-	 #+END_SRC
-
-	 Vertically displaying ido queries doesn't really change anything
-	 substantially, but instead just offers a nice visual feeling, and
-	 maybe a slightly cleaner overview.
-
-**** Smex
-	 #+BEGIN_SRC emacs-lisp
-       (use-package smex
-         :config
-         (setq smex-save-file (expand-file-name "smex-items" user-emacs-directory)
-               smex-flex-matching nil
-               smex-auto-update nil)
-         :bind ("M-x" . smex)
-         :after ido)
-	 #+END_SRC
-
-	 =Smex= doesn't do much more than adding Ido-support to the default
-	 =execute-extended-command= (=M-x=) keybinding.
+	I use Ivy to extend the default =find-file=, =switch-to-buffer=,
+	etc. commands. Compared to it's alternatives, Ivy is simpler that
+	Helm but more powerful (and faster) than Ido.
 
 *** =flyspell-mode=
 	#+BEGIN_SRC emacs-lisp
@@ -1464,6 +1432,7 @@
               projectile-keymap-prefix (kbd "M-p")
               projectile-switch-project-action 'projectile-dired)
         :config
+              projectile-completion-system 'ivy)
         (projectile-mode t)
         :bind (("C-c s" . projectile-ag)))
 	#+END_SRC
