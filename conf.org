@@ -1483,8 +1483,6 @@
                                      brace-else-brace
                                      brace-elseif-brace)
                     c-tab-always-indent t)
-
-      (add-hook 'c-mode-hook 'zge/autoformat-on-save)
 	#+END_SRC
 
 	From what one can see, it is obvious that I still have to get around
@@ -1798,20 +1796,6 @@
    Sometimes I just want to easily view some code in emacs (eg. a raw
    github gist), and this functions just makes it easier.
 
-** Wicd configuration
-   #+BEGIN_SRC emacs-lisp
-     (defvar wicd-curses "wicd-curses"
-       "Name of the binary that `wicd' should call")
-
-     (defun wicd nil
-       "Start a terminal session to configure the WiFi connection"
-       (interactive)
-       (term (executable-find wicd-curses)))
-   #+END_SRC
-
-   If my device uses Wicd for networking, this auxiliary function makes
-   it easier to set up connections.
-
 ** Timestamp
    #+BEGIN_SRC emacs-lisp
      (defun zge/add-timestamp (arg)
@@ -1837,33 +1821,6 @@
    #+END_SRC
 
    For my ad-hoc blog, I insert a UNIX timestamp 
-
-** Autoformat on save
-   #+BEGIN_SRC emacs-lisp
-     (defvar zge/dont-autoformat t
-       "Prevent a buffer from formatting before saving")
-
-     (defun zge/autoformat-on-save (&optional arg)
-       "Mark the  current paragraph and indent it."
-       (interactive)
-       (when (not zge/dont-autoformat)
-         (save-excursion
-           (if arg
-               (progn (push-mark (point))
-                      (push-mark (point-max) nil t)
-                      (goto-char (point-min)))
-             (mark-paragraph))
-           (indent-region (point-min) (point-max)))))
-   #+END_SRC
-
-   Under some programming modes, it is convenient to have Emacs format
-   the buffer before saving it. If this function is added to the
-   =before-save-hook= (as is done in the =[[%3Dc-mode%3D][c-mode]]= section), Emacs will do
-   this.
-
-   In case the feature is not wished for, since the file is too big or
-   has a specific formatting, this can be disabled by locally setting
-   =zge/dont-autoformat=.
 
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
