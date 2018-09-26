@@ -1372,16 +1372,6 @@
    	bound to =C-o= (not the recommended default) without any further
    	configuration.
 
-*** =diff-hl=
-	#+BEGIN_SRC emacs-lisp
-      (use-package diff-hl
-        :config
-        (global-diff-hl-mode))
-	#+END_SRC
-
-	To display changes in version controlled files, =diff-hl= highlights
-	the parts of the file that have been changed.
-
 *** GUD/GDB
 	#+BEGIN_SRC emacs-lisp
       (setq gdb-display-io-nopopup t
