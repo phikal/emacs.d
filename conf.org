@@ -709,7 +709,7 @@
 
 	Don't keep the buffer around as soon as the process ends.
 
-*** =which-key=
+*** Keybinding discovery
 	#+BEGIN_SRC emacs-lisp
       (use-package which-key
         :diminish which-key-mode
@@ -872,43 +872,43 @@
 
 *** Ivy
 	#+BEGIN_SRC emacs-lisp
-      (use-package ivy
-        :diminish ivy-mode
-        :init
-        (setq ivy-wrap t
-              ivy-use-virtual-buffers t
-              ivy-initial-inputs-alist nil)
-        :config
-        (ivy-mode t))
+	  (use-package ivy
+		:diminish (ivy-mode counsel-mode)
+		:init
+		(setq ivy-wrap t
+			  ivy-fancy t
+			  ivy-display-style 'fancy
+			  ivy-use-virtual-buffers t
+			  ivy-re-builders-alist '((t . ivy--regex-plus)))
+		:config
+		(ivy-mode t)
+		(counsel-mode t))
 	#+END_SRC
 
 	I use Ivy to extend the default =find-file=, =switch-to-buffer=,
 	etc. commands. Compared to it's alternatives, Ivy is simpler that
-	Helm but more powerful (and faster) than Ido.
+	Helm but more powerful (and faster) than Ido. Counsel extends this
+	to further integrage Ivy features into default commands, such as =M-x=,
+	=C-x b= or =C-x C-f=.
 
-*** =flyspell-mode=
 	#+BEGIN_SRC emacs-lisp
-      (setq-default flyspell-issue-welcome-flag nil
-                    flyspell-issue-message-flag nil)
+      (use-package flx
+        :config
+        (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-fuzzy))
+        :after ivy)
+	#+END_SRC
+
+*** Spell Checking
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default flyspell-issue-welcome-flag nil
+					flyspell-issue-message-flag nil)
 	#+END_SRC
 
 	When writing prose, or just comments, =flyspell-mode= (and
 	=flyspell-prog-mode=) prove themselves to be valuable utilities,
 	albeit a bit slow and cumbersome from time to time...
 
-*** =woman-mode=
-	#+BEGIN_SRC emacs-lisp
-      (setq-default woman-manpath "/usr/share/man/"
-                    woman-use-topic-at-point t
-                    woman-use-extended-font t
-                    woman-use-own-frame nil)
-	#+END_SRC
-
-	=woman-mode= (w/o man) is a pure elisp alternative to =man-mode= and in
-	general, seems to produce a few better results, due to seemingly
-	being more easily configurable, as shown above.
-
-*** =calc=
+*** RPN Calculator
 	#+BEGIN_SRC emacs-lisp
       (setq-default calc-angle-mode 'rad
                     calc-shift-prefix t
@@ -1239,7 +1239,7 @@
 	Play Go in Emacs.
 
 ** Programming
-*** gnuplot
+*** Gnuplot
 	#+BEGIN_SRC emacs-lisp
       (use-package gnuplot
         :interpreter ("gnuplot" . gnuplot-mode)
@@ -1294,22 +1294,22 @@
 	in every programming mode, so I "diminish" the minor mode, since it
 	clutters up the mode line more than it has to.
 
-*** =multiple-cursors=
-	#+BEGIN_SRC emacs-lisp
-      (use-package multiple-cursors
-        :bind (("C-<" . mc/mark-previous-like-this)
-               ("C->" . mc/mark-next-like-this)
-               ("C-S-n" . mc/mark-next-lines)
-               ("C-S-p" . mc/mark-previous-lines)
-               ("C-M-;" . mc/mark-all-like-this-dwim)))
-	#+END_SRC
+*** Multiple Cursors
+   	#+BEGIN_SRC emacs-lisp
+	  (use-package multiple-cursors
+	   	:bind (("C-<" . mc/mark-previous-like-this)
+			   ("C->" . mc/mark-next-like-this)
+			   ("C-S-n" . mc/mark-next-lines)
+			   ("C-S-p" . mc/mark-previous-lines)
+			   ("C-M-;" . mc/mark-all-like-this-dwim)))
+   	#+END_SRC
 
-	It doesn't take long to adjust to =multiple-cursors-mode=, and it is a
-	feature one turns out to use surprisingly often. While it's not as
-	native or quick, as in other editors (I'm thinking of [[https://github.com/martanne/vis][vis]]), it's for
-	the most part entirely sufficient for my causes.
+   	It doesn't take long to adjust to =multiple-cursors-mode=, and it is a
+   	feature one turns out to use surprisingly often. While it's not as
+   	native or quick, as in other editors (I'm thinking of [[https://github.com/martanne/vis][vis]]), it's for
+   	the most part entirely sufficient for my causes.
 
-*** =web-mode=
+*** Web Development
 	#+BEGIN_SRC emacs-lisp
       (use-package web-mode
         :init
@@ -1346,7 +1346,7 @@
 	editor down, but for the amount of Scheme programming I do it's
 	entirely sufficient.
 
-*** =ace-jump-mode=
+*** In-Buffer Jumping
 	#+BEGIN_SRC emacs-lisp
       (use-package ace-jump-mode
         :init
@@ -1362,7 +1362,7 @@
 	often saw people use was =ace-jump-mode= -- something I was conscious
 	that it existed, but never used myself.
 
-*** =ace-window=
+*** Window Jumping
    	#+BEGIN_SRC emacs-lisp
 	  (use-package ace-window
 	   	:bind ("M-o" . ace-window))
@@ -1470,7 +1470,7 @@
 	For simple previews, I've set [[https://kristaps.bsd.lv/lowdown][lowdown]] as my markdown processor, due
 	to it's speed (as compared to =markdown.pl= or Pandoc).
 
-*** =c-mode=
+*** C
 	#+BEGIN_SRC emacs-lisp
       (setq-default c-electric-flag t
                     c-auto-newline nil
@@ -1554,7 +1554,7 @@
 	Adding PDF-Tools let's me use emacs properly for opening PDFs,
 	making me less dependant on external tools and window managers.
 
-*** =go-mode=
+*** Go
 	#+BEGIN_SRC emacs-lisp
       (use-package go-mode
         :init
@@ -1592,7 +1592,7 @@
 	- [[https://github.com/rogpeppe/godef][godef]]
 	- [[https://golang.org/x/tools/cmd/goimports][goimports]]
 
-*** =company=
+*** Auto Completion
 	#+BEGIN_SRC emacs-lisp
       (use-package company
         :config
@@ -1614,7 +1614,7 @@
 	Generally speaking, I have had a better experiance with =company= as
 	compared to =auto-complete-mode=. The
 
-*** =magit=
+*** Version Control
 	#+BEGIN_SRC emacs-lisp
       (use-package magit
         :init
@@ -1630,14 +1630,14 @@
 	out how minimal it's configuration needs to be (at least for me),
 	without being in any sense annoying or otherwise inconvenient.
 
-*** =flycheck=
+*** Error Checking
 	#+BEGIN_SRC emacs-lisp
-      (use-package flycheck
-        :config
-        (setq-default flycheck-disabled-checkers
-                      '(emacs-lisp-checkdoc))
-        :bind (("C-c <right>" . next-error)
-               ("C-c <left>" . previous-error)))
+	  (use-package flycheck
+		:config
+		(setq-default flycheck-disabled-checkers
+					  '(emacs-lisp-checkdoc))
+		:bind (("C-c <right>" . next-error)
+			   ("C-c <left>" . previous-error)))
 	#+END_SRC
 
 	Besides installing flycheck, also disable the Elisp warning
