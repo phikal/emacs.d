@@ -1407,12 +1407,13 @@
         :diminish projectile-mode
         :init
         (setq projectile-enable-caching t
-              projectile-keymap-prefix (kbd "M-p")
-              projectile-switch-project-action 'projectile-dired)
-        :config
+              projectile-switch-project-action 'projectile-dired
               projectile-completion-system 'ivy)
+        :config
+        (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
         (projectile-mode t)
-        :bind (("C-c s" . projectile-ag)))
+        :bind (("C-c s" . projectile-ag))
+        :after ivy)
 	#+END_SRC
 
 	While I for the most part dislike using global modes, it seems like
