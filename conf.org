@@ -755,7 +755,12 @@
                                                (nnimap "faumail.fau.de"
                                                        (nnimap-streaming t)
                                                        (nnir-search-engine imap)))
-               gnus-group-sort-function 'gnus-group-sort-by-unread
+               gnus-posting-styles '(("faumail.fau.de"
+                                      (signature "Hochachtungsvoll\nPhilip K.")
+                                      (address "philip.kaludercic@fau.de"))
+                                     ("imap.fastmail.com"
+                                      (signature "Sincerely\nPhilip K.")
+                                      (address "philip@warpmail.net")))
                gnus-thread-sort-functions '((not gnus-thread-sort-by-number))
                message-directory "~/etc/mail/"
                gnus-directory "~/etc/news/"
@@ -764,24 +769,14 @@
                mm-discouraged-alternatives '("text/html" "text/richtext")
                mm-verify-option 'always
                mm-decrypt-option 'always
-               gnus-posting-styles '(("faumail.fau.de"
-                                      (signature "Hochachtungsvoll\nPhilip K.")
-                                      (address "philip.kaludercic@fau.de"))
-                                     ("imap.fastmail.com"
-                                      (signature "Sincerely\nPhilip K.")
-                                      (address "philip@warpmail.net")))
+               mm-inline-large-images t
                epa-pinentry-mode 'loopback
                gnus-agent t
-               gnus-agent-go-online t
                gnus-agent-consider-all-articles t
                gnus-save-newsrc-file nil
-               gnus-always-read-dribble-file t
-               gnus-message-archive-group nil
                gnus-message-replyencrypt t
                gnus-message-replysign t
                gnus-message-replysignencrypted t
-               mml2015-encrypt-to-self t
-               mml2015-always-trust nil
                mml2015-sign-with-sender t
                gnus-treat-x-pgp-sig t
                gnus-use-full-window nil
@@ -789,7 +784,6 @@
                gnus-expert-user t)
          (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
          :config
-         (gnus-demon-add-disconnection)
          (gnus-demon-add-scanmail)
          :bind ("C-c m" . gnus))
 	 #+END_SRC
@@ -847,24 +841,17 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package bbdb
          :init
-         (setq bbdb-mua-auto-update-p 'update
+         (setq bbdb-mua-auto-update-p nil
                bbdb-complete-mail-allow-cycling t
-               bbdb-mua-pop-up nil
-               bbdb-popup-target-lines 1
-               bbdb-electric-p t
-               bbdb-use-pop-up t
-               bbdb-elided-display t
-               bbbd-message-caching-enabled t
+               bbdb-use-pop-up nil
                bbdb-completion-display-record nil
                bbdb-file (expand-file-name "bbdb" user-emacs-directory)
                compose-mail-user-agent-warnings nil)
          :config
          (bbdb-initialize 'gnus 'message 'pgp)
-         (bbdb-mua-auto-update-init 'message)
-         (bbdb-mua-auto-update-init 'gnus 'message)
          (define-key message-mode-map (kbd "M-<tab>") 'bbdb-complete-mail)
-         (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-         :after gnus)
+         :after gnus
+         :bind ("C-c b" . bbdb))
 	 #+END_SRC
 
 	 Install and setup /BBDB/ (Insidious Big Brother Database) for contact
