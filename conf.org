@@ -1136,22 +1136,21 @@
         :config
         (emms-all)
         (emms-default-players)
-        (setq emms-source-file-default-directory "~/media/music")
-        :bind (("<XF86AudioPlay>" . emms-pause)
-               ("<XF86AudioPrev>" . emms-previous)
-               ("<XF86AudioNext>" . emms-next)
+        (setq emms-source-file-default-directory "~/media/music"
+              emms-player-list '(emms-player-mpv))
+        (add-to-list 'emms-info-functions 'emms-info-ogginfo)
+        (add-to-list 'emms-info-functions 'emms-info-mp3info)
+        :bind (("C-c e e" . emms-playlist-mode-go)
                ("C-c e SPC" . emms-pause)
-               ("C-c e e" . emms)
                ("C-c e >" . emms-seek-forward)
                ("C-c e <" . emms-seek-backward)
                :map emms-playlist-mode-map
                ("a" . emms-add-directory)
-               ("A" . emms-add-directory-tree)
-               ("M" . emms-mark-mode)))
+               ("A" . emms-add-directory-tree)))
 	#+END_SRC
 
 	In connection to [[elfeed]], I use emms (Emacs Multi-Media System) to
-	play podcasts and maybe even music.
+	play podcasts and +maybe+ even music.
 
 *** Ledger
 	#+BEGIN_SRC emacs-lisp
