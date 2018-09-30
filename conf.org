@@ -22,6 +22,8 @@
   [[https://zge.us.to/git/emacs.d/][Git history]] (+source) is also public (alternatively also to be found
   on [[https://github.com/phikal/emacs.d/][GitHub]]).
 
+  Time of export: {{{time(%c)}}}.
+
 ** Personal Emacs History
    My first encounters with Emacs must have been somewhere around late
    2014, when I was looking around to find a proper text
