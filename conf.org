@@ -181,21 +181,21 @@
    Emacs on, by assuming a certain standardized directory structure, as
    follows:
 
-   #+BEGIN_EXAMPLE
-	 ~/							 home
-	 ~/code/					 programming and sysadmin related files
-	 ~/code/{c,haskell,go,...}	 directories devoted to specific programming languages
-	 ~/code/etc/...				 various other projects (including emacs source)
-	 ~/dl/						 downloads gathering directory, preferably empty
-	 ~/doc/						 texts, presentations and notes
-	 ~/doc/org/					 most org-mode related files
-	 ~/media/					 general directory for digial media
-	 ~/media/{img,vid,music,...} specific media directories
-	 ~/etc/						 various other directories
-	 ~/etc/bin/					 user binaries
-	 ~/etc/{mail,news,pub}		 gnus related directories
-	 ~/etc/sync					 syncthing directory
-   #+END_EXAMPLE
+   | Directory                     | Use                                                   |
+   |-------------------------------+-------------------------------------------------------|
+   | =~/=                          | home                                                  |
+   | =~/code/=                     | programming and sysadmin related files                |
+   | =~/code/{c,haskell,go,...}=   | directories devoted to specific programming languages |
+   | =~/code/etc/...=              | various other projects (including emacs source)       |
+   | =~/dl/=                       | downloads gathering directory, preferably empty       |
+   | =~/doc/=                      | texts, presentations and notes                        |
+   | =~/doc/org/=                  | most org-mode related files                           |
+   | =~/media/=                    | general directory for digial media                    |
+   | =~/media/{img,vid,music,...}= | specific media directories                            |
+   | =~/etc/=                      | various other directories                             |
+   | =~/etc/bin/=                  | user binaries                                         |
+   | =~/etc/{mail,news,pub}=       | gnus related directories                              |
+   | =~/etc/sync=                  | syncthing directory                                   |
 
    When porting or copying from this configuration, these notes might
    help.
