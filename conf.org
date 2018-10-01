@@ -1008,6 +1008,7 @@
        (use-package emms
          :config
          (emms-all)
+         (emms-default-players)
          (setq emms-source-file-default-directory "~/media/music")
          (add-to-list 'emms-info-functions 'emms-info-ogginfo)
          (add-to-list 'emms-info-functions 'emms-info-mp3info)
