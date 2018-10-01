@@ -673,15 +673,6 @@
 	 select increasingly larger semantically meaningful regions. I've
 	 bound it to the recommended default
 
-**** Move text
-	 #+BEGIN_SRC emacs-lisp
-       (use-package move-text
-         :bind (("M-<up>" . move-text-up)
-                ("M-<down>" . move-text-down)))
-	 #+END_SRC
-
-	 Allow regions to be arbitrarily pushed around.
-
 **** Jump in Buffer
 	 #+BEGIN_SRC emacs-lisp
        (use-package avy
