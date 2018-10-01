@@ -311,6 +311,21 @@
 
 	These settings are purely personal preferences.
 
+*** Empty Lines
+	#+BEGIN_SRC emacs-lisp
+      (defun turn-indicate-empty-lines-on ()
+        (setq indicate-empty-lines t))
+
+      (add-hook 'prog-mode-hook #'turn-indicate-empty-lines-on)
+      (add-hook 'text-mode-hook #'turn-indicate-empty-lines-on)
+      (add-hook 'dired-mode-hook #'turn-indicate-empty-lines-on)
+	#+END_SRC
+
+	This option makes Emacs populate the left-hand fringe with little
+	lines indicating space the frame uses, but the buffer doesn't. This
+	only makes sense for buffers I edit manually, like text or programs
+	(less so in Eshell and Magit) so I enable it using a hook.
+
 *** Exiting Emacs
 	#+BEGIN_SRC emacs-lisp
 	  (setq confirm-kill-emacs 'yes-or-no-p)
