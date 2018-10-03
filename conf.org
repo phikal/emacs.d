@@ -1686,7 +1686,7 @@
      (defun zge/toggle-dictionary (&optional lang)
        "Toggle the Ispell dictionary from English to German and vice versa."
        (interactive)
-       (unless zge/dict-ring
+       (unless (boundp 'zge/dict-ring)
          (setq-local zge/dict-ring
                      (let ((ring (make-ring (length zge/dicts))))
                        (mapc (lambda (l) (ring-insert ring l))
