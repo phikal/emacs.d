@@ -11,7 +11,7 @@
   on your system, and call it using ~org-babel-load-file~. Furthermore,
   make sure that you've loaded the ~cl-lib~ module with ~require~.
 
-  This document, it's code and comments, are in the public domain.
+  This document, it's code and comments, are in the [[https://creativecommons.org/publicdomain/zero/1.0/deed][public domain]].
 
   The following configuration has been tested on a few different
   systems, with different Emacs versions, but nothing below 25. Ideally
