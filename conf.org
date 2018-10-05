@@ -134,7 +134,10 @@
    interesting configurations:
 
    - [[http://archive.is/qw0r8][Org Mode -- Organize Your Life in Plain Text!]] :: this is not
-		strictly a config, but it's an overall great =org-mode= overview
+        strictly a config, but it's an overall great =org-mode=
+        overview. Less on the topic of configurations, and more on the
+        topic of =org-mode=, [[http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html][Eric H. Neilsen's example page]] is very
+        useful to fall back on.
    - [[https://www.freebsd.org/doc/en/books/developers-handbook/emacs.html][Using Emacs as a Development Environment]] :: this offered a few
 		c-mode related tricks
    - [[https://www.dgp.toronto.edu/~ghali/emacs.html][Sheruf Ghali's Emacs config]] :: recommendable due to being an
