@@ -1801,7 +1801,7 @@
   #+BEGIN_SRC emacs-lisp
     (dolist (bind '(("M-\"" . eshell)
                     ("<f5>" . zge/toggle-dictionary)
-                    ("<f6>" . toggle-truncate-lines)
+                    ("<f6>" . zge/toggle-theme)
                     ("C-c C-k" . compile)
                     ("C-c M-k" . recompile)
                     ("C-c <C-return>" . man)
@@ -1809,6 +1809,7 @@
                     ("C-x M-k" . kill-buffer-and-window)
                     ("C-x j" . jump-to-register)
                     ("M-#". find-file-at-point)
+                    ("<print>" . other-window)
                     ("s-<up>" . windmove-up)
                     ("s-<down>" . windmove-down)
                     ("s-<left>" . windmove-left)
