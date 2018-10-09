@@ -1609,14 +1609,15 @@
          (setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt)
                yas-wrap-around-region t)
          :config
-         (define-key yas-minor-mode-map (kbd "<tab>")
-           (lambda ()
-             (interactive)
-             (if (and (eq last-command 'self-insert-command)
-                      (not (nth 3 (syntax-ppss)))  ; in string
-                      (not (nth 4 (syntax-ppss)))) ; in comment
-                 (yas-expand)
-               (indent-for-tab-command)))))
+         (defun indent-then-expand ()
+           (interactive)
+           (if (and (eq last-command 'indent-then-expand)
+                    (not (nth 3 (syntax-ppss)))
+                    (not (nth 4 (syntax-ppss))))
+               (yas-expand)
+             (indent-for-tab-command)))
+         (define-key yas-minor-mode-map (kbd "<tab>") #'indent-then-expand))
+
 	 #+END_SRC
 
 	 While I have previously had problems with yasnippets, mainly due to
