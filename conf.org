@@ -924,23 +924,28 @@
 
 **** IRC
 	 #+BEGIN_SRC emacs-lisp
-       (use-package erc
-         :disabled t
+       (use-package rcirc
          :init
-         (setq erc-join-buffer 'bury
-               erc-server-coding-system '(utf-8 . utf-8)
-               erc-kill-buffer-on-part t
-               erc-kill-queries-on-quit t
-               erc-rename-buffers t
-               erc-interpret-mirc-color t
-               erc-prompt-for-password nil
-               erc-hide-list '("JOIN" "PART" "QUIT")
-               erc-prompt "> "
-               erc-nick '("zge" "zge_" "zge__"))
-         :bind ("C-x x c" . erc))
+         (setq rcirc-server-alist
+               `(("zge.us.to"
+                  :user-name "zge"
+                  :nick "zge"
+                  :full-name ,user-full-name
+                  :password ,zge/znc-pass
+                  :port 23551
+                  :encryption tls))
+               rcirc-reconnect-delay 5
+               rcirc-omit-responses '("NICK" "AWAY"))
+         (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
+         (define-key rcirc-mode-map (kbd "C-x k") 'bury-buffer)
+         :config
+         (rcirc nil)
+         (rcirc-track-minor-mode t))
 	 #+END_SRC
 
-	 For IRC, I use ERC and connect to my bouncer server.
+	 For IRC, I use Rcirc and connect to my bouncer server (currently
+	 ZNC). The =zge/znc-pass= variables is declared in my [[*Emacs-generated%20files][custom.el]]
+	 file. On starting my Emacs session, rcirc automatically connects
 
 **** Elfeed
 	 #+BEGIN_SRC emacs-lisp
