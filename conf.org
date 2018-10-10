@@ -611,7 +611,9 @@
 ** Registers
    #+BEGIN_SRC emacs-lisp
      (let ((files `((?c . ,(expand-file-name "conf.org" user-emacs-directory))
+                    (?d . ,(expand-file-name "diary" user-emacs-directory))
                     (?n . "~/doc/org/notes.org")
+                    (?p . "~/doc/org/pers.org")
                     (?h . "~")
                     (?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
                     (?u . "~/doc/uni/")
