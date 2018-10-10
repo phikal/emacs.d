@@ -679,7 +679,12 @@
 **** Jump in Buffer
 	 #+BEGIN_SRC emacs-lisp
        (use-package avy
-         :bind ("C-z" . avy-goto-char))
+         :init
+         (unbind-key (kbd "C-z") global-map)
+         :config
+         (avy-setup-default)
+         :bind (("C-z C-z" . avy-goto-subword-1)
+                ("C-z z" . avy-goto-char)))
 	 #+END_SRC
 
 	 When editing text, most time isn't (or shouldn't be) spent on
