@@ -693,7 +693,7 @@
 	 manipulating text /per se/.
 
 *** Extensions
-**** Ivy
+**** Auto-completion
 	 #+BEGIN_SRC emacs-lisp
        (use-package ivy
          :diminish (ivy-mode counsel-mode)
@@ -723,7 +723,7 @@
          :after ivy)
 	 #+END_SRC
 
-**** Ibuffer
+**** Buffer overview
 	 #+BEGIN_SRC emacs-lisp
        (setq ibuffer-expert t)
 	 #+END_SRC
@@ -768,7 +768,7 @@
 	 UI making it more pleasant to work with and look at.
 
 *** OS Management and Tools
-**** Dired
+**** Directory Managment
 	 #+BEGIN_SRC emacs-lisp
        (setq-default dired-dwim-target t
                      dired-recursive-copies 'always
@@ -793,14 +793,14 @@
 	 variables, extends the abilities of this very interesting minor
 	 mode.
 
-**** Eshell
+**** Integrated Shell
 	 #+BEGIN_SRC emacs-lisp
        (setq-default eshell-banner-message "")
 	 #+END_SRC
 
 	 I don't need to know I am using eshell, thanks.
 
-**** Terminal
+**** Terminal Emulation
 	 #+BEGIN_SRC emacs-lisp
        (setq explicit-shell-file-name (executable-find "sh"))
 	 #+END_SRC
@@ -954,7 +954,7 @@
 	 ZNC). The =zge/znc-pass= variables is declared in my [[*Emacs-generated%20files][custom.el]]
 	 file. On starting my Emacs session, rcirc automatically connects
 
-**** Elfeed
+**** Feed Syndication
 	 #+BEGIN_SRC emacs-lisp
        (use-package elfeed
          :config
@@ -987,7 +987,7 @@
 	 webpages (and HTML emails) with peculiar background colors render
 	 better.
 
-**** Google Translate
+**** Translation
 	 #+BEGIN_SRC emacs-lisp
        (use-package google-translate
          :init
@@ -1053,7 +1053,7 @@
 	 In connection to [[elfeed]], I use emms (Emacs Multi-Media System) to
 	 play podcasts and +maybe+ even music.
 
-**** Ledger
+**** Accounting
 	 #+BEGIN_SRC emacs-lisp
        (use-package ledger-mode
          :init
