@@ -745,6 +745,21 @@
 	 since this conflics with my muscle memory for flycheck's
 	 next/previous error, so I use rebound the keys.
 
+**** Extended Help
+	 #+BEGIN_SRC emacs-lisp
+       (use-package helpful
+         :init
+         (setq helpful-switch-buffer-function 'pop-to-buffer-same-window)
+         :bind (("C-h f" . helpful-function)
+                ("C-h k" . helpful-key)
+                ("C-h v" . helpful-symbol)))
+	 #+END_SRC
+
+	 One of Emacs' greatest virtues is it's built in (or "self
+	 documenting") documentation system that helps the user explore what
+	 one can do and customize. This package extends/replaces the default
+	 UI making it more pleasant to work with and look at.
+
 *** OS Management and Tools
 **** Dired
 	 #+BEGIN_SRC emacs-lisp
@@ -1617,7 +1632,6 @@
                (yas-expand)
              (indent-for-tab-command)))
          (define-key yas-minor-mode-map (kbd "<tab>") #'indent-then-expand))
-
 	 #+END_SRC
 
 	 While I have previously had problems with yasnippets, mainly due to
