@@ -387,6 +387,13 @@
    behavior where buffers are being restored and Emacs, but because I
    stopped typing for a second.
 
+	#+BEGIN_SRC emacs-lisp
+      (save-place-mode t)
+	#+END_SRC
+
+	When re-entering a file, return to that place where I was when I
+	left it the last time.
+
 ** Backups
    #+BEGIN_SRC emacs-lisp
      (setq-default backup-directory-alist
@@ -486,13 +493,16 @@
 	Optionally, non-word characters are acceptable between the
 	punctuation and the whitespace, like when writing =_No!_= in Markdown.
 
-*** Save Place
+*** Emacs C source
 	#+BEGIN_SRC emacs-lisp
-      (save-place-mode t)
+      (let ((c-source (expand-file-name "~/code/etc/emacs/src")))
+        (when (file-directory-p c-source)
+          (setq find-function-C-source-directory c-source)))
 	#+END_SRC
 
-	When re-entering a file, return to that place where I was when I
-	left it the last time.
+	In case I have the Emacs C-source locally installed, I inform my
+	current session about it, in case I want to inspect some low level
+	code.
 
 *** Recent files
 	#+BEGIN_SRC emacs-lisp
