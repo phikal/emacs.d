@@ -555,6 +555,7 @@
                     calendar-latitude 49.4771
                     calendar-date-style 'iso
                     calendar-christian-all-holidays-flag t
+                    calendar-mark-holidays-flag t
                     calendar-mark-diary-entries-flag t)
 	#+END_SRC
 
