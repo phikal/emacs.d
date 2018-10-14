@@ -1578,7 +1578,7 @@
          (add-hook 'lisp-mode-hook 'enable-paredit-mode)
          (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
          :bind (:map paredit-mode-map
-                     ("M-\"" . eshell)))
+                     ("M-\"" . nil)))
 	 #+END_SRC
 
 	 Paredit isn't easy to get used to, but after a while (and a few
