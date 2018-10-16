@@ -189,8 +189,8 @@
    Emacs on, by assuming a certain standardized directory structure, as
    follows:
 
-   | Directory                     | Use                                                   |
-   |-------------------------------+-------------------------------------------------------|
+   | Directory                   | Use                                                   |
+   |-----------------------------+-------------------------------------------------------|
    | =~/=                          | home                                                  |
    | =~/code/=                     | programming and sysadmin related files                |
    | =~/code/{c,haskell,go,...}=   | directories devoted to specific programming languages |
@@ -237,10 +237,10 @@
 
 ** Package Management
    #+BEGIN_SRC emacs-lisp
-	 (require 'package)
-	 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-	 (setq package-enable-at-startup nil)
-	 (package-initialize)
+     (require 'package)
+     (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+     (setq package-enable-at-startup nil)
+     (package-initialize)
    #+END_SRC
 
    Only use ~melpa-stabe~ besides the standard gnu repository (which
@@ -250,11 +250,11 @@
 ** Appearance
 *** Initially deactivated Modes
 	#+BEGIN_SRC emacs-lisp
-	  (scroll-bar-mode -1)
-	  (menu-bar-mode -1)
-	  (tool-bar-mode -1)
-	  (blink-cursor-mode -1)
-	  (tooltip-mode -1)
+      (scroll-bar-mode -1)
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (blink-cursor-mode -1)
+      (tooltip-mode -1)
 	#+END_SRC
 
 	Since I usually don't need my mouse to use Emacs, I turn off all GUI
@@ -272,8 +272,8 @@
 
 *** Fonts
 	#+BEGIN_SRC emacs-lisp
-      (set-face-font 'default "Input Mono-12")
-      (set-face-font 'variable-pitch "Input Sans-12")
+      (set-face-font 'default "Input Mono Light-12")
+      (set-face-font 'variable-pitch "Lato-12")
 	#+END_SRC
 
 	My fonts are configured and changed frequently, making any more
@@ -281,9 +281,10 @@
 
 *** Mode-bar customisations
 	#+BEGIN_SRC emacs-lisp
-	  (show-paren-mode t)
-	  (display-time-mode t)
-	  (display-battery-mode t)
+      (show-paren-mode t)
+      (let ((display-time-24hr-format t))
+        (display-time-mode t))
+      (display-battery-mode t)
 	#+END_SRC
 
 	To extend the default Emacs appearance, matching parentheses are
@@ -295,10 +296,10 @@
 
 *** Startup actions
 	#+BEGIN_SRC emacs-lisp
-	  (setq inhibit-startup-screen t
-			inhibit-startup-buffer-menu t
-			inhibit-startup-message t
-			inhibit-startup-hooks t)
+      (setq inhibit-startup-screen t
+            inhibit-startup-buffer-menu t
+            inhibit-startup-message t
+            inhibit-startup-hooks t)
 	#+END_SRC
 
 	In accordance to a minimalist and fast startup, I tell Emacs to not
@@ -307,8 +308,8 @@
 
 *** Whitespace and Formatting
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default fill-column 72
-					tab-width 4)
+      (setq-default fill-column 72
+                    tab-width 4)
 	#+END_SRC
 
 	These settings are purely personal preferences.
@@ -330,7 +331,7 @@
 
 *** Exiting Emacs
 	#+BEGIN_SRC emacs-lisp
-	  (setq confirm-kill-emacs 'yes-or-no-p)
+      (setq confirm-kill-emacs 'yes-or-no-p)
 	#+END_SRC
 
 	While it's not quite "appearance"-related, this will prevent Emacs
@@ -339,8 +340,8 @@
 
 *** Extra-Emacs Clipboard
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default select-enable-clipboard t
-					x-select-enable-clipboard t)
+      (setq-default select-enable-clipboard t
+                    x-select-enable-clipboard t)
 	#+END_SRC
 
 	Having the ability to interact with the system clipboard is very
