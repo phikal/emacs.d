@@ -169,9 +169,12 @@
 		and quite clever literate configuration. Many variables worth
 		knowing about, as well as good, thoughtful commentary.
    - [[https://mrblog.nl/emacs/config.html][Marcel van der Boom's "Orgmode configuration"]] :: Impressively long
-		configuration with more-than-average commentary and many custom
-		functions to extend the default behavior of the many packages
-		mentioned. Seems to be written with a German keyboard in mind.
+        configuration with more-than-average commentary and many custom
+        functions to extend the default behavior of the many packages
+        mentioned. Seems to be written with a German keyboard in mind.
+   - [[http://home.thep.lu.se/~karlf/emacs.html][Karl Fogelmark's .emacs]] :: A lot of functions and keybinding-tables
+        and otherwise helpful comments, yet written with pre-Emacs 24.1
+        in mind so the configuration is a bit verbose.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
