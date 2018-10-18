@@ -1241,62 +1241,84 @@
 	  hooks).
 
 	  #+BEGIN_SRC emacs-lisp
-		(setq org-clock-into-drawer t)
+        (setq org-clock-into-drawer t
+              org-log-into-drawer t)
 	  #+END_SRC
 
-	  Configure org-mode clocking.
+	  Configure org-mode clocking and logging.
 
 	  #+BEGIN_SRC emacs-lisp
+        (setf (car (alist-get 'path org-html-mathjax-options))
+              "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+	  #+END_SRC
+
+	  The default MathJax url that Org-mode uses seems to be depricated,
+	  thus I have to update it, using the official CDN.
+
+      #+BEGIN_SRC emacs-lisp
+        :config
+        (add-to-list 'org-structure-template-alist
+                     '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"
+                       "<src lang=\"emacs-lisp\">\n\n</src>"))
+      #+END_SRC
+
+      Adding this code to =org-structure-template-alist=, makes it easier
+      to maintain files like these, since expands =<E= to a source block
+      with emacs-lisp automatically chosen as the language. Due to a
+      org-mode bug, this has to be evaluated after the document has been
+      loaded.
+
+      #+BEGIN_SRC emacs-lisp
+        (setq org-latex-preview-ltxpng-directory "/tmp/ltxpng/")
+        (plist-put 'org-format-latex-options :scale 1.5)
+      #+END_SRC
+
+      LaTeX previews can be a bit small and clutter the working
+      directory, so the following options should migrate these issues.
+
+      #+BEGIN_SRC emacs-lisp
         :bind (("C-c c" . org-capture)
                ("C-c a" . org-agenda)
                ("C-c l" . org-store-link)
                :map org-mode-map
                ("M-<tab>" . pcomplete))
-	  #+END_SRC
+      #+END_SRC
 
-	  Here I set a few convenient keybindings for globally interacting
-	  with my org ecosystem.
+      Here I set a few convenient keybindings for globally interacting
+      with my org ecosystem.
 
-	  Also: [[=flyspell-mode=][Flyspell]] sadly shadows org's auto-complete functionality,
-	  with an alternative I never use. When instead re-binding =pcomplete=,
-	  one get's a lot more out of Org, without having to look up
-	  everyhing in the manual.
+      Also: [[=flyspell-mode=][Flyspell]] sadly shadows org's auto-complete functionality,
+      with an alternative I never use. When instead re-binding =pcomplete=,
+      one get's a lot more out of Org, without having to look up
+      everyhing in the manual.
 
-	  #+BEGIN_SRC emacs-lisp
-        :config
-        (add-to-list 'org-structure-template-alist
-                     '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"
-                       "<src lang=\"emacs-lisp\">\n\n</src>"))
-	  #+END_SRC
-
-	  Adding this code to =org-structure-template-alist=, makes it easier
-	  to maintain files like these, since expands =<E= to a source block
-	  with emacs-lisp automatically chosen as the language. Due to a
-	  org-mode bug, this has to be evaluated after the document has been
-	  loaded.
-
-	  #+BEGIN_SRC emacs-lisp
-        (setq org-latex-preview-ltxpng-directory "/tmp/ltxpng/")
-        (plist-put 'org-format-latex-options :scale 1.25)
-	  #+END_SRC
-
-	  LaTeX previews can be a bit small and clutter the working
-	  directory, so the following options should migrate these issues.
-
-	  #+BEGIN_SRC emacs-lisp
+      #+BEGIN_SRC emacs-lisp
         :mode ("\\.org\\'" . org-mode))
-	  #+END_SRC
+      #+END_SRC
 
-	  Finally, defer interpretation until a =.org= file is found, and
-	  close the =use-package= block.
+      Finally, defer interpretation until a =.org= file is found, and
+      close the =use-package= block.
+
+	  # #+BEGIN_SRC emacs-lisp
+      #   (use-package org-pdfview
+      #     :config
+      #     (add-to-list 'org-file-apps
+      #                  '("\\.pdf\\'" . (lambda (file link)
+      #                                    (org-pdfview-open link))))
+      #     :after (org pdf-tools))
+	  # #+END_SRC
+
+	  # In connotation with [[*PDF%20Viewer][pdf-tools]], I make =org= support specific links
+	  # to open pdf files on the correct pages.
 
 **** Markdown
-	 #+BEGIN_SRC emacs-lisp
+     #+BEGIN_SRC emacs-lisp
        (use-package markdown-mode
          :init
          (setq markdown-italic-underscore t
-               markdown-command "cmark"))
-	 #+END_SRC
+               markdown-command "cmark")
+         :mode "README\\'")
+     #+END_SRC
 
 	 Markdown is probably one of the most popular markup languages around
 	 nowadays, and tools like [[https://pandoc.org/][Pandoc]] really bring out it's inner
