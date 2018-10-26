@@ -832,61 +832,155 @@
 	  #+BEGIN_SRC emacs-lisp
         (use-package gnus
           :init
-          (setq gnus-select-method '(nnnil "")
-                gnus-secondary-select-methods '((nnimap "imap.fastmail.com"
-                                                        (nnimap-streaming t)
-                                                        (nnir-search-engine imap))
-                                                (nnimap "faumail.fau.de"
-                                                        (nnimap-streaming t)
-                                                        (nnir-search-engine imap)))
-                gnus-posting-styles '(("faumail.fau.de"
-                                       (signature "Hochachtungsvoll\nPhilip K.")
-                                       (address "philip.kaludercic@fau.de"))
-                                      ("imap.fastmail.com"
-                                       (signature "Sincerely\nPhilip K.")
-                                       (address "philip@warpmail.net")))
-                gnus-thread-sort-functions '((not gnus-thread-sort-by-number))
-                message-directory "~/etc/mail/"
-                gnus-directory "~/etc/news/"
-                gnus-treat-from-gravatar 'head
-                gnus-treat-mail-gravatar 'head
-                mm-discouraged-alternatives '("text/html" "text/richtext")
-                mm-verify-option 'always
-                mm-decrypt-option 'always
-                mm-inline-large-images t
-                epa-pinentry-mode 'loopback
-                gnus-agent t
-                gnus-agent-consider-all-articles t
-                gnus-save-newsrc-file nil
-                gnus-message-replyencrypt t
-                gnus-message-replysign t
-                gnus-message-replysignencrypted t
-                mml2015-sign-with-sender t
-                gnus-treat-x-pgp-sig t
-                gnus-use-full-window nil
-                gnus-novice-user nil
-                gnus-expert-user t)
-          (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
-          :config
-          (gnus-demon-add-scanmail)
-          :bind ("C-x x m" . gnus))
+      #+END_SRC
+
+	  The following configuration is wrapped in a =use-package= macro...
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq message-directory "~/etc/mail/"
+              gnus-directory "~/etc/news/")
 	  #+END_SRC
 
-	  My current mail setup is still a bit unstable, since I wrote in it
-	  less than a day, yet it seems to be working. It is set up to work
-	  equally well with my university-, as well as my personal
-	  address.
+	  Before anything happens, I specify my directories in accordance
+	  to [[*Short%20note%20on%20my%20directory%20structure]["Short note on my directory structure"]].
 
-	  Note the following peculiarities:
-	  - =gnus-thread-sort-functions= is set to place the newest messages on
-		the top, disregarding the scoring system (since I don't use or
-		need it)
-	  - =mm-discouraged-alternatives= makes sure I don't have to view HTML
-		or richtext mail, if plaintext is also delivered
-	  - =gnus-use-full-window= prevents Gnus from disturbing my current
-		window setup, and instead tries to just use the current window
-	  - =gnus-novice-user= and =gnus-expert-user= disable unnecessary questions
+	  #+BEGIN_SRC emacs-lisp
+        (setq gnus-use-full-window nil
+              gnus-novice-user nil
+              gnus-expert-user t)
+	  #+END_SRC
 
+	  =gnus-use-full-window= prevents Gnus from disturbing my current
+	  window setup, and instead tries to just use the current window.
+
+	  The last two options make sure that Gnus doesn't have to prompt me
+	  all the time. Note that their names doesn't reflect the actual
+	  abilities of the user.
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq gnus-select-method '(nnnil ""))
+	  #+END_SRC
+
+	  My setup requires two addresses to be set up:
+	  1. my personal email hosted by [[https://fastmail.com][Fastmail]]
+	  2. My university email hosted by... my University?
+
+	  For that reason I don't specify a "main" address, but instead
+	  precede to describe where Gnus should fetch it's mail from...
+
+	  #+BEGIN_SRC emacs-lisp
+        (add-to-list 'gnus-secondary-select-methods
+                     '(nnimap "imap.fastmail.com"
+                              (nnimap-split-methods default)
+                              (nnimap-expunge t)
+                              (nnimap-stream ssl)
+                              (nnimap-streaming t)
+                              (nnir-search-engine imap)))
+        (add-to-list 'gnus-posting-styles
+                     '("imap.fastmail.com"
+                       (signature "Sincerely\nPhilip K.")
+                       (address "philip@warpmail.net")))
+	  #+END_SRC
+
+	  ... starting with my personal address ...
+
+	  #+BEGIN_SRC emacs-lisp
+        (add-to-list 'gnus-secondary-select-methods
+                     '(nnimap "faumail.fau.de"
+                              (nnimap-split-methods default)
+                              (nnimap-expunge t)
+                              (nnimap-stream ssl)
+                              (nnimap-streaming t)
+                              (nnir-search-engine imap)))
+        (add-to-list 'gnus-posting-styles
+                     '("faumail.fau.de"
+                       (signature "Hochachtungsvoll\nPhilip K.")
+                       (address "philip.kaludercic@fau.de")))
+	  #+END_SRC
+
+	  ... and then with my university address.
+
+	  Both use IMAP and have a language specific signature.
+
+      #+BEGIN_SRC emacs-lisp
+        (setq gnus-summary-line-format "%U%R │ %d% │ %4k: %4{%-23,23F%} │%(%B%S%)\n"
+              gnus-sum-thread-tree-single-indent   (propertize "   " 'family "Monospace")
+              gnus-sum-thread-tree-false-root      (propertize "   " 'family "Monospace")
+              gnus-sum-thread-tree-root            (propertize "┌  " 'family "Monospace")
+              gnus-sum-thread-tree-vertical        (propertize "│  " 'family "Monospace")
+              gnus-sum-thread-tree-leaf-with-other (propertize "├→ " 'family "Monospace")
+              gnus-sum-thread-tree-single-leaf     (propertize "└→ " 'family "Monospace")
+              gnus-sum-thread-tree-indent          (propertize "   " 'family "Monospace")
+
+              gnus-group-line-format "%M%p%5y%2[:%] %(%G%)\t%m\n")
+        (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+	  #+END_SRC
+
+	  To make the default summaries a bit easier to parse and read, I
+	  have changed the default column formatting and made
+	  tree-formatting look better using some Unicode.
+
+	  The group buffer line format has also been changed, to discard
+	  information I don't need, since /topic mode/ is turned on.
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq gnus-thread-sort-functions '((not gnus-thread-sort-by-number)))
+	  #+END_SRC
+
+	  Generally, I don't use Gnus' scoring system. Everything I care
+	  about is the temporal order in which I received messages,
+	  ie. their "number".
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq gnus-treat-from-gravatar 'head
+              gnus-treat-mail-gravatar 'head)
+	  #+END_SRC
+
+	  For no other reason than personal preference, I enable [[https://en.wikipedia.org/wiki/Gravatar][Gravatar]].
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq mm-discouraged-alternatives '("text/html" "text/richtext"))
+	  #+END_SRC
+
+	  There is no reason to prefer HTML mail (at least for me), since it
+	  just makes it harder and more complicated to display properly and
+	  good readability. Hence I'll try to avoid these, if possible.
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq mm-inline-large-images t)
+	  #+END_SRC
+
+	  By default Gnus wants to use external tools to open "larger"
+	  images, when they're attached to a mail. Since I don't need this,
+	  I force inline opening in all cases.
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq gnus-agent t
+              gnus-agent-consider-all-articles t
+              gnus-agent-prompt-send-queue t)
+        (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
+	  #+END_SRC
+
+	  The [[info:gnus#Agent%20Basics][Agent System]] allows Gnus to cache and then read messages when
+	  I don't have a active connection to my server.
+
+      #+BEGIN_SRC emacs-lisp
+        (setq mm-verify-option 'always
+              mm-decrypt-option 'always
+              mm-sign-option 'guided
+              mm-encrypt-option 'guided
+              gnus-message-replyencrypt t
+              gnus-message-replysign t
+              gnus-message-replysignencrypted t
+              mml2015-sign-with-sender t
+              gnus-treat-x-pgp-sig t)
+	  #+END_SRC
+
+	  Setup Gnus' encryption, signing and verification system.
+
+	  #+BEGIN_SRC emacs-lisp
+        (setq epa-pinentry-mode 'loopback)
+	  #+END_SRC
 
 	  Since my =.authsource= is encrypted, I have to enter my password from
 	  time to time to access my mail. This also requires
@@ -898,6 +992,22 @@
 	  #+END_EXAMPLE
 
 	  so that "pintetry" is used for query my paraphrase.
+
+	  #+BEGIN_SRC emacs-lisp
+        :config
+        (gnus-demon-add-scanmail)
+        (gnus-demon-scan-pgp 60 t)
+        (gnus-demon-scan-mail)
+	  #+END_SRC
+
+	  Start demons to improve overall experience.
+
+	  #+BEGIN_SRC emacs-lisp
+        :bind (("C-x x m" . gnus)
+               ("C-x x M" . gnus-unplugged))
+	  #+END_SRC
+
+	  Finally keybindings are set up.
 
 ***** SMTP
 	  #+BEGIN_SRC emacs-lisp
