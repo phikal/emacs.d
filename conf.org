@@ -1180,13 +1180,19 @@
        (use-package ledger-mode
          :init
          (setq ledger-source-directory (expand-file-name "~/doc/ledger")
+               ledger-reconcile-default-commodity "EUR"
+               ledger-clear-whole-transactions t
                ledger-master-file (expand-file-name "master.lg" ledger-source-directory)
-               ledger-highlight-xact-under-point nil)
+               ledger-report-use-native-highlighting  t
+               ledger-use-iso-dates t
+               ledger-post-auto-adjust-amounts t)
+         :config
          (add-hook 'ledger-mode-hook
                    (lambda ()
-                     (add-hook 'before-save-hook 'ledger-mode-clean-buffer t t)
-                     (company-mode)
-                     (flyspell-mode-off)))
+                     (add-hook 'before-save-hook
+                               (lambda ()
+                                 (save-excursion (ledger-mode-clean-buffer)))
+                               t t)))
          :mode ("\\.lg\\'" . ledger-mode))
 	 #+END_SRC
 
