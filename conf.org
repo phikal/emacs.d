@@ -1052,23 +1052,24 @@
 
 **** IRC
 	 #+BEGIN_SRC emacs-lisp
-       (use-package rcirc
-         :init
-         (setq rcirc-server-alist
-               `(("zge.us.to"
-                  :user-name "zge"
-                  :nick "zge"
-                  :full-name ,user-full-name
-                  :password ,zge/znc-pass
-                  :port 23551
-                  :encryption tls))
-               rcirc-reconnect-delay 5
-               rcirc-omit-responses '("NICK" "AWAY"))
-         (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
-         (define-key rcirc-mode-map (kbd "C-x k") 'bury-buffer)
-         :config
-         (rcirc nil)
-         (rcirc-track-minor-mode t))
+         (use-package rcirc
+           :init
+           (setq rcirc-server-alist
+                 `(("zge.us.to"
+                    :user-name "zge"
+                    :nick "zge"
+                    :password ,zge/znc-pass
+                    :port 23551
+                    :encryption tls))
+                 rcirc-reconnect-delay 20
+                 rcirc-read-only-flag t
+                 rcirc-log-flag t
+                 rcirc-omit-responses '("NICK" "AWAY"))
+           (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
+       (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
+           :bind (("C-x x x" . rcirc-next-active-buffer)
+                  :map rcirc-mode-map
+                  ("C-x k" . bury-buffer)))
 	 #+END_SRC
 
 	 For IRC, I use Rcirc and connect to my bouncer server (currently
