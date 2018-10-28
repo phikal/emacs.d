@@ -1130,12 +1130,12 @@
 **** Spell Checking
 	 #+BEGIN_SRC emacs-lisp
        (setq-default ispell-program-name (executable-find "aspell")
-                     ispell-extra-args '("--sug-mode=ultra")
+                     ispell-extra-args '("--sug-mode=normal" "--keyboard=standard")
                      flyspell-issue-welcome-flag nil
                      flyspell-issue-message-flag nil)
 	 #+END_SRC
 
-	 When writing prose, or just comments, =flyspell-mode= (and
+	 When just writing prose, or just comments, =flyspell-mode= (and
 	 =flyspell-prog-mode=) prove themselves to be valuable utilities,
 	 albeit a bit slow and cumbersome from time to time...
 
