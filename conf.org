@@ -215,7 +215,7 @@
 
    - msmtp :: [[SMTP][Sending Mail]]
    - gpg :: authinfo.gpg de-/encyrption
-   - mpv :: [[Multimedia][Multimedia]]
+   - mpd :: [[Multimedia][Multimedia]]
    - curl :: [[Elfeed][RSS/Atom feeds]]
    - ledger :: [[Ledger][Double-entry Accounting]]
    - git :: [[Version%20Controll][Version Controll]] (eg. for this file)
@@ -1217,15 +1217,15 @@
 **** Multimedia
 	 #+BEGIN_SRC emacs-lisp
        (use-package emms
+         :after (emms-player-mpd emms-volume)
          :config
-         (emms-all)
-         (emms-default-players)
-         (setq emms-source-file-default-directory "~/media/music/"
-               emms-player-list (remove 'emms-player-mpv emms-player-list)
+         (setq emms-player-mpd-server-name "localhost"
+               emms-player-mpd-server-port "6600"
+               emms-volume-change-function 'emms-volume-mpd-change
                emms-sort-lessp-function #'emms-sort-natural-order-less-p)
-         (add-to-list 'emms-info-functions 'emms-info-ogginfo)
-         (add-to-list 'emms-info-functions 'emms-info-mp3info)
-         (add-to-list 'emms-player-mpv-parameters "--no-audio-display")
+         (add-to-list 'emms-info-functions 'emms-info-mpd)
+         (add-to-list 'emms-player-list 'emms-player-mpd)
+         (emms-player-mpd-connect)
          :bind (("C-x x e" . emms)
                 ("C-x x SPC" . emms-pause)
                 :map emms-playlist-mode-map
