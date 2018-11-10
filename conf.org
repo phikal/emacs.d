@@ -2099,6 +2099,24 @@
    Sometimes I just want to easily view some code in emacs (eg. a raw
    github gist), and this functions just makes it easier.
 
+** Insert C headers
+   #+BEGIN_SRC emacs-lisp
+     (defvar *c-headers*
+       (mapcar (lambda (header) (string-remove-prefix "/usr/include/" header))
+               (directory-files-recursively "/usr/include/" "\\.h$")))
+
+     (defun c-insert-header (header)
+       (interactive (list (completing-read "Header: " *c-headers*)))
+       (save-mark-and-excursion
+         (goto-char (point-min))
+         (forward-paragraph)
+         (insert (concat "#include <" header ">\n"))))
+   #+END_SRC
+
+   This function is a simple and primitive mechanism to quickly add c
+   headers to a file, using =completing-read= to select a file from
+   =/usr/include/=.
+
 ** Timestamp
    #+BEGIN_SRC emacs-lisp
      (defun zge/add-timestamp (arg)
