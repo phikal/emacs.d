@@ -711,6 +711,17 @@
    To quickly access certain files I tend to frequently use, I use
    Emacs's [[info:emacs#File%20Registers][file registers]].
 
+** Hacks
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'emacs-startup-hook
+               (lambda ()
+                 (with-current-buffer "*scratch*"
+                   (lisp-interaction-mode t))))
+   #+END_SRC
+
+   I /reload/ =lisp-interaction-mode= to make sure that all the =prog-mode=
+   hooks and modifiers get applied to the =*scratch*= buffer.
+
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
     (unless (package-installed-p 'use-package)
