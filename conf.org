@@ -442,7 +442,7 @@
 
 *** Unkillable =*scratch*= buffer
 	#+BEGIN_SRC emacs-lisp
-      (eval-after-load 'lisp-mode
+      (eval-after-load 'lisp-interaction-mode
         (with-current-buffer "*scratch*"
           (lisp-interaction-mode)
           (insert (substitute-command-keys initial-scratch-message))
