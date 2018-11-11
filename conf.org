@@ -789,14 +789,18 @@
                ivy-height 6
                ivy-display-style 'fancy
                ivy-case-fold-search-default t
-               enable-recursive-minibuffers t
-               ivy-re-builders-alist '((t . ivy--regex)))
+               ivy-re-builders-alist '((t . ivy--regex))
+               counsel-find-file-at-point t
+               enable-recursive-minibuffers t)
          :config
          (ivy-mode t)
          (counsel-mode t)
          (dolist (cmd '(yank-pop describe-bindings))
            (define-key counsel-mode-map `[remap ,cmd] nil))
          :bind (("M-`" . ivy-resume)
+                ("C-c s" . counsel-ag)
+                ("C-c C-/" . swiper)
+                ("C-c f" . counsel-locate)
                 :map ivy-minibuffer-map
                 ("<RET>" . ivy-alt-done)))
 	 #+END_SRC
@@ -1974,7 +1978,6 @@
          :config
          (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
          (projectile-mode t)
-         :bind (("C-c s" . projectile-ag))
          :after ivy)
 	 #+END_SRC
 
