@@ -2082,6 +2082,66 @@
    need this function that often, nevertheless I keep in here, just in
    case.
 
+** Roulette
+   #+BEGIN_SRC emacs-lisp
+     (defun roulette ()
+       (interactive)
+       (goto-line (random (count-lines (point-min) (point-max))))
+
+       (hl-line-mode t)
+       (loop for i from 1 to 50 do
+             (if (eobp)
+                 (goto-char (point-min))
+               (next-line))
+             (end-of-line)
+             (hl-line-highlight)
+             (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
+       
+       (loop repeat 4 do
+             (sit-for 0.5)
+             (hl-line-highlight)
+             (sit-for 0.5)
+             (hl-line-unhighlight))
+       (hl-line-mode -1))
+   #+END_SRC
+
+   This is more of a game, especially a game with the (in)famous =loop=
+   macro. The basic concept is to "select" a random line by highlighting
+   it with =hl-line-mode= and then continuing on for 50 lines getting
+   slower all the time (with a little added randomness). When it ends,
+   the "selected" line blinks four times before =hl-line-mode= is turned
+   off again.
+   
+   #+BEGIN_SRC emacs-lisp
+     (defun roulette-lines ()
+       (interactive)
+       (goto-line )
+
+       (hl-line-mode t)
+       (goto-line 3)
+       (loop for i from 1 to (+ 50 (random (count-lines (point-min) (point-max)))) do
+             (save-excursion
+               (goto-char (point-min))
+               (kill-line 1)
+               (goto-char (point-max))
+               (yank))
+             (goto-line 3)
+             (hl-line-highlight)
+             (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
+       
+       (loop repeat 4 do
+             (sit-for 0.5)
+             (hl-line-highlight)
+             (sit-for 0.5)
+             (hl-line-unhighlight))
+       (hl-line-mode -1))
+   #+END_SRC
+
+   As a variation on the same concept, but for writable buffers,
+   =roulett-lines= actually moves the lines around, keeping the point
+   fixed on the 3rd line from the top of the buffer (assuming a "normal"
+   buffer).
+
 ** Curl to buffer
    #+BEGIN_SRC emacs-lisp
      (defun zge/curl (url)
