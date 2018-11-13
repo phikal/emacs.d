@@ -798,6 +798,7 @@
          (dolist (cmd '(yank-pop describe-bindings))
            (define-key counsel-mode-map `[remap ,cmd] nil))
          :bind (("M-`" . ivy-resume)
+                ("C-x C-r" . counsel-recentf)
                 ("C-c s" . counsel-ag)
                 ("C-c C-/" . swiper)
                 ("C-c f" . counsel-locate)
