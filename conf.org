@@ -1127,29 +1127,37 @@
 
 **** IRC
 	 #+BEGIN_SRC emacs-lisp
-         (use-package rcirc
-           :init
-           (setq rcirc-server-alist
-                 `(("zge.us.to"
-                    :user-name "zge"
-                    :nick "zge"
-                    :password ,zge/znc-pass
-                    :port 23551
-                    :encryption tls))
-                 rcirc-reconnect-delay 20
-                 rcirc-read-only-flag t
-                 rcirc-log-flag t
-                 rcirc-omit-responses '("NICK" "AWAY"))
-           (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
-       (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
-           :bind (("C-x x x" . rcirc-next-active-buffer)
-                  :map rcirc-mode-map
-                  ("C-x k" . bury-buffer)))
+       (use-package erc
+         :demand t
+         :init
+         (setq erc-rename-buffers t
+               erc-max-buffer-size 40000
+               erc-track-enable-keybindings t
+               erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                         "324" "329" "332" "333" "353" "477")
+               erc-server-reconnect-attempts 3
+               erc-server-reconnect-timeout 5
+               erc-server-auto-reconnect t
+               erc-button-url-regexp "\\([-a-zA-Z0-9_=!?#$@~`%&*+\\/:;,]+\\.\\)+[-a-zA-Z0-9_=!?#$@~`%&*+\\/:;,]*[-a-zA-Z0-9\\/]"
+               erc-prompt (lambda () (concat (buffer-name) ">")))
+         :config
+         (add-hook 'erc-mode-hook 'turn-on-flyspell)
+         (add-to-list 'erc-modules 'notifications)
+         (add-to-list 'erc-modules 'spelling)
+         (erc-update-modules)
+         (when (yes-or-no-p "Start IRC?")
+          (erc-tls :server "zge.us.to"
+                   :port 23551
+                   :nick "zge"
+                   :password (concat "zge/ircnet:" zge/znc-pass)))
+         :bind (("C-x x x" . erc-track-switch-buffer)
+                :map erc-mode-map
+                ("C-x k" . bury-buffer)))
 	 #+END_SRC
 
-	 For IRC, I use Rcirc and connect to my bouncer server (currently
-	 ZNC). The =zge/znc-pass= variables is declared in my [[*Emacs-generated%20files][custom.el]]
-	 file. On starting my Emacs session, rcirc automatically connects
+	 For IRC, I use ERC The =zge/znc-pass= variables is declared in my
+	 [[*Emacs-generated%20files][custom.el]] file. On starting my Emacs session, rcirc automatically
+	 connects
 
 **** Feed Syndication
 	 #+BEGIN_SRC emacs-lisp
