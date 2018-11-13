@@ -2175,6 +2175,9 @@
          (goto-char (point-min))
          (forward-paragraph)
          (insert (concat "#include <" header ">\n"))))
+
+     (with-eval-after-load 'cc-mode
+       (define-key c-mode-map (kbd "C-c C-a") #'c-insert-header))
    #+END_SRC
 
    This function is a simple and primitive mechanism to quickly add c
