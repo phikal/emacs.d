@@ -1876,6 +1876,8 @@
 **** Goto Source
 	 #+BEGIN_SRC emacs-lisp
        (use-package dumb-jump
+         :config
+         (setq dumb-jump-aggressive t)
          :init
          (add-hook 'prog-mode-hook 'dumb-jump-mode))
 	 #+END_SRC
