@@ -2161,9 +2161,10 @@
      (defun c-insert-header (header)
        (interactive (list (completing-read "Header: " *c-headers*)))
        (save-mark-and-excursion
-         (goto-char (point-min))
-         (forward-paragraph)
-         (insert (concat "#include <" header ">\n"))))
+        (goto-char (point-min))
+        (forward-paragraph)
+        (insert (concat "#include <" header ">\n"))
+        (sort-lines nil (point-min) (point))))
 
      (with-eval-after-load 'cc-mode
        (define-key c-mode-map (kbd "C-c C-a") #'c-insert-header))
