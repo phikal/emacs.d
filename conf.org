@@ -1239,28 +1239,6 @@
 	 complicated to go beyond the basics. Most of these options have been
 	 taken from the auto generated =calc.el= file.
 
-**** Multimedia
-	 #+BEGIN_SRC emacs-lisp
-       (use-package emms
-         :after (emms-player-mpd emms-volume)
-         :config
-         (setq emms-player-mpd-server-name "localhost"
-               emms-player-mpd-server-port "6600"
-               emms-volume-change-function 'emms-volume-mpd-change
-               emms-sort-lessp-function #'emms-sort-natural-order-less-p)
-         (add-to-list 'emms-info-functions 'emms-info-mpd)
-         (add-to-list 'emms-player-list 'emms-player-mpd)
-         (emms-player-mpd-connect)
-         :bind (("C-x x e" . emms)
-                ("C-x x SPC" . emms-pause)
-                :map emms-playlist-mode-map
-                ("a" . emms-add-directory)
-                ("A" . emms-add-directory-tree)))
-	 #+END_SRC
-
-	 In connection to [[elfeed]], I use EMMS (Emacs Multi-Media System) to
-	 play podcasts and +maybe+ even music.
-
 **** Accounting
 	 #+BEGIN_SRC emacs-lisp
        (use-package ledger-mode
