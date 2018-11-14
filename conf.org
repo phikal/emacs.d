@@ -879,11 +879,13 @@
 
 **** Integrated Shell
 	 #+BEGIN_SRC emacs-lisp
-       (setq-default eshell-banner-message "")
+       (setq-default eshell-banner-message ""
+                     eshell-prompt-function (lambda (&rest rest) "$ ")
+                     eshell-prompt-regexp "^$ ")
 	 #+END_SRC
 
 	 Eshell works quite well out of the box, all I want is to turn off
-	 the banner.
+	 the banner and simplify the prompt.
 
 **** Terminal Emulation
 	 #+BEGIN_SRC emacs-lisp
