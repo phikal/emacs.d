@@ -1131,25 +1131,26 @@
          :demand t
          :init
          (setq erc-rename-buffers t
+               erc-join-buffer 'bury           ; because of ZNC
                erc-max-buffer-size 40000
                erc-track-enable-keybindings t
+               erc-track-exclude-server-buffer t
+               erc-track-remove-disconnected-buffers t
                erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                          "324" "329" "332" "333" "353" "477")
-               erc-server-reconnect-attempts 3
-               erc-server-reconnect-timeout 5
+               erc-track-shorten-aggressively t
+               erc-server-reconnect-attempts 10
+               erc-server-reconnect-timeout 1
                erc-server-auto-reconnect t
                erc-button-url-regexp "\\([-a-zA-Z0-9_=!?#$@~`%&*+\\/:;,]+\\.\\)+[-a-zA-Z0-9_=!?#$@~`%&*+\\/:;,]*[-a-zA-Z0-9\\/]"
+               erc-spelling-dictionaries '(("zge.us.to" . "de"))
                erc-prompt (lambda () (concat (buffer-name) ">")))
          :config
-         (add-hook 'erc-mode-hook 'turn-on-flyspell)
-         (add-to-list 'erc-modules 'notifications)
          (add-to-list 'erc-modules 'spelling)
-         (erc-update-modules)
-         (when (yes-or-no-p "Start IRC?")
-          (erc-tls :server "zge.us.to"
-                   :port 23551
-                   :nick "zge"
-                   :password (concat "zge/ircnet:" zge/znc-pass)))
+         (erc-tls :server "zge.us.to"
+                  :port 23551
+                  :nick "zge"
+                  :password (concat "zge/ircnet:" zge/znc-pass))
          :bind (("C-x x x" . erc-track-switch-buffer)
                 :map erc-mode-map
                 ("C-x k" . bury-buffer)))
