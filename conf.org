@@ -1564,6 +1564,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (setq gdb-display-io-nopopup t
              gdb-show-main t
+             gdb-enable-debug t
              gdb-many-windows t)
 	 #+END_SRC
 
