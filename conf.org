@@ -2181,17 +2181,25 @@
 
 ** Insert C headers
    #+BEGIN_SRC emacs-lisp
-     (defvar *c-headers*
-       (mapcar (lambda (header) (string-remove-prefix "/usr/include/" header))
-               (directory-files-recursively "/usr/include/" "\\.h$")))
+     (defconst zge/c-headers-manual
+       '("stdbool.h"))
 
-     (defun c-insert-header (header)
-       (interactive (list (completing-read "Header: " *c-headers*)))
+     (defvar zge/c-headers nil)
+     (defun zge/c-list-headers ()
+       (or zge/c-headers
+           (let ((hdrs (mapcar (lambda (header) (string-remove-prefix "/usr/include/" header))
+                               (directory-files-recursively "/usr/include/" "\\.h$"))))
+             (setq zge/c-headers (append zge/c-headers-manual hdrs)))))
+
+     (defun zge/c-insert-header (header)
+       (interactive (list (completing-read "Header: " (zge/c-list-headers))))
        (save-mark-and-excursion
         (goto-char (point-min))
         (forward-paragraph)
         (insert (concat "#include <" header ">\n"))
         (sort-lines nil (point-min) (point))))
+
+     (defalias 'c-insert-header #'zge/c-insert-header)
 
      (with-eval-after-load 'cc-mode
        (define-key c-mode-map (kbd "C-c C-a") #'c-insert-header))
