@@ -454,6 +454,14 @@
 	locally override what the =C-x k= keybinding does, emulating the
 	=kill-buffer= function, without actually killing anything.
 
+*** Disable graphical dialogues
+	#+BEGIN_SRC emacs-lisp
+	(setq use-dialog-box nil)
+	#+END_SRC
+
+	Just don't create graphical pop-ups (especially when Emacs starts
+	up).
+
 *** Minibuffer height
 	#+BEGIN_SRC emacs-lisp
       (setq max-mini-window-height 0.40)
