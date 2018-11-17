@@ -827,6 +827,8 @@
          :after ivy)
 	 #+END_SRC
 
+	 Additionally, use flexible matching for =M-x=.
+
 **** Buffer overview
 	 #+BEGIN_SRC emacs-lisp
        (setq ibuffer-expert t)
