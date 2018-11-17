@@ -1295,7 +1295,7 @@
 
 ** Programming
 *** Text Editing
-**** LaTeX/AUCTeX
+**** LaTeX
 	 #+BEGIN_SRC emacs-lisp
        (use-package auctex
          :config
@@ -1308,23 +1308,22 @@
                        (turn-on-reftex)
                        (TeX-fold-mode)))
            (add-hook 'LaTeX-language-de-hook
-                     (lambda () (ispell-change-dictionary "de_DE")))
+                     (lambda () (zge/toggle-dictionary "de")))
            (add-hook 'TeX-after-compilation-finished-functions
                      'TeX-revert-document-buffer))
          :init
-         (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+         (setq LaTeX-electric-left-right-brace t
+               TeX-view-program-selection '((output-pdf "PDF Tools"))
                TeX-source-correlate-start-server t
-               LaTeX-electric-left-right-brace t
                TeX-auto-save t
                TeX-parse-self t
                TeX-master nil
-               TeX-PDF-mode t
                reftex-plug-into-AUCTeX t
                reftex-enable-partial-scans t)
          :mode ("\\.tex\\'" . LaTeX-mode))
 	 #+END_SRC
 
-	 Partially rewritten LaTeX configuration.
+	 Partially rewritten LaTeX configuration using AUCTeX.
 
 	 #+BEGIN_SRC emacs-lisp
        (use-package cdlatex
