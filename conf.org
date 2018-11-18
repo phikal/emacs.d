@@ -2013,11 +2013,11 @@
      (defconst zge/input-alist '(("en" . nil)
                                  ("de" . "german-postfix")))
 
-     (defconst zge/toggle-dictionary-modes '(text-mode rcirc-mode web-mode))
+     (defconst zge/toggle-input-method-modes '(text-mode web-mode))
 
-     (defun zge/toggle-dictionary (&optional lang)
+     (defun zge/toggle-dictionary (&optional lang no-check)
        "Toggle the Ispell dictionary from English to German and vice versa."
-       (interactive)
+       (interactive (list nil (not current-prefix-arg)))
        (unless (boundp 'zge/dict-ring)
          (setq-local zge/dict-ring
                      (let ((ring (make-ring (length zge/dicts))))
@@ -2026,13 +2026,15 @@
                        ring)))
        (let* ((next-dict (or lang (ring-remove zge/dict-ring)))
               (next-im (assoc next-dict zge/input-alist)))
-         (princ next-im)
          (ispell-change-dictionary next-dict)
          (ring-insert zge/dict-ring next-dict)
-         (when (and next-im (member nil (mapcar #'not (mapcar #'derived-mode-p zge/toggle-dictionary-modes))))
+         (when (and next-im
+                    (apply (lambda (a b) (or a b))
+                           (mapcar #'derived-mode-p
+                                   zge/toggle-input-method-modes)))
            (set-input-method (cdr next-im))))
-       (save-excursion
-         (flyspell-large-region (point-min) (point-max))))
+       (unless no-check
+         (flyspell-region (point-min) (point-max))))
    #+END_SRC
 
    Since I regularly have to switch between English and German, and I am
@@ -2042,18 +2044,33 @@
 
    #+BEGIN_SRC emacs-lisp
      (defun zge/org-check-lang ()
-       ;; (save-excursion
-       ;;   (goto-char (point-min))
-       ;;   (do ((line (thing-at-point 'line t)
-       ;;              (setq line (thing-at-point 'line t))))
-       ;;       ((not (string-empty-p (string-trim line))))
-       ;;     (message line)
-       ;;     (when (string-match-p "^#+LANGUAGE: de" line)
-       ;;       (zge/toggle-dictionary "de"))))
-       )
+       "Look for LANGUAGE tag and turn on the language specified"
+       (save-excursion
+         (goto-char (point-min))
+         (catch 'found
+           (while (not (looking-at-p "^[[:space:]]*$"))
+             (save-match-data
+               (when (looking-at "^#\\+LANGUAGE: \\(.+\\)")
+                 (let ((lang (match-string-no-properties 1)))
+                   (zge/toggle-dictionary lang)
+                   (message "Toggled language to \"%s\"" lang))
+                 (throw 'found t)))
+             (next-line)
+             (save-excursion
+               (end-of-line)
+               (when (eobp)
+                 (throw 'found nil)))))))
 
-     (add-hook 'org-mode-hook 'zge/org-check-lang)
+     (with-eval-after-load 'org
+       (add-hook 'org-mode-hook 'zge/org-check-lang))
    #+END_SRC
+
+   Most of the time, empirical studies have found, I use
+   =zge/toggle-dictionary= in org-mode since half of what I write is in
+   English and the other half in German. To make life even easier, this
+   function looks for a =#+LANGUAGE= tag (that's usually just used for
+   exporting) and turns on that language for this buffer, similarly to
+   what =LaTeX-language-de-hook= does.
 
 ** Toggle theme
    #+BEGIN_SRC emacs-lisp
