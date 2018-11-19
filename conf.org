@@ -2135,7 +2135,7 @@
        (goto-line (random (count-lines (point-min) (point-max))))
 
        (hl-line-mode t)
-       (loop for i from 1 to 50 do
+       (dotimes (i 50)
              (if (eobp)
                  (goto-char (point-min))
                (next-line))
@@ -2143,7 +2143,7 @@
              (hl-line-highlight)
              (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
        
-       (loop repeat 4 do
+       (dotimes (i 4)
              (sit-for 0.5)
              (hl-line-highlight)
              (sit-for 0.5)
@@ -2165,7 +2165,7 @@
 
        (hl-line-mode t)
        (goto-line 3)
-       (loop for i from 1 to (+ 50 (random (count-lines (point-min) (point-max)))) do
+       (dotimes (i (+ 50 (random (count-lines (point-min) (point-max)))))
              (save-excursion
                (goto-char (point-min))
                (kill-line 1)
@@ -2175,7 +2175,7 @@
              (hl-line-highlight)
              (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
        
-       (loop repeat 4 do
+       (dotimes (i 4)
              (sit-for 0.5)
              (hl-line-highlight)
              (sit-for 0.5)
