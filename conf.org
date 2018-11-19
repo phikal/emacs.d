@@ -1505,6 +1505,8 @@
         :bind (("C-c c" . org-capture)
                ("C-c a" . org-agenda)
                ("C-c l" . org-store-link)
+               ("C-x x i" . org-clock-in)
+               ("C-x x o" . org-clock-out)
                :map org-mode-map
                ("M-<tab>" . pcomplete))
       #+END_SRC
