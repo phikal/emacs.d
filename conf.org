@@ -1583,11 +1583,17 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package gnuplot
          :interpreter ("gnuplot" . gnuplot-mode)
-         :mode ("\\.gp\\'" . gnuplot-mode))
+         :config
+         (defun zge/gnuplot-replot ()
+           (interactive)
+           (gnuplot-send-string-to-gnuplot "replot\n" 'line))
+         :mode ("\\.gp\\'" . gnuplot-mode)
+         :bind (:map gnuplot-mode-map
+                     ("C-c C-c" . zge/gnuplot-replot)))
 	 #+END_SRC
 
-	 =gnuplot= [sic] has been my go-to plotter for a few years now. Most of
-	 the time I use it in it's REPL, but especially when working with
+	 =gnuplot= [sic] has been my go-to plotter for a few years now. Most
+	 of the time I use it in it's REPL, but especially when working with
 	 scripts, =gnuplot-mode= proves itself to be helpful.
 
 	 Due to the wierd package name, and the fact that I use =.gp= as the
