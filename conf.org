@@ -2201,30 +2201,32 @@
 
 ** Insert C headers
    #+BEGIN_SRC emacs-lisp
-     (defconst zge/c-header-dirs
-       "List of directories GCC searches for by default."
-       '("/usr/lib/gcc/x86_64-linux-gnu/6/include/"
-         "/usr/local/include/"
-         "/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/"
-         "/usr/include/x86_64-linux-gnu/"
-         "/usr/include/"))
+     (defconst zge/c-header-dirs '("/usr/lib/gcc/x86_64-linux-gnu/6/include/"
+                                   "/usr/local/include/"
+                                   "/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/"
+                                   "/usr/include/x86_64-linux-gnu/"
+                                   "/usr/include/")
+       "List of directories GCC searches for by default.")
 
-     (defvar zge/c-headers
-       "Caches list of files that may be included."
-       nil)
+     (defvar zge/c-headers nil
+       "Caches list of files that may be included.")
+
+     (defun zge/remove-duplicates (list)
+       (if (null list) nil
+         (cons (car list)
+               (zge/remove-duplicates (remove (car list) (cdr list))))))
 
      (defun zge/c-list-headers ()
        "Calculate or get cached list of header files"
        (or zge/c-headers
            (setq zge/c-headers
                  (let ((hdr (mapcar (lambda (dir)
-                                      (mapcar (lambda (header) (string-remove-prefix dir header))
+                                      (mapcar (lambda (header)
+                                                (string-remove-prefix dir header))
                                               (directory-files-recursively dir "\\.h$")))
                                     zge/c-header-dirs)))
-                   (seq-sort #'string< (apply #'append hdr))))))
+                   (delete-dups (seq-sort #'string< (apply #'append hdr)))))))
    #+END_SRC
-
-
 
    Before I define a function to insert a header, I have to first find
    all headers, which I attempt to do here. This is done lazily, not
@@ -2294,16 +2296,19 @@
    groups.
 
    #+BEGIN_SRC emacs-lisp
-     (defun zge/c-insert-header (header)
+     (defun zge/c-insert-header (header &optional arg)
        "Add `header' to the top of the current file, without checking
      if this is a C file or not."
-       (interactive (list (completing-read "Header: " (zge/c-list-headers))))
+       (interactive (list (completing-read "Header: " (zge/c-list-headers))
+                          current-prefix-arg))
        (save-mark-and-excursion
         (goto-char (point-max))
         (if (search-backward-regexp "^#include <" nil t)
             (next-line)
           (goto-char (point-min)))
-        (when header (insert (format "#include <%s>\n" header)))))
+        (when header (insert (format "#include <%s>\n" header)))
+        (unless current-prefix-arg
+          (zge/c-order-headers))))
    #+END_SRC
 
    This function is a simple and primitive mechanism to quickly add c
