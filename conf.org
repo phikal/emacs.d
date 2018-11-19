@@ -106,7 +106,10 @@
    - My actual =init.el= is very short. All I do, disable filename
 	 handlers, increase the garbage collection threshold, and (if
 	 necessary) call Org/Babel. If the extracted file newer than the
-	 this org file, I just load that file.
+	 this org file, I just load that file:
+
+	 #+INCLUDE: "./init.el" src emacs-lisp :tangle no
+
    - Writing text with code (as opposed to code with comments) is much
 	 more informative, and makes me justify whatever I add. This, one
 	 the one hand contributes to simplicity, but also helps people who
