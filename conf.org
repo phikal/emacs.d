@@ -1153,6 +1153,7 @@
                erc-track-remove-disconnected-buffers t
                erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                          "324" "329" "332" "333" "353" "477")
+               erc-track-shorten-function nil
                erc-server-reconnect-attempts 10
                erc-server-reconnect-timeout 1
                erc-spelling-dictionaries '(("zge.us.to" . "de"))
