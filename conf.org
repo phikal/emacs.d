@@ -1246,6 +1246,7 @@
 **** RPN Calculator
 	 #+BEGIN_SRC emacs-lisp
        (setq-default calc-angle-mode 'rad
+                     calc-symbolic-mode t
                      calc-shift-prefix t
                      calc-infinite-mode t
                      calc-vector-brackets nil
