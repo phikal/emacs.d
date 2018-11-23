@@ -1404,7 +1404,9 @@
 
 	 #+BEGIN_SRC emacs-lisp
        (setq org-directory (expand-file-name "~/doc/org/")
-             org-agenda-files (list org-directory)
+             org-agenda-files (mapcar (lambda (f) (expand-file-name
+                                                   (concat org-directory f ".org")))
+                                      '("ws18" "pers" "notes"))
              org-agenda-include-diary t
              org-agenda-window-setup 'current-window
              org-default-notes-file (expand-file-name "notes.org" org-directory))
