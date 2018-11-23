@@ -1487,9 +1487,9 @@
 	  Configure org-mode clocking and logging.
 
 	  #+BEGIN_SRC emacs-lisp
-        ;; (require 'ox-html)
-        ;; (setf (car (alist-get 'path org-html-mathjax-options))
-        ;;       "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+        (require 'ox-html)
+        (setf (car (alist-get 'path org-html-mathjax-options))
+              "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
 	  #+END_SRC
 
 	  The default MathJax url that Org-mode uses seems to be depricated,
