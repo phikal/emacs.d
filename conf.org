@@ -2361,9 +2361,7 @@
            (uncomment-region (line-beginning-position)
                              (line-end-position)))
 
-         (unless (and (string-match-p "^[[:digit:]]+$"
-                                      (string-trim (thing-at-point 'line t)))
-                      (not arg))
+         (when (arg (looking-at "^[[:digit:]]+$"))
            (insert (format-time-string "%s"))
            (newline 2)
            (previous-line 2))
