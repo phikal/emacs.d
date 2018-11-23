@@ -820,8 +820,8 @@
            (define-key counsel-mode-map `[remap ,cmd] nil))
          :bind (("M-`" . ivy-resume)
                 ("C-x C-r" . counsel-recentf)
+                ("C-x C-/" . swiper)
                 ("C-c s" . counsel-ag)
-                ("C-c C-/" . swiper)
                 ("C-c f" . counsel-locate)
                 :map ivy-minibuffer-map
                 ("<RET>" . ivy-alt-done)))
