@@ -1325,6 +1325,7 @@
                      (lambda ()
                        (setq-local company-backends '(company-latex-commands
                                                       company-math))
+                       (electric-pair-local-mode -1)
                        (flycheck-mode t)
                        (turn-on-reftex)
                        (TeX-fold-mode)))
