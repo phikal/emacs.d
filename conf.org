@@ -2406,6 +2406,7 @@
                     ("M-c" . capitalize-dwim)
                     ("<prior>" . scroll-up-command)
                     ("<next>" . scroll-down-command)
+                    ("<XF86WLAN>" . ignore)
                     ("M-u" . upcase-dwim)
                     ("M-SPC" . cycle-spacing)
                     ("<insert>" . ignore)
