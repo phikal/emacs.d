@@ -1488,6 +1488,8 @@
 	  Configure org-mode clocking and logging.
 
 	  #+BEGIN_SRC emacs-lisp
+        (setq org-confirm-babel-evaluate nil)
+
         (org-babel-do-load-languages
          'org-babel-load-languages
          '((emacs-lisp . nil)
@@ -1497,7 +1499,7 @@
            (haskell . t) (lisp . t)))
 	  #+END_SRC
 
-	  Load languages for [[info:org#Library%20of%20Babel][Org Babel]].
+	  Load languages for [[info:org#Library%20of%20Babel][Org Babel]], without the need to reconfirm.
 
 	  #+BEGIN_SRC emacs-lisp
         (require 'ox-html)
