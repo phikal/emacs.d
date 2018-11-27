@@ -725,7 +725,8 @@
                   (?j . "~/doc/org/ws18.org")
                   (?r . "~/doc/read/")
                   (?u . "~/doc/uni/")
-                  (?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))))
+                  (?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
+                  (?m . "~/media/")))
        (set-register (car c) (cons 'file (expand-file-name (cdr c)))))
    #+END_SRC
 
