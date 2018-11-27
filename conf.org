@@ -1153,42 +1153,31 @@
 
 **** IRC
 	 #+BEGIN_SRC emacs-lisp
-       (use-package erc
+       (use-package rcirc
          :demand t
          :init
-         (setq erc-rename-buffers t
-               erc-join-buffer 'bury           ; because of ZNC
-               erc-max-buffer-size 40000
-               erc-track-enable-keybindings t
-               erc-track-exclude-server-buffer t
-               erc-track-remove-disconnected-buffers t
-               erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                         "324" "329" "332" "333" "353" "477")
-               erc-track-shorten-function nil
-               erc-server-reconnect-attempts 10
-               erc-server-reconnect-timeout 1
-               erc-spelling-dictionaries '(("zge.us.to" . "de"))
-               erc-prompt (lambda () (concat (buffer-name) ">")))
-         :config
-         (defun zge/erc-reconnect-again (fn event buffer)
-           (condition-case nil
-               (progn (message "Attempting to restart ERC...")
-                      (apply fn event buffer))
-             (error (run-at-time 10 nil (lambda () (zge/erc-reconnect-again fn event buffer))))))
-         (advice-add #'erc-server-delayed-reconnect :around
-                     #'zge/erc-reconnect-again)
-         (add-to-list 'erc-modules 'spelling)
-         (erc-tls :server "zge.us.to"
-                  :port 23551
+         (setq rcirc-server-alist
+               `(("zge.us.to"
+                  :user-name "zge"
                   :nick "zge"
-                  :password (concat "zge/ircnet:" zge/znc-pass))
-         :bind (("C-x x x" . erc-track-switch-buffer)
-                :map erc-mode-map
+                  :password ,zge/znc-pass
+                  :port 23551
+                  :encryption tls))
+               rcirc-reconnect-delay 20
+               rcirc-read-only-flag t
+               rcirc-log-flag t
+               rcirc-omit-responses '("NICK" "AWAY"))
+         (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
+         (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
+         :config
+         (rcirc nil)
+         :bind (("C-x x x" . rcirc-next-active-buffer)
+                :map rcirc-mode-map
                 ("C-x k" . bury-buffer)))
 	 #+END_SRC
 
 	 For IRC, I use ERC The =zge/znc-pass= variables is declared in my
-	 [[*Emacs-generated%20files][custom.el]] file. On starting my Emacs session, rcirc automatically
+	 [[*Emacs-generated%20files][custom.el]] file. On starting my Emacs session, ERC automatically
 	 connects
 
 **** Feed Syndication
