@@ -233,7 +233,7 @@
 * General Setup
 ** Lexical Scoping
    #+BEGIN_SRC emacs-lisp
-     ;;; -*- lexical-binding: t -*-
+     ;;; -*- lexical-binding: t; eval: (view-mode 1) -*-
    #+END_SRC
 
    All code written in this file, shall be [[https://stackoverflow.com/questions/1047454/what-is-lexical-scope]["Lexically Scoped"]].
@@ -1485,6 +1485,18 @@
 	  #+END_SRC
 
 	  Configure org-mode clocking and logging.
+
+	  #+BEGIN_SRC emacs-lisp
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((emacs-lisp . nil)
+           (C . t) (scheme . t) (calc . t)
+           (dot . t) (sh . t) (sqlite . t)
+           (java . t) (awk . t) (ditaa . t)
+           (haskell . t) (lisp . t)))
+	  #+END_SRC
+
+	  Load languages for [[info:org#Library%20of%20Babel][Org Babel]].
 
 	  #+BEGIN_SRC emacs-lisp
         (require 'ox-html)
