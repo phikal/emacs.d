@@ -218,7 +218,6 @@
 
    - msmtp :: [[SMTP][Sending Mail]]
    - gpg :: authinfo.gpg de-/encyrption
-   - mpd :: [[Multimedia][Multimedia]]
    - curl :: [[Elfeed][RSS/Atom feeds]]
    - ledger :: [[Ledger][Double-entry Accounting]]
    - git :: [[Version%20Controll][Version Controll]] (eg. for this file)
