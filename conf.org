@@ -454,12 +454,15 @@
 
 *** Unkillable =*scratch*= buffer
 	#+BEGIN_SRC emacs-lisp
-      (eval-after-load 'lisp-interaction-mode
+      (defun new-scratch ()
         (with-current-buffer "*scratch*"
           (lisp-interaction-mode)
+          (goto-char (point-min))
           (insert (substitute-command-keys initial-scratch-message))
           (set-buffer-modified-p nil)
           (local-set-key (kbd "C-x k") 'bury-buffer)))
+
+      (eval-after-load 'lisp-interaction-mode (new-scratch))
 	#+END_SRC
 
 	To prevent myself from accidentally killing my =*scratch*= buffer, I
