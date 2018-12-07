@@ -740,7 +740,7 @@
      (add-hook 'emacs-startup-hook
                (lambda ()
                  (with-current-buffer "*scratch*"
-                   (lisp-interaction-mode t))))
+                   (lisp-interaction-mode))))
    #+END_SRC
 
    I /reload/ =lisp-interaction-mode= to make sure that all the =prog-mode=
@@ -1399,11 +1399,13 @@
 	 highlighting and indenting them appropriately is very convenient.
 
 	 #+BEGIN_SRC emacs-lisp
+       (require 'org-agenda)
        (setq org-directory (expand-file-name "~/doc/org/")
              org-agenda-files (mapcar (lambda (f) (expand-file-name
                                                    (concat org-directory f ".org")))
                                       '("ws18" "pers" "notes"))
              org-agenda-include-diary t
+             org-agenda-inhibit-startup t
              org-agenda-window-setup 'current-window
              org-default-notes-file (expand-file-name "notes.org" org-directory))
 	 #+END_SRC
@@ -1817,7 +1819,7 @@
                      ("C-," . haskell-move-nested-left)
                      ("C-." . haskell-move-nested-right)
                      ("C-c C-." . haskell-mode-format-imports)
-                     ("C-c C-l" . haskell-process-load-or-reload)
+                     ("C-c C-l" . haskell-process-load-file)
                      ("C-c C-t" . haskell-process-do-type)
                      ("C-c C-i" . haskell-process-do-info)
                      ("C-c C-c" . haskell-process-cabal-build)))
@@ -2085,7 +2087,7 @@
                    (zge/toggle-dictionary lang)
                    (message "Toggled language to \"%s\"" lang))
                  (throw 'found t)))
-             (next-line)
+             (forward-line)
              (save-excursion
                (end-of-line)
                (when (eobp)
@@ -2272,7 +2274,7 @@
         ;; prefixed path
         (goto-char (point-max))
         (search-backward-regexp "^#include <" nil t)
-        (next-line)
+        (forward-line)
         (let ((headers) (until (point)))
           (goto-char (point-min))
           (beginning-of-line)
@@ -2282,7 +2284,7 @@
                 (let* ((path (match-string-no-properties 1))
                        (head (match-string-no-properties 2)))
                   (push head (alist-get path headers)))))
-            (next-line))
+            (forward-line))
           (delete-region (point-min) (point))
 
           (setq headers
@@ -2307,11 +2309,11 @@
           ;; reorder each collection of headers
           (goto-char (point-max))
           (search-backward-regexp "^#include <" nil t))
-        (next-line)
+        (forward-line)
         (while (not (bobp))
           (let ((s (save-excursion
                      (backward-paragraph)
-                     (next-line)
+                     (forward-line)
                      (point)))
                 (e (point)))
             (sort-lines t s e)
@@ -2331,7 +2333,7 @@
        (save-mark-and-excursion
         (goto-char (point-max))
         (if (search-backward-regexp "^#include <" nil t)
-            (next-line)
+            (forward-line)
           (goto-char (point-min)))
         (when header (insert (format "#include <%s>\n" header)))
         (unless current-prefix-arg
@@ -2376,7 +2378,7 @@
          (when (arg (looking-at "^[[:digit:]]+$"))
            (insert (format-time-string "%s"))
            (newline 2)
-           (previous-line 2))
+           (forward-line -2))
 
          (comment-line 1)))
    #+END_SRC
