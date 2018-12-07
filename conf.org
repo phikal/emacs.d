@@ -1080,7 +1080,7 @@
               gnus-message-replysign t
               gnus-message-replysignencrypted t
               gnus-treat-x-pgp-sig t
-              mml2015-sign-with-sender t)
+              mml-secure-openpgp-sign-with-sender t)
 	  #+END_SRC
 
 	  Setup Gnus' encryption, signing and verification system.
@@ -1121,6 +1121,7 @@
               message-sendmail-f-is-evil t
               message-sendmail-envelope-from 'header
               message-kill-buffer-on-exit t
+              message-forward-as-mime nil
               sendmail-program (executable-find "msmtp"))
 	  #+END_SRC
 
