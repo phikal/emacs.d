@@ -1751,9 +1751,10 @@
          :ensure
          :config
          (setq inferior-lisp-program (executable-find "sbcl")
-               slime-contribs '(slime-fancy slime-autodoc))
+               slime-contribs '(slime-fancy
+                                slime-autodoc
+                                slime-cl-indent))
          (add-hook 'common-lisp-mode-hook 'slime-mode)
-         ; (add-hook 'slime-mode-hook 'slime-autodoc-mode)
          :interpreter ("sbcl" . common-lisp-mode)
          :mode (("\\.lisp\\'" . common-lisp-mode)
                 ("\\.cl\\'" . common-lisp-mode)))
