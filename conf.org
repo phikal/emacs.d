@@ -454,13 +454,20 @@
 
 *** Unkillable =*scratch*= buffer
 	#+BEGIN_SRC emacs-lisp
-      (defun new-scratch ()
+      (defun new-scratch (keep)
+        (interactive "P")
         (with-current-buffer "*scratch*"
+          (unless keep
+            (save-mark-and-excursion
+             (delete-region (point-min)
+                            (point-max))))
           (lisp-interaction-mode)
           (goto-char (point-min))
           (insert (substitute-command-keys initial-scratch-message))
           (set-buffer-modified-p nil)
-          (local-set-key (kbd "C-x k") 'bury-buffer)))
+          (local-set-key (kbd "C-x k") 'bury-buffer))
+        (when (interactive-p)
+          (switch-to-buffer "*scratch*")))
 
       (eval-after-load 'lisp-interaction-mode (new-scratch))
 	#+END_SRC
