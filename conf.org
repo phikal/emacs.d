@@ -501,6 +501,14 @@
 
 	Assume UTF8 by default.
 
+*** Pager
+	#+BEGIN_SRC emacs-lisp
+      (setenv "PAGER" "cat")
+	#+END_SRC
+
+	Prevent interactive processes from using a "regular" pager such as
+	less, view or more, and instead just let Emacs do the job.
+
 *** "Large Files"
 	#+BEGIN_SRC emacs-lisp
       (setq large-file-warning-threshold 40000000)
