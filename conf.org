@@ -1671,6 +1671,28 @@
 	 - [[https://github.com/rogpeppe/godef][godef]]
 	 - [[https://golang.org/x/tools/cmd/goimports][goimports]]
 
+**** Python
+	 #+BEGIN_SRC emacs-lisp
+       (use-package python
+         :init
+         (setq python-shell-interpreter "ipython3"
+               python-shell-interpreter-args "--simple-prompt -i"
+               python-indent-guess-indent-offset-verbose nil)
+         (with-eval-after-load 'flycheck
+           (add-to-list 'flycheck-disabled-checkers 'python-pylint))
+         :mode ("\\.py\\'" . python-mode))
+	 #+END_SRC
+
+	 #+BEGIN_SRC emacs-lisp
+       (use-package company-jedi
+         :after python
+         :init
+         (add-hook 'python-mode-hook #'jedi:setup)
+         (add-hook 'python-mode-hook
+                   (lambda ()
+                     (setq-local company-backends '(company-jedi)))))
+	 #+END_SRC
+
 **** Coq
 	 #+BEGIN_SRC emacs-lisp
        ;; ProofGeneral
