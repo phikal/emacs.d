@@ -451,7 +451,8 @@
 
 *** Unkillable =*scratch*= buffer
 	#+BEGIN_SRC emacs-lisp
-      (defun new-scratch (keep)
+      (defun new-scratch (&optional keep)
+        "Generate a new *scratch* buffer"
         (interactive "P")
         (with-current-buffer "*scratch*"
           (unless keep
