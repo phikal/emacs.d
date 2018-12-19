@@ -308,15 +308,12 @@
 
 *** Mode-bar customisations
 	#+BEGIN_SRC emacs-lisp
-      (let ((display-time-24hr-format t))
-        (display-time-mode t))
       (display-battery-mode t)
 	#+END_SRC
 
-	Furthermore the mode bar displays the current column of the
-	active point and the current time, since I usually use Emacs in full
-	screen mode withing a window manager without a built in clock
-	facility.
+	When using a laptop, it's useful to see how much battery one has
+	left. And until I manage to set this up in every window manager,
+	I'll let Emacs show me the state.
 
 *** Startup actions
 	#+BEGIN_SRC emacs-lisp
