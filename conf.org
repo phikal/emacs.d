@@ -1187,8 +1187,6 @@
                rcirc-omit-responses '("NICK" "AWAY"))
          (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
          (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
-         :config
-         (rcirc nil)
          :bind (("C-x x x" . rcirc-next-active-buffer)
                 :map rcirc-mode-map
                 ("C-x k" . bury-buffer)))
