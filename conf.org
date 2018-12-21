@@ -289,8 +289,8 @@
 
 *** Fonts
 	#+BEGIN_SRC emacs-lisp
-      (set-face-font 'default "Input Mono Light-12")
-      (set-face-font 'variable-pitch "Lato-12")
+      (set-face-font 'default "-misc-fixed-medium-*-normal-*-18-*-*-*-*-*-iso8859-*")
+      (set-face-font 'variable-pitch "-misc-fixed-medium-*-normal-*-18-*-*-*-*-*-iso8859-*")
 	#+END_SRC
 
 	My fonts are configured and changed frequently, making any more
