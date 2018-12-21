@@ -903,7 +903,7 @@
                      dired-ls-sorting-switches "v"
                      dired-omit-files-p nil
                      dired-listing-switches "-NABhl --group-directories-first")
-       (add-to-list 'dired-guess-shell-alist-user '("\\.pdf\\'" "mupdf"))
+       (add-to-list 'dired-guess-shell-alist-user '((rx ".pdf" eos) "mupdf"))
 
 	 #+END_SRC
 
@@ -1295,7 +1295,7 @@
                                (lambda ()
                                  (save-excursion (ledger-mode-clean-buffer)))
                                t t)))
-         :mode ("\\.lg\\'" . ledger-mode))
+         :mode ((rx ".lg" eos) . ledger-mode))
 	 #+END_SRC
 
 	 In an effort to use ledger, I have set up =ledger-mode= with some
@@ -1349,7 +1349,7 @@
                TeX-master nil
                reftex-plug-into-AUCTeX t
                reftex-enable-partial-scans t)
-         :mode ("\\.tex\\'" . LaTeX-mode))
+         :mode ((rx ".tex" eos) . LaTeX-mode))
 	 #+END_SRC
 
 	 Partially rewritten LaTeX configuration using AUCTeX.
@@ -1558,7 +1558,7 @@
       everyhing in the manual.
 
       #+BEGIN_SRC emacs-lisp
-        :mode ("\\.org\\'" . org-mode))
+        :mode ((rx ".org" eos) . org-mode))
       #+END_SRC
 
       Finally, defer interpretation until a =.org= file is found, and
@@ -1570,7 +1570,7 @@
          :init
          (setq markdown-italic-underscore t
                markdown-command "cmark")
-         :mode "README\\'")
+         :mode (rx bos "README" (opt (or ".markdown" ".md")) eos))
      #+END_SRC
 
 	 Markdown is probably one of the most popular markup languages around
@@ -1615,7 +1615,7 @@
          (defun zge/gnuplot-replot ()
            (interactive)
            (gnuplot-send-string-to-gnuplot "replot\n" 'line))
-         :mode ("\\.gp\\'" . gnuplot-mode)
+         :mode ((rx ".gp" eos) . gnuplot-mode)
          :bind (:map gnuplot-mode-map
                      ("C-c C-c" . zge/gnuplot-replot)))
 	 #+END_SRC
@@ -1645,7 +1645,7 @@
            (setenv "GOPATH" go-path)
            (setenv "PATH" (concat (getenv "PATH") ":" go-bin))
            (add-to-list 'exec-path go-bin))
-         :mode "\\.go\\'"
+         :mode (rx ".go" eos)
          :bind (:map go-mode-map
                      ("M-." . godef-jump)
                      ("C-c ." . godoc-at-point)
@@ -1680,7 +1680,7 @@
                python-indent-guess-indent-offset-verbose nil)
          (with-eval-after-load 'flycheck
            (add-to-list 'flycheck-disabled-checkers 'python-pylint))
-         :mode ("\\.py\\'" . python-mode))
+         :mode ((rx ".py" eos) . python-mode))
 	 #+END_SRC
 
 	 #+BEGIN_SRC emacs-lisp
@@ -1697,7 +1697,7 @@
 	 #+BEGIN_SRC emacs-lisp
        ;; ProofGeneral
        (use-package proof-general
-         :mode ("\\.v\\'" . coq-mode)
+         :mode ((rx ".v" eos) . coq-mode)
          :interpreter "coqtop"
          :init
          (setq proof-splash-seen t
@@ -1714,7 +1714,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package rust-mode
          :init (setq rust-format-on-save t)
-         :mode "\\.rs\\'")
+         :mode (rx ".rs" eos))
 	 #+END_SRC
 
 	 When playing around with Rust, having a Emacs mode installed is
@@ -1743,7 +1743,7 @@
          (setq geiser-repl-use-other-window nil
                geiser-active-implementations '(mit guile))
          (add-hook 'scheme-mode-hook 'geiser-mode)
-         :mode ("\\.scm\\'" . scheme-mode))
+         :mode ((rx ".scm" eos) . scheme-mode))
 	 #+END_SRC
 
 	 When properly set up, geiser gives an MIT Scheme-like editing
@@ -1772,7 +1772,7 @@
          :bind (:map java-mode-map
                      ("C-c C-j" . javadoc-lookup)
                      ("C-c C-i" . javadoc-add-import))
-         :mode ("\\.java\\'" . java-mode))
+         :mode ((rx ".java" eos) . java-mode))
      #+END_SRC
 
 	 When "programming" in Java, =javadoc-lookup= helps me easily manage
@@ -1789,8 +1789,8 @@
                                 slime-cl-indent))
          (add-hook 'common-lisp-mode-hook 'slime-mode)
          :interpreter ("sbcl" . common-lisp-mode)
-         :mode (("\\.lisp\\'" . common-lisp-mode)
-                ("\\.cl\\'" . common-lisp-mode)))
+         :mode (((rx ".lisp" eos) . common-lisp-mode)
+                ((rx ".cl" eos) . common-lisp-mode)))
 
        (use-package slime-company
          :config
@@ -1813,7 +1813,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package web-mode
          :init
-         (setq web-mode-engines-alist '(("go" . "\\.gtl\\'"))
+         (setq web-mode-engines-alist '(("go" . (rx ".gtl" eos)))
                web-mode-enable-engine-detection t
                web-mode-markup-indent-offset 4
                web-mode-enable-auto-quoting t
@@ -1821,9 +1821,9 @@
                web-mode-enable-auto-expanding t
                web-mode-enable-auto-indentation nil
                web-mode-enable-auto-pairing nil)
-         :mode (("\\.html\\'" . web-mode)
-                ("\\.css\\'" . web-mode)
-                ("\\.gtl\\'" . web-mode)))
+         :mode (((rx ".html" eos) . web-mode)
+                ((rx ".css" eos) . web-mode)
+                ((rx ".gtl" eos) . web-mode)))
 	 #+END_SRC
 
 	 I conciser =web-mode= an improvement upon =html-mode= in nearly all
@@ -1847,7 +1847,7 @@
                      (interactive-haskell-mode)))
          (add-hook 'haskell-interactive-mode-hook
                    'haskell-doc-mode)
-         :mode "\\.hs\\'"
+         :mode (rx ".hs" eos)
          :interpreter "ghci"
          :bind (:map haskell-mode-map
                      ("C-," . haskell-move-nested-left)
