@@ -984,6 +984,7 @@
 	  abilities of the user.
 
 	  #+BEGIN_SRC emacs-lisp
+        (setq gnus-posting-styles nil)
         (setq gnus-select-method '(nnnil ""))
 	  #+END_SRC
 
@@ -995,35 +996,26 @@
 	  precede to describe where Gnus should fetch it's mail from...
 
 	  #+BEGIN_SRC emacs-lisp
-        (setq gnus-posting-styles nil)
-
-        (add-to-list 'gnus-secondary-select-methods
-                     '(nnimap "imap.fastmail.com"
-                              (nnimap-split-methods default)
-                              (nnimap-expunge t)
-                              (nnimap-stream ssl)
-                              (nnimap-streaming t)
-                              (nnir-search-engine imap)))
         (add-to-list 'gnus-posting-styles
-                     '("imap.fastmail.com"
+                     '("personal"
                        (signature "Sincerely\nPhilip K.")
                        (address "philip@warpmail.net")))
+        (add-to-list 'gnus-secondary-select-methods
+                     '(nnmaildir "personal" (directory "~/etc/mail/pers")))
+
+
 	  #+END_SRC
 
 	  ... starting with my personal address ...
 
 	  #+BEGIN_SRC emacs-lisp
-        (add-to-list 'gnus-secondary-select-methods
-                     '(nnimap "faumail.fau.de"
-                              (nnimap-split-methods default)
-                              (nnimap-expunge t)
-                              (nnimap-stream ssl)
-                              (nnimap-streaming t)
-                              (nnir-search-engine imap)))
         (add-to-list 'gnus-posting-styles
-                     '("faumail.fau.de"
+                     '("uni"
                        (signature "Hochachtungsvoll\nPhilip K.")
                        (address "philip.kaludercic@fau.de")))
+        (add-to-list 'gnus-secondary-select-methods
+                     '(nnmaildir "uni" (directory "~/etc/mail/uni")))
+
 	  #+END_SRC
 
 	  ... and then with my university address.
