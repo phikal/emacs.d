@@ -715,6 +715,14 @@
 	Based on the [[https://www.emacswiki.org/emacs/CalendarLocalization#toc32][EmacsWiki /Calendar Localization/ Article]], I list inform
 	Emacs German/Bavarian holidays, since these are relevant to me.
 
+	#+BEGIN_SRC emacs-lisp
+      (add-hook 'calendar-mode-hook #'toggle-truncate-lines)
+	#+END_SRC
+
+	Since my screen is just too short to display the calendar when the
+	frame is split, I automatically truncate the lines, to make sure
+	that it readable at all.
+
 *** Writing while region is active
 	#+BEGIN_SRC emacs-lisp
       (delete-selection-mode -1)
