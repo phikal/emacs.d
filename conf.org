@@ -911,7 +911,7 @@
                      dired-ls-sorting-switches "v"
                      dired-omit-files-p nil
                      dired-listing-switches "-NABhl --group-directories-first")
-       (add-to-list 'dired-guess-shell-alist-user '((rx ".pdf" eos) "mupdf"))
+       (add-to-list 'dired-guess-shell-alist-user `(,(rx ".pdf" eos) "mupdf"))
 
 	 #+END_SRC
 
