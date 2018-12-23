@@ -1053,6 +1053,7 @@
 
 	  #+BEGIN_SRC emacs-lisp
         (setq gnus-thread-sort-functions '(gnus-thread-sort-by-number))
+        (advice-add 'gnus-topic-select-group :after #'end-of-buffer)
 	  #+END_SRC
 
 	  Generally, I don't use Gnus' scoring system. Everything I care
