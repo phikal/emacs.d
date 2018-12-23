@@ -1316,7 +1316,10 @@
          :config
          (pdf-tools-install)
          (setq pdf-view-display-size 'fit-page)
-         :mode ("\\.pdf\\'" . pdf-view-mode))
+         :mode ((rx ".pdf" eos) . pdf-view-mode)
+         :magic ("%PDF-" . pdf-view-mode)
+         :bind (:map pdf-view-mode-map
+                     ("c" . pdf-annot-add-text-annotation)))
 	 #+END_SRC
 
 	 Adding PDF-Tools let's me use emacs properly for opening PDFs,
