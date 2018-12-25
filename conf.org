@@ -2086,13 +2086,13 @@
 
 ** Toggle dictionary
    #+BEGIN_SRC emacs-lisp
-     (defconst zge/dicts '("de" "en")
+     (defconst zge/dicts '("german-new8" "british")
        "list of dictionaries")
 
-     (defconst zge/input-alist '(("en" . nil)
-                                 ("de" . "german-postfix")))
+     (defconst zge/input-alist '(("british" . nil)
+                                 ("german-new8" . "german-postfix")))
 
-     (defconst zge/toggle-input-method-modes '(text-mode web-mode))
+     (defconst zge/toggle-dict-modes '(text-mode erc-mode web-mode))
 
      (defun zge/toggle-dictionary (&optional lang no-check)
        "Toggle the Ispell dictionary from English to German and vice versa."
@@ -2107,10 +2107,9 @@
               (next-im (assoc next-dict zge/input-alist)))
          (ispell-change-dictionary next-dict)
          (ring-insert zge/dict-ring next-dict)
-         (when (and next-im
-                    (apply (lambda (a b) (or a b))
-                           (mapcar #'derived-mode-p
-                                   zge/toggle-input-method-modes)))
+         (when (and next-im (eval `(or ,@(mapcar #'fboundp
+                                                 (mapcar #'derived-mode-p
+                                                         zge/toggle-dict-modes)))))
            (set-input-method (cdr next-im))))
        (unless no-check
          (flyspell-region (point-min) (point-max))))
