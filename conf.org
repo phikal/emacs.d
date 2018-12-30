@@ -1226,7 +1226,6 @@
 
 **** Browser
 	 #+BEGIN_SRC emacs-lisp
-
        (setq-default browse-url-browser-function 'browse-url-firefox
                      eww-download-directory (expand-file-name "~/dl")
                      eww-search-prefix "https://duckduckgo.com/lite/?q="
@@ -1691,6 +1690,7 @@
 **** Python
 	 #+BEGIN_SRC emacs-lisp
        (use-package python
+         :after company-jedi
          :init
          (setq python-shell-interpreter "ipython3"
                python-shell-interpreter-args "--simple-prompt -i"
@@ -1702,7 +1702,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
        (use-package company-jedi
-         :after python
+         :after company
          :init
          (add-hook 'python-mode-hook #'jedi:setup)
          (add-hook 'python-mode-hook
@@ -1730,6 +1730,7 @@
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
        (use-package rust-mode
+         :after (cargo racer)
          :init (setq rust-format-on-save t)
          :mode (rx ".rs" eos))
 	 #+END_SRC
@@ -1739,12 +1740,10 @@
 
 	 #+BEGIN_SRC emacs-lisp
        (use-package cargo
-         :after rust-mode
          :init
          (add-hook 'rust-mode-hook #'cargo-minor-mode))
 
        (use-package racer
-         :after rust-mode
          :init
          (add-hook 'rust-mode-hook #'racer-mode)
          (add-hook 'racer-mode-hook #'eldoc-mode))
@@ -1784,7 +1783,7 @@
      #+BEGIN_SRC emacs-lisp
        (use-package javadoc-lookup
          :ensure cc-mode
-         :config
+         :init
          (setq javadoc-lookup-completing-read-function completing-read-function)
          :bind (:map java-mode-map
                      ("C-c C-j" . javadoc-lookup)
@@ -1798,25 +1797,21 @@
 **** Common Lisp
 	 #+BEGIN_SRC emacs-lisp
        (use-package slime
-         :ensure
-         :config
+         :after (slime-company paredit)
+         :init
          (setq inferior-lisp-program (executable-find "sbcl")
-               slime-contribs '(slime-fancy
-                                slime-autodoc
-                                slime-cl-indent))
+               slime-contribs '(slime-fancy slime-autodoc slime-cl-indent))
          (add-hook 'common-lisp-mode-hook 'slime-mode)
          :interpreter ("sbcl" . common-lisp-mode)
          :mode (((rx ".lisp" eos) . common-lisp-mode)
                 ((rx ".cl" eos) . common-lisp-mode)))
 
        (use-package slime-company
-         :config
-         (add-to-list 'slime-contribs 'slime-company)
+         :init
+         (slime-setup '(slime-company))
          (add-hook 'slime-mode-hook
-                   (lambda ()
-                     (setq-local company-backends
-                                 '(company-slime))))
-         :after slime)
+                   (lambda () (setq-local company-backends
+                                          '(company-slime)))))
 	 #+END_SRC
 
 	 Since Elisp and Common Lisp share a common ancestry in Maclisp and
@@ -1851,6 +1846,7 @@
 **** Haskell
 	 #+BEGIN_SRC emacs-lisp
        (use-package haskell-mode
+         :after company-ghc
          :init
          (setq haskell-process-show-debug-tips nil
                haskell-process-type 'ghci
@@ -1882,11 +1878,11 @@
 
 	 #+BEGIN_SRC emacs-lisp
        (use-package company-ghc
-         :config
+         :init
          (add-hook 'haskell-mode-hook
                    (lambda ()
                      (setq-local company-backends '(company-ghc))))
-         :after (haskell-mode company))
+         :after company)
 	 #+END_SRC
 
 	 For improved interaction, intelligent and informative auto
@@ -1899,7 +1895,6 @@
          :diminish undo-tree-mode
          :init
          (global-undo-tree-mode)
-         :config
          (setq undo-tree-visualizer-timestamps t
                undo-tree-visualizer-diff t))
 	 #+END_SRC
@@ -1922,8 +1917,9 @@
 **** Colorful Delimiters
 	 #+BEGIN_SRC emacs-lisp
        (use-package rainbow-delimiters
-         :config
-         (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable))
+         :after prog-mode
+         :init
+         (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 	 #+END_SRC
 
 	 Especially when programming Lisp, color-matching parentheses and
@@ -1949,25 +1945,22 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package paredit
          :diminish paredit-mode
-         :after (lisp-mode emacs-lisp-mode scheme-mode)
          :init
-         (add-hook 'scheme-mode-hook 'enable-paredit-mode)
-         (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-         (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-         (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+         (dolist (hook '(scheme lisp emacs-lisp lisp-interaction))
+           (add-hook (intern (concat (symbol-name hook) "-mode-hook"))
+                     #'paredit-mode))
          :bind (:map paredit-mode-map
                      ("M-\"" . nil)))
 	 #+END_SRC
 
-	 Paredit isn't easy to get used to, but after a while (and a few
-	 failed attempts) it becomes natural and one expects it.
+	 Paredit might not be easy to get used to, but after a while (and a
+	 few failed attempts) it becomes natural and one expects it.
 
 **** Goto Source
 	 #+BEGIN_SRC emacs-lisp
        (use-package dumb-jump
-         :config
-         (setq dumb-jump-aggressive t)
          :init
+         (setq dumb-jump-aggressive t)
          (add-hook 'prog-mode-hook 'dumb-jump-mode))
 	 #+END_SRC
 
