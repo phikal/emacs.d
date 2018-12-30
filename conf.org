@@ -178,6 +178,11 @@
    - [[http://home.thep.lu.se/~karlf/emacs.html][Karl Fogelmark's .emacs]] :: A lot of functions and keybinding-tables
         and otherwise helpful comments, yet written with pre-Emacs 24.1
         in mind so the configuration is a bit verbose.
+   - [[https://git.sr.ht/~jakob/.emacs.d][ Jakob L. Kreuze's .emacs.d]] :: Despite being described as "little
+        rough around the edges", I found this a very interesting
+        configurations to read (as of writing, <2018-12-30 Sun>). There
+        are quite a few unusual options that are played around with,
+        that I've adopted in the following document too.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
@@ -363,11 +368,15 @@
 *** Extra-Emacs Clipboard
 	#+BEGIN_SRC emacs-lisp
       (setq-default select-enable-clipboard t
-                    x-select-enable-clipboard t)
+                    x-select-enable-clipboard t
+                    save-interprogram-paste-before-kill t)
 	#+END_SRC
 
 	Having the ability to interact with the system clipboard is very
 	welcome, especially when copying code from a (now =eww=) web browser.
+
+	Also don't forget what it is the clipboard before text is killed, by
+	adding it to the kill-ring.
 
 *** Frame resizing
 	#+BEGIN_SRC emacs-lisp
@@ -376,6 +385,37 @@
 
 	When using graphical Emacs, this option enables more flexible
 	resizing of the entire frame.
+
+*** Window resizing
+	#+BEGIN_SRC emacs-lisp
+      (setq window-combination-resize t)
+	#+END_SRC
+
+	This option make Emacs split windows in a more sane and visually
+	pleasing manner, ie. proportionally.
+
+*** Custom Modeline
+	#+BEGIN_SRC emacs-lisp
+      (setq-default mode-line-format
+                    '("%e"
+                      mode-line-front-space
+                      mode-line-remote
+                      mode-line-client
+                      mode-line-modified
+                      " "
+                      mode-line-directory
+                      mode-line-buffer-identification
+                      " "
+                      mode-line-position
+                      mode-line-misc-info
+                      ""
+                      (mode-name)
+                      mode-line-end-spaces))
+	#+END_SRC
+
+	Most custom modelines either change too much or are too
+	opinionated. Based on what I found in [[https://git.sr.ht/%257Ejakob/.emacs.d/tree/master/jakob.org][this config]], I managed to
+	create one that matches my taste and needs (ie. smaller screen).
 
 ** Cross-session Configuration
    #+BEGIN_SRC emacs-lisp
@@ -483,6 +523,15 @@
 	Just don't create graphical pop-ups (especially when Emacs starts
 	up).
 
+*** Disable lockfiles
+	#+BEGIN_SRC emacs-lisp
+      (setq create-lockfiles nil)
+	#+END_SRC
+
+	Lockfiles appear when a file is opened and confuses some tools. I
+	trust /myself/ to not come into a situation where lockfiles are
+	needed, and have therefore disabled them.
+
 *** Minibuffer height
 	#+BEGIN_SRC emacs-lisp
       (setq max-mini-window-height 0.40)
@@ -543,6 +592,16 @@
 	It happens far too often that I open two files with the same name,
 	eg. two =Makefile= or =.gitignore= files. To make this "mistake" more
 	pleasant, I customize the default behavior.
+
+*** Help-buffers
+	#+BEGIN_SRC emacs-lisp
+      (setq help-window-select nil)
+	#+END_SRC
+
+	Usually when using Emacs' online-help system, it doesn't move the
+	active point to the new buffer, making me type =C-x o= every time
+	(nearly as an instinct). Telling Emacs to do otherwise, should make
+	life a bit easier.
 
 *** Aliases
 	#+BEGIN_SRC emacs-lisp
@@ -620,6 +679,14 @@
 
 	For tools like [[projectile-mode][Projectile]], recentf is enabled, so to easily access
 	recently opened files.
+
+*** Scrolling
+	#+BEGIN_SRC emacs-lisp
+      (setq scroll-conservatively most-positive-fixnum)
+	#+END_SRC
+
+	This one is probably more of a placebo than anything else, but it's
+	said to make scrolling less jerky.
 
 *** Setting the right mode
 	#+BEGIN_SRC emacs-lisp
@@ -1212,7 +1279,8 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package elfeed
          :config
-         (setq elfeed-search-filter "@1-month-ago +unread")
+         (setq elfeed-search-filter "@1-month-ago +unread"
+               elfeed-db-directory "~/.local/share/elfeed")
          (run-at-time nil (* 60 60) #'elfeed-update)
          :bind ("C-x x f" . elfeed))
 	 #+END_SRC
@@ -1402,6 +1470,7 @@
              org-hide-emphasis-markers t
              org-yank-adjusted-subtrees t
              org-startup-folded t
+             org-return-follows-link 't
              org-highlight-latex-and-related '(latex entities)
              org-M-RET-may-split-line '((default))
              org-special-ctrl-a/e t
