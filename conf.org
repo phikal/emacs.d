@@ -1423,15 +1423,15 @@
 	 highlighting and indenting them appropriately is very convenient.
 
 	 #+BEGIN_SRC emacs-lisp
-       (require 'org-agenda)
-       (setq org-directory (expand-file-name "~/doc/org/")
-             org-agenda-files (mapcar (lambda (f) (expand-file-name
-                                                   (concat org-directory f ".org")))
-                                      '("ws18" "pers" "notes"))
-             org-agenda-include-diary t
-             org-agenda-inhibit-startup t
-             org-agenda-window-setup 'current-window
-             org-default-notes-file (expand-file-name "notes.org" org-directory))
+       (with-eval-after-load 'org-agenda
+         (setq org-directory (expand-file-name "~/doc/org/")
+               org-agenda-files (mapcar (lambda (f) (expand-file-name
+                                                     (concat org-directory f ".org")))
+                                        '("ws18" "pers" "notes"))
+               org-agenda-include-diary t
+               org-agenda-inhibit-startup t
+               org-agenda-window-setup 'current-window
+               org-default-notes-file (expand-file-name "notes.org" org-directory)))
 	 #+END_SRC
 
 	 Within my documents directory (=~/doc/=) I have an =org= directory just
@@ -1503,6 +1503,7 @@
 
 	  #+BEGIN_SRC emacs-lisp
         (setq org-clock-into-drawer t
+              org-clock-continuously t
               org-log-into-drawer t)
 	  #+END_SRC
 
@@ -1514,7 +1515,7 @@
         (org-babel-do-load-languages
          'org-babel-load-languages
          '((emacs-lisp . nil)
-           (C . t) (scheme . t) (calc . t)
+           (C . t) (python . t) (scheme . t) (calc . t)
            (dot . t) (sh . t) (sqlite . t)
            (java . t) (awk . t) (ditaa . t)
            (haskell . t) (lisp . t)))
@@ -1523,9 +1524,9 @@
 	  Load languages for [[info:org#Library%20of%20Babel][Org Babel]], without the need to reconfirm.
 
 	  #+BEGIN_SRC emacs-lisp
-        (require 'ox-html)
-        (setf (car (alist-get 'path org-html-mathjax-options))
-              "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+        (with-eval-after-load 'ox-html
+          (setf (car (alist-get 'path org-html-mathjax-options))
+                "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"))
 	  #+END_SRC
 
 	  The default MathJax url that Org-mode uses seems to be depricated,
@@ -1553,13 +1554,16 @@
       directory, so the following options should migrate these issues.
 
       #+BEGIN_SRC emacs-lisp
-        :bind (("C-c c" . org-capture)
-               ("C-c a" . org-agenda)
-               ("C-c l" . org-store-link)
-               ("C-x x i" . org-clock-in)
-               ("C-x x o" . org-clock-out)
-               :map org-mode-map
-               ("M-<tab>" . pcomplete))
+		:bind (("C-c c" . org-capture)
+			   ("C-c a" . org-agenda)
+			   ("C-c l" . org-store-link)
+			   ("C-x x o" . org-clock-out)
+			   ("C-x x i" . (lambda () (interactive) (org-clock-in 4)))
+			   :map org-agenda-mode-map
+			   ("<tab>" . org-next-link)
+			   ("<S-iso-lefttab>" . org-previous-link)
+			   :map org-mode-map
+			   ("M-<tab>" . pcomplete))
       #+END_SRC
 
       Here I set a few convenient keybindings for globally interacting
