@@ -1456,15 +1456,15 @@
 	 highlighting and indenting them appropriately is very convenient.
 
 	 #+BEGIN_SRC emacs-lisp
-       (with-eval-after-load 'org-agenda
-         (setq org-directory (expand-file-name "~/doc/org/")
-               org-agenda-files (mapcar (lambda (f) (expand-file-name
-                                                     (concat org-directory f ".org")))
-                                        '("ws18" "pers" "notes"))
-               org-agenda-include-diary t
-               org-agenda-inhibit-startup t
-               org-agenda-window-setup 'current-window
-               org-default-notes-file (expand-file-name "notes.org" org-directory)))
+       (require 'org-agenda)
+       (setq org-directory (expand-file-name "~/doc/org/")
+             org-agenda-files (mapcar (lambda (f) (expand-file-name
+                                                   (concat org-directory f ".org")))
+                                      '("ws18" "pers" "notes"))
+             org-agenda-include-diary t
+             org-agenda-inhibit-startup t
+             org-agenda-window-setup 'current-window
+             org-default-notes-file (expand-file-name "notes.org" org-directory))
 	 #+END_SRC
 
 	 Within my documents directory (=~/doc/=) I have an =org= directory just
@@ -2161,18 +2161,18 @@
        (save-excursion
          (goto-char (point-min))
          (catch 'found
-           (while (not (looking-at-p "^[[:space:]]*$"))
+           (while (not (looking-at-p (rx (or (group bol (zero-or-more space) eol)
+                                             (group (zero-or-more not-newline) eos)))))
              (save-match-data
-               (when (looking-at "^#\\+LANGUAGE: \\(.+\\)")
+               (when (looking-at (rx bol "#+LANGUAGE: " (group (one-or-more word))))
                  (let ((lang (match-string-no-properties 1)))
-                   (zge/toggle-dictionary lang)
+                   (zge/toggle-dictionary (pcase lang
+                                            ("en" "british")
+                                            ("de" "german-new8")
+                                            (t lang)))
                    (message "Toggled language to \"%s\"" lang))
                  (throw 'found t)))
-             (forward-line)
-             (save-excursion
-               (end-of-line)
-               (when (eobp)
-                 (throw 'found nil)))))))
+             (forward-line)))))
 
      (with-eval-after-load 'org
        (add-hook 'org-mode-hook #'zge/org-check-lang))
