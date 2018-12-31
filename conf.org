@@ -1047,56 +1047,41 @@
 	  abilities of the user.
 
 	  #+BEGIN_SRC emacs-lisp
-        (setq gnus-posting-styles nil)
-        (setq gnus-select-method '(nnnil ""))
+        (setq gnus-select-method '(nnmaildir "mail" (directory "~/etc/mail/")))
 	  #+END_SRC
 
-	  My setup requires two addresses to be set up:
-	  1. my personal email hosted by [[https://fastmail.com][Fastmail]]
-	  2. My university email hosted by... my University?
+	  I have two accounts I use (personal and university Email), and bot
+	  are synchronized via [[https://marlam.de/mpop/][mpop]], my [[https://zge.us.to/files/authinfo][authinfo]] script and the following
+	  configuration:
 
-	  For that reason I don't specify a "main" address, but instead
-	  precede to describe where Gnus should fetch it's mail from...
+	  #+INCLUDE: "~/.mpoprc" src conf-space :tangle no
+
+	  I end up with two directories in =~/etc/mail= (=pers= and =uni= in my
+	  case) that are both recognized as such by gnus.
 
 	  #+BEGIN_SRC emacs-lisp
-        (add-to-list 'gnus-posting-styles
-                     '("personal"
-                       (signature "Sincerely\nPhilip K.")
-                       (address "philip@warpmail.net")))
-        (add-to-list 'gnus-secondary-select-methods
-                     '(nnmaildir "personal" (directory "~/etc/mail/pers")))
-
-
+        (setq gnus-posting-styles
+              '(("pers"
+                 (signature "Sincerely\nPhilip K.")
+                 (address "philip@warpmail.net"))
+                ("uni"
+                 (signature "Hochachtungsvoll\nPhilip K.")
+                 (address "philip.kaludercic@fau.de"))))
 	  #+END_SRC
 
-	  ... starting with my personal address ...
-
-	  #+BEGIN_SRC emacs-lisp
-        (add-to-list 'gnus-posting-styles
-                     '("uni"
-                       (signature "Hochachtungsvoll\nPhilip K.")
-                       (address "philip.kaludercic@fau.de")))
-        (add-to-list 'gnus-secondary-select-methods
-                     '(nnmaildir "uni" (directory "~/etc/mail/uni")))
-
-	  #+END_SRC
-
-	  ... and then with my university address.
-
-	  Both use IMAP and have a language specific signature.
+	  Additionally, I add the following "posting styles" (ie. what to
+	  append to the end of a message):
 
       #+BEGIN_SRC emacs-lisp
         (setq gnus-summary-line-format "%U%R │ %d% │ %4k: %4{%-23,23F%} │%(%B%S%)\n"
-              gnus-sum-thread-tree-single-indent   (propertize "   " 'family "Monospace")
-              gnus-sum-thread-tree-false-root      (propertize "   " 'family "Monospace")
-              gnus-sum-thread-tree-root            (propertize "┌  " 'family "Monospace")
-              gnus-sum-thread-tree-vertical        (propertize "│  " 'family "Monospace")
-              gnus-sum-thread-tree-leaf-with-other (propertize "├→ " 'family "Monospace")
-              gnus-sum-thread-tree-single-leaf     (propertize "└→ " 'family "Monospace")
-              gnus-sum-thread-tree-indent          (propertize "   " 'family "Monospace")
-
-              gnus-group-line-format "%M%p%5y%2[:%] %(%G%)\t%m\n")
-        (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+              gnus-sum-thread-tree-single-indent    "   "
+              gnus-sum-thread-tree-false-root       "   "
+              gnus-sum-thread-tree-root             "┌  "
+              gnus-sum-thread-tree-vertical         "│  "
+              gnus-sum-thread-tree-leaf-with-other  "├→ "
+              gnus-sum-thread-tree-single-leaf      "└→ "
+              gnus-sum-thread-tree-indent           "   ")
+        (advice-add 'gnus-group-select-group :after #'end-of-buffer)
 	  #+END_SRC
 
 	  To make the default summaries a bit easier to parse and read, I
@@ -1108,7 +1093,6 @@
 
 	  #+BEGIN_SRC emacs-lisp
         (setq gnus-thread-sort-functions '(gnus-thread-sort-by-number))
-        (advice-add 'gnus-topic-select-group :after #'end-of-buffer)
 	  #+END_SRC
 
 	  Generally, I don't use Gnus' scoring system. Everything I care
@@ -1138,26 +1122,16 @@
 	  images, when they're attached to a mail. Since I don't need this,
 	  I force inline opening in all cases.
 
-	  #+BEGIN_SRC emacs-lisp
-        (setq gnus-agent t
-              gnus-agent-consider-all-articles t
-              gnus-agent-prompt-send-queue t)
-        (add-hook 'gnus-select-article-hook 'gnus-agent-fetch-selected-article)
-	  #+END_SRC
-
-	  The [[info:gnus#Agent%20Basics][Agent System]] allows Gnus to cache and then read messages when
-	  I don't have a active connection to my server.
-
       #+BEGIN_SRC emacs-lisp
-        (setq mm-verify-option 'always
-              mm-decrypt-option 'always
-              mm-sign-option 'guided
-              mm-encrypt-option 'guided
+        (setq mml2015-signers '("philip@warpmail.net")
+              mml2015-encrypt-to-self t
+              mm-verify-option 'known
+              mm-decrypt-option 'known
+              gnus-message-archive-group nil
               gnus-message-replyencrypt t
-              gnus-message-replysign t
-              gnus-message-replysignencrypted t
-              gnus-treat-x-pgp-sig t
-              mml-secure-openpgp-sign-with-sender t)
+              gnus-buttonized-mime-types '("multipart/signed"))
+
+        (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
 	  #+END_SRC
 
 	  Setup Gnus' encryption, signing and verification system.
@@ -1170,19 +1144,9 @@
 	  time to time to access my mail. This also requires
 	  =~/.gnupg/.gpg-agent.conf= to contain the following two lines,
 
-	  #+BEGIN_EXAMPLE
-	  allow-emacs-pinentry
-	  allow-loopback-pinentry
-	  #+END_EXAMPLE
+	  #+INCLUDE: "~/.gnupg/gpg-agent.conf" src conf :tangle no
 
 	  so that "pintetry" is used for query my paraphrase.
-
-	  #+BEGIN_SRC emacs-lisp
-        (gnus-demon-add-scanmail)
-        (gnus-demon-scan-mail)
-	  #+END_SRC
-
-	  Start demons to improve overall experience.
 
 	  #+BEGIN_SRC emacs-lisp
         :bind (("C-x x m" . gnus)
@@ -1202,9 +1166,16 @@
               sendmail-program (executable-find "msmtp"))
 	  #+END_SRC
 
-	  Instead of using Emacs' internal SMTP service, I use msmtp, simply
+	  Instead of using Emacs' internal SMTP service, I use [[https://marlam.de/msmtp/][msmtp]], simply
 	  for the sake of speed. Additionally, this setup automatically
 	  chooses what server to contact, based on the =From:= field.
+
+	  My msmtp configuration is as follows:
+
+	  #+INCLUDE: "~/.msmtprc" src conf-space :tangle no
+
+	  As already mentioned, this requires a [[https://zge.us.to/files/authinfo][special script]] I wrote to
+	  extract password-data from =~/.authinfo.gpg=.
 
 	  #+BEGIN_SRC emacs-lisp
         (add-hook 'message-mode-hook 'turn-on-orgstruct++)
