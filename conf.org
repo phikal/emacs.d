@@ -183,6 +183,9 @@
         configurations to read (as of writing, <2018-12-30 Sun>). There
         are quite a few unusual options that are played around with,
         that I've adopted in the following document too.
+   - [[https://github.com/wasamasa/dotemacs/blob/master/init.org][Vasilij Schneidermann's dotemacs]] :: More of a classical literate
+        configuration, both in standing as well as style. Well worth
+        reading for various hacks or just for learning.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
@@ -368,15 +371,24 @@
 *** Extra-Emacs Clipboard
 	#+BEGIN_SRC emacs-lisp
       (setq-default select-enable-clipboard t
-                    x-select-enable-clipboard t
-                    save-interprogram-paste-before-kill t)
+                    x-select-enable-clipboard t)
 	#+END_SRC
 
 	Having the ability to interact with the system clipboard is very
 	welcome, especially when copying code from a (now =eww=) web browser.
 
+	#+BEGIN_SRC emacs-lisp
+      (setq save-interprogram-paste-before-kill t)
+	#+END_SRC
+
 	Also don't forget what it is the clipboard before text is killed, by
 	adding it to the kill-ring.
+
+	#+BEGIN_SRC emacs-lisp
+      (setq mouse-yank-at-point t)
+	#+END_SRC
+
+	Additionally, don't follow the mouse, but insert at the current point.
 
 *** Frame resizing
 	#+BEGIN_SRC emacs-lisp
@@ -581,6 +593,15 @@
 	enabled by the user, when the keybinding is used or the function is
 	called. This snippet ([[https://www.emacswiki.org/emacs/DisabledCommands][source]]) disables this by default, thus
 	enabling all commands.
+
+*** Eldoc
+	#+BEGIN_SRC emacs-lisp
+      (setq eldoc-idle-delay 0.1)
+	#+END_SRC
+
+	Eldoc is quite nice when programming, it shows me information about
+	the symbol the point is currently on. All I want it for it to not
+	wait for that long before it does that.
 
 *** Uniquify
 	#+BEGIN_SRC emacs-lisp
@@ -1473,6 +1494,7 @@
              org-return-follows-link 't
              org-highlight-latex-and-related '(latex entities)
              org-M-RET-may-split-line '((default))
+             org-catch-invisible-edits 'smart
              org-special-ctrl-a/e t
              org-special-ctrl-k t)
 	 #+END_SRC
@@ -1532,6 +1554,7 @@
 	  #+BEGIN_SRC emacs-lisp
         (setq org-export-date-timestamp-format "%X"
               org-html-metadata-timestamp-format "%X"
+              org-export-backends '(ascii beamer html latex md)
               org-export-dispatch-use-expert-ui t)
 	  #+END_SRC
 
@@ -2060,6 +2083,7 @@
                company-tooltip-align-annotations t
                company-tooltip-minimum-width 30
                company-tooltip-limit 20
+               company-require-match 'never
                company-selection-wrap-around t)
          :init
          (add-hook 'prog-mode-hook 'company-mode)
@@ -2107,7 +2131,8 @@
 *** General Management
 **** Ediff
 	 #+BEGIN_SRC emacs-lisp
-       (setq ediff-window-setup-function 'ediff-setup-windows-multiframe)
+       (setq ediff-window-setup-function 'ediff-setup-windows-multiframe
+             ediff-split-window-function 'split-window-horizontally)
 	 #+END_SRC
 
 	 When using Ediff, don't create a new window.
