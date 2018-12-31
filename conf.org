@@ -224,14 +224,14 @@
    the same system. The following list helps me remember what I have to
    install on a new system, and for what purpose:
 
-   - msmtp :: [[SMTP][Sending Mail]]
+   - msmtp, mpop :: [[*Mail][Mail]]
    - gpg :: authinfo.gpg de-/encyrption
-   - curl :: [[Elfeed][RSS/Atom feeds]]
-   - ledger :: [[Ledger][Double-entry Accounting]]
-   - git :: [[Version%20Controll][Version Controll]] (eg. for this file)
+   - curl :: [[Elfeed][Feed Syndication]]
+   - ledger :: [[*Accounting][Double-entry Accounting]]
+   - git :: [[*Version%20Control][Version Control]] (eg. for this file)
    - aspell :: [[Spell%20Checking][Spell Checking]]
-   - ag :: [[Projectile][Project management]]
-   - cmark :: [[Markdown]]
+   - ag :: [[Project%20managment][Project Managment]]
+   - cmark :: [[*Markdown][Markdown]]
 
    Compilers and interpreters for specific programming enjoyments aren't
    listed here, since I don't necessarily have all of them installed,
