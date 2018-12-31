@@ -500,7 +500,7 @@
       (defun new-scratch (&optional keep)
         "Generate a new *scratch* buffer"
         (interactive "P")
-        (with-current-buffer "*scratch*"
+        (with-current-buffer (get-buffer-create "*scratch*")
           (unless keep
             (save-mark-and-excursion
              (delete-region (point-min)
@@ -692,7 +692,7 @@
       (recentf-mode t)
 	#+END_SRC
 
-	For tools like [[projectile-mode][Projectile]], recentf is enabled, so to easily access
+	For tools like [[*Project%20Managment][Project Managment]], recentf is enabled, so to easily access
 	recently opened files.
 
 *** Setting the right mode
@@ -2242,18 +2242,18 @@
 
        (hl-line-mode t)
        (dotimes (i 50)
-             (if (eobp)
-                 (goto-char (point-min))
-               (next-line))
-             (end-of-line)
-             (hl-line-highlight)
-             (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
-       
+         (if (eobp)
+             (goto-char (point-min))
+           (forward-line))
+         (end-of-line)
+         (hl-line-highlight)
+         (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
+
        (dotimes (i 4)
-             (sit-for 0.5)
-             (hl-line-highlight)
-             (sit-for 0.5)
-             (hl-line-unhighlight))
+         (sit-for 0.5)
+         (hl-line-highlight)
+         (sit-for 0.5)
+         (hl-line-unhighlight))
        (hl-line-mode -1))
    #+END_SRC
 
@@ -2422,8 +2422,7 @@
             (forward-line)
           (goto-char (point-min)))
         (when header (insert (format "#include <%s>\n" header)))
-        (unless current-prefix-arg
-          (zge/c-order-headers))))
+        (when arg (zge/c-order-headers))))
    #+END_SRC
 
    This function is a simple and primitive mechanism to quickly add c
@@ -2458,6 +2457,8 @@
          (comment-region (point-min) (point))
          (end-of-line)
          (newline 2)))
+
+     (defalias 'add-timestamp 'zge/add-timestamp)
    #+END_SRC
 
    For my ad-hoc blog, I insert a UNIX timestamp
