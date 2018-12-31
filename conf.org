@@ -976,7 +976,10 @@
                      dired-ls-sorting-switches "v"
                      dired-omit-files-p nil
                      dired-listing-switches "-NABhl --group-directories-first")
-       (add-to-list 'dired-guess-shell-alist-user `(,(rx ".pdf" eos) "mupdf"))
+       (add-to-list 'dired-guess-shell-alist-user
+                    `(,(rx ".pdf" eos) "mupdf"))
+       (add-to-list 'dired-guess-shell-alist-user
+                    `(,(rx (or ".png" ".jpg" ".jpeg") eos) "feh"))
 
 	 #+END_SRC
 
@@ -2353,14 +2356,17 @@
         ;; parse all headers and split them into groups according to their
         ;; prefixed path
         (goto-char (point-max))
-        (search-backward-regexp "^#include <" nil t)
+        (search-backward-regex (rx bos (zero-or-more space) "#include <") nil t)
         (forward-line)
         (let ((headers) (until (point)))
           (goto-char (point-min))
           (beginning-of-line)
           (while (< (point) until)
             (save-match-data
-              (when (looking-at "#include <\\(.*?/\\)?\\(.*?\\)>$")
+              (when (looking-at (rx "#include <"
+                                    (opt (group (zero-or-more nonl)) "/")
+                                    (group (minimal-match (one-or-more nonl)))
+                                    ">" (zero-or-more space) eol))
                 (let* ((path (match-string-no-properties 1))
                        (head (match-string-no-properties 2)))
                   (push head (alist-get path headers)))))
