@@ -362,7 +362,7 @@
 
 *** Exiting Emacs
 	#+BEGIN_SRC emacs-lisp
-      (setq confirm-kill-emacs 'yes-or-no-p)
+      (setq confirm-kill-emacs #'yes-or-no-p)
 	#+END_SRC
 
 	While it's not quite "appearance"-related, this will prevent Emacs
@@ -509,11 +509,12 @@
           (goto-char (point-min))
           (insert (substitute-command-keys initial-scratch-message))
           (set-buffer-modified-p nil)
-          (local-set-key (kbd "C-x k") 'bury-buffer))
-        (when (interactive-p)
+          (local-set-key (kbd "C-x k") #'bury-buffer))
+        (when (called-interactively-p 'any)
           (switch-to-buffer "*scratch*")))
 
-      (eval-after-load 'lisp-interaction-mode (new-scratch))
+      (eval-after-load 'lisp-interaction-mode
+        (new-scratch))
 	#+END_SRC
 
 	To prevent myself from accidentally killing my =*scratch*= buffer, I
@@ -724,7 +725,7 @@
 *** Shell comands
 	#+BEGIN_SRC emacs-lisp
       (setq-default async-shell-command-display-buffer nil
-                    async-shell-command-buffer 'new-buffer)
+                    async-shell-command-buffer #'new-buffer)
 	#+END_SRC
 
 	When asynchronously running commands, only create a /new/ output
@@ -1132,7 +1133,7 @@
               gnus-message-replyencrypt t
               gnus-buttonized-mime-types '("multipart/signed"))
 
-        (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
+        (add-hook 'message-send-hook #'mml-secure-message-sign-pgpmime)
 	  #+END_SRC
 
 	  Setup Gnus' encryption, signing and verification system.
@@ -1158,7 +1159,7 @@
 
 ***** SMTP
 	  #+BEGIN_SRC emacs-lisp
-        (setq message-send-mail-function 'message-send-mail-with-sendmail
+        (setq message-send-mail-function #'message-send-mail-with-sendmail
               message-sendmail-extra-arguments '("--read-envelope-from")
               message-sendmail-f-is-evil t
               message-sendmail-envelope-from 'header
@@ -1179,8 +1180,8 @@
 	  extract password-data from =~/.authinfo.gpg=.
 
 	  #+BEGIN_SRC emacs-lisp
-        (add-hook 'message-mode-hook 'turn-on-orgstruct++)
-        (add-hook 'message-mode-hook 'turn-on-orgtbl)
+        (add-hook 'message-mode-hook #'turn-on-orgstruct++)
+        (add-hook 'message-mode-hook #'turn-on-orgtbl)
 	  #+END_SRC
 
 	  Furthermore, =orgstruct= is enabled to help writing and structuring
@@ -1199,7 +1200,7 @@
           :config
           (bbdb-initialize 'gnus 'message 'pgp)
           (with-eval-after-load 'message-mode
-            (define-key message-mode-map (kbd "M-<tab>") 'bbdb-complete-mail))
+            (define-key message-mode-map (kbd "M-<tab>") #'bbdb-complete-mail))
           :after gnus)
 	  #+END_SRC
 
@@ -1378,7 +1379,7 @@
            (add-hook 'LaTeX-language-de-hook
                      (lambda () (zge/toggle-dictionary "de")))
            (add-hook 'TeX-after-compilation-finished-functions
-                     'TeX-revert-document-buffer))
+                     #'TeX-revert-document-buffer))
          :init
          (setq LaTeX-electric-left-right-brace t
                TeX-view-program-selection '((output-pdf "PDF Tools"))
@@ -1397,7 +1398,7 @@
        (use-package cdlatex
          :after auctex
          :init
-         (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+         (add-hook #'LaTeX-mode-hook 'cdlatex-mode)
          :config
          (add-to-list 'cdlatex-math-modify-alist
                       '(?B "\\mathbb" nil t nil nil))
@@ -1437,6 +1438,7 @@
              org-catch-invisible-edits 'smart
              org-special-ctrl-a/e t
              org-special-ctrl-k t)
+       (setf (alist-get 'file org-link-frame-setup) #'find-file)
 	 #+END_SRC
 
 	 Basic stylistic and movment options (especially enabling using the
@@ -1522,8 +1524,8 @@
 	  enable.
 
 	  #+BEGIN_SRC emacs-lisp
-        (dolist (hook '(flyspell-prog-mode
-                        turn-on-org-cdlatex))
+        (dolist (hook (list #'flyspell-prog-mode
+                            #'turn-on-org-cdlatex))
           (add-hook 'org-mode-hook hook))
 	  #+END_SRC
 
@@ -1637,8 +1639,8 @@
      #+BEGIN_SRC emacs-lisp
        (setq-default c-electric-flag t
                      c-auto-newline nil
-                     c-delete-function 'backward-delete-char
                      c-default-style "k&r"
+                     c-delete-function #'backward-delete-char
                      c-delete-function #'delete-char
                      c-tab-always-indent t)
 	 #+END_SRC
@@ -1684,7 +1686,7 @@
          (setq gofmt-command "goimports")
          (add-hook 'go-mode-hook
                    (lambda ()
-                     (add-hook 'before-save-hook 'gofmt-before-save t t)
+                     (add-hook 'before-save-hook #'gofmt-before-save t t)
                      (setq-local compile-command
                                  "go generate && go build -v && go test -v && go vet")))
          :config
@@ -1708,7 +1710,7 @@
        (use-package go-eldoc
          :after go-mode
          :init
-         (add-hook 'go-mode-hook 'go-eldoc-setup))
+         (add-hook 'go-mode-hook #'go-eldoc-setup))
 	 #+END_SRC
 
 	 Go can be very fragile, but after having have set up the right files
@@ -1892,7 +1894,7 @@
                      (haskell-doc-mode)
                      (interactive-haskell-mode)))
          (add-hook 'haskell-interactive-mode-hook
-                   'haskell-doc-mode)
+                   #'haskell-doc-mode)
          :mode (rx ".hs" eos)
          :interpreter "ghci"
          :bind (:map haskell-mode-map
@@ -1994,7 +1996,7 @@
        (use-package dumb-jump
          :init
          (setq dumb-jump-aggressive t)
-         (add-hook 'prog-mode-hook 'dumb-jump-mode))
+         (add-hook 'prog-mode-hook #'dumb-jump-mode))
 	 #+END_SRC
 
 	 In addition to projectile, and to avoid using =TAGS= files, =dumb-jump=
@@ -2026,7 +2028,7 @@
                company-require-match 'never
                company-selection-wrap-around t)
          :init
-         (add-hook 'prog-mode-hook 'company-mode)
+         (add-hook 'prog-mode-hook #'company-mode)
          :bind (:map company-mode-map
                      ("M-<tab>" . company-complete)
                      :map company-active-map
@@ -2041,7 +2043,7 @@
 	 #+BEGIN_SRC emacs-lisp
        (use-package yasnippet
          :init
-         (add-hook 'prog-mode-hook 'yas-minor-mode)
+         (add-hook 'prog-mode-hook #'yas-minor-mode)
          (setq yas-prompt-functions '(yas-dropdown-prompt yas-completing-prompt)
                yas-wrap-around-region t)
          :config
@@ -2105,7 +2107,7 @@
                projectile-switch-project-action 'projectile-dired
                projectile-completion-system 'default)
          :config
-         (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+         (define-key projectile-mode-map (kbd "C-c p") #'projectile-command-map)
          (projectile-mode t)
          :after ivy)
 	 #+END_SRC
@@ -2173,7 +2175,7 @@
                  (throw 'found nil)))))))
 
      (with-eval-after-load 'org
-       (add-hook 'org-mode-hook 'zge/org-check-lang))
+       (add-hook 'org-mode-hook #'zge/org-check-lang))
    #+END_SRC
 
    Most of the time, empirical studies have found, I use
@@ -2509,11 +2511,11 @@
      (add-hook 'prog-mode-hook
                (lambda ()
                  (add-hook 'before-save-hook
-                           'delete-trailing-whitespace t t)
-                 (local-set-key (kbd "C-;") 'comment-dwim)
-                 (local-set-key (kbd "RET") 'newline-and-indent)
-                 (local-set-key (kbd "C-:") 'indent-region)
-                 (local-set-key (kbd "C-c w") 'whitespace-mode)
+                           #'delete-trailing-whitespace t t)
+                 (local-set-key (kbd "C-;") #'comment-dwim)
+                 (local-set-key (kbd "RET") #'newline-and-indent)
+                 (local-set-key (kbd "C-:") #'indent-region)
+                 (local-set-key (kbd "C-c w") #'whitespace-mode)
                  (hs-minor-mode t)
                  (electric-indent-local-mode t)
                  (electric-pair-local-mode t)
@@ -2536,13 +2538,13 @@
    do need something else, I turn it on manually.
 
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'text-mode-hook 'electric-pair-local-mode)
+     (add-hook 'text-mode-hook #'electric-pair-local-mode)
    #+END_SRC
 
    All text buffers should automatically close opening parentheses.
 
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'text-mode-hook 'turn-on-auto-fill)
+     (add-hook 'text-mode-hook #'turn-on-auto-fill)
      (advice-add 'auto-fill-function :before
                  (lambda (&rest args) (scroll-right 4096)))
    #+END_SRC
