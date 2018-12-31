@@ -1400,7 +1400,10 @@
          (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
          :config
          (add-to-list 'cdlatex-math-modify-alist
-                      '(?B "\\mathbb" nil t nil nil)))
+                      '(?B "\\mathbb" nil t nil nil))
+         :bind (:map cdlatex-mode-map
+                     ("<tab>" . indent-then-expand)
+                     ("M-<tab>" . cdlatex-tab)))
 	 #+END_SRC
 
 	 Additionally, CDLaTeX provides a more comfortable input and
