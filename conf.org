@@ -94,9 +94,10 @@
    Emacs is the 100-year editor.
    #+END_QUOTE
 
-   It didn't take long and I decided to rewrite my ~100-150 line
-   configuration. My enthusiasm began to blossom somewhere around that
-   time. And so, since February 2018 I have been maintaining this file.
+   Yes, it is a bit cringy -- but I liked the idea. So it didn't take
+   long and I decided to rewrite my ~100-150 line configuration. My
+   enthusiasm began to blossom somewhere around that time. And so, since
+   February 2018 I have been maintaining this file.
 
 ** Why use org/babel?
    While it might appear to be a inconvenience at first, extracting ones
@@ -158,7 +159,7 @@
 		=mapc=, ...)
    - [[https://gitlab.com/j3kyl/dots/blob/master/gnu/.emacs.d/init.el][j3kyl's =init.el=]] :: Very extensive and occasionally obscure
 		settings, structured and documented well enough to be
-		understandable.
+		understandable (sadly offline).
    - [[https://github.com/larstvei/dot-emacs/][Lard Tveito's "dot-emacs"]] :: Another literate configuration that
 		demonstrates multiple packages with well written and helpful
 		comments.
@@ -178,7 +179,7 @@
    - [[http://home.thep.lu.se/~karlf/emacs.html][Karl Fogelmark's .emacs]] :: A lot of functions and keybinding-tables
         and otherwise helpful comments, yet written with pre-Emacs 24.1
         in mind so the configuration is a bit verbose.
-   - [[https://git.sr.ht/~jakob/.emacs.d][ Jakob L. Kreuze's .emacs.d]] :: Despite being described as "little
+   - [[https://git.sr.ht/~jakob/.emacs.d][Jakob L. Kreuze's .emacs.d]] :: Despite being described as "little
         rough around the edges", I found this a very interesting
         configurations to read (as of writing, <2018-12-30 Sun>). There
         are quite a few unusual options that are played around with,
