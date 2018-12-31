@@ -693,14 +693,6 @@
 	For tools like [[projectile-mode][Projectile]], recentf is enabled, so to easily access
 	recently opened files.
 
-*** Scrolling
-	#+BEGIN_SRC emacs-lisp
-      (setq scroll-conservatively most-positive-fixnum)
-	#+END_SRC
-
-	This one is probably more of a placebo than anything else, but it's
-	said to make scrolling less jerky.
-
 *** Setting the right mode
 	#+BEGIN_SRC emacs-lisp
       (setq-default major-mode (lambda ()
@@ -718,15 +710,6 @@
 	#+END_SRC
 
 	Force Emacs (especially =org-mode=) to use English timestamps.
-
-*** Window Spliting
-	#+BEGIN_SRC emacs-lisp
-      (setq split-height-threshold 0
-            split-width-threshold nil)
-	#+END_SRC
-
-	Taken from [[https://github.com/freetonik/emacs-dotfiles/blob/master/init.org][Rakhim Davletkaliyev's configuration]], to modify Emacs
-	algorithm to generate new windows.
 
 *** Abbrevations
 	#+BEGIN_SRC emacs-lisp
@@ -845,17 +828,6 @@
 
    To quickly access certain files I tend to frequently use, I use
    Emacs's [[info:emacs#File%20Registers][file registers]].
-
-** Hacks
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'emacs-startup-hook
-               (lambda ()
-                 (with-current-buffer "*scratch*"
-                   (lisp-interaction-mode))))
-   #+END_SRC
-
-   I /reload/ =lisp-interaction-mode= to make sure that all the =prog-mode=
-   hooks and modifiers get applied to the =*scratch*= buffer.
 
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
