@@ -2190,14 +2190,13 @@
      (defvar zge/current-theme zge/dark-theme
        "variable holding my current theme")
 
-     (defun zge/toggle-theme nil
+     (defun zge/toggle-theme ()
        "Toggle the current theme from light to dark and vice versa"
        (interactive)
-       (let* ((next-theme (if (eq zge/current-theme zge/light-theme)
-                              zge/dark-theme zge/light-theme)))
-         (disable-theme zge/current-theme)
-         (setf zge/current-theme next-theme)
-         (load-theme next-theme t)))
+       (disable-theme zge/current-theme)
+       (load-theme (setq zge/current-theme
+                         (if (eq zge/current-theme zge/light-theme)
+                             zge/dark-theme zge/light-theme)) t))
    #+END_SRC
 
    Analogously to =toggle-dictionary=, this function is a quick way to
