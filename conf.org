@@ -2120,7 +2120,7 @@
      (defconst zge/input-alist '(("british" . nil)
                                  ("german-new8" . "german-postfix")))
 
-     (defconst zge/toggle-dict-modes '(text-mode erc-mode web-mode))
+     (defconst zge/toggle-dict-modes '(text-mode rcirc-mode web-mode))
 
      (defun zge/toggle-dictionary (&optional lang no-check)
        "Toggle the Ispell dictionary from English to German and vice versa."
