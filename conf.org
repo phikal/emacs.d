@@ -2476,24 +2476,15 @@
 
 ** Timestamp
    #+BEGIN_SRC emacs-lisp
-     (defun zge/add-timestamp (arg)
-       "Prepend a UNIX timestamp to buffer, if it doesn't alreay exits.
-
-     Force prepending timestamp when ARG is non-nil."
-       (interactive "P")
+     (defun zge/add-timestamp ()
+       "Prepend a UNIX timestamp to buffer, if it doesn't alreay exits."
+       (interactive)
        (save-excursion
          (goto-char (point-min))
-
-         (if arg (kill-line 2)
-           (uncomment-region (line-beginning-position)
-                             (line-end-position)))
-
-         (when (arg (looking-at "^[[:digit:]]+$"))
-           (insert (format-time-string "%s"))
-           (newline 2)
-           (forward-line -2))
-
-         (comment-line 1)))
+         (insert (format-time-string "%s"))
+         (comment-region (point-min) (point))
+         (end-of-line)
+         (newline 2)))
    #+END_SRC
 
    For my ad-hoc blog, I insert a UNIX timestamp
