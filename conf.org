@@ -2090,7 +2090,7 @@
 	 out how minimal it's configuration needs to be (at least for me),
 	 without being in any sense annoying or otherwise inconvenient.
 
-**** Projectile
+**** Project Managment
 	 #+BEGIN_SRC emacs-lisp
        (use-package projectile
          :diminish projectile-mode
