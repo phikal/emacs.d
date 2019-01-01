@@ -1153,8 +1153,7 @@
 	  so that "pintetry" is used for query my paraphrase.
 
 	  #+BEGIN_SRC emacs-lisp
-        :bind (("C-x x m" . gnus)
-               ("C-x x M" . gnus-unplugged)))
+        :bind ("C-x x m" . gnus))
 	  #+END_SRC
 
 	  Finally keybindings are set up.
