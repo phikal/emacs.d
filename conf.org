@@ -896,7 +896,6 @@
 **** Auto-completion
 	 #+BEGIN_SRC emacs-lisp
        (use-package ivy
-         :diminish (ivy-mode counsel-mode)
          :init
          (setq ivy-wrap t
                ivy-height 6
@@ -1930,7 +1929,6 @@
 **** Unto Tree
 	 #+BEGIN_SRC emacs-lisp
        (use-package undo-tree
-         :diminish undo-tree-mode
          :init
          (global-undo-tree-mode)
          (setq undo-tree-visualizer-timestamps t
@@ -1938,9 +1936,7 @@
 	 #+END_SRC
 
 	 =Undo-tree= offers the ability to visualize ones editing history as a
-	 tree of changes, and to jump from one "branch" to another. Enable
-	 it globally, so I "diminish" the minor mode, since it clutters up
-	 the mode line more than it has to.
+	 tree of changes, and to jump from one "branch" to another.
 
 **** Viper
 	 #+BEGIN_SRC emacs-lisp
@@ -1982,7 +1978,6 @@
 **** Structural Editing
 	 #+BEGIN_SRC emacs-lisp
        (use-package paredit
-         :diminish paredit-mode
          :init
          (dolist (hook '(scheme lisp emacs-lisp lisp-interaction))
            (add-hook (intern (concat (symbol-name hook) "-mode-hook"))
@@ -2103,7 +2098,6 @@
 **** Project Managment
 	 #+BEGIN_SRC emacs-lisp
        (use-package projectile
-         :diminish projectile-mode
          :init
          (setq projectile-enable-caching t
                projectile-require-project-root nil
