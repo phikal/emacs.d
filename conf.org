@@ -345,6 +345,18 @@
 
 	These settings are purely personal preferences.
 
+*** Form feed as line
+	#+BEGIN_SRC emacs-lisp
+      (aset (or standard-display-table
+                (setq standard-display-table (make-display-table)))
+            ?\^L (make-vector 64 (make-glyph-code ?― 'font-lock-constant-face)))
+	#+END_SRC
+
+	Usually form-feed charachters (ASCII 12), are reprsented by a simple
+	=^L=, and are used to designate sections. This little hack replaces it
+	with a unicode line (consisting of 64 "HORIZONTAL BAR" unicode
+	charachters).
+
 *** Empty Lines
 	#+BEGIN_SRC emacs-lisp
       (defun turn-indicate-empty-lines-on ()
