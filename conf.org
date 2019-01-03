@@ -899,7 +899,7 @@
          (setq avy-background t
                avy-all-windows nil)
          :bind (("C-z" . avy-goto-char)
-                ("C-M-z" . avy-goto-word-0)))
+                ("C-M-z" . avy-goto-subword-1)))
 	 #+END_SRC
 
 	 When editing text, most time isn't (or shouldn't be) spent on
