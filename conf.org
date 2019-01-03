@@ -992,7 +992,8 @@
                     `(,(rx ".pdf" eos) "mupdf"))
        (add-to-list 'dired-guess-shell-alist-user
                     `(,(rx (or ".png" ".jpg" ".jpeg") eos) "feh"))
-
+       (add-to-list 'dired-guess-shell-alist-user
+                    `(,(rx "." (or "mp4" "webm" "m4a") eos) "mpv --really-quiet"))
 	 #+END_SRC
 
 	 Not much to say: For the most part, a under-customized dired
