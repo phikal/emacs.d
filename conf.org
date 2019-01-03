@@ -508,32 +508,6 @@
 
 	Personal data?
 
-*** Unkillable =*scratch*= buffer
-	#+BEGIN_SRC emacs-lisp
-      (defun new-scratch (&optional keep)
-        "Generate a new *scratch* buffer"
-        (interactive "P")
-        (with-current-buffer (get-buffer-create "*scratch*")
-          (unless keep
-            (save-mark-and-excursion
-             (delete-region (point-min)
-                            (point-max))))
-          (lisp-interaction-mode)
-          (goto-char (point-min))
-          (insert (substitute-command-keys initial-scratch-message))
-          (set-buffer-modified-p nil)
-          (local-set-key (kbd "C-x k") #'bury-buffer))
-        (when (called-interactively-p 'any)
-          (switch-to-buffer "*scratch*")))
-
-      (eval-after-load 'lisp-interaction-mode
-        (new-scratch))
-	#+END_SRC
-
-	To prevent myself from accidentally killing my =*scratch*= buffer, I
-	locally override what the =C-x k= keybinding does, emulating the
-	=kill-buffer= function, without actually killing anything.
-
 *** Disable graphical dialogues
 	#+BEGIN_SRC emacs-lisp
 	(setq use-dialog-box nil)
@@ -2469,6 +2443,32 @@
    #+END_SRC
 
    For my ad-hoc blog, I insert a UNIX timestamp
+
+** Unkillable =*scratch*= buffer
+   #+BEGIN_SRC emacs-lisp
+     (defun new-scratch (&optional keep)
+       "Generate a new *scratch* buffer"
+       (interactive "P")
+       (with-current-buffer (get-buffer-create "*scratch*")
+         (unless keep
+           (save-mark-and-excursion
+            (delete-region (point-min)
+                           (point-max))))
+         (lisp-interaction-mode)
+         (goto-char (point-min))
+         (insert (substitute-command-keys initial-scratch-message))
+         (set-buffer-modified-p nil)
+         (local-set-key (kbd "C-x k") #'bury-buffer))
+       (when (called-interactively-p 'any)
+         (switch-to-buffer "*scratch*")))
+
+     (with-eval-after-load 'lisp-interaction-mode
+       (new-scratch nil))
+   #+END_SRC
+
+   To prevent myself from accidentally killing my =*scratch*= buffer, I
+   locally override what the =C-x k= keybinding does, emulating the
+   =kill-buffer= function, without actually killing anything.
 
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
