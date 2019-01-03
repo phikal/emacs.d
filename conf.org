@@ -2063,7 +2063,7 @@
            (if (and (eq last-command 'indent-then-expand)
                     (not (nth 3 (syntax-ppss)))
                     (not (nth 4 (syntax-ppss)))
-                    (looking-at-p (rx space)))
+                    (looking-at-p (rx (or space eol eos))))
                (yas-expand)
              (indent-for-tab-command)))
          (define-key yas-minor-mode-map (kbd "<tab>") #'indent-then-expand))
