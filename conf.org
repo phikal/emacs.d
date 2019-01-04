@@ -227,11 +227,11 @@
 
    - msmtp, mpop :: [[*Mail][Mail]]
    - gpg :: authinfo.gpg de-/encyrption
-   - curl :: [[Elfeed][Feed Syndication]]
+   - curl :: [[*Feed Syndication][Feed Syndication]]
    - ledger :: [[*Accounting][Double-entry Accounting]]
    - git :: [[*Version%20Control][Version Control]] (eg. for this file)
    - aspell :: [[Spell%20Checking][Spell Checking]]
-   - ag :: [[Project%20managment][Project Managment]]
+   - ag :: [[*Project Managment][Project Managment]]
    - cmark :: [[*Markdown][Markdown]]
 
    Compilers and interpreters for specific programming enjoyments aren't
@@ -679,7 +679,7 @@
 	  (recentf-mode t)
 	#+END_SRC
 
-	For tools like [[*Project%20Managment][Project Managment]], recentf is enabled, so to easily access
+	For tools like [[*Project%20Managment][projectile]], recentf is enabled, so to easily access
 	recently opened files.
 
 *** Setting the right mode
@@ -1598,7 +1598,7 @@
      Here I set a few convenient keybindings for globally interacting
      with my org ecosystem.
 
-     Also: [[=flyspell-mode=][Flyspell]] sadly shadows org's auto-complete functionality,
+     Also: [[*Spell Checking][Spell Checking]] sadly shadows org's auto-complete functionality,
      with an alternative I never use. When instead re-binding =pcomplete=,
      one get's a lot more out of Org, without having to look up
      everyhing in the manual.
@@ -2145,7 +2145,7 @@
 
    Since I regularly have to switch between English and German, and I am
    a horrible speller, having a quick function to toggle between just
-   the two (using [[%3Dflyspell-mode%3D][flyspell-mode]]) had been very nice. Additionally, my
+   the two (using [[Spell%20Checking][Spell Checking]]) had been very nice. Additionally, my
    input method is changed based on =zge/input-alist=.
 
    #+BEGIN_SRC emacs-lisp
