@@ -2085,15 +2085,17 @@
 **** Project Managment
 	 #+BEGIN_SRC emacs-lisp
        (use-package projectile
+         :after ivy
          :init
          (setq projectile-enable-caching t
                projectile-require-project-root nil
                projectile-switch-project-action 'projectile-dired
                projectile-completion-system 'default)
          :config
-         (define-key projectile-mode-map (kbd "C-c p") #'projectile-command-map)
          (projectile-mode t)
-         :after ivy)
+         :bind (:map projectile-mode-map
+                     ("C-c p" . projectile-command-map)
+                     ("C-c C-p" . projectile-command-map)))
 	 #+END_SRC
 
 	 While I for the most part dislike using global modes, it seems like
