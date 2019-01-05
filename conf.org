@@ -1263,7 +1263,6 @@
 	   (use-package google-translate
 		 :init
 		 (setq google-translate-show-phonetic t
-			   google-translate-enable-ido-completion t
 			   google-translate-default-source-language "en"
 			   google-translate-default-target-language "de")
 		 :bind (("C-c t t" . google-translate-at-point)
