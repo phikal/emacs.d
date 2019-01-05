@@ -870,8 +870,7 @@
 	   (use-package avy
 		 :config
 		 (avy-setup-default)
-		 (setq avy-background t
-			   avy-all-windows nil)
+		 (setq avy-background t)
 		 :bind (("C-z" . avy-goto-char)
 				("C-M-z" . avy-goto-subword-1)))
 	 #+END_SRC
