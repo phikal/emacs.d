@@ -1613,7 +1613,9 @@
 		 :init
 		 (setq markdown-italic-underscore t
 			   markdown-command "cmark")
-		 :mode (rx bos "README" (opt (or ".markdown" ".md")) eos))
+		 :mode (rx (or (seq bos "README" (opt ".md"))
+					   (or ".markdown" ".mkdn" ".md"))
+				   eos))
      #+END_SRC
 
 	 Markdown is probably one of the most popular markup languages around
