@@ -231,7 +231,7 @@
    - ledger :: [[*Accounting][Double-entry Accounting]]
    - git :: [[*Version%20Control][Version Control]] (eg. for this file)
    - aspell :: [[Spell%20Checking][Spell Checking]]
-   - ag :: [[*Project Managment][Project Managment]]
+   - rg :: [[*Project Managment][Project Managment]] and [[*Goto Source][Source Discovery]]
    - cmark :: [[*Markdown][Markdown]]
 
    Compilers and interpreters for specific programming enjoyments aren't
@@ -899,7 +899,7 @@
 		 :bind (("M-`" . ivy-resume)
 				("C-x C-r" . counsel-recentf)
 				("C-x C-/" . swiper)
-				("C-c s" . counsel-ag)
+				("C-c s" . counsel-rg)
 				("C-c f" . counsel-locate)
 				:map ivy-minibuffer-map
 				("<RET>" . ivy-alt-done)))
