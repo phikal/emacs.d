@@ -1061,10 +1061,10 @@
 	  #+BEGIN_SRC emacs-lisp
 		(setq gnus-posting-styles
 			  '(("pers"
-				 (signature "Sincerely\nPhilip K.")
+				 (signature "\tSincerely,\n\tPhilip K.\n\thttps://zge.us.to")
 				 (address "philip@warpmail.net"))
 				("uni"
-				 (signature "Hochachtungsvoll\nPhilip K.")
+				 (signature "\tHochachtungsvoll,\n\tPhilip K.\n\thttps://wwwcip.informatik.uni-erlangen.de/~oj14ozun/")
 				 (address "philip.kaludercic@fau.de"))))
 	  #+END_SRC
 
