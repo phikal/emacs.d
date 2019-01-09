@@ -1766,21 +1766,30 @@
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rust-mode
-		 :after (cargo racer)
-		 :init (setq rust-format-on-save t)
+		 :init
+		 (setq rust-format-on-save t)
 		 :mode (rx ".rs" eos))
 	 #+END_SRC
 
 	 When playing around with Rust, having a Emacs mode installed is
 	 convenient.
 
+	 Currently I have to install Rust via =rustup=, but I hope that will
+	 change in the future. Via cargo I install:
+	 - [[https://github.com/rust-lang/rustfmt][rustfmt]]
+	 - [[https://github.com/rust-lang/rust-clippy][clippy]]
+	 - [[https://github.com/racer-rust/racer][racer]]
+
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cargo
+		 :after rust-mode
 		 :init
 		 (add-hook 'rust-mode-hook #'cargo-minor-mode))
 
 	   (use-package racer
+		 :after rust-mode
 		 :init
+		 (setenv "RUST_SRC_PATH" "/usr/src/rustc-1.31.0/src")
 		 (add-hook 'rust-mode-hook #'racer-mode)
 		 (add-hook 'racer-mode-hook #'eldoc-mode))
 	 #+END_SRC
