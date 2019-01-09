@@ -497,6 +497,15 @@
    copied the code from [[https://stackoverflow.com/users/11138/jfm3][this StackOverflow question]].
 
 ** Defaults
+*** Load Path
+	#+BEGIN_SRC emacs-lisp
+	  (add-to-list 'load-path
+				   (expand-file-name "lisp/" user-emacs-directory))
+	#+END_SRC
+
+	I have some custom external scripts lying in the =lisp= sub directory,
+	and for Emacs to know about them, I add it to the =load-path=.
+
 *** User information
 	#+BEGIN_SRC emacs-lisp
 	  (setq user-full-name "Philip K."
