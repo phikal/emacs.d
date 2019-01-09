@@ -484,9 +484,6 @@
 				   `(("" . ,(expand-file-name "backup/" user-emacs-directory)))
 				   auto-save-default nil
 				   backup-by-copying t
-				   version-control t
-				   kept-old-versions 3
-				   kept-new-versions 8
 				   delete-old-versions t)
    #+END_SRC
 
