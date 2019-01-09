@@ -1991,7 +1991,9 @@
 		   (add-hook (intern (concat (symbol-name hook) "-mode-hook"))
 					 #'paredit-mode))
 		 :bind (:map paredit-mode-map
-					 ("M-\"" . nil)))
+					 ("M-\"" . nil)
+					 ("C-M-<left>" . nil)
+					 ("C-M-<right>" . nil)))
 	 #+END_SRC
 
 	 Paredit might not be easy to get used to, but after a while (and a
