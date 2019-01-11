@@ -316,15 +316,6 @@
 	To extend the default Emacs appearance, matching parentheses are
 	highlighted, which is helpful when working with Lisp code.
 
-*** Mode-bar customisations
-	#+BEGIN_SRC emacs-lisp
-	  (display-battery-mode t)
-	#+END_SRC
-
-	When using a laptop, it's useful to see how much battery one has
-	left. And until I manage to set this up in every window manager,
-	I'll let Emacs show me the state.
-
 *** Startup actions
 	#+BEGIN_SRC emacs-lisp
 	  (setq inhibit-startup-screen t
