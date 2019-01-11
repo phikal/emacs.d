@@ -1781,6 +1781,12 @@
 	   (use-package rust-mode
 		 :init
 		 (setq rust-format-on-save t)
+		 (let* ((rust-dir "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/")
+				(rust-bin (expand-file-name "bin" rust-dir))
+				(rust-src (expand-file-name "lib/rustlib/src/rust/src/" rust-dir)))
+		   (setenv "RUST_SRC_PATH" rust-src)
+		   (setenv "PATH" (concat (getenv "PATH") ":" rust-bin))
+		   (add-to-list 'exec-path rust-bin))
 		 :mode (rx ".rs" eos))
 	 #+END_SRC
 
@@ -1802,7 +1808,6 @@
 	   (use-package racer
 		 :after rust-mode
 		 :init
-		 (setenv "RUST_SRC_PATH" "/usr/src/rustc-1.31.0/src")
 		 (add-hook 'rust-mode-hook #'racer-mode)
 		 (add-hook 'racer-mode-hook #'eldoc-mode))
 	 #+END_SRC
