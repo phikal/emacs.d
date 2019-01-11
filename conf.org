@@ -1292,6 +1292,11 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (setq-default ispell-program-name (executable-find "aspell")
 					 ispell-extra-args '("--sug-mode=normal" "--keyboard=standard")
+					 ispell-local-dictionary-alist
+					 '(("german-new8" "[[:alpha:]]" "[^[:alpha:]]"
+						"[']" t ("-d" "de_DE") nil utf-8)
+					   ("british" "[[:alpha:]]" "[^[:alpha:]]"
+						"[']" t ("-d" "en_GB") nil utf-8))
 					 flyspell-issue-welcome-flag nil
 					 flyspell-issue-message-flag nil)
 	 #+END_SRC
