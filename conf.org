@@ -2194,10 +2194,10 @@
 	   (save-excursion
 		 (goto-char (point-min))
 		 (catch 'found
-		   (while (not (looking-at-p (rx (or (group bol (zero-or-more space) eol)
-											 (group (zero-or-more not-newline) eos)))))
+		   (while (not (looking-at-p (rx (or (seq bol (zero-or-more space) eol)
+											 (seq (zero-or-more not-newline) eos)))))
 			 (save-match-data
-			   (when (looking-at (rx bol "#+LANGUAGE: " (group (one-or-more word))))
+			   (when (looking-at (rx bol "#+LANGUAGE: " (seq (one-or-more word))))
 				 (let ((lang (match-string-no-properties 1)))
 				   (zge/toggle-dictionary (pcase lang
 											("en" "british")
@@ -2394,8 +2394,8 @@
 		   (while (< (point) until)
 			 (save-match-data
 			   (when (looking-at (rx "#include <"
-									 (opt (group (zero-or-more nonl)) "/")
-									 (group (minimal-match (one-or-more nonl)))
+									 (opt (seq (zero-or-more nonl)) "/")
+									 (seq (minimal-match (one-or-more nonl)))
 									 ">" (zero-or-more space) eol))
 				 (let* ((path (match-string-no-properties 1))
 						(head (match-string-no-properties 2)))
