@@ -351,6 +351,8 @@
 *** Empty Lines
 	#+BEGIN_SRC emacs-lisp
 	  (defun turn-indicate-empty-lines-on ()
+		(add-hook 'before-save-hook
+				  #'delete-trailing-whitespace t t)
 		(setq-local indicate-empty-lines t))
 
 	  (add-hook 'prog-mode-hook #'turn-indicate-empty-lines-on)
@@ -2568,24 +2570,23 @@
 
 ** Programming
    #+BEGIN_SRC emacs-lisp
-	 (add-hook 'prog-mode-hook
-			   (lambda ()
-				 (add-hook 'before-save-hook
-						   #'delete-trailing-whitespace t t)
-				 (local-set-key (kbd "C-;") #'comment-dwim)
-				 (local-set-key (kbd "RET") #'newline-and-indent)
-				 (local-set-key (kbd "C-:") #'indent-region)
-				 (local-set-key (kbd "C-c w") #'whitespace-mode)
-				 (hs-minor-mode t)
-				 (electric-indent-local-mode t)
-				 (electric-pair-local-mode t)
-				 (flycheck-mode t)
-				 (flyspell-prog-mode)))
+	 (define-key prog-mode-map (kbd "C-c w") #'whitespace-mode)
    #+END_SRC
 
-   This lambda function is turned on for every programming mode, and
-   specially enables a few keybindings I find useful only when
-   programming.
+   Easily enable =whitespace-mode= in all programming buffers by using the
+   specified keybinding.
+
+   #+BEGIN_SRC emacs-lisp
+	 (dolist (m '(hs-minor-mode
+				  electric-indent-local-mode
+				  electric-pair-local-mode
+				  flycheck-mode
+				  flyspell-prog-mode))
+	   (add-hook 'prog-mode-hook m))
+   #+END_SRC
+
+   After modifying the programming keymap, make sure a list of minor
+   modes are added started in every programming environment.
 
 ** Writing
    #+BEGIN_SRC emacs-lisp
