@@ -1339,8 +1339,9 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package pdf-tools
 		 :disabled t
-		 :config
+		 :init
 		 (pdf-tools-install)
+		 :config
 		 (setq pdf-view-display-size 'fit-page)
 		 :mode ((rx ".pdf" eos) . pdf-view-mode)
 		 :magic ("%PDF-" . pdf-view-mode)
@@ -1557,6 +1558,7 @@
 	 Load languages for [[info:org#Library%20of%20Babel][Org Babel]], without the need to reconfirm.
 
 	 #+BEGIN_SRC emacs-lisp
+	   :config
 	   (with-eval-after-load 'ox-html
 		 (setf (car (alist-get 'path org-html-mathjax-options))
 			   "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"))
@@ -1566,7 +1568,6 @@
 	 thus I have to update it, using the official CDN.
 
      #+BEGIN_SRC emacs-lisp
-	   :config
 	   (add-to-list 'org-structure-template-alist
 					'("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"
 					  "<src lang=\"emacs-lisp\">\n\n</src>"))
