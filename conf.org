@@ -826,6 +826,32 @@
    To quickly access certain files I tend to frequently use, I use
    Emacs's [[info:emacs#File%20Registers][file registers]].
 
+** Helper Functions
+*** Working with PATH
+	#+BEGIN_SRC emacs-lisp
+	  (defun add-to-PATH (dir)
+		(let ((path (split-string (getenv "PATH") ":")))
+		  (add-to-list 'path dir t)
+		  (setf (getenv "PATH")
+				(string-join path ":"))))
+	#+END_SRC
+
+	Adding a directory to the =PATH= environmental variable can be
+	cumbersome at times, since it requires using =getenv= multiple times
+	and it isn't pretty to check if a directory is always included every
+	time. This is what =add-to-PATH= seeks to fix.
+
+	#+BEGIN_SRC emacs-lisp
+	  (defun remove-from-PATH (dir)
+		(let ((path (split-string (getenv "PATH") ":")))
+		  (delete dir path)
+		  (setf (getenv "PATH")
+				(string-join path ":"))))
+	#+END_SRC
+
+	And as a complement to =add-to-PATH=, =remove-from-PATH= does what one
+	would expect it to do.
+
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
 	(unless (package-installed-p 'use-package)
@@ -2146,7 +2172,7 @@
 	 the project management package /projectile/ works best this way, hence
 	 it is set up to work globally.
 
-* Functions
+* Interactive Functions
   All private functions and variables shall be prefixed with =zge/=.
 
 ** Toggle dictionary
