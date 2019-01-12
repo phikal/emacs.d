@@ -2326,11 +2326,12 @@
 	 (defun zge/curl (url)
 	   "Paste the content behind URL into a new buffer."
 	   (interactive "Murl: ")
-	   (let* ((bufname (file-name-base url))
-			  (buf (get-buffer-create (if (string-empty-p bufname) "*curl*" bufname))))
-		 (shell-command (concat "curl --silent " url) buf)
-		 (with-current-buffer buf (set-auto-mode))
-		 (switch-to-buffer buf)))
+	   (let* ((bufname (file-name-base url)))
+		 (with-current-buffer (generate-new-buffer (if (string-empty-p bufname)
+													   "*curl*" bufname))
+		   (shell-command (concat "curl --silent " url) (current-buffer))
+		   (pop-to-buffer (current-buffer))
+		   (set-auto-mode t))))
 
 	 (defalias 'curl 'zge/curl)
    #+END_SRC
