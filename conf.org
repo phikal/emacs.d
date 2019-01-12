@@ -1051,7 +1051,7 @@
 	  #+END_SRC
 
 	  I have two accounts I use (personal and university Email), and bot
-	  are synchronized via [[https://marlam.de/mpop/][mpop]], my [[https://zge.us.to/files/authinfo][authinfo]] script and the following
+	  are synchronized via [[https://marlam.de/mpop/][mpop]], my [[https://zge.us.to/files/scripts/authinfo][authinfo]] script and the following
 	  configuration:
 
 	  #+INCLUDE: "~/.mpoprc" src conf-space :tangle no
@@ -1173,7 +1173,7 @@
 
 	  #+INCLUDE: "~/.msmtprc" src conf-space :tangle no
 
-	  As already mentioned, this requires a [[https://zge.us.to/files/authinfo][special script]] I wrote to
+	  As already mentioned, this requires a [[https://zge.us.to/files/scripts/authinfo][special script]] I wrote to
 	  extract password-data from =~/.authinfo.gpg=.
 
 	  #+BEGIN_SRC emacs-lisp
