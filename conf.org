@@ -2082,7 +2082,9 @@
 	   (use-package dumb-jump
 		 :init
 		 (setq dumb-jump-aggressive t)
-		 (add-hook 'prog-mode-hook #'dumb-jump-mode))
+		 :bind (:map prog-mode-map
+					 ("M-[" . dumb-jump-go)
+					 ("M-]" . dumb-jump-back)))
 	 #+END_SRC
 
 	 In addition to projectile, and to avoid using =TAGS= files, =dumb-jump=
