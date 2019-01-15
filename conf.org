@@ -1088,6 +1088,18 @@
 	  case) that are both recognized as such by gnus.
 
 	  #+BEGIN_SRC emacs-lisp
+		(defun zge/fetch-mail ()
+		  (interactive)
+		  (async-start-process "*mpop*" (executable-find "mpop") #'ignore "-aQ"))
+		(defalias 'fetch-mail 'zge/fetch-mail)
+
+		(run-at-time nil (* 60 10) #'zge/fetch-mail)
+	  #+END_SRC
+
+	  Mpop should then be called every 10 minutes, in a asynchronous
+	  process. This can also be manually done by calling =fetch-mail=.
+
+	  #+BEGIN_SRC emacs-lisp
 		(setq gnus-posting-styles
 			  '(("pers"
 				 (signature "\tSincerely,\n\tPhilip K.\n\thttps://zge.us.to")
