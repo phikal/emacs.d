@@ -1437,7 +1437,7 @@
 	   (use-package cdlatex
 		 :after auctex
 		 :init
-		 (add-hook #'LaTeX-mode-hook 'cdlatex-mode)
+		 (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
 		 :config
 		 (add-to-list 'cdlatex-math-modify-alist
 					  '(?B "\\mathbb" nil t nil nil))
