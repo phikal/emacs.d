@@ -1256,12 +1256,15 @@
 				  :password ,zge/znc-pass
 				  :port 23551
 				  :encryption tls))
-               rcirc-reconnect-delay 20
+			   rcirc-reconnect-delay 20
 			   rcirc-read-only-flag t
 			   rcirc-log-flag t
 			   rcirc-omit-responses '("NICK" "AWAY"))
-         (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
-         (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
+		 (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
+		 (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
+		 (advice-add 'rcirc-next-active-buffer
+					 :after (lambda (&rest rest)
+							  (rcirc-update-activity-string)))
 		 :bind (("C-x x x" . rcirc-next-active-buffer)
 				:map rcirc-mode-map
 				("C-x k" . bury-buffer)))
