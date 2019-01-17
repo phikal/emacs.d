@@ -1707,34 +1707,6 @@
 	 Currently my only option is to disable a "dedicated" I/O buffer,
 	 when running a debugger.
 
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package irony
-		 :config
-		 (add-hook 'c-mode-hook #'irony-mode)
-		 (add-hook 'c-mode-hook
-				   (lambda ()
-					 (setq-local company-backends
-								 '((company-irony company-gtags)))))
-		 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-		 (condition-case err (irony--find-server-executable)
-		   (error (call-interactively #'irony-install-server)))
-		 :mode (rx ".c" eos))
-
-	   (use-package flycheck-irony
-		 :after (irony flycheck)
-		 :config
-		 (add-hook 'irony-mode-hook #'flycheck-irony-setup))
-
-	   (use-package irony-eldoc
-		 :after irony
-		 :config
-		 (add-hook 'irony-mode-hook #'irony-eldoc))
-	 #+END_SRC
-
-	 Irony is integrates libclang into Emacs, making eldoc, error
-	 checking and completion work faster and more accurately than with
-	 the default setup. This requires installing a backend server.
-
 **** Gnuplot
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package gnuplot
