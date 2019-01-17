@@ -262,11 +262,9 @@
 	 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 	 (setq package-enable-at-startup nil
 		   package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-							  ("melpa-stable" . "https://stable.melpa.org/packages/")
-							  ("melpa-unstable" . "https://melpa.org/packages/"))
+							  ("melpa-stable" . "https://stable.melpa.org/packages/"))
 		   package-archive-priorities '(("gnu" . 5)
-										("melpa-stable" . 10)
-										("melpa-unstable" . 20)))
+										("melpa-stable" . 10)))
 
 	 (package-initialize)
    #+END_SRC
