@@ -1254,9 +1254,8 @@
 				  :password ,zge/znc-pass
 				  :port 23551
 				  :encryption tls))
-			   rcirc-reconnect-delay 20
+			   rcirc-reconnect-delay 2
 			   rcirc-read-only-flag t
-			   rcirc-log-flag t
 			   rcirc-omit-responses '("NICK" "AWAY"))
 		 (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
 		 (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
@@ -1268,9 +1267,8 @@
 				("C-x k" . bury-buffer)))
 	 #+END_SRC
 
-	 For IRC, I use ERC The =zge/znc-pass= variables is declared in my
-	 [[*Emacs-generated%20files][custom.el]] file. On starting my Emacs session, ERC automatically
-	 connects
+	 For IRC, I use rcirc The =zge/znc-pass= variables is declared in my
+	 [[*Emacs-generated%20files][custom.el]] file.
 
 **** Feed Syndication
 	 #+BEGIN_SRC emacs-lisp
