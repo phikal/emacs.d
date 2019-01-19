@@ -2558,8 +2558,7 @@
 	   (when (called-interactively-p 'any)
 		 (switch-to-buffer "*scratch*")))
 
-	 (with-eval-after-load 'lisp-interaction-mode
-	   (new-scratch nil))
+	 (add-hook 'after-init-hook #'new-scratch)
    #+END_SRC
 
    To prevent myself from accidentally killing my =*scratch*= buffer, I
