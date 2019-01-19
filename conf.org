@@ -1088,7 +1088,14 @@
 	  #+BEGIN_SRC emacs-lisp
 		(defun zge/fetch-mail ()
 		  (interactive)
-		  (async-start-process "*mpop*" (executable-find "mpop") #'ignore "-aQ"))
+		  (async-start (lambda () (shell-command "mpop -aQ"))
+					   (lambda (&rest rest)
+						 (let* ((pers-dir (directory-files "~/etc/mail/pers/new"))
+								(pers (- (length pers-dir) 2))
+								(uni-dir (directory-files "~/etc/mail/uni/new/"))
+								(uni (- (length uni-dir) 2)))
+						   (when (or (> pers 0) (> uni 0))
+							 (message "new mail: %d in pers, %d in uni" pers uni))))))
 		(defalias 'fetch-mail 'zge/fetch-mail)
 
 		(run-at-time nil (* 60 10) #'zge/fetch-mail)
