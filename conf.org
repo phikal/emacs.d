@@ -2243,11 +2243,12 @@
 											 (seq (zero-or-more not-newline) eos)))))
 			 (save-match-data
 			   (when (looking-at (rx bol "#+LANGUAGE: " (seq (one-or-more word))))
-				 (let ((lang (match-string-no-properties 1)))
-				   (zge/toggle-dictionary (pcase lang
-											("en" "british")
-											("de" "german-new8")
-											(t lang)))
+				 (let* ((lang* (match-string-no-properties 1))
+						(lang (pcase lang*
+								("en" "british")
+								("de" "german-new8")
+								(_ lang*))))
+				   (zge/toggle-dictionary lang)
 				   (message "Toggled language to \"%s\"" lang))
 				 (throw 'found t)))
 			 (forward-line)))))
