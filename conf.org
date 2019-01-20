@@ -928,11 +928,11 @@
 		 (counsel-mode t)
 		 (dolist (cmd '(yank-pop describe-bindings))
 		   (define-key counsel-mode-map `[remap ,cmd] nil))
-		 :bind (("M-`" . ivy-resume)
-				("C-x C-r" . counsel-recentf)
-				("C-x C-/" . swiper)
+		 :bind (("C-x C-r" . counsel-recentf)
 				("C-c s" . counsel-rg)
 				("C-c f" . counsel-locate)
+				("S-C-s" . swiper)
+				("C-x C-/" . counsel-org-goto-all)
 				:map ivy-minibuffer-map
 				("<RET>" . ivy-alt-done)))
 	 #+END_SRC
