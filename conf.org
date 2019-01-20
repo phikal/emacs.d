@@ -1931,28 +1931,6 @@
 	 with the popular SLIME (The Superior Lisp Interaction Mode for
 	 Emacs) environment?
 
-**** Web Development
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package web-mode
-		 :init
-		 (setq web-mode-engines-alist '(("go" . (rx ".gtl" eos)))
-			   web-mode-enable-engine-detection t
-			   web-mode-markup-indent-offset 4
-			   web-mode-enable-auto-quoting t
-			   web-mode-enable-auto-closing t
-			   web-mode-enable-auto-expanding t
-			   web-mode-enable-auto-indentation nil
-			   web-mode-enable-auto-pairing nil)
-		 :mode (((rx ".html" eos) . web-mode)
-				((rx ".css" eos) . web-mode)
-				((rx ".gtl" eos) . web-mode)))
-	 #+END_SRC
-
-	 I conciser =web-mode= an improvement upon =html-mode= in nearly all
-	 aspects, which for the first time gave me a comfortable environment
-	 to edit HTML and related code. I require no additional
-	 configuration, besides informing Emacs about my preferences.
-
 **** Haskell
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package haskell-mode
