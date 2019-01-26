@@ -400,22 +400,6 @@
 	This option make Emacs split windows in a more sane and visually
 	pleasing manner, ie. proportionally.
 
-*** Custom Modeline
-	#+BEGIN_SRC emacs-lisp
-	  (setq-default mode-line-format
-					'(" %e"
-					  mode-line-mule-info mode-line-client
-					  mode-line-modified mode-line-remote
-					  " " mode-line-buffer-identification
-					  " (" mode-name ")"
-					  " " mode-line-position
-					  " " mode-line-misc-info))
-	#+END_SRC
-
-	Most custom modelines either change too much or are too
-	opinionated. Based on what I found in [[https://git.sr.ht/%257Ejakob/.emacs.d/tree/master/jakob.org][this config]], I managed to
-	create one that matches my taste and needs (ie. smaller screen).
-
 ** Cross-session Configuration
    #+BEGIN_SRC emacs-lisp
 	 (setq history-delete-duplicates t
@@ -903,6 +887,7 @@
 **** Auto-completion
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ivy
+		 :diminish (ivy-mode counsel-mode)
 		 :init
 		 (setq ivy-wrap t
 			   ivy-height 6
@@ -1895,6 +1880,7 @@
 **** Common Lisp
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package slime
+		 :diminish
 		 :after (slime-company paredit)
 		 :init
 		 (setq inferior-lisp-program (executable-find "sbcl")
@@ -1968,6 +1954,7 @@
 **** Unto Tree
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package undo-tree
+		 :diminish
 		 :init
 		 (global-undo-tree-mode)
 		 (setq undo-tree-visualizer-timestamps t
@@ -2152,6 +2139,7 @@
 **** Project Managment
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package projectile
+		 :diminish
 		 :after ivy
 		 :init
 		 (setq projectile-enable-caching t
