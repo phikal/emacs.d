@@ -1534,15 +1534,6 @@
 	 enable.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (add-to-list 'org-show-context-detail
-					'(org-goto . local))
-	 #+END_SRC
-
-	 When jumping around a org-document (or using =counsel-org-goto-all=)
-	 this setting makes sure that the part of the document I just jumped
-	 to is visible, and doesn't have to be opened again manually.
-
-	 #+BEGIN_SRC emacs-lisp
 	   (dolist (hook (list #'flyspell-prog-mode
 						   #'turn-on-org-cdlatex))
 		 (add-hook 'org-mode-hook hook))
@@ -1611,6 +1602,16 @@
 	 #+END_SRC
 
 	 Open links in the curren frame.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (add-to-list 'org-show-context-detail
+					'(org-goto . local))
+	 #+END_SRC
+
+	 When jumping around a org-document (or using =counsel-org-goto-all=)
+	 this setting makes sure that the part of the document I just jumped
+	 to is visible, and doesn't have to be opened again manually.
+
 
      #+BEGIN_SRC emacs-lisp
 	   :bind (("C-c c" . org-capture)
