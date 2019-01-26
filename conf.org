@@ -300,7 +300,7 @@
 	#+BEGIN_SRC emacs-lisp
 	  (set-face-font 'default "IBM Plex Mono 11")
 	  (set-face-font 'variable-pitch "IBM Plex Sans 11")
-	  (set-face-font 'fixed-pitch "fixed")
+	  (set-face-font 'fixed-pitch "Monospace 11")
 	#+END_SRC
 
 	My fonts are configured and changed frequently, making any more
