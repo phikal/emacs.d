@@ -1902,28 +1902,11 @@
 	   (use-package haskell-mode
 		 :after company-ghc
 		 :init
-		 (setq haskell-process-show-debug-tips nil
-			   haskell-process-type 'ghci
-			   haskell-process-suggest-hoogle-imports t
-			   haskell-process-suggest-remove-import-lines t
-			   haskell-process-auto-import-loaded-modules t
-			   haskell-process-log t)
-		 (add-hook 'haskell-mode-hook
-				   (lambda ()
-					 (haskell-doc-mode)
-					 (interactive-haskell-mode)))
-		 (add-hook 'haskell-interactive-mode-hook
-				   #'haskell-doc-mode)
+		 (add-hook 'haskell-mode-hook #'haskell-doc-mode)
+		 (add-hook 'haskell-mode-hook (lambda () (yas-minor-mode -1)))
 		 :mode (rx ".hs" eos)
-		 :interpreter "ghci"
 		 :bind (:map haskell-mode-map
-					 ("C-," . haskell-move-nested-left)
-					 ("C-." . haskell-move-nested-right)
-					 ("C-c C-." . haskell-mode-format-imports)
-					 ("C-c C-l" . haskell-process-load-file)
-					 ("C-c C-t" . haskell-process-do-type)
-					 ("C-c C-i" . haskell-process-do-info)
-					 ("C-c C-c" . haskell-process-cabal-build)))
+					 ("C-c C-l" . haskell-process-load-file)))
 	 #+END_SRC
 
 	 Programming Haskell can be a very nice experience in Emacs, but as
