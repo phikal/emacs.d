@@ -903,27 +903,41 @@
 			   ivy-display-style 'fancy
 			   ivy-case-fold-search-default t
 			   ivy-re-builders-alist '((t . ivy--regex))
-			   counsel-find-file-at-point t
 			   enable-recursive-minibuffers t)
 		 :config
 		 (ivy-mode t)
+		 :bind (:map ivy-minibuffer-map
+				("<RET>" . ivy-alt-done)))
+	 #+END_SRC
+
+	 I use Ivy to extend the default =find-file=, =switch-to-buffer=,
+	 etc. commands. Compared to it's alternatives, Ivy is simpler that
+	 Helm but more powerful (and faster) than Ido.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package counsel
+		 :after ivy
+		 :init
+		 (setq counsel-find-file-at-point t)
+		 :config
 		 (counsel-mode t)
 		 (dolist (cmd '(yank-pop describe-bindings))
 		   (define-key counsel-mode-map `[remap ,cmd] nil))
 		 :bind (("C-x C-r" . counsel-recentf)
 				("C-c s" . counsel-rg)
 				("C-c f" . counsel-locate)
-				("S-C-s" . swiper)
-				("C-x C-/" . counsel-org-goto-all)
-				:map ivy-minibuffer-map
-				("<RET>" . ivy-alt-done)))
+				("C-x C-/" . counsel-org-goto-all)))
 	 #+END_SRC
 
-	 I use Ivy to extend the default =find-file=, =switch-to-buffer=,
-	 etc. commands. Compared to it's alternatives, Ivy is simpler that
-	 Helm but more powerful (and faster) than Ido. Counsel extends this
-	 to further integrate Ivy features into default commands, such as =M-x=,
-	 =C-x b= or =C-x C-f=.
+	 Counsel extends this to further integrate Ivy features into default
+	 commands, such as =M-x=, =C-x b= or =C-x C-f=.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package swiper
+		 :bind (("C-x x s" . swiper)))
+	 #+END_SRC
+
+	 Finally, swiper is a pretty alternative to isearch.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package flx
