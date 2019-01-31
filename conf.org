@@ -529,6 +529,15 @@
 	Prevent interactive processes from using a "regular" pager such as
 	less, view or more, and instead just let Emacs do the job.
 
+*** RFC
+	#+BEGIN_SRC emacs-lisp
+	  (setq ffap-rfc-directories '("/usr/share/doc/RFC/links/"))
+	#+END_SRC
+
+	Since I've installed [[https://packages.debian.org/sid/doc-rfc][doc-rfc]] on my system, I have all RFCs installed
+	locally. Therefore, ffap doesn't have to use a broken FTP mirror to
+	parse =RFC2551=, but can open it directly.
+
 *** "Large Files"
 	#+BEGIN_SRC emacs-lisp
 	  (setq large-file-warning-threshold 40000000)
