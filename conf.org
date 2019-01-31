@@ -1197,13 +1197,14 @@
 
 ***** SMTP
 	  #+BEGIN_SRC emacs-lisp
-		(setq message-send-mail-function #'message-send-mail-with-sendmail
-			  message-sendmail-extra-arguments '("--read-envelope-from")
-			  message-sendmail-f-is-evil t
-			  message-sendmail-envelope-from 'header
-			  message-kill-buffer-on-exit t
-			  message-forward-as-mime nil
-			  sendmail-program (executable-find "msmtp"))
+		(with-eval-after-load 'message
+		  (setq message-send-mail-function #'message-send-mail-with-sendmail
+				message-sendmail-extra-arguments '("--read-envelope-from")
+				message-sendmail-f-is-evil t
+				message-sendmail-envelope-from 'header
+				message-kill-buffer-on-exit t
+				message-forward-as-mime t
+				sendmail-program (executable-find "msmtp"))
 	  #+END_SRC
 
 	  Instead of using Emacs' internal SMTP service, I use [[https://marlam.de/msmtp/][msmtp]], simply
@@ -1219,7 +1220,7 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(add-hook 'message-mode-hook #'turn-on-orgstruct++)
-		(add-hook 'message-mode-hook #'turn-on-orgtbl)
+		(add-hook 'message-mode-hook #'turn-on-orgtbl))
 	  #+END_SRC
 
 	  Furthermore, =orgstruct= is enabled to help writing and structuring
