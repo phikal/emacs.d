@@ -2228,11 +2228,11 @@
 
 ** Toggle theme
    #+BEGIN_SRC emacs-lisp
-	 (defconst zge/light-theme 'dichromacy
+	 (defconst zge/light-theme 'light-blue
 	   "constant holding my perfered light theme")
 
-	 (defconst zge/dark-theme 'wheatgrass
-	   "constant holding my perfered light theme")
+	 (defconst zge/dark-theme 'deeper-blue
+	   "constant holding my perfered dark theme")
 
 	 (defvar zge/current-theme zge/dark-theme
 	   "variable holding my current theme")
