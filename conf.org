@@ -2515,8 +2515,7 @@
 		 (lisp-interaction-mode)
 		 (goto-char (point-min))
 		 (insert (substitute-command-keys initial-scratch-message))
-		 (set-buffer-modified-p nil)
-		 (local-set-key (kbd "C-x k") #'bury-buffer))
+		 (set-buffer-modified-p nil))
 	   (when (called-interactively-p 'any)
 		 (switch-to-buffer "*scratch*")))
 
