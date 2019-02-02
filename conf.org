@@ -1258,7 +1258,7 @@
 				  :password ,zge/znc-pass
 				  :port 23551
 				  :encryption tls))
-			   rcirc-reconnect-delay 2
+			   rcirc-reconnect-delay 8
 			   rcirc-read-only-flag t
 			   rcirc-omit-responses '("NICK" "AWAY"))
 		 (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
