@@ -781,7 +781,6 @@
 
 	When I've selected a region, and I type something, the region is
 	supposed to be deleted automatically.
-
 ** Registers
    #+BEGIN_SRC emacs-lisp
 	 (dolist (c `((?~ . "~")
@@ -839,7 +838,6 @@
 	(unless (package-installed-p 'use-package)
 	  (package-refresh-contents)
 	  (package-install 'use-package t))
-	;; (require 'bind-key)
 	(setq-default use-package-always-defer t
 				  use-package-always-ensure t)
   #+END_SRC
@@ -849,6 +847,7 @@
   installed.
 
 ** Utilities
+*** Libraries
 *** Text Manipulation
 **** Dynamic Expansion
 	 #+BEGIN_SRC emacs-lisp
@@ -1969,7 +1968,7 @@
 	   (setq viper-inhibit-startup-message t
 			 viper-expert-level 5)
 	 #+END_SRC
-	 
+
 	 If I were to want to use Vi keybindings, Viper has me covered (evil
 	 is too much). These variables are set to prevent Viper from having
 	 to set up everything every time I try to use it.
@@ -2302,7 +2301,7 @@
    slower all the time (with a little added randomness). When it ends,
    the "selected" line blinks four times before =hl-line-mode= is turned
    off again.
-   
+
    #+BEGIN_SRC emacs-lisp
 	 (defun roulette-lines ()
 	   (interactive)
