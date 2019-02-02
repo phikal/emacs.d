@@ -1642,7 +1642,6 @@
 			  ("C-c a" . org-agenda)
 			  ("C-c l" . org-store-link)
 			  ("C-x x o" . org-clock-out)
-			  ("C-x x i" . (lambda () (interactive) (org-clock-in 4)))
 			  :map org-mode-map
 			  ("C-M-<return>" . org-insert-subheading)
 			  ("M-<tab>" . pcomplete))
