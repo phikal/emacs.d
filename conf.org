@@ -2020,6 +2020,7 @@
 **** Goto Source
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package dumb-jump
+		 :after prog-mode
 		 :init
 		 (setq dumb-jump-aggressive t)
 		 :bind (:map prog-mode-map
@@ -2584,6 +2585,13 @@
 
    Easily enable =whitespace-mode= in all programming buffers by using the
    specified keybinding.
+
+   #+BEGIN_SRC emacs-lisp
+	 (dolist (map `(,prog-mode-map ,dired-mode-map))
+	   (define-key map (kbd "C-c C-k") #'compile))
+   #+END_SRC
+
+   Easily start compilation from listed modes.
 
    #+BEGIN_SRC emacs-lisp
 	 (dolist (m '(hs-minor-mode
