@@ -1855,11 +1855,11 @@
 **** Scheme
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package geiser
-		 :init
+		 :config
 		 (setq geiser-repl-use-other-window nil
-			   geiser-active-implementations '(guile))
+			   geiser-active-implementations '(guile chez))
 		 (add-hook 'scheme-mode-hook 'geiser-mode)
-		 :mode ((rx ".scm" eos) . scheme-mode))
+		 :interpreter ("guile" . scheme-mode))
 	 #+END_SRC
 
 	 When properly set up, geiser gives an MIT Scheme-like editing
