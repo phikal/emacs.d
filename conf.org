@@ -1259,6 +1259,7 @@
 				  :encryption tls))
 			   rcirc-reconnect-delay 8
 			   rcirc-read-only-flag t
+			   rcirc-log-flag t
 			   rcirc-omit-responses '("NICK" "AWAY"))
 		 (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
 		 (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
