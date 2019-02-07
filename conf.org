@@ -1796,23 +1796,6 @@
 					 (setq-local company-backends '(company-jedi)))))
 	 #+END_SRC
 
-**** Coq
-	 #+BEGIN_SRC emacs-lisp
-	   ;; ProofGeneral
-	   (use-package proof-general
-		 :mode ((rx ".v" eos) . coq-mode)
-		 :interpreter "coqtop"
-		 :init
-		 (setq proof-splash-seen t
-			   proof-three-window-mode-policy 'hybrid
-			   proof-script-fly-past-comments t)
-		 :bind (:map coq-mode-map
-					 ("M-n" . proof-assert-next-command-interactive)))
-	 #+END_SRC
-
-	 Based on [[https://github.com/bixuanzju/emacs.d/blob/master/emacs-init.org][this configuration]], I've adapted [[https://proofgeneral.github.io/][/Proof General/]] to work
-	 with some basic Coq I use.
-
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rust-mode
