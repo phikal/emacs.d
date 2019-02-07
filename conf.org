@@ -793,6 +793,7 @@
 	 (dolist (c `((?~ . "~")
 				  (?S . "~/.stumpwmrc")
 				  (?d . "~/dl/")
+				  (?b . "~/etc/bin/")
 				  (?\; . "~/code")
 				  (?w . "~/code/web/www/")
 				  (?W . "~/code/web/")
