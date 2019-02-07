@@ -2625,19 +2625,24 @@
 
 ** Writing
    #+BEGIN_SRC emacs-lisp
-	 (add-hook 'text-mode-hook (lambda ()
-								 (unless (eq major-mode 'org-mode)
-								   (turn-on-flyspell))))
+	 (add-hook 'text-mode-hook
+			   (lambda ()
+				 (unless (derived-mode-p 'org-mode)
+				   (turn-on-flyspell))))
    #+END_SRC
 
    The only minor-mode I really use when writing text is flyspell. If I
    do need something else, I turn it on manually.
 
    #+BEGIN_SRC emacs-lisp
-	 (add-hook 'text-mode-hook #'electric-pair-local-mode)
+	 (add-hook 'text-mode-hook
+			   (lambda ()
+				 (unless (derived-mode-p #'latex-mode)
+				   (electric-pair-local-mode))))
    #+END_SRC
 
-   All text buffers should automatically close opening parentheses.
+   All text buffers, except for LaTeX-buffers, should automatically
+   close opening parentheses.
 
    #+BEGIN_SRC emacs-lisp
 	 (add-hook 'text-mode-hook #'turn-on-auto-fill)
