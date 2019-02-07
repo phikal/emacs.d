@@ -2131,6 +2131,15 @@
 	 installed I can easily use =C-c l= to create a link, see [[*Org][Org]] for more
 	 information.
 
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package forge
+		 :after magit)
+	 #+END_SRC
+
+	 Forge adds support for various "git forges" (ie. websites that
+	 allow git to be hosted). Currently I don't see the need for
+	 anything to be explicitly configured, so I leave it simple.
+
 **** Project Managment
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package projectile
