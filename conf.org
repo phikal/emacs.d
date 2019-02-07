@@ -1886,8 +1886,8 @@
 		 :init
 		 (setq javadoc-lookup-completing-read-function completing-read-function)
 		 :bind (:map java-mode-map
-					 ("C-c C-j" . javadoc-lookup)
-					 ("C-c C-i" . javadoc-add-import))
+					 ("C-c C-i" . javadoc-lookup)
+					 ("C-c C-a" . javadoc-add-import))
 		 :mode ((rx ".java" eos) . java-mode))
      #+END_SRC
 
