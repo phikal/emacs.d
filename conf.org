@@ -2495,7 +2495,23 @@
 
    For my ad-hoc blog, I insert a UNIX timestamp
 
-** Unkillable =*scratch*= buffer
+** Kill buffer and open Dired
+   #+BEGIN_SRC emacs-lisp
+	 (with-eval-after-load 'dired-x
+	   (defun kill-buffer-and-dired ()
+		 (interactive)
+		 (let ((buf (current-buffer)))
+		   (dired-jump)
+		   (kill-buffer buf)))
+
+	   (global-set-key (kbd "C-x x j") #'kill-buffer-and-dired))
+   #+END_SRC
+
+   The function name says it all. If I want to kill a file, but stay in
+   the directory, =kill-buffer-and-dired= is a shortcut for =C-x C-j C-b
+   <RET> C-x k <RET>=.
+
+** Recreate =*scratch*= buffer
    #+BEGIN_SRC emacs-lisp
 	 (defun new-scratch (&optional keep)
 	   "Generate a new *scratch* buffer"
