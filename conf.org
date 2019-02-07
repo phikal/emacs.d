@@ -1372,6 +1372,7 @@
 		 :init
 		 (setq ledger-source-directory (expand-file-name "~/doc/ledger")
 			   ledger-reconcile-default-commodity "EUR"
+			   ledger-highlight-xact-under-point nil
 			   ledger-master-file (expand-file-name "master.lg" ledger-source-directory)
 			   ledger-use-iso-dates t)
 		 :mode ((rx ".lg" eos) . ledger-mode))
