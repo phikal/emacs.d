@@ -2206,7 +2206,7 @@
 		   (while (not (looking-at-p (rx (or (seq bol (zero-or-more space) eol)
 											 (seq (zero-or-more not-newline) eos)))))
 			 (save-match-data
-			   (when (looking-at (rx bol "#+LANGUAGE: " (seq (one-or-more word))))
+			   (when (looking-at (rx bol "#+LANGUAGE: " (group (one-or-more word))))
 				 (let* ((lang* (match-string-no-properties 1))
 						(lang (pcase lang*
 								("en" "british")
