@@ -1438,7 +1438,6 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cdlatex
-		 :after auctex
 		 :init
 		 (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
 		 :config
