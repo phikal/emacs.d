@@ -1998,9 +1998,10 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package paredit
 		 :init
-		 (dolist (hook '(scheme lisp emacs-lisp lisp-interaction))
-		   (add-hook (intern (concat (symbol-name hook) "-mode-hook"))
-					 #'paredit-mode))
+		 (dolist (hook '(scheme-mode-hook
+						 lisp-mode-hook
+						 emacs-lisp-mode-hook))
+		   (add-hook hook #'paredit-mode))
 		 :bind (:map paredit-mode-map
 					 ("M-\"" . nil)
 					 ("C-M-<left>" . nil)
