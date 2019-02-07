@@ -773,6 +773,14 @@
 	frame is split, I automatically truncate the lines, to make sure
 	that it readable at all.
 
+	#+BEGIN_SRC emacs-lisp
+	  (with-eval-after-load 'calendar
+		(define-key calendar-mode-map (kbd "f") #'calendar-forward-day)
+		(define-key calendar-mode-map (kbd "F") #'calendar-forward-week)
+		(define-key calendar-mode-map (kbd "b") #'calendar-backward-day)
+		(define-key calendar-mode-map (kbd "B") #'calendar-backward-week))
+	#+END_SRC
+
 *** Writing while region is active
 	#+BEGIN_SRC emacs-lisp
 	  (delete-selection-mode -1)
