@@ -2125,7 +2125,7 @@
 	 #+END_SRC
 
 	 To support linking to git commits, I also install this auxiliary
-	 package by the same author as Magi (Jonas Bernoulli). Having that
+	 package by the same author as Magit (Jonas Bernoulli). Having that
 	 installed I can easily use =C-c l= to create a link, see [[*Org][Org]] for more
 	 information.
 
