@@ -815,7 +815,7 @@
    To quickly access certain files I tend to frequently use, I use
    Emacs's [[info:emacs#File%20Registers][file registers]].
 
-** Helper Functions
+** Helper Functions and Macros
 *** Working with PATH
 	#+BEGIN_SRC emacs-lisp
 	  (defun add-to-PATH (dir)
@@ -840,6 +840,17 @@
 
 	And as a complement to =add-to-PATH=, =remove-from-PATH= does what one
 	would expect it to do.
+
+*** Set value locally
+	#+BEGIN_SRC emacs-lisp
+	  (defmacro locally-setq (sym val)
+		"Produce a lambda expression that locally sets a value"
+		`(lambda () (setq-local ,sym ,val)))
+	#+END_SRC
+
+	Some modes will have to have buffer-local variables, loaded by
+	hooks. To make it a bit easier to work with these, this macro
+	produces a lambda expression that just set local values to a constant.
 
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
@@ -1411,13 +1422,11 @@
 	   (use-package auctex
 		 :config
 		 (progn
-		   (add-hook 'LaTeX-mode-hook
-					 (lambda ()
-					   (setq-local company-backends '(company-latex-commands
-													  company-math))
-					   (flycheck-mode t)
-					   (turn-on-reftex)
-					   (TeX-fold-mode)))
+		   (add-hook 'LaTeX-mode-hook (locally-setq company-backends
+													'(company-latex-commands
+													  company-math)))
+		   (dolist (mode '(flycheck-mode reftex-mode TeX-fold-mode))
+			 (add-hook 'LaTeX-mode-hook mode))
 		   (add-hook 'LaTeX-language-de-hook
 					 (lambda () (zge/toggle-dictionary "de")))
 		   (add-hook 'TeX-after-compilation-finished-functions
@@ -1740,10 +1749,9 @@
 		 :init
 		 (setq gofmt-command "goimports")
 		 (add-hook 'go-mode-hook
-				   (lambda ()
-					 (add-hook 'before-save-hook #'gofmt-before-save t t)
-					 (setq-local compile-command
-								 "go generate && go build -v && go test -v && go vet")))
+				   (locally-setq compile-command "go generate && go build -v && go test -v && go vet"))
+		 (add-hook 'go-mode-hook
+				   (lambda () (add-hook 'before-save-hook #'gofmt-before-save t t)))
 		 :config
 		 (let* ((go-path  "/home/phi/code/go")
 				(go-bin (expand-file-name "bin" go-path)))
@@ -1759,8 +1767,7 @@
 	   (use-package company-go
 		 :after (go-mode company)
 		 :init
-		 (add-hook 'go-mode-hook
-				   (lambda () (setq-local company-backends '(company-go)))))
+		 (add-hook 'go-mode-hook (locally-setq company-backends '(company-go))))
 
 	   (use-package go-eldoc
 		 :after go-mode
@@ -1794,8 +1801,7 @@
 		 :init
 		 (add-hook 'python-mode-hook #'jedi:setup)
 		 (add-hook 'python-mode-hook
-				   (lambda ()
-					 (setq-local company-backends '(company-jedi)))))
+				   (locally-setq company-backends '(company-jedi))))
 	 #+END_SRC
 
 **** Rust
@@ -1869,8 +1875,7 @@
 		 :init
 		 (slime-setup '(slime-company))
 		 (add-hook 'slime-mode-hook
-				   (lambda () (setq-local company-backends
-										  '(company-slime)))))
+				   (locally-setq company-backends '(company-slime))))
 	 #+END_SRC
 
 	 Since Elisp and Common Lisp share a common ancestry in Maclisp and
@@ -1900,8 +1905,7 @@
 	   (use-package company-ghc
 		 :init
 		 (add-hook 'haskell-mode-hook
-				   (lambda ()
-					 (setq-local company-backends '(company-ghc))))
+				   (locally-setq company-backends '(company-ghc)))
 		 :after company)
 	 #+END_SRC
 
