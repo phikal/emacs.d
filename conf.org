@@ -1664,7 +1664,7 @@
 			  ("C-x x o" . org-clock-out)
 			  :map org-mode-map
 			  ("C-M-<return>" . org-insert-subheading)
-			  ("M-<tab>" . pcomplete))
+			  ("M-<tab>" . pcomplete)))
      #+END_SRC
 
      Here I set a few convenient keybindings for globally interacting
