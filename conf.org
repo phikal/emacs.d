@@ -832,14 +832,20 @@
 
 	#+BEGIN_SRC emacs-lisp
 	  (defun remove-from-PATH (dir)
-		(let ((path (split-string (getenv "PATH") ":")))
-		  (delete dir path)
-		  (setf (getenv "PATH")
-				(string-join path ":"))))
+		(let* ((path (split-string (getenv "PATH") ":"))
+			   (path-new (remove dir path)))
+		  (setf (getenv "PATH") (string-join path-new ":"))))
 	#+END_SRC
 
 	And as a complement to =add-to-PATH=, =remove-from-PATH= does what one
 	would expect it to do.
+
+	#+BEGIN_SRC emacs-lisp
+	  (add-to-PATH (expand-file-name "~/etc/bin"))
+	#+END_SRC
+
+	And I use the opportunity to add my local binary directory to Emacs'
+	know paths.
 
 *** Set value locally
 	#+BEGIN_SRC emacs-lisp
@@ -1756,7 +1762,7 @@
 		 (let* ((go-path  "/home/phi/code/go")
 				(go-bin (expand-file-name "bin" go-path)))
 		   (setenv "GOPATH" go-path)
-		   (setenv "PATH" (concat (getenv "PATH") ":" go-bin))
+		   (add-to-path go-bin)
 		   (add-to-list 'exec-path go-bin))
 		 :mode (rx ".go" eos)
 		 :bind (:map go-mode-map
@@ -1813,7 +1819,7 @@
 				(rust-bin (expand-file-name "bin" rust-dir))
 				(rust-src (expand-file-name "lib/rustlib/src/rust/src/" rust-dir)))
 		   (setenv "RUST_SRC_PATH" rust-src)
-		   (setenv "PATH" (concat (getenv "PATH") ":" rust-bin))
+		   (add-to-PATH rust-bin)
 		   (add-to-list 'exec-path rust-bin))
 		 :mode (rx ".rs" eos))
 	 #+END_SRC
