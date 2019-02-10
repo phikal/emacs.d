@@ -1852,33 +1852,6 @@
 	 editor down, but for the amount of Scheme programming I do it's
 	 entirely sufficient.
 
-**** Java
-     #+BEGIN_SRC emacs-lisp
-	   (with-eval-after-load 'java-mode
-		 (add-hook 'java-mode-hook
-				   (lambda ()
-					 (let ((buf (buffer-name))
-						   (cls (string-remove-suffix ".java" (buffer-name))))
-					   (when (string-suffix-p ".java" buf)
-						 (setq-local compile-command (concat "javac " buf "&& java " cls)))))))
-     #+END_SRC
-
-     Since I usually only work on single file Java projects, this code
-
-     #+BEGIN_SRC emacs-lisp
-	   (use-package javadoc-lookup
-		 :ensure cc-mode
-		 :init
-		 (setq javadoc-lookup-completing-read-function completing-read-function)
-		 :bind (:map java-mode-map
-					 ("C-c C-i" . javadoc-lookup)
-					 ("C-c C-a" . javadoc-add-import))
-		 :mode ((rx ".java" eos) . java-mode))
-     #+END_SRC
-
-	 When "programming" in Java, =javadoc-lookup= helps me easily manage
-	 imports as well as open documentation in my preferred browser.
-
 **** Common Lisp
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package slime
