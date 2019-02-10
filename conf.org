@@ -1856,7 +1856,8 @@
 		 (setq geiser-repl-use-other-window nil
 			   geiser-active-implementations '(guile chez))
 		 (add-hook 'scheme-mode-hook 'geiser-mode)
-		 :interpreter ("guile" . scheme-mode))
+		 :interpreter ("guile" . scheme-mode)
+		 :mode ((rx ".scm" eos) . scheme-mode))
 	 #+END_SRC
 
 	 When properly set up, geiser gives an MIT Scheme-like editing
