@@ -1666,13 +1666,6 @@
      one get's a lot more out of Org, without having to look up
      everyhing in the manual.
 
-     #+BEGIN_SRC emacs-lisp
-	   :mode ((rx ".org" eos) . org-mode))
-     #+END_SRC
-
-     Finally, defer interpretation until a =.org= file is found, and
-     close the =use-package= block.
-
 **** Markdown
      #+BEGIN_SRC emacs-lisp
 	   (use-package markdown-mode
