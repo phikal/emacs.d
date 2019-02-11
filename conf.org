@@ -822,6 +822,7 @@
 	  (defun add-to-PATH (dir)
 		(let ((path (split-string (getenv "PATH") ":")))
 		  (add-to-list 'path dir t)
+		  (add-to-list 'exec-path dir)
 		  (setf (getenv "PATH")
 				(string-join path ":"))))
 	#+END_SRC
@@ -835,6 +836,7 @@
 	  (defun remove-from-PATH (dir)
 		(let* ((path (split-string (getenv "PATH") ":"))
 			   (path-new (remove dir path)))
+		  (delete dir exec-path)
 		  (setf (getenv "PATH") (string-join path-new ":"))))
 	#+END_SRC
 
@@ -1763,8 +1765,7 @@
 		 (let* ((go-path  "/home/phi/code/go")
 				(go-bin (expand-file-name "bin" go-path)))
 		   (setenv "GOPATH" go-path)
-		   (add-to-path go-bin)
-		   (add-to-list 'exec-path go-bin))
+		   (add-to-path go-bin))
 		 :mode (rx ".go" eos)
 		 :bind (:map go-mode-map
 					 ("M-." . godef-jump)
@@ -1820,8 +1821,7 @@
 				(rust-bin (expand-file-name "bin" rust-dir))
 				(rust-src (expand-file-name "lib/rustlib/src/rust/src/" rust-dir)))
 		   (setenv "RUST_SRC_PATH" rust-src)
-		   (add-to-PATH rust-bin)
-		   (add-to-list 'exec-path rust-bin))
+		   (add-to-PATH rust-bin))
 		 :mode (rx ".rs" eos))
 	 #+END_SRC
 
