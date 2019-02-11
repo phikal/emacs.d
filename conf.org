@@ -808,7 +808,8 @@
 				  (?r . "~/doc/pdf/")
 				  (?u . "~/doc/uni/")
 				  (?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
-				  (?m . "~/media/")))
+				  (?m . "~/media/")
+				  (?U . "/ssh:uni:")))
 	   (set-register (car c) (cons 'file (expand-file-name (cdr c)))))
    #+END_SRC
 
