@@ -962,10 +962,13 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package swiper
+		 :config
+		 (setq search-default-mode #'char-fold-to-regexp)
 		 :bind (("C-x x s" . swiper)))
 	 #+END_SRC
 
-	 Finally, swiper is a pretty alternative to isearch.
+	 Finally, swiper is a pretty alternative to isearch, configured with
+	 [[info:emacs#Lax%20Search][Lax Searching]] for isearch and swiper.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package flx
