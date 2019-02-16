@@ -459,7 +459,7 @@
 
    *Note:* This is also probably one of the oldest parts on my
    configuration, staying mostly unchanged since mid-late 2014, when
-   copied the code from [[https://stackoverflow.com/users/11138/jfm3][this StackOverflow question]].
+   copied the code from [[https://stackoverflow.com/a/151946][this StackOverflow answer]].
 
 ** Defaults
 *** Load Path
