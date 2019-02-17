@@ -1541,8 +1541,10 @@
 	   (setq org-capture-templates
 			 '(("a" "Appointment" entry (file+headline "pers.org" "Appointments")
 				"* %^t %?\n")
+			   ("p" "Plans" entry (file+headline "pers.org" "Plans")
+				"* %^t %?\n")
 			   ("t" "Todo" entry (file+headline "pers.org" "Todo")
-				"* TODO %?\n  %T\n\n  %i")
+				"* TODO %?\n%i")
 			   ("c" "Note" entry (file+datetree org-default-notes-file)
 				"* %?\n  Entered on %U" :empty-lines-after 1)
 			   ("l" "Link" entry (file+datatree org-default-notes-file)
