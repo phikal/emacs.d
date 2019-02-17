@@ -2089,7 +2089,7 @@
 		 :init
 		 (setq magit-diff-options "-b --patience"
 			   magit-save-repository-buffers 'dontask)
-		 :bind ("C-x x g" . magit-status))
+		 :bind ("C-x g" . magit-status))
 	 #+END_SRC
 
 	 Magit has been noted to be "a git wrapper that's better than git
