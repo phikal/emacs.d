@@ -1133,12 +1133,8 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(setq gnus-posting-styles
-			  '(("pers"
-				 (signature "\tSincerely,\n\tPhilip K.")
-				 (address "philip@warpmail.net"))
-				("uni"
-				 (signature "\tHochachtungsvoll,\n\tPhilip K.")
-				 (address "philip.kaludercic@fau.de"))))
+			  '((".*" (signature "\tSincerely,\n\tPhilip K."))
+				("uni" (signature "\tHochachtungsvoll,\n\tPhilip K."))))
 	  #+END_SRC
 
 	  Additionally, I add the following "posting styles" (ie. what to
@@ -1199,7 +1195,6 @@
 			  mml2015-encrypt-to-self t
 			  mm-verify-option 'known
 			  mm-decrypt-option 'known
-			  gnus-message-archive-group nil
 			  gnus-message-replyencrypt t
 			  gnus-buttonized-mime-types '("multipart/signed"))
 
