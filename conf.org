@@ -1770,7 +1770,7 @@
 		 (let* ((go-path  "/home/phi/code/go")
 				(go-bin (expand-file-name "bin" go-path)))
 		   (setenv "GOPATH" go-path)
-		   (add-to-path go-bin))
+		   (add-to-PATH go-bin))
 		 :mode (rx ".go" eos)
 		 :bind (:map go-mode-map
 					 ("M-." . godef-jump)
