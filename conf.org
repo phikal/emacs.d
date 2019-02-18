@@ -2168,9 +2168,8 @@
 			  (next-im (assoc next-dict zge/input-alist)))
 		 (ispell-change-dictionary next-dict)
 		 (ring-insert zge/dict-ring next-dict)
-		 (when (and next-im (eval `(or ,@(mapcar #'fboundp
-												 (mapcar #'derived-mode-p
-														 zge/toggle-dict-modes)))))
+		 (when (and next-im (eval `(or ,@(mapcar (lambda (m) (fboundp (derived-mode-p m)))
+												 zge/toggle-dict-modes))))
 		   (set-input-method (cdr next-im))))
 	   (unless no-check
 		 (flyspell-region (point-min) (point-max))))
@@ -2191,15 +2190,14 @@
 											 (seq (zero-or-more not-newline) eos)))))
 			 (save-match-data
 			   (when (looking-at (rx bol "#+LANGUAGE: " (group (one-or-more word))))
-				 (let* ((lang* (match-string-no-properties 1))
-						(lang (pcase lang*
-								("en" "british")
-								("de" "german-new8")
-								(_ lang*))))
+				 (let ((lang (pcase (match-string-no-properties 1))
+							 ("en" "british")
+							 ("de" "german-new8")
+							 (other other)))
 				   (zge/toggle-dictionary lang)
-				   (message "Toggled language to \"%s\"" lang))
+				   (message "Toggled language to \"%s\"" lang)))
 				 (throw 'found t)))
-			 (forward-line)))))
+			 (forward-line))))
 
 	 (with-eval-after-load 'org
 	   (add-hook 'org-mode-hook #'zge/org-check-lang))
