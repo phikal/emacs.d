@@ -1288,8 +1288,9 @@
 			   rcirc-read-only-flag t
 			   rcirc-log-flag t
 			   rcirc-omit-responses '("NICK" "AWAY"))
-		 (add-hook 'rcirc-mode-hook 'turn-on-flyspell)
-		 (add-hook 'rcirc-mode-hook 'rcirc-track-minor-mode)
+		 (add-hook 'rcirc-mode-hook #'flyspell-mode)
+		 (add-hook 'rcirc-mode-hook #'electric-pair-local-mode)
+		 (add-hook 'rcirc-mode-hook #'rcirc-track-minor-mode)
 		 (advice-add 'rcirc-next-active-buffer
 					 :after (lambda (&rest rest)
 							  (rcirc-update-activity-string)))
