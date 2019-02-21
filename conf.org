@@ -1792,25 +1792,7 @@
 	 - [[https://github.com/rogpeppe/godef][godef]]
 	 - [[https://golang.org/x/tools/cmd/goimports][goimports]]
 
-**** Python
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package python
-		 :after company-jedi
-		 :init
-		 (setq python-indent-guess-indent-offset-verbose nil)
-		 (with-eval-after-load 'flycheck
-		   (add-to-list 'flycheck-disabled-checkers 'python-pylint))
-		 :mode ((rx ".py" eos) . python-mode))
-	 #+END_SRC
-
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package company-jedi
-		 :after company
-		 :init
-		 (add-hook 'python-mode-hook #'jedi:setup)
-		 (add-hook 'python-mode-hook
-				   (locally-setq company-backends '(company-jedi))))
-	 #+END_SRC
+**** TODO Python
 
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
