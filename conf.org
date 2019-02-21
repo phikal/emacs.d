@@ -187,6 +187,10 @@
    - [[https://github.com/wasamasa/dotemacs/blob/master/init.org][Vasilij Schneidermann's dotemacs]] :: More of a classical literate
         configuration, both in standing as well as style. Well worth
         reading for various hacks or just for learning.
+   - [[http://chneukirchen.org/dotfiles/.emacs][Leah Neukirchen's .emacs]] :: A fairly old configuration (from 2001)
+        that has been maintained up until fairly recently (2018, as of
+        writing). Interesting for unusual functions and
+        macros. Especially interesting: the =bang= Function.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
@@ -1325,8 +1329,7 @@
 	   (setq-default browse-url-browser-function 'browse-url-firefox
 					 eww-download-directory (expand-file-name "~/dl")
 					 eww-search-prefix "https://duckduckgo.com/lite/?q="
-					 shr-color-visible-luminance-min 15
-					 shr-color-visible-distance-min 5)
+					 shr-use-colors nil)
 	 #+END_SRC
 
 	 Use whatever is set as the default browser on the current system,
@@ -2526,6 +2529,26 @@
    To prevent myself from accidentally killing my =*scratch*= buffer, I
    locally override what the =C-x k= keybinding does, emulating the
    =kill-buffer= function, without actually killing anything.
+
+** Revert all Buffers
+   #+BEGIN_SRC emacs-lisp
+	 (defun revert-all-buffers ()
+	 "Refreshes all open buffers from their respective files"
+	 (interactive)
+	 (let* ((list (buffer-list))
+			(buffer (car list)))
+	   (while buffer
+		 (when (and (buffer-file-name buffer)
+					(not (buffer-modified-p buffer)))
+		   (set-buffer buffer)
+		   (revert-buffer t t t))
+		 (setq list (cdr list))
+		 (setq buffer (car list))))
+	 (message "Refreshed open files"))
+   #+END_SRC
+
+   Revert buffers that have been modified. Taken from [[http://chneukirchen.org/dotfiles/.emacs][this]]
+   configuration.
 
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
