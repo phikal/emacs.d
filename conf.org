@@ -1300,7 +1300,7 @@
 	 #+END_SRC
 
 	 For IRC, I use rcirc The =zge/znc-pass= variables is declared in my
-	 [[*Emacs-generated%20files][custom.el]] file.
+	 [[*Emacs-generated files][=custom.el=]] file.
 
 **** Feed Syndication
 	 #+BEGIN_SRC emacs-lisp
