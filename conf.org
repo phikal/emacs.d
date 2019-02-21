@@ -2329,6 +2329,29 @@
    Sometimes I just want to easily view some code in emacs (eg. a raw
    github gist), and this functions just makes it easier.
 
+** Replace Region with Hex Charachter References
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/xml-hexify (start end)
+	   "Convert region into XML hex code"
+	   (interactive "rRegion:")
+	   (save-excursion
+		 (save-restriction
+		   (narrow-to-region start end)
+		   (goto-char (point-min))
+		   (while (not (eobp))
+			 (let ((char (following-char)))
+			   (delete-char 1)
+			   (insert (format "&#x%X;" char)))))))
+
+	 (defalias 'xml-hexify #'zge/xml-hexify)
+   #+END_SRC
+
+   When fuzzing Email addresses, replacing ASCII text with Hexadecimal
+   [[https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Character_reference_overview][XML Charachter References]] can make it a bit harder for spiders and
+   bots to find and spam you.
+
+   Idea taken from the [[http://www.pell.portland.or.us/~orc/Code/discount/][Discount]] Markdown parser.
+
 ** Insert C headers
    #+BEGIN_SRC emacs-lisp
 	 (defconst zge/c-header-dirs '("/usr/lib/gcc/x86_64-linux-gnu/6/include/"
