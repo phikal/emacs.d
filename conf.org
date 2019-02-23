@@ -1295,6 +1295,8 @@
 		 (add-hook 'rcirc-mode-hook #'flyspell-mode)
 		 (add-hook 'rcirc-mode-hook #'electric-pair-local-mode)
 		 (add-hook 'rcirc-mode-hook #'rcirc-track-minor-mode)
+		 (advice-add 'rcirc-abbreviate
+					 :override #'identity)
 		 (advice-add 'rcirc-next-active-buffer
 					 :after (lambda (&rest rest)
 							  (rcirc-update-activity-string)))
