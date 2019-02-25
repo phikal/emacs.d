@@ -2421,6 +2421,8 @@
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
+					("M-p" . backward-paragraph)
+					("M-n" . forward-paragraph)
 					("<f5>" . zge/toggle-dictionary)
 					("<f6>" . zge/toggle-theme)
 					("<f7>" . toggle-truncate-lines)
