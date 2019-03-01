@@ -609,6 +609,14 @@
 	"yes" or "no" when emacs asks a question, respectively accept "y" or
 	"n" instead.
 
+*** HTML
+	#+BEGIN_SRC emacs-lisp
+	  (setq skeleton-end-newline nil)
+	#+END_SRC
+
+	When inserting a html tag with =sgml-tag= (=C-c C-o=), don't add
+	unnecessary newlines.
+
 *** Emacs-generated files
 	#+BEGIN_SRC emacs-lisp
 	  (let ((custom-el (expand-file-name "custom.el" user-emacs-directory)))
