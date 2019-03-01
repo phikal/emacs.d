@@ -2453,7 +2453,8 @@
 					("C-M-<down>" . windmove-down)
 					("C-M-<left>" . windmove-left)
 					("C-M-<right>" . windmove-right)
-					("C-M-<backspace>" . delete-region)))
+					("C-M-<backspace>" . delete-region)
+					("<f2>" . nil)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
