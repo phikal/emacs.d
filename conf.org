@@ -1813,8 +1813,6 @@
 	 - [[https://github.com/rogpeppe/godef][godef]]
 	 - [[https://golang.org/x/tools/cmd/goimports][goimports]]
 
-**** TODO Python
-
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rust-mode
