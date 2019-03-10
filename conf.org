@@ -2159,7 +2159,7 @@
 	   (unless (boundp 'zge/dict-ring)
 		 (setq-local zge/dict-ring
 					 (let ((ring (make-ring (length zge/dicts))))
-					   (mapc (lambda (l) (ring-insert ring l))
+					   (mapc (apply-partially #'ring-insert ring)
 							 zge/dicts)
 					   ring)))
 	   (let* ((next-dict (or lang (ring-remove zge/dict-ring)))
