@@ -2280,36 +2280,6 @@
    the "selected" line blinks four times before =hl-line-mode= is turned
    off again.
 
-   #+BEGIN_SRC emacs-lisp
-	 (defun roulette-lines ()
-	   (interactive)
-	   (goto-line )
-
-	   (hl-line-mode t)
-	   (goto-line 3)
-	   (dotimes (i (+ 50 (random (count-lines (point-min) (point-max)))))
-		 (save-excursion
-		   (goto-char (point-min))
-		   (kill-line 1)
-		   (goto-char (point-max))
-		   (yank))
-		 (goto-line 3)
-		 (hl-line-highlight)
-		 (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
-
-	   (dotimes (i 4)
-		 (sit-for 0.5)
-		 (hl-line-highlight)
-		 (sit-for 0.5)
-		 (hl-line-unhighlight))
-	   (hl-line-mode -1))
-   #+END_SRC
-
-   As a variation on the same concept, but for writable buffers,
-   =roulett-lines= actually moves the lines around, keeping the point
-   fixed on the 3rd line from the top of the buffer (assuming a "normal"
-   buffer).
-
 ** Curl to buffer
    #+BEGIN_SRC emacs-lisp
 	 (defun zge/curl (url)
