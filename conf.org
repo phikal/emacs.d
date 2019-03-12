@@ -1819,8 +1819,12 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-mode
 		 :init
-		 (add-hook 'go-mode-hook (setl compile-command "go generate && go build -v && go test -v && go vet"))
-		 (add-hook 'go-mode-hook (lambda () (add-hook 'before-save-hook #'gofmt-before-save t t)))
+		 (add-hook 'go-mode-hook
+				   (setl compile-command
+						 "go generate && go build -v && go test -v && go vet"))
+		 (add-hook 'go-mode-hook
+				   (lambda () (add-hook 'before-save-hook
+										#'gofmt-before-save t t)))
 		 :config
 		 (setq gofmt-command "goimports")
 		 (let* ((go-path  "/home/phi/code/go")
