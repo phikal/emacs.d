@@ -888,7 +888,6 @@
   installed.
 
 ** Utilities
-*** Libraries
 *** Text Manipulation
 **** Dynamic Expansion
 	 #+BEGIN_SRC emacs-lisp
