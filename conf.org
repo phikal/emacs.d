@@ -1299,14 +1299,14 @@
 			   rcirc-read-only-flag t
 			   rcirc-log-flag t
 			   rcirc-omit-responses '("NICK" "AWAY"))
-		 (add-hook 'rcirc-mode-hook #'flyspell-mode)
-		 (add-hook 'rcirc-mode-hook #'electric-pair-local-mode)
-		 (add-hook 'rcirc-mode-hook #'rcirc-track-minor-mode)
 		 (advice-add 'rcirc-abbreviate
 					 :override #'identity)
 		 (advice-add 'rcirc-next-active-buffer
 					 :after (lambda (&rest _)
 							  (rcirc-update-activity-string)))
+		 :hook ((rcirc-mode . flyspell-mode)
+				(rcirc-mode . electric-pair-local-mode)
+				(rcirc-mode . rcirc-track-minor-mode))
 		 :bind (("C-x x x" . rcirc-next-active-buffer)
 				:map rcirc-mode-map
 				("C-x k" . bury-buffer)))
@@ -1441,17 +1441,6 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package auctex
 		 :config
-		 (progn
-		   (add-hook 'LaTeX-mode-hook (locally-setq company-backends
-													'(company-latex-commands
-													  company-math)))
-		   (dolist (mode '(flycheck-mode reftex-mode TeX-fold-mode))
-			 (add-hook 'LaTeX-mode-hook mode))
-		   (add-hook 'LaTeX-language-de-hook
-					 (lambda () (zge/toggle-dictionary "de")))
-		   (add-hook 'TeX-after-compilation-finished-functions
-					 #'TeX-revert-document-buffer))
-		 :init
 		 (setq LaTeX-electric-left-right-brace t
 			   TeX-view-program-selection '((output-pdf "PDF Tools"))
 			   TeX-source-correlate-start-server t
@@ -1460,6 +1449,13 @@
 			   TeX-master nil
 			   reftex-plug-into-AUCTeX t
 			   reftex-enable-partial-scans t)
+		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
+		 (add-hook 'TeX-after-compilation-finished-functions
+				   #'TeX-revert-document-buffer)
+		 :hook ((LaTeX-mode . (locally-setq company-backends '(company-latex-commands company-math)))
+				(LaTeX-mode . flycheck-mode)
+				(LaTeX-mode . reftex-mode)
+				(LaTeX-mode . TeX-fold-mode))
 		 :mode ((rx ".tex" eos) . LaTeX-mode))
 	 #+END_SRC
 
@@ -1467,8 +1463,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cdlatex
-		 :init
-		 (add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+		 :hook (LaTeX-mode . cdlatex-mode)
 		 :config
 		 (add-to-list 'cdlatex-math-modify-alist
 					  '(?B "\\mathbb" nil t nil nil))
@@ -1774,18 +1769,15 @@
 **** Go
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-mode
-		 :init
-		 (setq gofmt-command "goimports")
-		 (add-hook 'go-mode-hook
-				   (locally-setq compile-command "go generate && go build -v && go test -v && go vet"))
-		 (add-hook 'go-mode-hook
-				   (lambda () (add-hook 'before-save-hook #'gofmt-before-save t t)))
 		 :config
+		 (setq gofmt-command "goimports")
 		 (let* ((go-path  "/home/phi/code/go")
 				(go-bin (expand-file-name "bin" go-path)))
 		   (setenv "GOPATH" go-path)
 		   (add-to-PATH go-bin))
 		 :mode (rx ".go" eos)
+		 :hook ((go-mode . (locally-setq compile-command "go generate && go build -v && go test -v && go vet"))
+				(go-mode . (lambda () (add-hook 'before-save-hook #'gofmt-before-save t t))))
 		 :bind (:map go-mode-map
 					 ("M-." . godef-jump)
 					 ("C-c ." . godoc-at-point)
@@ -1793,13 +1785,11 @@
 
 	   (use-package company-go
 		 :after (go-mode company)
-		 :init
-		 (add-hook 'go-mode-hook (locally-setq company-backends '(company-go))))
+		 :hook (go-mode . (locally-setq company-backends '(company-go))))
 
 	   (use-package go-eldoc
 		 :after go-mode
-		 :init
-		 (add-hook 'go-mode-hook #'go-eldoc-setup))
+		 :hook (go-mode . go-eldoc-setup))
 	 #+END_SRC
 
 	 Go can be very fragile, but after having have set up the right files
@@ -1836,14 +1826,11 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cargo
 		 :after rust-mode
-		 :init
-		 (add-hook 'rust-mode-hook #'cargo-minor-mode))
+		 :hook (rust-mode . cargo-minor-mode))
 
 	   (use-package racer
 		 :after rust-mode
-		 :init
-		 (add-hook 'rust-mode-hook #'racer-mode)
-		 (add-hook 'racer-mode-hook #'eldoc-mode))
+		 :hook (rust-mode . racer-mode))
 	 #+END_SRC
 
 	 Additionally, /cargo/ and /racer/ are lazily loaded, as soon as rust is
@@ -1855,7 +1842,7 @@
 		 :config
 		 (setq geiser-repl-use-other-window nil
 			   geiser-active-implementations '(guile chez))
-		 (add-hook 'scheme-mode-hook 'geiser-mode)
+		 :hook (scheme-mode . geiser-mode)
 		 :interpreter ("guile" . scheme-mode)
 		 :mode ((rx ".scm" eos) . scheme-mode))
 	 #+END_SRC
@@ -1870,19 +1857,18 @@
 	   (use-package slime
 		 :diminish
 		 :after (slime-company paredit)
-		 :init
+		 :config
 		 (setq inferior-lisp-program (executable-find "sbcl")
 			   slime-contribs '(slime-fancy slime-autodoc slime-cl-indent))
-		 (add-hook 'common-lisp-mode-hook 'slime-mode)
+		 :hook (common-lisp-mode . slime-mode)
 		 :interpreter ("sbcl" . common-lisp-mode)
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
 				((rx ".cl" eos) . common-lisp-mode)))
 
 	   (use-package slime-company
-		 :init
+		 :config
 		 (slime-setup '(slime-company))
-		 (add-hook 'slime-mode-hook
-				   (locally-setq company-backends '(company-slime))))
+		 :hook (slime-mode . (locally-setq company-backends '(company-slime))))
 	 #+END_SRC
 
 	 Since Elisp and Common Lisp share a common ancestry in Maclisp and
@@ -1896,9 +1882,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package haskell-mode
 		 :after company-ghc
-		 :init
-		 (add-hook 'haskell-mode-hook #'haskell-doc-mode)
-		 (add-hook 'haskell-mode-hook (lambda () (yas-minor-mode -1)))
+		 :hook ((haskell-mode . haskell-doc-mode)
+				(haskell-mode . (lambda () (yas-minor-mode -1)))
 		 :mode (rx ".hs" eos)
 		 :bind (:map haskell-mode-map
 					 ("C-c C-l" . haskell-process-load-file)))
@@ -1910,10 +1895,8 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package company-ghc
-		 :init
-		 (add-hook 'haskell-mode-hook
-				   (locally-setq company-backends '(company-ghc)))
-		 :after company)
+		 :after company
+		 :hook (haskell-mode . (locally-setq company-backends '(company-ghc))))
 	 #+END_SRC
 
 	 For improved interaction, intelligent and informative auto
@@ -1947,8 +1930,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rainbow-delimiters
 		 :after prog-mode
-		 :init
-		 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+		 :hook (prog-mode . rainbow-delimiters-mode))
 	 #+END_SRC
 
 	 Especially when programming Lisp, color-matching parentheses and
@@ -1973,11 +1955,9 @@
 **** Structural Editing
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package paredit
-		 :init
-		 (dolist (hook '(scheme-mode-hook
-						 lisp-mode-hook
-						 emacs-lisp-mode-hook))
-		   (add-hook hook #'paredit-mode))
+		 :hook ((scheme-mode . paredit-mode)
+				(lisp-mode . paredit-mode)
+				(emacs-lisp-mode . paredit-mode))
 		 :bind (:map paredit-mode-map
 					 ("M-\"" . nil)
 					 ("C-M-<left>" . nil)
@@ -2026,8 +2006,7 @@
 			   company-tooltip-limit 20
 			   company-require-match 'never
 			   company-selection-wrap-around t)
-		 :init
-		 (add-hook 'prog-mode-hook #'company-mode)
+		 :hook prog-mode
 		 :bind (:map company-mode-map
 					 ("M-<tab>" . company-complete)
 					 :map company-active-map
@@ -2041,11 +2020,9 @@
 **** Snippets
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package yasnippet
-		 :init
-		 (add-hook 'prog-mode-hook #'yas-minor-mode)
+		 :config
 		 (setq yas-prompt-functions '(yas-dropdown-prompt yas-completing-prompt)
 			   yas-wrap-around-region t)
-		 :config
 		 (defun indent-then-expand ()
 		   (interactive)
 		   (if (and (eq last-command 'indent-then-expand)
@@ -2054,7 +2031,8 @@
 					(looking-at-p (rx (or space eol eos))))
 			   (yas-expand)
 			 (indent-for-tab-command)))
-		 (define-key yas-minor-mode-map (kbd "<tab>") #'indent-then-expand))
+		 (define-key yas-minor-mode-map (kbd "<tab>") #'indent-then-expand)
+		 :hook (prog-mode . yas-minor-mode))
 	 #+END_SRC
 
 	 While I have previously had problems with yasnippets, mainly due to
