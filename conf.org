@@ -2437,11 +2437,10 @@
 	(dolist (bind '(("M-\"" . eshell)
 					("M-p" . backward-paragraph)
 					("M-n" . forward-paragraph)
+					("<f2>" . window-configuration-to-register)
 					("<f5>" . zge/toggle-dictionary)
 					("<f6>" . zge/toggle-theme)
 					("<f7>" . toggle-truncate-lines)
-					("<f8>" . zge/fetch-mail)
-					("<f9>" . toggle-debug-on-error)
 					("C-c <C-return>" . man)
 					("C-x x d" . calendar)
 					("C-x M-k" . kill-buffer-and-window)
@@ -2453,8 +2452,7 @@
 					("C-M-<down>" . windmove-down)
 					("C-M-<left>" . windmove-left)
 					("C-M-<right>" . windmove-right)
-					("C-M-<backspace>" . delete-region)
-					("<f2>" . nil)))
+					("C-M-<backspace>" . delete-region)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
