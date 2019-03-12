@@ -1048,9 +1048,8 @@
 	   (use-package winner
 		 :demand
 		 :commands winner-mode
-		 :init
-		 (setq winner-dont-bind-my-keys t)
 		 :config
+		 (setq winner-dont-bind-my-keys t)
 		 (winner-mode)
 		 :bind (("C-x <down>" . winner-undo)
 				("C-x <up>" . winner-redo)))
@@ -1309,14 +1308,13 @@
 ***** BBDB
 	  #+BEGIN_SRC emacs-lisp
 		(use-package bbdb
-		  :init
+		  :config
 		  (setq bbdb-mua-auto-update-p nil
 				bbdb-complete-mail-allow-cycling t
 				bbdb-use-pop-up nil
 				bbdb-completion-display-record nil
 				bbdb-file (expand-file-name "bbdb" user-emacs-directory)
 				compose-mail-user-agent-warnings nil)
-		  :config
 		  (bbdb-initialize 'gnus 'message 'pgp)
 		  (with-eval-after-load 'message-mode
 			(define-key message-mode-map (kbd "M-<tab>") #'bbdb-complete-mail))
@@ -1329,9 +1327,8 @@
 **** IRC
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rcirc
-		 :demand t
 		 :commands (rcirc-update-activity-string)
-		 :init
+		 :config
 		 (setq rcirc-server-alist
 			   `(("zge.us.to"
 				  :user-name "zge"
@@ -1393,7 +1390,7 @@
 **** Translation
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package google-translate
-		 :init
+		 :config
 		 (setq google-translate-show-phonetic t
 			   google-translate-default-source-language "en"
 			   google-translate-default-target-language "de")
@@ -1443,7 +1440,7 @@
 **** Accounting
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ledger-mode
-		 :init
+		 :config
 		 (setq ledger-source-directory (expand-file-name "~/doc/ledger")
 			   ledger-reconcile-default-commodity "EUR"
 			   ledger-highlight-xact-under-point nil
@@ -1488,10 +1485,9 @@
 				   TeX-source-correlate-start-server TeX-revert-document-buffer
 				   TeX-auto-save TeX-parse-self TeX-master
 				   reftex-plug-into-AUCTeX reftex-enable-partial-scans)
-		 :init
+		 :config
 		 (add-hook 'LaTeX-mode-hook (setl company-backends
 												  '(company-latex-commands company-math)))
-		 :config
 		 (setq LaTeX-electric-left-right-brace t
 			   TeX-view-program-selection '((output-pdf "PDF Tools"))
 			   TeX-source-correlate-start-server t
@@ -1747,7 +1743,7 @@
 **** Markdown
      #+BEGIN_SRC emacs-lisp
 	   (use-package markdown-mode
-		 :init
+		 :config
 		 (setq markdown-italic-underscore t
 			   markdown-command "cmark")
 		 :mode (rx (or (seq bos "README" (opt ".md"))
@@ -1859,7 +1855,7 @@
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rust-mode
-		 :init
+		 :config
 		 (setq rust-format-on-save t)
 		 (let* ((rust-dir "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/")
 				(rust-bin (expand-file-name "bin" rust-dir))
@@ -1922,7 +1918,7 @@
 
 	   (use-package slime-company
 		 :init
-		 (add-hook 'slime-mode '(setl company-backends '(company-slime)))
+		 (add-hook 'slime-mode (setl company-backends '(company-slime)))
 		 :config
 		 (slime-setup '(slime-company)))
 	 #+END_SRC
@@ -1965,10 +1961,10 @@
 	   (use-package undo-tree
 		 :diminish
 		 :commands global-undo-tree-mode
-		 :init
-		 (global-undo-tree-mode)
+		 :config
 		 (setq undo-tree-visualizer-timestamps t
-			   undo-tree-visualizer-diff t))
+			   undo-tree-visualizer-diff t)
+		 (global-undo-tree-mode))
 	 #+END_SRC
 
 	 =Undo-tree= offers the ability to visualize ones editing history as a
@@ -2029,7 +2025,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package dumb-jump
 		 :after prog-mode
-		 :init
+		 :config
 		 (setq dumb-jump-aggressive t)
 		 :bind (:map prog-mode-map
 					 ("M-[" . dumb-jump-go)
@@ -2119,7 +2115,7 @@
 **** Version Control
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package magit
-		 :init
+		 :config
 		 (setq magit-diff-options "-b --patience"
 			   magit-save-repository-buffers 'dontask)
 		 :bind ("C-x g" . magit-status))
@@ -2158,12 +2154,11 @@
 		 :diminish
 		 :after ivy
 		 :commands projectile-mode
-		 :init
+		 :config
 		 (setq projectile-enable-caching t
 			   projectile-require-project-root nil
 			   projectile-switch-project-action 'projectile-dired
 			   projectile-completion-system 'default)
-		 :config
 		 (projectile-mode t)
 		 :bind (:map projectile-mode-map
 					 ("C-c p" . projectile-command-map)
