@@ -1294,10 +1294,9 @@
 				  :nick "zge"
 				  :password ,zge/znc-pass
 				  :port 23551
-				  :encryption tls))
-			   rcirc-reconnect-delay 8
-			   rcirc-read-only-flag t
-			   rcirc-log-flag t
+				  :encryption tls
+				  :server-alias "bouncer"))
+			   rcirc-reconnect-delay 12
 			   rcirc-omit-responses '("NICK" "AWAY"))
 		 (advice-add 'rcirc-abbreviate
 					 :override #'identity)
