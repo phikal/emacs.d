@@ -1486,8 +1486,7 @@
 				   TeX-auto-save TeX-parse-self TeX-master
 				   reftex-plug-into-AUCTeX reftex-enable-partial-scans)
 		 :config
-		 (add-hook 'LaTeX-mode-hook (setl company-backends
-												  '(company-latex-commands company-math)))
+		 (add-hook 'LaTeX-mode-hook (setl company-backends '(company-latex-commands)))
 		 (setq LaTeX-electric-left-right-brace t
 			   TeX-view-program-selection '((output-pdf "PDF Tools"))
 			   TeX-source-correlate-start-server t
@@ -1520,14 +1519,6 @@
 
 	 Additionally, CDLaTeX provides a more comfortable input and
 	 intuitive automation, where possible.
-
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package company-math
-		 :after company)
-	 #+END_SRC
-
-	 To properly use company mode with math-autocompletion, this package
-	 has to be installed.
 
 **** Org
 	 #+BEGIN_SRC emacs-lisp
@@ -2211,18 +2202,19 @@
 	   (save-excursion
 		 (goto-char (point-min))
 		 (catch 'found
-		   (while (not (looking-at-p (rx (or (seq bol (zero-or-more space) eol)
-											 (seq (zero-or-more not-newline) eos)))))
+		   (while (not (looking-at-p (rx (seq bol (* space) eol))))
 			 (save-match-data
+			   (message (thing-at-point 'line t))
 			   (when (looking-at (rx bol "#+LANGUAGE: " (group (one-or-more word))))
 				 (let ((lang (pcase (match-string-no-properties 1)
 							   ("en" "british")
 							   ("de" "german-new8")
 							   (other other))))
 				   (zge/toggle-dictionary lang)
-				   (message "Toggled language to \"%s\"" lang)))
-				 (throw 'found t)))
-			 (forward-line))))
+				   (message "Toggled language to \"%s\"" t))
+				 (throw 'found lang))
+			   (forward-line)))
+		   nil)))
 
 	 (with-eval-after-load 'org
 	   (add-hook 'org-mode-hook #'zge/org-check-lang))
