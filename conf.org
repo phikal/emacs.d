@@ -426,9 +426,6 @@
    variables, which are not needed are disregarded.
 
    #+BEGIN_SRC emacs-lisp
-	 (setq desktop-restore-frames nil
-		   desktop-restore-eager 8)
-
 	 (desktop-save-mode t)
    #+END_SRC
 
@@ -711,7 +708,7 @@
 *** Shell comands
 	#+BEGIN_SRC emacs-lisp
 	  (setq-default async-shell-command-display-buffer nil
-					async-shell-command-buffer #'new-buffer)
+					async-shell-command-buffer 'new-buffer)
 	#+END_SRC
 
 	When asynchronously running commands, only create a /new/ output
@@ -719,13 +716,14 @@
 
 *** Calendar
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default calendar-week-start-day 1
-					calendar-longitude 10.9887
-					calendar-latitude 49.4771
-					calendar-date-style 'iso
-					calendar-christian-all-holidays-flag t
-					calendar-mark-holidays-flag t
-					calendar-mark-diary-entries-flag t)
+	  (with-eval-after-load 'calendar
+		(setq calendar-week-start-day 1
+			  calendar-longitude 10.9887
+			  calendar-latitude 49.4771
+			  calendar-date-style 'iso
+			  calendar-christian-all-holidays-flag t
+			  calendar-mark-holidays-flag t
+			  calendar-mark-diary-entries-flag t)
 	#+END_SRC
 
 	The default Emacs calendar configuration is a bit simplistic and
@@ -785,7 +783,6 @@
 	that it readable at all.
 
 	#+BEGIN_SRC emacs-lisp
-	  (with-eval-after-load 'calendar
 		(define-key calendar-mode-map (kbd "f") #'calendar-forward-day)
 		(define-key calendar-mode-map (kbd "F") #'calendar-forward-week)
 		(define-key calendar-mode-map (kbd "b") #'calendar-backward-day)
@@ -801,27 +798,32 @@
 	supposed to be deleted automatically.
 ** Registers
    #+BEGIN_SRC emacs-lisp
-	 (dolist (c `((?~ . "~")
-				  (?S . "~/.stumpwmrc")
-				  (?d . "~/dl/")
-				  (?b . "~/etc/bin/")
-				  (?\; . "~/code")
-				  (?w . "~/code/web/www/")
-				  (?W . "~/code/web/")
-				  (?s . "~/code/web/start.md")
-				  (?c . ,(expand-file-name "conf.org" user-emacs-directory))
-				  (?C . ,(expand-file-name "custom.el" user-emacs-directory))
-				  (?D . ,(expand-file-name "diary" user-emacs-directory))
-				  (?o . "~/doc/org/")
-				  (?n . "~/doc/org/notes.org")
-				  (?p . "~/doc/org/pers.org")
-				  (?j . "~/doc/org/ws18.org")
-				  (?r . "~/doc/pdf/")
-				  (?u . "~/doc/uni/")
-				  (?l . ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
-				  (?m . "~/media/")
-				  (?U . "/ssh:uni:")))
-	   (set-register (car c) (cons 'file (expand-file-name (cdr c)))))
+	 (defvar zge/registers
+	   `((?~ "~")
+		 (?S "~/.stumpwmrc")
+		 (?d "~/dl/")
+		 (?b "~/etc/bin/")
+		 (?\; "~/code")
+		 (?w "~/code/web/www/")
+		 (?W "~/code/web/")
+		 (?s "~/code/web/start.md")
+		 (?c ,(expand-file-name "conf.org" user-emacs-directory))
+		 (?C ,(expand-file-name "custom.el" user-emacs-directory))
+		 (?D ,(expand-file-name "diary" user-emacs-directory))
+		 (?o "~/doc/org/")
+		 (?n "~/doc/org/notes.org")
+		 (?p "~/doc/org/pers.org")
+		 (?j "~/doc/org/ws18.org")
+		 (?r "~/doc/pdf/")
+		 (?u "~/doc/uni/")
+		 (?l ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
+		 (?m "~/media/")
+		 (?U "/ssh:uni:"))
+	   "Personal registers")
+
+	 (setq register-alist (mapcar (pcase-lambda (`(,key  ,file))
+									(cons key (cons 'file file)))
+								  zge/registers))
    #+END_SRC
 
    To quickly access certain files I tend to frequently use, I use
@@ -865,7 +867,7 @@
 	#+BEGIN_SRC emacs-lisp
 	  (defmacro locally-setq (sym val)
 		"Produce a lambda expression that locally sets a value"
-		`(lambda () (setq-local ,sym ,val)))
+		`(function (lambda () (setq-local ,sym ,val))))
 	#+END_SRC
 
 	Some modes will have to have buffer-local variables, loaded by
@@ -935,18 +937,19 @@
 **** Auto-completion
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ivy
-		 :diminish (ivy-mode counsel-mode)
-		 :init
+		 :demand
+		 :commands ivy-mode
+		 :diminish ivy-mode
+		 :config
 		 (setq ivy-wrap t
 			   ivy-height 6
 			   ivy-display-style 'fancy
 			   ivy-case-fold-search-default t
 			   ivy-re-builders-alist '((t . ivy--regex))
 			   enable-recursive-minibuffers t)
-		 :config
 		 (ivy-mode t)
 		 :bind (:map ivy-minibuffer-map
-				("<RET>" . ivy-alt-done)))
+					 ("<RET>" . ivy-alt-done)))
 	 #+END_SRC
 
 	 I use Ivy to extend the default =find-file=, =switch-to-buffer=,
@@ -956,9 +959,10 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package counsel
 		 :after ivy
-		 :init
-		 (setq counsel-find-file-at-point t)
+		 :commands counsel-mode
+		 :diminish counsel-mode
 		 :config
+		 (setq counsel-find-file-at-point t)
 		 (counsel-mode t)
 		 (dolist (cmd '(yank-pop describe-bindings))
 		   (define-key counsel-mode-map `[remap ,cmd] nil))
@@ -983,16 +987,55 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package flx
+		 :after ivy
 		 :config
-		 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-fuzzy))
-		 :after ivy)
+		 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-fuzzy)))
 	 #+END_SRC
 
 	 Additionally, use flexible matching for =M-x=.
 
 **** Buffer overview
 	 #+BEGIN_SRC emacs-lisp
-	   (setq ibuffer-expert t)
+	   (use-package ibuffer
+		 :config
+		 (require 'ibuf-ext)
+		 (define-ibuffer-column size-human (:name "Size" :inline t)
+		   (cond ((> (buffer-size) (lsh 1 20))
+				  (format "%7.1fM" (/ (buffer-size) (lsh 1 20))))
+				 ((> (buffer-size) (lsh 1 12))
+				  (format "%7.0fk" (/ (buffer-size) (lsh 1 10))))
+				 ((> (buffer-size) (lsh 1 10))
+				  (format "%7.1fk" (/ (buffer-size) (lsh 1 10))))
+				 (t (format "%8d" (buffer-size)))))
+		 (setq ibuffer-expert t
+			   ibuffer-formats
+			   '((mark modified read-only locked " "
+					   (name 18 18 :left :elide) " "
+					   (size-human 9 -1 :right) " "
+					   (mode 16 16 :left :elide) " "
+					   filename-and-process)
+				 (mark " " (name 16 -1) " " filename))
+			   ibuffer-show-empty-filter-groups nil
+			   ibuffer-saved-filter-groups
+			   '(("default"
+				  ("dired" (mode . dired-mode))
+				  ("org" (mode . org-mode))
+				  ("irc" (mode . rcirc-mode))
+				  ("ledger" (mode . ledger-mode))
+				  ("emacs" (or (name . "^\\*scratch\\*$")
+							   (name . "^\\*Messages\\*$")
+							   (name . "^\\*Backtrace\\*$")))
+				  ("gnus" (or (mode . message-mode)
+							  (mode . bbdb-mode)
+							  (mode . mail-mode)
+							  (mode . gnus-group-mode)
+							  (mode . gnus-summary-mode)
+							  (mode . gnus-article-mode)
+							  (name . "^\\.bbdb$")
+							  (name . "^\\.newsrc-dribble"))))))
+		 :hook ((ibuffer . (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
+				(ibuffer . ibuffer-auto-mode))
+		 :bind ("C-x C-b" . ibuffer))
 	 #+END_SRC
 
 	 Ibuffer has turned out to be quite a nifty alternative to
@@ -1005,6 +1048,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package winner
 		 :demand
+		 :commands winner-mode
 		 :init
 		 (setq winner-dont-bind-my-keys t)
 		 :config
@@ -1287,6 +1331,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rcirc
 		 :demand t
+		 :commands (rcirc-update-activity-string)
 		 :init
 		 (setq rcirc-server-alist
 			   `(("zge.us.to"
@@ -1414,7 +1459,7 @@
 **** PDF Viewer
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package pdf-tools
-		 :init
+		 :config
 		 (setq pdf-view-display-size 'fit-page)
 		 (pdf-tools-install)
 		 :mode ((rx ".pdf" eos) . pdf-view-mode)
@@ -1439,6 +1484,14 @@
 **** LaTeX
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package auctex
+		 :after company
+		 :defines (LaTeX-electric-left-right-brace TeX-view-program-selection
+				   TeX-source-correlate-start-server TeX-revert-document-buffer
+				   TeX-auto-save TeX-parse-self TeX-master
+				   reftex-plug-into-AUCTeX reftex-enable-partial-scans)
+		 :init
+		 (add-hook 'LaTeX-mode-hook (locally-setq company-backends
+												  '(company-latex-commands company-math)))
 		 :config
 		 (setq LaTeX-electric-left-right-brace t
 			   TeX-view-program-selection '((output-pdf "PDF Tools"))
@@ -1451,8 +1504,7 @@
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
 		 (add-hook 'TeX-after-compilation-finished-functions
 				   #'TeX-revert-document-buffer)
-		 :hook ((LaTeX-mode . (locally-setq company-backends '(company-latex-commands company-math)))
-				(LaTeX-mode . flycheck-mode)
+		 :hook ((LaTeX-mode . flycheck-mode)
 				(LaTeX-mode . reftex-mode)
 				(LaTeX-mode . TeX-fold-mode))
 		 :mode ((rx ".tex" eos) . LaTeX-mode))
@@ -1485,7 +1537,12 @@
 **** Org
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package org
-		 :init
+		 :defines (org-html-mathjax-options)
+		 :commands (org-next-link
+					org-previous-link
+					turn-on-org-cdlatex
+					org-babel-do-load-languages)
+		 :config
 	 #+END_SRC
 
 	 The following configuration is wrapped in a =use-package= macro...
@@ -1518,8 +1575,6 @@
 	 highlighting and indenting them appropriately is very convenient.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (require 'org-agenda)
-
 	   (with-eval-after-load 'org-agenda
 		 (setq org-directory (expand-file-name "~/doc/org/")
 			   org-agenda-files (mapcar (lambda (f) (expand-file-name
@@ -1628,7 +1683,6 @@
 	 Load languages for [[info:org#Library%20of%20Babel][Org Babel]], without the need to reconfirm.
 
 	 #+BEGIN_SRC emacs-lisp
-	   :config
 	   (with-eval-after-load 'ox-html
 		 (setf (car (alist-get 'path org-html-mathjax-options))
 			   "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"))
@@ -1715,21 +1769,17 @@
 *** Programming Languages
 **** C
      #+BEGIN_SRC emacs-lisp
-	   (setq-default c-electric-flag t
-					 c-auto-newline nil
-					 c-default-style '((java-mode . "java")
-									   (awk-mode . "awk")
-									   (other . "k&r"))
-					 c-delete-function #'backward-delete-char
-					 c-delete-function #'delete-char
-					 c-tab-always-indent t)
+	   (with-eval-after-load 'cc-mode
+		 (setf (alist-get 'other c-default-style) "k&r"
+			   c-delete-function #'backward-delete-char
+			   c-delete-function #'delete-char)
 	 #+END_SRC
 
 	 From what one can see, it is obvious that I still have to get around
 	 to properly set up my C editing environment.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (define-key c-mode-map (kbd "C-c C-k") #'compile)
+	   (define-key c-mode-map (kbd "C-c C-k") #'compile))
 	 #+END_SRC
 
 	 I'm used to =C-c C-k= for compiling, but c-mode disagrees.
@@ -1748,6 +1798,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package gnuplot
 		 :interpreter ("gnuplot" . gnuplot-mode)
+		 :functions (gnuplot-send-string-to-gnuplot)
 		 :config
 		 (defun zge/gnuplot-replot ()
 		   (interactive)
@@ -1768,6 +1819,9 @@
 **** Go
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-mode
+		 :init
+		 (add-hook 'go-mode-hook (locally-setq compile-command "go generate && go build -v && go test -v && go vet"))
+		 (add-hook 'go-mode-hook (lambda () (add-hook 'before-save-hook #'gofmt-before-save t t)))
 		 :config
 		 (setq gofmt-command "goimports")
 		 (let* ((go-path  "/home/phi/code/go")
@@ -1775,8 +1829,6 @@
 		   (setenv "GOPATH" go-path)
 		   (add-to-PATH go-bin))
 		 :mode (rx ".go" eos)
-		 :hook ((go-mode . (locally-setq compile-command "go generate && go build -v && go test -v && go vet"))
-				(go-mode . (lambda () (add-hook 'before-save-hook #'gofmt-before-save t t))))
 		 :bind (:map go-mode-map
 					 ("M-." . godef-jump)
 					 ("C-c ." . godoc-at-point)
@@ -1784,7 +1836,8 @@
 
 	   (use-package company-go
 		 :after (go-mode company)
-		 :hook (go-mode . (locally-setq company-backends '(company-go))))
+		 :init
+		 (add-hook 'go-mode-hook (locally-setq company-backends '(company-go))))
 
 	   (use-package go-eldoc
 		 :after go-mode
@@ -1865,9 +1918,10 @@
 				((rx ".cl" eos) . common-lisp-mode)))
 
 	   (use-package slime-company
+		 :init
+		 (add-hook 'slime-mode '(locally-setq company-backends '(company-slime)))
 		 :config
-		 (slime-setup '(slime-company))
-		 :hook (slime-mode . (locally-setq company-backends '(company-slime))))
+		 (slime-setup '(slime-company)))
 	 #+END_SRC
 
 	 Since Elisp and Common Lisp share a common ancestry in Maclisp and
@@ -1885,7 +1939,7 @@
 				(haskell-mode . (lambda () (yas-minor-mode -1)))
 		 :mode (rx ".hs" eos)
 		 :bind (:map haskell-mode-map
-					 ("C-c C-l" . haskell-process-load-file)))
+					 ("C-c C-l" . haskell-process-load-file))))
 	 #+END_SRC
 
 	 Programming Haskell can be a very nice experience in Emacs, but as
@@ -1895,7 +1949,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package company-ghc
 		 :after company
-		 :hook (haskell-mode . (locally-setq company-backends '(company-ghc))))
+		 :init
+		 (add-hook 'haskell-mode-hook (locally-setq company-backends '(company-ghc))))
 	 #+END_SRC
 
 	 For improved interaction, intelligent and informative auto
@@ -1906,6 +1961,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package undo-tree
 		 :diminish
+		 :commands global-undo-tree-mode
 		 :init
 		 (global-undo-tree-mode)
 		 (setq undo-tree-visualizer-timestamps t
@@ -2005,7 +2061,7 @@
 			   company-tooltip-limit 20
 			   company-require-match 'never
 			   company-selection-wrap-around t)
-		 :hook prog-mode
+		 :hook (prog-mode . company-mode)
 		 :bind (:map company-mode-map
 					 ("M-<tab>" . company-complete)
 					 :map company-active-map
@@ -2019,6 +2075,7 @@
 **** Snippets
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package yasnippet
+		 :functions yas-expand
 		 :config
 		 (setq yas-prompt-functions '(yas-dropdown-prompt yas-completing-prompt)
 			   yas-wrap-around-region t)
@@ -2097,6 +2154,7 @@
 	   (use-package projectile
 		 :diminish
 		 :after ivy
+		 :commands projectile-mode
 		 :init
 		 (setq projectile-enable-caching t
 			   projectile-require-project-root nil
@@ -2128,12 +2186,11 @@
 	 (defun zge/toggle-dictionary (&optional lang no-check)
 	   "Toggle the Ispell dictionary from English to German and vice versa."
 	   (interactive (list nil (not current-prefix-arg)))
-	   (unless (boundp 'zge/dict-ring)
-		 (setq-local zge/dict-ring
-					 (let ((ring (make-ring (length zge/dicts))))
-					   (mapc (apply-partially #'ring-insert ring)
-							 zge/dicts)
-					   ring)))
+	   (unless zge/dict-ring
+		 (setq zge/dict-ring
+			   (let ((ring (make-ring (length zge/dicts))))
+				 (mapc (apply-partially #'ring-insert ring) zge/dicts)
+				 ring)))
 	   (let* ((next-dict (or lang (ring-remove zge/dict-ring)))
 			  (next-im (assoc next-dict zge/input-alist)))
 		 (ispell-change-dictionary next-dict)
@@ -2230,6 +2287,7 @@
    #+BEGIN_SRC emacs-lisp
 	 (defun roulette ()
 	   (interactive)
+	   (require 'hl-line)
 	   (goto-char (point-min))
 	   (forward-line (random (count-lines (point-min) (point-max))))
 
@@ -2406,8 +2464,7 @@
   everything cleaner and easier to read.
 
   #+BEGIN_SRC emacs-lisp
-	(dolist (bind '(("C-x C-b" . ibuffer)
-					("M-l" . downcase-dwim)
+	(dolist (bind '(("M-l" . downcase-dwim)
 					("<backtab>" . completion-at-point)
 					("M-c" . capitalize-dwim)
 					("<prior>" . scroll-up-command)
