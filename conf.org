@@ -865,7 +865,7 @@
 
 *** Set value locally
 	#+BEGIN_SRC emacs-lisp
-	  (defmacro locally-setq (sym val)
+	  (defmacro setl (sym val)
 		"Produce a lambda expression that locally sets a value"
 		`(function (lambda () (setq-local ,sym ,val))))
 	#+END_SRC
@@ -1489,7 +1489,7 @@
 				   TeX-auto-save TeX-parse-self TeX-master
 				   reftex-plug-into-AUCTeX reftex-enable-partial-scans)
 		 :init
-		 (add-hook 'LaTeX-mode-hook (locally-setq company-backends
+		 (add-hook 'LaTeX-mode-hook (setl company-backends
 												  '(company-latex-commands company-math)))
 		 :config
 		 (setq LaTeX-electric-left-right-brace t
@@ -1819,7 +1819,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-mode
 		 :init
-		 (add-hook 'go-mode-hook (locally-setq compile-command "go generate && go build -v && go test -v && go vet"))
+		 (add-hook 'go-mode-hook (setl compile-command "go generate && go build -v && go test -v && go vet"))
 		 (add-hook 'go-mode-hook (lambda () (add-hook 'before-save-hook #'gofmt-before-save t t)))
 		 :config
 		 (setq gofmt-command "goimports")
@@ -1836,7 +1836,7 @@
 	   (use-package company-go
 		 :after (go-mode company)
 		 :init
-		 (add-hook 'go-mode-hook (locally-setq company-backends '(company-go))))
+		 (add-hook 'go-mode-hook (setl company-backends '(company-go))))
 
 	   (use-package go-eldoc
 		 :after go-mode
@@ -1918,7 +1918,7 @@
 
 	   (use-package slime-company
 		 :init
-		 (add-hook 'slime-mode '(locally-setq company-backends '(company-slime)))
+		 (add-hook 'slime-mode '(setl company-backends '(company-slime)))
 		 :config
 		 (slime-setup '(slime-company)))
 	 #+END_SRC
@@ -1949,7 +1949,7 @@
 	   (use-package company-ghc
 		 :after company
 		 :init
-		 (add-hook 'haskell-mode-hook (locally-setq company-backends '(company-ghc))))
+		 (add-hook 'haskell-mode-hook (setl company-backends '(company-ghc))))
 	 #+END_SRC
 
 	 For improved interaction, intelligent and informative auto
