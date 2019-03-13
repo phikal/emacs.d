@@ -1290,7 +1290,7 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		:bind (("C-x x m" . gnus)
-			   ("C-x m" . zge/compose-mail))
+			   ("C-x m" . zge/compose-mail)))
 	  #+END_SRC
 
 	  Finally keybindings are set up.
