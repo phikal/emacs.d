@@ -250,16 +250,6 @@
 
    All code written in this file, shall be [[https://stackoverflow.com/questions/1047454/what-is-lexical-scope]["Lexically Scoped"]].
 
-** Debugging
-   #+BEGIN_SRC emacs-lisp
-	 (when (getenv "EDEBUG")
-	   (setq debug-on-error t))
-   #+END_SRC
-
-   Sometimes I mess something up, and I don't know what. To make it
-   easier to debug it, I check to see if the environmental variable
-   =EDEBUG= is set, and if that is the case, turn on debugging in Emacs.
-
 ** Package Management
    #+BEGIN_SRC emacs-lisp
 	 (require 'package)
