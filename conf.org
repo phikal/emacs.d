@@ -1976,6 +1976,17 @@
 	 For improved interaction, intelligent and informative auto
 	 completion is always appreciated.
 
+**** Idris
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package idris-mode
+		 :if (executable-find "idris")
+		 :config
+		 (setq idris-stay-in-current-window-on-compiler-error t
+			   idris-prover-restore-window-configuration t)
+		 :interpreter "idris"
+		 :mode (rx ".idr" eos))
+	 #+END_SRC
+
 *** Enchantments
 **** Unto Tree
 	 #+BEGIN_SRC emacs-lisp
