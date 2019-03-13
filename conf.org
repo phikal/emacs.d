@@ -1930,7 +1930,6 @@
 		 :config
 		 (setq inferior-lisp-program (executable-find "sbcl")
 			   slime-contribs '(slime-fancy slime-autodoc slime-cl-indent))
-		 :hook (common-lisp-mode . slime-mode)
 		 :interpreter ("sbcl" . common-lisp-mode)
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
 				((rx ".cl" eos) . common-lisp-mode)))
