@@ -1124,6 +1124,8 @@
 ***** Gnus
 	  #+BEGIN_SRC emacs-lisp
 		(use-package gnus
+		  :if (and (executable-find "mpop")
+				   (executable-find "msmtp"))
 		  :config
       #+END_SRC
 
@@ -1457,6 +1459,7 @@
 **** Accounting
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ledger-mode
+		 :if (executable-find "ledger")
 		 :config
 		 (setq ledger-source-directory (expand-file-name "~/doc/ledger")
 			   ledger-reconcile-default-commodity "EUR"
@@ -1487,7 +1490,8 @@
 *** Fun
 **** Go/Baduk
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package gnugo)
+	   (use-package gnugo
+		 :if (executable-find "gnugo"))
 	 #+END_SRC
 
 	 Play Go in Emacs.
@@ -1497,7 +1501,8 @@
 **** LaTeX
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package auctex
-		 :after company
+		 :if (executable-find "pdflatex")
+		 :after cdlatex
 		 :defines (LaTeX-electric-left-right-brace TeX-view-program-selection
 				   TeX-source-correlate-start-server TeX-revert-document-buffer
 				   TeX-auto-save TeX-parse-self TeX-master
@@ -1751,6 +1756,7 @@
 **** Markdown
      #+BEGIN_SRC emacs-lisp
 	   (use-package markdown-mode
+		 :if (executable-find "cmark")
 		 :config
 		 (setq markdown-italic-underscore t
 			   markdown-command "cmark")
@@ -1800,6 +1806,7 @@
 **** Gnuplot
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package gnuplot
+		 :if (executable-find "gnuplot")
 		 :interpreter ("gnuplot" . gnuplot-mode)
 		 :functions (gnuplot-send-string-to-gnuplot)
 		 :config
@@ -1822,6 +1829,7 @@
 **** Go
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-mode
+		 :if (executable-find "go")
 		 :init
 		 (add-hook 'go-mode-hook
 				   (setl compile-command
@@ -1863,6 +1871,7 @@
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rust-mode
+		 :if (file-exists-p "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/")
 		 :config
 		 (setq rust-format-on-save t)
 		 (let* ((rust-dir "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/")
@@ -1898,6 +1907,7 @@
 **** Scheme
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package geiser
+		 :if (executable-find "guile")
 		 :config
 		 (setq geiser-repl-use-other-window nil
 			   geiser-active-implementations '(guile chez))
@@ -1914,6 +1924,7 @@
 **** Common Lisp
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package slime
+		 :if (executable-find "sbcl")
 		 :diminish
 		 :after (slime-company paredit)
 		 :config
@@ -1941,6 +1952,7 @@
 **** Haskell
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package haskell-mode
+		 :if (executable-find "ghc")
 		 :after company-ghc
 		 :hook ((haskell-mode . haskell-doc-mode)
 				(haskell-mode . (lambda () (yas-minor-mode -1)))
@@ -2123,6 +2135,7 @@
 **** Version Control
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package magit
+		 :if (executable-find "git")
 		 :config
 		 (setq magit-diff-options "-b --patience"
 			   magit-save-repository-buffers 'dontask)
