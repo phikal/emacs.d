@@ -330,6 +330,17 @@
 
 	These settings are purely personal preferences.
 
+*** Buffer Boundaries
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default indicate-buffer-boundaries
+					'((top . right)
+					  (bottom . right)
+					  (t . nil)))
+	#+END_SRC
+
+	Sometimes it's not obvious if you're at the top or bottom of a
+	buffer. So I enable indicators that can tell me precisely that.
+
 *** Empty Lines
 	#+BEGIN_SRC emacs-lisp
 	  (defun turn-indicate-empty-lines-on ()
@@ -340,6 +351,7 @@
 	  (add-hook 'prog-mode-hook #'turn-indicate-empty-lines-on)
 	  (add-hook 'text-mode-hook #'turn-indicate-empty-lines-on)
 	  (add-hook 'dired-mode-hook #'turn-indicate-empty-lines-on)
+	  (add-hook 'comint-mode-hook #'turn-indicate-empty-lines-on)
 	#+END_SRC
 
 	This option makes Emacs populate the left-hand fringe with little
