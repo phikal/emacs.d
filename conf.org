@@ -2233,15 +2233,15 @@
 		 (catch 'found
 		   (while (not (looking-at-p (rx (seq bol (* space) eol))))
 			 (save-match-data
-			   (message (thing-at-point 'line t))
 			   (when (looking-at (rx bol "#+LANGUAGE: " (group (one-or-more word))))
 				 (let ((lang (pcase (match-string-no-properties 1)
 							   ("en" "british")
 							   ("de" "german-new8")
-							   (other other))))
-				   (zge/toggle-dictionary lang)
-				   (message "Toggled language to \"%s\"" t))
-				 (throw 'found lang))
+							   (other nil))))
+				   (when lang
+					 (zge/toggle-dictionary lang)
+					 (message "Toggled language to \"%s\"" lang)))
+				 (throw 'found t))
 			   (forward-line)))
 		   nil)))
 
