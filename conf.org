@@ -1193,6 +1193,22 @@
 	  Additionally, I add the following "posting styles" (ie. what to
 	  append to the end of a message):
 
+	  #+BEGIN_SRC emacs-lisp
+		(defun zge/compose-mail (arg)
+		  "Compose a mail with gnus posting style."
+		  (interactive "P")
+		  (let* ((groups '("pers" "uni"))
+				 (gnus-newsgroup-name
+				  (if arg
+					  (completing-read "Group to use: " groups)
+					(car groups))))
+			(gnus-setup-message 'message (message-mail))))
+	  #+END_SRC
+
+	  Since =compose-mail=, which is by default bound to =C-x m= /doesn't/
+	  insert my posting styles/signatures, this function wraps gnus
+	  setup routine to construct a buffer.
+
       #+BEGIN_SRC emacs-lisp
 		(setq gnus-summary-line-format "%U%R │ %d% │ %4k: %4{%-23,23F%} │%(%B%S%)\n"
 			  gnus-sum-thread-tree-single-indent    "   "
@@ -1269,7 +1285,8 @@
 	  so that "pintetry" is used for query my paraphrase.
 
 	  #+BEGIN_SRC emacs-lisp
-		:bind ("C-x x m" . gnus))
+		:bind (("C-x x m" . gnus)
+			   ("C-x m" . zge/compose-mail))
 	  #+END_SRC
 
 	  Finally keybindings are set up.
