@@ -1367,7 +1367,6 @@
 		 :config
 		 (setq elfeed-search-filter "@1-month-ago +unread"
 			   elfeed-db-directory "~/.local/share/elfeed")
-		 (run-at-time nil (* 60 60) #'elfeed-update)
 		 :bind ("C-x x f" . elfeed))
 	 #+END_SRC
 
