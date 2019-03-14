@@ -2429,26 +2429,6 @@
    locally override what the =C-x k= keybinding does, emulating the
    =kill-buffer= function, without actually killing anything.
 
-** Revert all Buffers
-   #+BEGIN_SRC emacs-lisp
-	 (defun revert-all-buffers ()
-	 "Refreshes all open buffers from their respective files"
-	 (interactive)
-	 (let* ((list (buffer-list))
-			(buffer (car list)))
-	   (while buffer
-		 (when (and (buffer-file-name buffer)
-					(not (buffer-modified-p buffer)))
-		   (set-buffer buffer)
-		   (revert-buffer t t t))
-		 (setq list (cdr list))
-		 (setq buffer (car list))))
-	 (message "Refreshed open files"))
-   #+END_SRC
-
-   Revert buffers that have been modified. Taken from [[http://chneukirchen.org/dotfiles/.emacs][this]]
-   configuration.
-
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
