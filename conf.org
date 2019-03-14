@@ -1019,14 +1019,16 @@
 			   ibuffer-show-empty-filter-groups nil
 			   ibuffer-saved-filter-groups
 			   '(("default"
-				  ("dired" (mode . dired-mode))
-				  ("org" (mode . org-mode))
-				  ("irc" (mode . rcirc-mode))
-				  ("ledger" (mode . ledger-mode))
-				  ("emacs" (or (name . "^\\*scratch\\*$")
+				  ("Dired" (mode . dired-mode))
+				  ("Org" (mode . org-mode))
+				  ("IRC" (mode . rcirc-mode))
+				  ("Ledger" (mode . ledger-mode))
+				  ("PDF" (mode . pdf-view-mode))
+				  ("Emacs" (or (name . "^\\*scratch\\*$")
 							   (name . "^\\*Messages\\*$")
-							   (name . "^\\*Backtrace\\*$")))
-				  ("gnus" (or (mode . message-mode)
+							   (name . "^\\*Backtrace\\*$")
+							   (name . "^\\*Help\\*$")))
+				  ("Gnus" (or (mode . message-mode)
 							  (mode . bbdb-mode)
 							  (mode . mail-mode)
 							  (mode . gnus-group-mode)
