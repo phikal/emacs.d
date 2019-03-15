@@ -980,7 +980,7 @@
 	   (use-package swiper
 		 :config
 		 (setq search-default-mode #'char-fold-to-regexp)
-		 :bind ("M-#" . swiper))
+		 :bind ("M-~" . swiper))
 	 #+END_SRC
 
 	 Finally, swiper is a pretty alternative to isearch, configured with
@@ -2444,7 +2444,7 @@
 					("C-x M-k" . kill-buffer-and-window)
 					("C-x x k" . bury-buffer)
 					("C-x j" . jump-to-register)
-					("M-~". find-file-at-point)
+					("M-#". find-file-at-point)
 					("<print>" . other-window)
 					("C-M-<up>" . windmove-up)
 					("C-M-<down>" . windmove-down)
