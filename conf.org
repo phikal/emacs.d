@@ -1027,6 +1027,7 @@
 				  ("Emacs" (or (name . "^\\*scratch\\*$")
 							   (name . "^\\*Messages\\*$")
 							   (name . "^\\*Backtrace\\*$")
+							   (name . "^\\*info\\*$")
 							   (name . "^\\*Help\\*$")))
 				  ("Gnus" (or (mode . message-mode)
 							  (mode . bbdb-mode)
