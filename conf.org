@@ -1547,12 +1547,11 @@
 			 org-hide-emphasis-markers t
 			 org-yank-adjusted-subtrees t
 			 org-startup-folded t
-			 org-return-follows-link 't
+			 org-return-follows-link t
 			 org-highlight-latex-and-related '(latex entities)
 			 org-M-RET-may-split-line '((default))
-			 org-catch-invisible-edits 'smart
-			 org-special-ctrl-a/e nil
-			 org-special-ctrl-k nil)
+			 org-special-ctrl-a/e t
+			 org-special-ctrl-k t)
 	 #+END_SRC
 
 	 Basic stylistic and movment options (especially enabling using the
