@@ -1971,6 +1971,9 @@
 		 :mode (rx ".idr" eos))
 	 #+END_SRC
 
+	 Next to Haskell, Idris is slightly easier to configure than Haskell
+	 but lacks (as of now) company support.
+
 *** Enchantments
 **** Unto Tree
 	 #+BEGIN_SRC emacs-lisp
