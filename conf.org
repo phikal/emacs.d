@@ -939,8 +939,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ivy
 		 :demand
+		 :diminish
 		 :commands ivy-mode
-		 :diminish ivy-mode
 		 :config
 		 (setq ivy-wrap t
 			   ivy-height 6
@@ -960,8 +960,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package counsel
 		 :after ivy
+		 :diminish
 		 :commands counsel-mode
-		 :diminish counsel-mode
 		 :config
 		 (setq counsel-find-file-at-point t)
 		 (counsel-mode t)
@@ -1941,15 +1941,15 @@
 		 :if (executable-find "ghc")
 		 :after company-ghc
 		 :hook ((haskell-mode . haskell-doc-mode)
-				(haskell-mode . (lambda () (yas-minor-mode -1)))
+				(haskell-mode . (lambda () (yas-minor-mode -1))))
+		 :interpreter "ghc"
 		 :mode (rx ".hs" eos)
 		 :bind (:map haskell-mode-map
-					 ("C-c C-l" . haskell-process-load-file))))
+					 ("C-c C-l" . haskell-process-load-file)))
 	 #+END_SRC
 
 	 Programming Haskell can be a very nice experience in Emacs, but as
-	 always, it has to be properly set up. The keybindings have been
-	 copied from [[https://www.reddit.com/r/haskell/comments/3jww0s/can_you_post_your_emacs_configuration_for/cut9j5i][here]].
+	 always, it has to be properly set up.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package company-ghc
@@ -2026,6 +2026,7 @@
 **** Structural Editing
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package paredit
+		 :diminish
 		 :hook ((scheme-mode . paredit-mode)
 				(lisp-mode . paredit-mode)
 				(emacs-lisp-mode . paredit-mode))
@@ -2069,6 +2070,7 @@
 **** Auto Completion
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package company
+		 :diminish company-mode
 		 :config
 		 (setq company-begin-commands '()
 			   company-transformers '(company-sort-by-occurrence)
@@ -2091,7 +2093,8 @@
 **** Snippets
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package yasnippet
-		 :functions yas-expand
+		 :diminish yas-minor-mode
+		 :functions (yas-expand indent-then-expand)
 		 :config
 		 (setq yas-prompt-functions '(yas-dropdown-prompt yas-completing-prompt)
 			   yas-wrap-around-region t)
@@ -2172,15 +2175,14 @@
 		 :diminish
 		 :after ivy
 		 :commands projectile-mode
+		 :init
+		 (projectile-mode t)
 		 :config
 		 (setq projectile-enable-caching t
 			   projectile-require-project-root nil
 			   projectile-switch-project-action 'projectile-dired
 			   projectile-completion-system 'default)
-		 (projectile-mode t)
-		 :bind (:map projectile-mode-map
-					 ("C-c p" . projectile-command-map)
-					 ("C-c C-p" . projectile-command-map)))
+		 :bind ("C-c p" . projectile-command-map))
 	 #+END_SRC
 
 	 While I for the most part dislike using global modes, it seems like
