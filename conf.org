@@ -2494,7 +2494,7 @@
    specified keybinding.
 
    #+BEGIN_SRC emacs-lisp
-	 (dolist (map `(,prog-mode-map ,dired-mode-map))
+	 (dolist (map (list prog-mode-map dired-mode-map))
 	   (define-key map (kbd "C-c C-k") #'compile))
    #+END_SRC
 
