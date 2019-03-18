@@ -1507,7 +1507,6 @@
 			   reftex-plug-into-AUCTeX t
 			   reftex-enable-partial-scans t)
 		 (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
-		 (add-hook 'LaTeX-mode-hook (setl company-backends '(company-latex-commands)))
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
 		 (add-hook 'TeX-after-compilation-finished-functions
 				   #'TeX-revert-document-buffer)
