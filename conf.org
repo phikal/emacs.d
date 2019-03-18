@@ -347,7 +347,7 @@
 	  (defun turn-indicate-empty-lines-on ()
 		(add-hook 'before-save-hook
 				  #'delete-trailing-whitespace t t)
-		(setq-local indicate-empty-lines t))
+		(setq indicate-empty-lines t))
 
 	  (add-hook 'prog-mode-hook #'turn-indicate-empty-lines-on)
 	  (add-hook 'text-mode-hook #'turn-indicate-empty-lines-on)
@@ -371,7 +371,7 @@
 
 *** Extra-Emacs Clipboard
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default select-enable-clipboard t)
+	  (setq select-enable-clipboard t)
 	#+END_SRC
 
 	Having the ability to interact with the system clipboard is very
@@ -619,7 +619,7 @@
 *** Emacs-generated files
 	#+BEGIN_SRC emacs-lisp
 	  (let ((custom-el (expand-file-name "custom.el" user-emacs-directory)))
-		(setq-default custom-file custom-el)
+		(setq custom-file custom-el)
 		(when (file-exists-p custom-el)
 		  (load custom-file)))
 	#+END_SRC
@@ -1073,13 +1073,13 @@
 	   (require 'dired)
 	   (require 'dired-x)
 
-	   (setq-default dired-dwim-target t
-					 dired-recursive-copies 'always
-					 dired-recursive-deletes 'top
-					 dired-ls-F-marks-symlinks t
-					 dired-ls-sorting-switches "v"
-					 dired-omit-files-p nil
-					 dired-listing-switches "-NABhl --group-directories-first")
+	   (setq dired-dwim-target t
+			 dired-recursive-copies 'always
+			 dired-recursive-deletes 'top
+			 dired-ls-F-marks-symlinks t
+			 dired-ls-sorting-switches "v"
+			 dired-omit-files-p nil
+			 dired-listing-switches "-NABhl --group-directories-first")
 	   (add-to-list 'dired-guess-shell-alist-user
 					`(,(rx "." (or "epub" "pdf") eos) "mupdf"))
 	   (add-to-list 'dired-guess-shell-alist-user
@@ -1092,8 +1092,8 @@
 	 configuration.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (setq-default wdired-allow-to-change-permissions t
-					 wdired-allow-to-redirect-links t)
+	   (setq wdired-allow-to-change-permissions t
+			 wdired-allow-to-redirect-links t)
 	 #+END_SRC
 
 	 Wdired by default only allows one to edit file names. Setting these
@@ -1498,11 +1498,11 @@
 		 :config
 		 (setf LaTeX-electric-left-right-brace t
 			   (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")
+			   TeX-master 'dwim
 			   TeX-auto-save t
 			   TeX-parse-self t
 			   reftex-plug-into-AUCTeX t
 			   reftex-enable-partial-scans t)
-		 (setq-default TeX-master 'dwim)
 		 (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
 		 (add-hook 'LaTeX-mode-hook (setl company-backends '(company-latex-commands)))
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
@@ -2061,7 +2061,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package flycheck
 		 :config
-		 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+		 (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 		 :bind (("C-c <right>" . next-error)
 				("C-c <left>" . previous-error)))
 	 #+END_SRC
