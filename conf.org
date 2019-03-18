@@ -1541,6 +1541,7 @@
 					turn-on-org-cdlatex
 					org-babel-do-load-languages)
 		 :config
+		 (require 'org-agenda)
 	 #+END_SRC
 
 	 The following configuration is wrapped in a =use-package= macro...
@@ -1572,19 +1573,15 @@
 	 highlighting and indenting them appropriately is very convenient.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (with-eval-after-load 'org-agenda
-		 (setq org-directory (expand-file-name "~/doc/org/")
-			   org-agenda-files (mapcar (lambda (f) (expand-file-name
-													 (concat org-directory f ".org")))
-										'("ws18" "pers" "notes"))
-			   org-agenda-include-diary t
-			   org-agenda-inhibit-startup t
-			   org-agenda-window-setup 'current-window
-			   org-default-notes-file (expand-file-name "notes.org" org-directory))
+	   (setq org-directory (expand-file-name "~/doc/org/")
+			 org-agenda-files (mapcar (lambda (f) (expand-file-name
+												   (concat org-directory f ".org")))
+									  '("ws18" "pers" "notes"))
+			 org-agenda-include-diary t
+			 org-agenda-inhibit-startup t
+			 org-agenda-window-setup 'current-window
+			 org-default-notes-file (expand-file-name "notes.org" org-directory))
 
-		 (bind-keys :map org-agenda-mode-map
-					("<tab>" . org-next-link)
-					("<S-iso-lefttab>" . org-previous-link))
 	 #+END_SRC
 
 	 Within my documents directory (=~/doc/=) I have an =org= directory just
@@ -1602,7 +1599,7 @@
 			   ("c" "Note" entry (file+datetree org-default-notes-file)
 				"* %?\n  Entered on %U" :empty-lines-after 1)
 			   ("l" "Link" entry (file+datatree org-default-notes-file)
-				"* %?\n\ %a\n  Entered on %U"))))
+				"* %?\n\ %a\n  Entered on %U")))
 	 #+END_SRC
 
 	 Having special /capture templates/ will probably help in getting used
@@ -1731,7 +1728,10 @@
 			  ("C-x x o" . org-clock-out)
 			  :map org-mode-map
 			  ("C-M-<return>" . org-insert-subheading)
-			  ("M-<tab>" . pcomplete)))
+			  ("M-<tab>" . pcomplete)
+			  :map org-agenda-mode-map
+			  ("<tab>" . org-next-link)
+			  ("<S-iso-lefttab>" . org-previous-link)))
      #+END_SRC
 
      Here I set a few convenient keybindings for globally interacting
