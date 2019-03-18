@@ -288,6 +288,7 @@
 	emacs.toolBar: 0
 	emacs.menuBar: 0
 	emacs.verticalScrollBars: off
+	emacs.fullscreen: fullboth
 	#+END_EXAMPLE
 
 *** Fonts
