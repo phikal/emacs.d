@@ -631,7 +631,10 @@
 
 *** Sentences
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default sentence-end "[.!?][\W_]*[[:space:]]+")
+	  (setq sentence-end
+			(rx (seq (any "." "?" "!")
+					 (zero-or-more (or (not word) "_"))
+					 (one-or-more space))))
 	#+END_SRC
 
 	I dislike the standard sentence definition Emacs uses, since for me
