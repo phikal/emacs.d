@@ -345,8 +345,6 @@
 *** Empty Lines
 	#+BEGIN_SRC emacs-lisp
 	  (defun turn-indicate-empty-lines-on ()
-		(add-hook 'before-save-hook
-				  #'delete-trailing-whitespace t t)
 		(setq indicate-empty-lines t))
 
 	  (add-hook 'prog-mode-hook #'turn-indicate-empty-lines-on)
