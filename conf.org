@@ -1348,7 +1348,7 @@
 				  :password ,zge/znc-pass
 				  :port 23551
 				  :encryption tls
-				  :server-alias "bouncer"))
+				  :server-alias "znc"))
 			   rcirc-reconnect-delay 12
 			   rcirc-omit-responses '("NICK" "AWAY"))
 		 (advice-add 'rcirc-abbreviate
