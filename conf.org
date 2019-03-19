@@ -1200,7 +1200,7 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(setq gnus-posting-styles
-			  '((".*" (signature "\tSincerely,\n\tPhilip K."))
+			  '((".*" (signature-file "~/.signature"))
 				("uni" (signature "\tHochachtungsvoll,\n\tPhilip K."))))
 	  #+END_SRC
 
