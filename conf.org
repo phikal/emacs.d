@@ -477,7 +477,8 @@
 *** User information
 	#+BEGIN_SRC emacs-lisp
 	  (setq user-full-name "Philip K."
-			user-mail-address "philip@warpmail.net")
+			user-mail-address
+			(format "%s%c%s" "philip" (- ?A 1) "warpmail.net"))
 	#+END_SRC
 
 	Personal data?
@@ -1255,7 +1256,7 @@
 	  I force inline opening in all cases.
 
       #+BEGIN_SRC emacs-lisp
-		(setq mml-secure-openpgp-signers '("philip@warpmail.net")
+		(setq mml-secure-openpgp-signers (list user-mail-address)
 			  mml-secure-openpgp-encrypt-to-self t
 			  mm-verify-option 'known
 			  mm-decrypt-option 'known
