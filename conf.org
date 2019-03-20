@@ -2066,7 +2066,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package flycheck
 		 :config
-		 (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+		 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 		 :bind (("C-c <right>" . next-error)
 				("C-c <left>" . previous-error)))
 	 #+END_SRC
