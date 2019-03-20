@@ -1553,7 +1553,7 @@
 	   (setq org-use-speed-commands t
 			 org-hide-emphasis-markers t
 			 org-yank-adjusted-subtrees t
-			 org-startup-folded t
+			 org-startup-folded nil
 			 org-return-follows-link t
 			 org-highlight-latex-and-related '(latex entities)
 			 org-M-RET-may-split-line '((default))
