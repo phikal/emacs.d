@@ -1593,16 +1593,18 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (setq org-capture-templates
-			 '(("a" "Appointment" entry (file+headline "pers.org" "Appointments")
+			 `(("a" "Appointment" entry (file+headline "pers.org" "Appointments")
 				"* %^t %?\n")
 			   ("p" "Plans" entry (file+headline "pers.org" "Plans")
 				"* %^t %?\n")
 			   ("t" "Todo" entry (file+headline "pers.org" "Todo")
 				"* TODO %?\n%i")
-			   ("c" "Note" entry (file+datetree org-default-notes-file)
-				"* %?\n  Entered on %U" :empty-lines-after 1)
-			   ("l" "Link" entry (file+datatree org-default-notes-file)
-				"* %?\n\ %a\n  Entered on %U")))
+			   ("c" "Note" plain (file+olp+datetree ,org-default-notes-file)
+				"* %?\n  Entered on %t")
+			   ("l" "Link %" entry (file+olp+datetree ,org-default-notes-file)
+				"* %?\n\ %^L\n  Entered on %U")
+			   ("j" "Journal" entry (file+datetree "journal.org.gpg")
+				"* %?\n Entered on %U\n  %i")))
 	 #+END_SRC
 
 	 Having special /capture templates/ will probably help in getting used
