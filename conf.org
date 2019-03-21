@@ -1733,10 +1733,6 @@
 	   :bind (("C-c c" . org-capture)
 			  ("C-c a" . org-agenda)
 			  ("C-c l" . org-store-link)
-			  ("C-x x o" . org-clock-out)
-			  :map org-mode-map
-			  ("C-M-<return>" . org-insert-subheading)
-			  ("M-<tab>" . pcomplete)
 			  :map org-agenda-mode-map
 			  ("<tab>" . org-next-link)
 			  ("<S-iso-lefttab>" . org-previous-link)))
