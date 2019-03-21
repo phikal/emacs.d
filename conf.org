@@ -1059,12 +1059,14 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package winner
 		 :demand
-		 :commands winner-mode
 		 :config
 		 (setq winner-dont-bind-my-keys t)
 		 (winner-mode)
-		 :bind (("C-x <down>" . winner-undo)
-				("C-x <up>" . winner-redo)))
+		 :bind (:map winner-mode-map
+					 ("C-c <right>" . nil)
+					 ("C-c <left>" . nil)
+					 ("C-x <down>" . winner-undo)
+					 ("C-x <up>" . winner-redo)))
 	 #+END_SRC
 
 	 The =winner-mode= global mode lets it's user easily recreate previous
