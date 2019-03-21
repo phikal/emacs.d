@@ -1823,6 +1823,15 @@
 	 file extention for gnuplot files, as few things have to be
 	 re-aliased for the mode to work properly.
 
+**** HTML
+	 #+BEGIN_SRC emacs-lisp
+	   (setq sgml-xml-mode t)
+	 #+END_SRC
+
+	 For most of what I do, Emacs' built in =mhtml-mode=. The only major
+	 annoyance is it's default insistence not to close some tags (=<p>=,
+	 =<dl>/<dd>=, ...), which I here prevent.
+
 **** Go
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-mode
