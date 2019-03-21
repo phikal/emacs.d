@@ -1141,6 +1141,7 @@
 		  :if (and (executable-find "mpop")
 				   (executable-find "msmtp"))
 		  :config
+		  (require 'bbdb)
       #+END_SRC
 
 	  The following configuration is wrapped in a =use-package= macro...
@@ -1184,7 +1185,10 @@
 	  #+BEGIN_SRC emacs-lisp
 		(defun zge/fetch-mail ()
 		  (interactive)
-		  (async-start (lambda () (shell-command "mpop -aQ"))
+		  (async-start (lambda ()
+						 (shell-command "mpop -aQ")
+						 (when (executable-find "notmuch")
+						   (shell-command "notmuch new")))
 					   (lambda (&rest _)
 						 (let* ((pers-dir (directory-files "~/etc/mail/pers/new"))
 								(pers (- (length pers-dir) 2))
@@ -1299,6 +1303,7 @@
 				message-sendmail-envelope-from 'header
 				message-kill-buffer-on-exit t
 				message-forward-as-mime t
+				mail-user-agent 'gnus-user-agent
 				sendmail-program (executable-find "msmtp"))
 	  #+END_SRC
 
@@ -1325,16 +1330,13 @@
 	  #+BEGIN_SRC emacs-lisp
 		(use-package bbdb
 		  :config
-		  (setq bbdb-mua-auto-update-p nil
+		  (setq bbdb-mua-auto-update-p 'update
 				bbdb-complete-mail-allow-cycling t
 				bbdb-use-pop-up nil
 				bbdb-completion-display-record nil
-				bbdb-file (expand-file-name "bbdb" user-emacs-directory)
-				compose-mail-user-agent-warnings nil)
+				bbdb-file (expand-file-name "bbdb" user-emacs-directory))
 		  (bbdb-initialize 'gnus 'message 'pgp)
-		  (with-eval-after-load 'message-mode
-			(define-key message-mode-map (kbd "M-<tab>") #'bbdb-complete-mail))
-		  :after gnus)
+		  (bbdb-mua-auto-update-init 'message))
 	  #+END_SRC
 
 	  Install and setup /BBDB/ (Insidious Big Brother Database) for contact
