@@ -1906,7 +1906,7 @@
 		 :if (executable-find "guile")
 		 :config
 		 (setq geiser-repl-use-other-window nil
-			   geiser-active-implementations '(guile chez))
+			   geiser-active-implementations '(guile))
 		 :hook (scheme-mode . geiser-mode)
 		 :interpreter ("guile" . scheme-mode)
 		 :mode ((rx ".scm" eos) . scheme-mode))
