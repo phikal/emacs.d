@@ -1289,6 +1289,14 @@
 	  so that "pintetry" is used for query my paraphrase.
 
 	  #+BEGIN_SRC emacs-lisp
+		(setq nnir-notmuch-remove-prefix (expand-file-name "~/etc/mail/"))
+	  #+END_SRC
+
+	  As configured above, I use [[https://notmuchmail.org/][notmuch]] to index and search (=G G=) my
+	  mail. But if the above variable is not correctly set, no results
+	  will be found.
+
+	  #+BEGIN_SRC emacs-lisp
 		:bind ("C-x x m" . gnus))
 	  #+END_SRC
 
