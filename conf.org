@@ -2470,6 +2470,28 @@
    locally override what the =C-x k= keybinding does, emulating the
    =kill-buffer= function, without actually killing anything.
 
+** Backwards functions
+   #+BEGIN_SRC emacs-lisp
+	 (defmacro backwardize (func)
+	   `(defun ,(intern (concat (symbol-name func) "-backwards")) (arg)
+		  (interactive "p")
+		  (func (- arg))))
+   #+END_SRC
+
+   Some functions have backwards complements, others don't. This macro
+   makes it easy to create a "backwards" co-function, by negating it's
+   argument and appending "-backwards" to the interactive functions'
+   name.
+
+   #+BEGIN_SRC emacs-lisp
+	 (global-set-key (kbd "M-C") (backwardize capitalize-word))
+	 (global-set-key (kbd "M-L") (backwardize downcase-word))
+	 (global-set-key (kbd "M-U") (backwardize upcase-word))
+   #+END_SRC
+
+   I use =backwardize= to bind backwards-versions of {capitzlize,
+   downcase, upcase}-word to =M-S-*=.
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
