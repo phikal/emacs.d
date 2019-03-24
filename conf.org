@@ -428,6 +428,11 @@
 
    #+BEGIN_SRC emacs-lisp
 	 (desktop-save-mode t)
+	 (setq desktop-restore-eager 8
+		   desktop-files-not-to-save
+		   (rx (or (seq bol "/" (zero-or-more (not (any "/" ":"))) ":")
+				   (seq "(ftp)" eol)
+				   (seq "*" (one-or-more not-newline) "*"))))
    #+END_SRC
 
    To not loose all the buffers between sessions, =desktop-save-mode=
