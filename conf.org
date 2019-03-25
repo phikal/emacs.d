@@ -823,7 +823,7 @@
 		 (?n "~/doc/org/notes.org")
 		 (?p "~/doc/org/pers.org")
 		 (?j "~/doc/org/ws18.org")
-		 (?r "~/doc/pdf/")
+		 (?r "~/doc/read/")
 		 (?u "~/doc/uni/")
 		 (?l ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
 		 (?m "~/media/")
