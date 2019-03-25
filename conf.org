@@ -1540,6 +1540,7 @@
 		 (add-hook 'TeX-after-compilation-finished-functions
 				   #'TeX-revert-document-buffer)
 		 :hook ((LaTeX-mode . flycheck-mode)
+				(LaTeX-mode . yas-minor-mode)
 				(LaTeX-mode . reftex-mode)
 				(LaTeX-mode . TeX-fold-mode))
 		 :mode ((rx ".tex" eos) . LaTeX-mode))
