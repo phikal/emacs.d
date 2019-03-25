@@ -1495,6 +1495,7 @@
 **** PDF Viewer
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package pdf-tools
+		 :if window-system
 		 :config
 		 (setq pdf-view-display-size 'fit-page)
 		 (pdf-tools-install)
