@@ -219,7 +219,6 @@
    | =~/etc/=                      | various other directories                             |
    | =~/etc/bin/=                  | user binaries                                         |
    | =~/etc/{mail,news,pub}=       | gnus related directories                              |
-   | =~/etc/sync=                  | syncthing directory                                   |
 
    When porting or copying from this configuration, these notes might
    help.
