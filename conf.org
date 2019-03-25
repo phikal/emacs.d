@@ -1507,15 +1507,6 @@
 	 Adding PDF-Tools let's me use emacs properly for opening PDFs,
 	 making me less dependant on external tools and window managers.
 
-*** Fun
-**** Go/Baduk
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package gnugo
-		 :if (executable-find "gnugo"))
-	 #+END_SRC
-
-	 Play Go in Emacs.
-
 ** Programming
 *** Text Editing
 **** LaTeX
