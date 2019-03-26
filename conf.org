@@ -1976,9 +1976,7 @@
 		 :hook ((haskell-mode . haskell-doc-mode)
 				(haskell-mode . (lambda () (yas-minor-mode -1))))
 		 :interpreter "ghc"
-		 :mode (rx ".hs" eos)
-		 :bind (:map haskell-mode-map
-					 ("C-c C-l" . haskell-process-load-file)))
+		 :mode (rx ".hs" eos))
 	 #+END_SRC
 
 	 Programming Haskell can be a very nice experience in Emacs, but as
