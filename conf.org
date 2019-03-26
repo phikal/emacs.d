@@ -2588,8 +2588,8 @@
 
    #+BEGIN_SRC emacs-lisp
 	 (add-hook 'text-mode-hook #'turn-on-auto-fill)
-	 (advice-add 'auto-fill-function :before
-				 (lambda (&rest _) (scroll-right 4096)))
+	 (advice-add 'auto-fill-function :after
+				 (lambda (&rest _) (scroll-right most-positive-fixnum)))
    #+END_SRC
 
    When writing text, I usually would keep on pressing =M-q= all the time
