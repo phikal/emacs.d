@@ -228,7 +228,7 @@
    the same system. The following list helps me remember what I have to
    install on a new system, and for what purpose:
 
-   - msmtp, mpop :: [[*Mail][Mail]]
+   - msmtp, mpop, notmuch :: [[*Mail][Mail]]
    - gpg :: authinfo.gpg de-/encyrption
    - curl :: [[*Feed Syndication][Feed Syndication]]
    - ledger :: [[*Accounting][Double-entry Accounting]]
