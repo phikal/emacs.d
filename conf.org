@@ -1035,8 +1035,9 @@
 				  ("Emacs" (or (name . ,(rx bos "*scratch*" eos))
 							   (name . ,(rx bos "*Messages*" eos))
 							   (name . ,(rx bos "*Backtrace*" eos))
-							   (name . ,(rx bos "*info*" eos))
-							   (name . ,(rx bos "*Help*" eos))))
+							   (name . ,(rx bos "*info*" (? "<" (+ digit) ">") eos))
+							   (name . ,(rx bos "*Help*" eos))
+							   (name . ,(rx bos "*Apropos*" eos))))
 				  ("Emacs Source"
 				   (or (directory . ,(rx bos "~/code/etc/emacs/src/"))
 					   (directory . ,(rx bos "/usr/share/emacs/26.1/"))))
