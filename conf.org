@@ -2282,17 +2282,15 @@
 	   "Look for LANGUAGE tag and turn on the language specified"
 	   (save-excursion
 		 (goto-char (point-min))
-		 (condition-case nil
-			 (save-match-data
-			   (re-search-forward (rx bol "#+LANGUAGE: " (group (one-or-more word))))
-			   (let ((lang (pcase (match-string-no-properties 1)
-							 ("en" "british")
-							 ("de" "german-new8")
-							 (other nil))))
-				 (when lang
-				   (zge/toggle-dictionary lang)
-				   (message "Toggled language to \"%s\"" lang))))
-		   (error nil))))
+		 (save-match-data
+		   (when (re-search-forward (rx bol "#+LANGUAGE: " (group (one-or-more word))) nil t)
+			 (let ((lang (pcase (match-string-no-properties 1)
+						   ("en" "british")
+						   ("de" "german-new8")
+						   (other nil))))
+			   (when lang
+				 (zge/toggle-dictionary lang)
+				 (message "Toggled language to \"%s\"" lang)))))))
 
 	 (with-eval-after-load 'org
 	   (add-hook 'org-mode-hook #'zge/org-check-lang))
