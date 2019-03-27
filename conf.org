@@ -1188,22 +1188,39 @@
 	  case) that are both recognized as such by gnus.
 
 	  #+BEGIN_SRC emacs-lisp
-		(defun zge/fetch-mail ()
-		  (interactive)
-		  (async-start (lambda ()
-						 (shell-command "mpop -aQ")
-						 (when (executable-find "notmuch")
-						   (shell-command "notmuch new")))
-					   (lambda (&rest _)
-						 (let* ((pers-dir (directory-files "~/etc/mail/pers/new"))
-								(pers (- (length pers-dir) 2))
-								(uni-dir (directory-files "~/etc/mail/uni/new/"))
-								(uni (- (length uni-dir) 2)))
-						   (when (or (> pers 0) (> uni 0))
-							   (message "new mail: %d in pers, %d in uni" pers uni))))))
-		(defalias 'fetch-mail 'zge/fetch-mail)
+			   (defun zge/mail-from (file)
+				 (interactive "f")
+				 (with-current-buffer (find-file-noselect file)
+				   (goto-char (point-min))
+				   (when (search-forward-regexp (rx bol "From: ") nil t)
+					 (buffer-substring-no-properties (point) (point-at-eol)))))
 
-		(run-at-time nil (* 60 10) #'zge/fetch-mail)
+			   (defun zge/format-mail (name)
+				 (let* ((dir-name (concat "~/etc/mail/" name "/new"))
+						(dir (cddr (directory-files dir-name)))
+						(count (length dir))
+						(from-list (and (<= 1 count 3)
+										(mapconcat #'zge/mail-from dir ", "))))
+				   (cond ((= count 0) nil)
+						 (from-list (format "in %s: %d (%s)" name count from-list))
+						 (t (format "in %s: %d" name count)))))
+
+			   (defun zge/fetch-mail ()
+				 (interactive)
+				 (async-start (lambda ()
+								(shell-command "mpop -aQ")
+								(when (executable-find "notmuch")
+								  (shell-command "notmuch new")))
+							  (lambda (&rest _)
+								(let* ((mail (seq-filter #'identity
+														 (mapcar #'zge/format-mail
+																 (list "uni" "pers"))))
+									   (new-msgs (mapconcat #'identity mail ", ")))
+								  (unless (string-empty-p new-msgs)
+									(message "new mail: %s" new-msgs))))))
+			   (defalias 'fetch-mail 'zge/fetch-mail)
+
+			   (run-at-time nil (* 60 10) #'zge/fetch-mail)
 	  #+END_SRC
 
 	  Mpop should then be called every 10 minutes, in a asynchronous
