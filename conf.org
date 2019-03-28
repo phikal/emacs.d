@@ -252,19 +252,15 @@
 ** Package Management
    #+BEGIN_SRC emacs-lisp
 	 (require 'package)
+	 (setq package-enable-at-startup nil)
 	 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-	 (setq package-enable-at-startup nil
-		   package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-							  ("melpa-stable" . "https://stable.melpa.org/packages/"))
-		   package-archive-priorities '(("gnu" . 5)
-										("melpa-stable" . 10)))
-
 	 (package-initialize)
    #+END_SRC
 
    Only use ~melpa-stabe~ besides the standard gnu repository (which
    should be in ~package-archives~ by default). This makes sure that all
-   the packages (see /[[Packages%20and%20Other%20Configurations][Packages]]/).
+   the packages I install (see /[[Packages%20and%20Other%20Configurations][Packages]]/) have a higher chance on
+   /not-breaking/ due to random updates..
 
 ** Appearance
 *** Initially deactivated Modes
