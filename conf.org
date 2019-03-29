@@ -1360,7 +1360,7 @@
 	  #+BEGIN_SRC emacs-lisp
 		(use-package bbdb
 		  :config
-		  (setq bbdb-mua-auto-update-p 'update
+		  (setq bbdb-mua-auto-update-p nil
 				bbdb-complete-mail-allow-cycling t
 				bbdb-use-pop-up nil
 				bbdb-completion-display-record nil
