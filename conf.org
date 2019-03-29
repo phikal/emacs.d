@@ -1335,15 +1335,6 @@
 				message-forward-as-mime t
 				mail-user-agent 'gnus-user-agent
 				sendmail-program (executable-find "msmtp"))
-
-		  (add-hook 'mail-mode-hook
-					(lambda ()
-					  (unless (gnus-alive-p)
-						(save-window-excursion
-						  (gnus nil t t)
-						  (gnus-group-suspend)))))
-
-
 	  #+END_SRC
 
 	  Instead of using Emacs' internal SMTP service, I use [[https://marlam.de/msmtp/][msmtp]], simply
