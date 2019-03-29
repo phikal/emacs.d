@@ -2480,7 +2480,7 @@
 	 (defmacro backwardize (func)
 	   `(defun ,(intern (concat (symbol-name func) "-backwards")) (arg)
 		  (interactive "p")
-		  (func (- arg))))
+		  (,func (- arg))))
    #+END_SRC
 
    Some functions have backwards complements, others don't. This macro
