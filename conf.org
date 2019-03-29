@@ -2488,6 +2488,12 @@
    I use =backwardize= to bind backwards-versions of {capitzlize,
    downcase, upcase}-word to =M-S-*=.
 
+   #+BEGIN_SRC emacs-lisp
+	 (global-set-key (kbd "M-D") (backwardize kill-word))
+   #+END_SRC
+
+   Analogously, allow words to be deleted backwards.
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
