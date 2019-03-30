@@ -995,8 +995,7 @@
 		 (counsel-mode t)
 		 (dolist (cmd '(yank-pop describe-bindings))
 		   (define-key counsel-mode-map `[remap ,cmd] nil))
-		 :bind (("C-x C-r" . counsel-recentf)
-				("C-c s" . counsel-rg)
+		 :bind (("C-c s" . counsel-rg)
 				("C-c f" . counsel-locate)
 				("C-x C-/" . counsel-org-goto-all)))
 	 #+END_SRC
@@ -1008,7 +1007,7 @@
 	   (use-package swiper
 		 :config
 		 (setq search-default-mode #'char-fold-to-regexp)
-		 :bind ("M-~" . swiper))
+		 :bind ("C-r" . swiper))
 	 #+END_SRC
 
 	 Finally, swiper is a pretty alternative to isearch, configured with
