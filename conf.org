@@ -1736,12 +1736,23 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (with-eval-after-load 'ox-html
-		 (setf (car (alist-get 'path org-html-mathjax-options))
-			   "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"))
+		 (setq org-html-mathjax-template
+			   "<link rel=\"stylesheet\"
+					  href=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css\"
+					  integrity=\"sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y\"
+					  crossorigin=\"anonymous\"/>
+				<script defer=\"defer\"
+						src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js\"
+						integrity=\"sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx\"
+						crossorigin=\"anonymous\"></script>
+			   <script defer=\"defer\"
+					   src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js\"
+					   integrity=\"sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe\"
+					   crossorigin=\"anonymous\"
+					   onload=\"renderMathInElement(document.body);\"></script>"))
 	 #+END_SRC
 
-	 The default MathJax url that Org-mode uses seems to be depricated,
-	 thus I have to update it, using the official CDN.
+	 Setup KaTeX as compared to the default MathJax. Code from [[https://amitp.blogspot.com/2019/02/emacs-org-mode-and-katex.html][here]].
 
      #+BEGIN_SRC emacs-lisp
 	   (add-to-list 'org-structure-template-alist
