@@ -191,6 +191,10 @@
         that has been maintained up until fairly recently (2018, as of
         writing). Interesting for unusual functions and
         macros. Especially interesting: the =bang= Function.
+   - [[https://github.com/danielmai/.emacs.d/blob/master/config.org][Daniel Mai's .emacs.d]] :: Certainly one of the better literate Emacs
+		configurations I have found in a while, leveraging =use-package=
+        but also showing and explaining quite interesting variables I
+        have also chosen to adopt myself.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
@@ -510,6 +514,10 @@
 
 *** Encoding
 	#+BEGIN_SRC emacs-lisp
+	  (setq locale-coding-system 'utf-8)
+	  (set-terminal-coding-system 'utf-8)
+	  (set-keyboard-coding-system 'utf-8)
+	  (set-selection-coding-system 'utf-8)
 	  (prefer-coding-system 'utf-8)
 	#+END_SRC
 
@@ -630,10 +638,7 @@
 
 *** Sentences
 	#+BEGIN_SRC emacs-lisp
-	  (setq sentence-end
-			(rx (seq (any "." "?" "!")
-					 (zero-or-more (or (not word) "_"))
-					 (one-or-more space))))
+	  (setq sentence-end-double-space nil)
 	#+END_SRC
 
 	I dislike the standard sentence definition Emacs uses, since for me
@@ -712,12 +717,31 @@
 
 *** Shell comands
 	#+BEGIN_SRC emacs-lisp
+	  (setq shell-command-switch "-ic")
 	  (setq-default async-shell-command-display-buffer nil
 					async-shell-command-buffer 'new-buffer)
 	#+END_SRC
 
 	When asynchronously running commands, only create a /new/ output
 	buffer, if one is needed.
+
+*** Auto-reverting
+	#+BEGIN_SRC emacs-lisp
+	  (setq global-auto-revert-non-file-buffers t)
+	  (setq auto-revert-verbose nil)
+	#+END_SRC
+
+	Don't print messages to the minibuffer about reverting files
+	(ie. updating changes on the disk in buffers).
+
+*** Automatically create new lines
+	#+BEGIN_SRC emacs-lisp
+	  (setq next-line-add-newlines t)
+	#+END_SRC
+
+	When wanting to move beyond the end of the buffer, setting this
+	variable lets the buffer automatically grow instead of just saying
+	to the cursor.
 
 *** Calendar
 	#+BEGIN_SRC emacs-lisp
@@ -948,6 +972,7 @@
 		 (setq ivy-wrap t
 			   ivy-height 6
 			   ivy-display-style 'fancy
+			   ivy-use-virtual-buffers t
 			   ivy-case-fold-search-default t
 			   ivy-re-builders-alist '((t . ivy--regex))
 			   enable-recursive-minibuffers t)
@@ -1095,6 +1120,7 @@
 					`(,(rx "." (or "png" "jpg" "jpeg") eos) "feh"))
 	   (add-to-list 'dired-guess-shell-alist-user
 					`(,(rx "." (or "mp4" "webm" "m4a") eos) "mpv --really-quiet"))
+	   (add-hook 'dired-mode-hook 'auto-revert-mode)
 	 #+END_SRC
 
 	 Not much to say: For the most part, a under-customized dired
