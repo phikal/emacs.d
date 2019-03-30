@@ -2038,6 +2038,33 @@
 	 Next to Haskell, Idris is slightly easier to configure than Haskell
 	 but lacks (as of now) company support.
 
+**** Python
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package anaconda-mode
+		 :if (executable-find "python3")
+		 :config
+		 (setq python-shell-interpreter "ipython3")
+		 :hook ((python-mode .anaconda-mode)
+				(python-mode . anaconda-eldoc-mode)))
+
+	   (use-package company-anaconda
+		 :after company
+		 :init
+		 (add-hook 'python-mode-hook
+				   (setl company-backends '(company-anaconda)))
+		 :config
+		 (setq company-anaconda-annotation-function
+			   (lambda (cand)
+				 (let ((description (get-text-property 0 'description cand)))
+				   (when description
+					 (concat "<" (substring description 0 1) ">"))))))
+	 #+END_SRC
+
+	I keep my Python setup simple but functional, since I don't use Python
+	/that/ much, but like to have it working when I do. That means,
+	documentation, code exploration and completion should work as
+	expected, but other than that, I don't require too much.
+
 *** Enchantments
 **** Unto Tree
 	 #+BEGIN_SRC emacs-lisp
