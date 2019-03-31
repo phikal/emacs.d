@@ -1007,7 +1007,7 @@
 	   (use-package swiper
 		 :config
 		 (setq search-default-mode #'char-fold-to-regexp)
-		 :bind ("C-r" . swiper))
+		 :bind ("M-~" . swiper))
 	 #+END_SRC
 
 	 Finally, swiper is a pretty alternative to isearch, configured with
