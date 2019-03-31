@@ -954,8 +954,8 @@
 		 :config
 		 (avy-setup-default)
 		 (setq avy-background t)
-		 :bind (("C-z" . avy-goto-char)
-				("C-M-z" . avy-goto-subword-1)))
+		 :bind (("C-z" . avy-goto-word-1)
+				("C-M-z" . avy-goto-char)))
 	 #+END_SRC
 
 	 When editing text, most time isn't (or shouldn't be) spent on
