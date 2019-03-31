@@ -277,7 +277,7 @@
 	#+END_SRC
 
 	Since I usually don't need my mouse to use Emacs, I turn off all GUI
-	related tools, like scroll- toolbars, etc. This is done early on to
+	related tools, like scroll-, toolbars, etc. This is done early on to
 	avoid redrawing during startup.
 
 	As an additional hack, I sometimes place the following in my
@@ -1784,7 +1784,7 @@
 	   (setf (alist-get 'file org-link-frame-setup) #'find-file)
 	 #+END_SRC
 
-	 Open links in the curren frame.
+	 Open links in the current frame.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (add-to-list 'org-show-context-detail
