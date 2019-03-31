@@ -1994,20 +1994,19 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package slime
 		 :if (executable-find "sbcl")
-		 :diminish
-		 :after (slime-company paredit)
+		 :after paredit
+		 :init
+		 (add-hook 'common-lisp-mode-hook
+				   (setl lisp-indent-function 'common-lisp-indent-function))
 		 :config
 		 (setq inferior-lisp-program (executable-find "sbcl")
-			   slime-contribs '(slime-fancy slime-autodoc slime-cl-indent))
+			   slime-completion-at-point-functions '(slime-fuzzy-complete-symbol)
+			   slime-contribs '(slime-autodoc slime-cl-indent slime-fuzzy))
+		 (company-mode -1)
+		 :bind ("<f12>" . slime-selector)
 		 :interpreter ("sbcl" . common-lisp-mode)
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
 				((rx ".cl" eos) . common-lisp-mode)))
-
-	   (use-package slime-company
-		 :init
-		 (add-hook 'slime-mode (setl company-backends '(company-slime)))
-		 :config
-		 (slime-setup '(slime-company)))
 	 #+END_SRC
 
 	 Since Elisp and Common Lisp share a common ancestry in Maclisp and
