@@ -733,15 +733,6 @@
 	Don't print messages to the minibuffer about reverting files
 	(ie. updating changes on the disk in buffers).
 
-*** Automatically create new lines
-	#+BEGIN_SRC emacs-lisp
-	  (setq next-line-add-newlines t)
-	#+END_SRC
-
-	When wanting to move beyond the end of the buffer, setting this
-	variable lets the buffer automatically grow instead of just saying
-	to the cursor.
-
 *** Calendar
 	#+BEGIN_SRC emacs-lisp
 	  (with-eval-after-load 'calendar
