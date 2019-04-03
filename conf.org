@@ -996,16 +996,6 @@
 	 commands, such as =M-x=, =C-x b= or =C-x C-f=.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package swiper
-		 :config
-		 (setq search-default-mode #'char-fold-to-regexp)
-		 :bind ("M-~" . swiper))
-	 #+END_SRC
-
-	 Finally, swiper is a pretty alternative to isearch, configured with
-	 [[info:emacs#Lax%20Search][Lax Searching]] for isearch and swiper.
-
-	 #+BEGIN_SRC emacs-lisp
 	   (use-package flx
 		 :after ivy
 		 :config
