@@ -1645,7 +1645,7 @@
 			   ("l" "Link" entry (file+olp+datetree ,org-default-notes-file)
 				"* %?\n\ %^L\n  Entered on %U")
 			   ("j" "Journal" entry (file+datetree "journal.org.gpg")
-				"* %?\n Entered on %U\n  %i")))
+				"* Entered on %U\n %i")))
 	 #+END_SRC
 
 	 Having special /capture templates/ will probably help in getting used
