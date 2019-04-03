@@ -810,11 +810,12 @@
 
 *** Writing while region is active
 	#+BEGIN_SRC emacs-lisp
-	  (delete-selection-mode -1)
+	  (delete-selection-mode t)
 	#+END_SRC
 
 	When I've selected a region, and I type something, the region is
 	supposed to be deleted automatically.
+
 ** Registers
    #+BEGIN_SRC emacs-lisp
 	 (defvar zge/registers
