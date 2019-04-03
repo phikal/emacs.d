@@ -838,7 +838,8 @@
 		 (?u "~/doc/uni/")
 		 (?l ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
 		 (?m "~/media/")
-		 (?U "/ssh:uni:"))
+		 (?U "/ssh:uni:")
+		 (?I "/ssh:ibis:"))
 	   "Personal registers")
 
 	 (setq register-alist (mapcar (pcase-lambda (`(,key  ,file))
