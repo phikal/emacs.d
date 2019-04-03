@@ -2432,7 +2432,7 @@
 		   (pop-to-buffer (current-buffer))
 		   (set-auto-mode t))))
 
-	 (defalias 'curl 'zge/curl)
+	 (defalias 'url 'zge/curl)
    #+END_SRC
 
    Sometimes I just want to easily view some code in emacs (eg. a raw
