@@ -2200,11 +2200,11 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package yasnippet
 		 :diminish yas-minor-mode
-		 :functions (yas-expand indent-then-expand)
+		 :functions (yas-expand zge/indent-then-expand)
 		 :config
 		 (setq yas-prompt-functions '(yas-dropdown-prompt yas-completing-prompt)
 			   yas-wrap-around-region t)
-		 (defun indent-then-expand ()
+		 (defun zge/indent-then-expand ()
 		   (interactive)
 		   (if (and (eq last-command 'indent-then-expand)
 					(not (nth 3 (syntax-ppss)))
@@ -2212,7 +2212,7 @@
 					(looking-at-p (rx (or space eol eos))))
 			   (yas-expand)
 			 (indent-for-tab-command)))
-		 (define-key yas-minor-mode-map (kbd "<tab>") #'indent-then-expand)
+		 (define-key yas-minor-mode-map (kbd "<tab>") #'zge/indent-then-expand)
 		 :hook (prog-mode . yas-minor-mode))
 	 #+END_SRC
 
