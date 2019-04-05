@@ -2063,6 +2063,21 @@
 	documentation, code exploration and completion should work as
 	expected, but other than that, I don't require too much.
 
+**** R
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package ess
+		 :if (executable-find "R")
+		 :config
+		 (setq ess-fancy-comments nil
+			   ess-eval-visibly nil
+			   ess-ask-for-ess-directory nil
+			   ess-use-company 'script-only))
+	 #+END_SRC
+
+	 I don't use R myself currently, but I want to learn it. All
+	 configuration options were found in various other configs over the
+	 internet, so I can't say how helpful or on they are.
+
 *** Enchantments
 **** Unto Tree
 	 #+BEGIN_SRC emacs-lisp
