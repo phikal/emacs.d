@@ -1987,7 +1987,7 @@
 		 (let ((core (expand-file-name "sbcl.core-for-slime" user-emacs-directory)))
 		   (when (file-exists-p core)
 			 (setf (alist-get 'sbcl slime-lisp-implementations)
-				   (list "sbcl" "--core" core))))
+				   `(("sbcl" "--core" ,core)))))
 		 (company-mode -1)
 		 :bind ("<f12>" . slime-selector)
 		 :interpreter ("sbcl" . common-lisp-mode)
