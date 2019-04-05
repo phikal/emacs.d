@@ -1216,7 +1216,7 @@
 				(uni (zge/format-mail "uni")))
 			(setq zge/mail-string
 				  (cond ((and pers uni)
-						 (concat " Mail: " pers uni))
+						 (concat " Mail: " pers ", " uni))
 						(pers (concat " Mail: " pers))
 						(uni (concat " Mail: " uni))
 						(t "")))))
