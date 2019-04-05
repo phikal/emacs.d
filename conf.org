@@ -1989,7 +1989,7 @@
 			 (setf (alist-get 'sbcl slime-lisp-implementations)
 				   `(("sbcl" "--core" ,core)))))
 		 (company-mode -1)
-		 :bind ("<f12>" . slime-selector)
+		 :bind (:map slime-mode-map ("C-#" . slime-selector))
 		 :interpreter ("sbcl" . common-lisp-mode)
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
 				((rx ".cl" eos) . common-lisp-mode)))
