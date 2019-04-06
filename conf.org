@@ -2090,20 +2090,6 @@
 	 internet, so I can't say how helpful or on they are.
 
 *** Enchantments
-**** Unto Tree
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package undo-tree
-		 :diminish
-		 :commands global-undo-tree-mode
-		 :config
-		 (setq undo-tree-visualizer-timestamps t
-			   undo-tree-visualizer-diff t)
-		 (global-undo-tree-mode))
-	 #+END_SRC
-
-	 =Undo-tree= offers the ability to visualize ones editing history as a
-	 tree of changes, and to jump from one "branch" to another.
-
 **** Viper
 	 #+BEGIN_SRC emacs-lisp
 	   (setq viper-inhibit-startup-message t
@@ -2608,6 +2594,7 @@
 					("M-u" . upcase-dwim)
 					("M-SPC" . cycle-spacing)
 					("<insert>" . ignore)
+					("C-x u" . undo-only)
 					("M-/" . hippie-expand)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
