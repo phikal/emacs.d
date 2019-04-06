@@ -2034,6 +2034,19 @@
 	 Next to Haskell, Idris is slightly easier to configure than Haskell
 	 but lacks (as of now) company support.
 
+**** Perl
+	 #+BEGIN_SRC emacs-lisp
+	   (add-hook 'cperl-mode-hook
+			(lambda () (setl eldoc-documentation-function
+							 (lambda ()
+							   (let (cperl-message-on-help-error)
+								 (car (cperl-get-help)))))))
+	 #+END_SRC
+
+	 As of now, this is my entire perl setup (along with the =defalias=
+	 command [[*Aliases][above]]), and for the most purposes, cperl-mode is quite
+	 enough.
+
 **** Python
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package anaconda-mode
