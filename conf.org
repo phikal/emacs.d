@@ -266,6 +266,15 @@
    the packages I install (see /[[Packages%20and%20Other%20Configurations][Packages]]/) have a higher chance on
    /not-breaking/ due to random updates..
 
+** User information
+   #+BEGIN_SRC emacs-lisp
+	 (setq user-full-name "Philip K."
+		   user-mail-address
+		   (format "%s%c%s" "philip" (- ?A 1) "warpmail.net"))
+   #+END_SRC
+
+   Personal data?
+
 ** Appearance
 *** Initially deactivated Modes
 	#+BEGIN_SRC emacs-lisp
@@ -402,89 +411,6 @@
 
 	This option make Emacs split windows in a more sane and visually
 	pleasing manner, ie. proportionally.
-
-** Cross-session Configuration
-   #+BEGIN_SRC emacs-lisp
-	 (setq history-delete-duplicates t
-		   savehist-save-minibuffer-history t
-		   savehist-additional-variables '(kill-ring
-										   search-ring
-										   eshell-history-ring
-										   compile-command
-										   recentf-list
-										   calc-stack)
-		   savehist-ignored-variables '(tmm--history
-										yes-or-no-p-history))
-
-	 (savehist-mode t)
-   #+END_SRC
-
-   The preceding two function calls make sure that in-between opening
-   and closing Emacs (for example when I have to shut down my computer)
-   buffers and windows are saved, as well as minibuffer inputs plus the
-   contents of ~kill-ring~, ~search-ring~ and ~compile-command~. Other
-   variables, which are not needed are disregarded.
-
-   #+BEGIN_SRC emacs-lisp
-	 (desktop-save-mode t)
-	 (setq desktop-restore-eager 8
-		   desktop-files-not-to-save
-		   (rx (or (seq bol "/" (zero-or-more (not (any "/" ":"))) ":")
-				   (seq "(ftp)" eol)
-				   (seq "*" (one-or-more not-newline) "*"))))
-   #+END_SRC
-
-   To not loose all the buffers between sessions, =desktop-save-mode=
-   keeps track of buffers before Emacs exists, /but/ doesn't keep track of
-   the frame layout. Furthermore, no buffers are "lazily" restored, but
-   instead all at once, since otherwise this leads to an annoying
-   behavior where buffers are being restored and Emacs, but because I
-   stopped typing for a second.
-
-   #+BEGIN_SRC emacs-lisp
-	 (save-place-mode t)
-   #+END_SRC
-
-   When re-entering a file, return to that place where I was when I
-   left it the last time.
-
-** Backups
-   #+BEGIN_SRC emacs-lisp
-	 (setq-default backup-directory-alist
-				   `(("" . ,(expand-file-name "backup/" user-emacs-directory)))
-				   auto-save-default nil
-				   backup-by-copying t
-				   delete-old-versions t)
-   #+END_SRC
-
-   The default Emacs backup system is pretty annoying, so these are a
-   some helpful tips I've gathered from around the internet, with a few
-   modifications based on experience (eg. having have been saved by the
-   backup system, more than just a few times).
-
-   *Note:* This is also probably one of the oldest parts on my
-   configuration, staying mostly unchanged since mid-late 2014, when
-   copied the code from [[https://stackoverflow.com/a/151946][this StackOverflow answer]].
-
-** Defaults
-*** Load Path
-	#+BEGIN_SRC emacs-lisp
-	  (add-to-list 'load-path
-				   (expand-file-name "lisp/" user-emacs-directory))
-	#+END_SRC
-
-	I have some custom external scripts lying in the =lisp= sub directory,
-	and for Emacs to know about them, I add it to the =load-path=.
-
-*** User information
-	#+BEGIN_SRC emacs-lisp
-	  (setq user-full-name "Philip K."
-			user-mail-address
-			(format "%s%c%s" "philip" (- ?A 1) "warpmail.net"))
-	#+END_SRC
-
-	Personal data?
-
 *** Disable graphical dialogues
 	#+BEGIN_SRC emacs-lisp
 	  (setq use-dialog-box nil)
@@ -492,15 +418,6 @@
 
 	Just don't create graphical pop-ups (especially when Emacs starts
 	up).
-
-*** Disable lockfiles
-	#+BEGIN_SRC emacs-lisp
-	  (setq create-lockfiles nil)
-	#+END_SRC
-
-	Lockfiles appear when a file is opened and confuses some tools. I
-	trust /myself/ to not come into a situation where lockfiles are
-	needed, and have therefore disabled them.
 
 *** Minibuffer height
 	#+BEGIN_SRC emacs-lisp
@@ -512,6 +429,59 @@
 	sensitivity as to what is "too much" for the Minibuffer from 25% (as
 	of writing) to 40% of the window height.
 
+** Emacs-System Configuration
+*** Cross-session Configuration
+	#+BEGIN_SRC emacs-lisp
+	  (setq history-delete-duplicates t
+			savehist-save-minibuffer-history t
+			savehist-additional-variables '(kill-ring
+											search-ring
+											eshell-history-ring
+											compile-command
+											recentf-list
+											calc-stack)
+			savehist-ignored-variables '(tmm--history
+										 yes-or-no-p-history))
+
+	  (savehist-mode t)
+	#+END_SRC
+
+	The preceding two function calls make sure that in-between opening
+	and closing Emacs (for example when I have to shut down my computer)
+	buffers and windows are saved, as well as minibuffer inputs plus the
+	contents of ~kill-ring~, ~search-ring~ and ~compile-command~. Other
+	variables, which are not needed are disregarded.
+
+	#+BEGIN_SRC emacs-lisp
+	  (desktop-save-mode t)
+	  (setq desktop-restore-eager 8
+			desktop-files-not-to-save
+			(rx (or (seq bol "/" (zero-or-more (not (any "/" ":"))) ":")
+					(seq "(ftp)" eol)
+					(seq "*" (one-or-more not-newline) "*"))))
+	#+END_SRC
+
+	To not loose all the buffers between sessions, =desktop-save-mode=
+	keeps track of buffers before Emacs exists, /but/ doesn't keep track of
+	the frame layout. Furthermore, no buffers are "lazily" restored, but
+	instead all at once, since otherwise this leads to an annoying
+	behavior where buffers are being restored and Emacs, but because I
+	stopped typing for a second.
+
+	#+BEGIN_SRC emacs-lisp
+	  (save-place-mode t)
+	#+END_SRC
+
+	When re-entering a file, return to that place where I was when I
+	left it the last time.
+*** Load Path
+	#+BEGIN_SRC emacs-lisp
+	  (add-to-list 'load-path
+				   (expand-file-name "lisp/" user-emacs-directory))
+	#+END_SRC
+
+	I have some custom external scripts lying in the =lisp= sub directory,
+	and for Emacs to know about them, I add it to the =load-path=.
 *** Encoding
 	#+BEGIN_SRC emacs-lisp
 	  (setq locale-coding-system 'utf-8)
@@ -523,14 +493,6 @@
 
 	Assume UTF8 by default.
 
-*** Scrolling
-	#+BEGIN_SRC emacs-lisp
-	  (setq scroll-preserve-screen-position t)
-	#+END_SRC
-
-	Prevent unnecessary moving of the buffer, when windows or frames
-	change.
-
 *** Pager
 	#+BEGIN_SRC emacs-lisp
 	  (setenv "PAGER" "cat")
@@ -538,6 +500,17 @@
 
 	Prevent interactive processes from using a "regular" pager such as
 	less, view or more, and instead just let Emacs do the job.
+
+*** Emacs C source
+	#+BEGIN_SRC emacs-lisp
+	  (let ((c-source (expand-file-name "~/code/etc/emacs/src")))
+		(when (file-directory-p c-source)
+		  (setq find-function-C-source-directory c-source)))
+	#+END_SRC
+
+	In case I have the Emacs C-source locally installed, I inform my
+	current session about it, in case I want to inspect some low level
+	code.
 
 *** RFC
 	#+BEGIN_SRC emacs-lisp
@@ -548,12 +521,73 @@
 	locally. Therefore, ffap doesn't have to use a broken FTP mirror to
 	parse =RFC2551=, but can open it directly.
 
+*** Time Locale
+	#+BEGIN_SRC emacs-lisp
+	  (setq system-time-locale "C")
+	#+END_SRC
+
+	Force Emacs (especially =org-mode=) to use English timestamps.
+
+*** Shell comands
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default async-shell-command-display-buffer nil
+					async-shell-command-buffer 'new-buffer)
+	#+END_SRC
+
+	When asynchronously running commands, only create a /new/ output
+	buffer, if one is needed.
+
+*** Auto-reverting
+	#+BEGIN_SRC emacs-lisp
+	  (setq global-auto-revert-non-file-buffers t)
+	  (setq auto-revert-verbose nil)
+	#+END_SRC
+
+	Don't print messages to the minibuffer about reverting files
+	(ie. updating changes on the disk in buffers).
+
+** Emacs-Internal Configuration
+*** Backups
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default backup-directory-alist
+					`(("" . ,(expand-file-name "backup/" user-emacs-directory)))
+					auto-save-default nil
+					backup-by-copying t
+					delete-old-versions t)
+	#+END_SRC
+
+	The default Emacs backup system is pretty annoying, so these are a
+	some helpful tips I've gathered from around the internet, with a few
+	modifications based on experience (eg. having have been saved by the
+	backup system, more than just a few times).
+
+	*Note:* This is also probably one of the oldest parts on my
+	configuration, staying mostly unchanged since mid-late 2014, when
+	copied the code from [[https://stackoverflow.com/a/151946][this StackOverflow answer]].
+
+*** Disable lockfiles
+	#+BEGIN_SRC emacs-lisp
+	  (setq create-lockfiles nil)
+	#+END_SRC
+
+	Lockfiles appear when a file is opened and confuses some tools. I
+	trust /myself/ to not come into a situation where lockfiles are
+	needed, and have therefore disabled them.
+
 *** "Large Files"
 	#+BEGIN_SRC emacs-lisp
 	  (setq large-file-warning-threshold 40000000)
 	#+END_SRC
 
 	Don't warn me about /larger-but-not-actually-that-large/ files.
+
+*** Scrolling
+	#+BEGIN_SRC emacs-lisp
+	  (setq scroll-preserve-screen-position t)
+	#+END_SRC
+
+	Prevent unnecessary moving of the buffer, when windows or frames
+	change.
 
 *** Prefer newer Bytecode
 	#+BEGIN_SRC emacs-lisp
@@ -572,26 +606,6 @@
 	enabled by the user, when the keybinding is used or the function is
 	called. This snippet ([[https://www.emacswiki.org/emacs/DisabledCommands][source]]) disables this by default, thus
 	enabling all commands.
-
-*** Eldoc
-	#+BEGIN_SRC emacs-lisp
-	  (setq eldoc-idle-delay 0.1)
-	#+END_SRC
-
-	Eldoc is quite nice when programming, it shows me information about
-	the symbol the point is currently on. All I want it for it to not
-	wait for that long before it does that.
-
-*** Uniquify
-	#+BEGIN_SRC emacs-lisp
-	  (setq uniquify-buffer-name-style 'forward
-			uniquify-after-kill-buffer-p t
-			uniquify-ignore-buffers-re "^\\*")
-	#+END_SRC
-
-	It happens far too often that I open two files with the same name,
-	eg. two =Makefile= or =.gitignore= files. To make this "mistake" more
-	pleasant, I customize the default behavior.
 
 *** Help-buffers
 	#+BEGIN_SRC emacs-lisp
@@ -615,13 +629,14 @@
 	"yes" or "no" when emacs asks a question, respectively accept "y" or
 	"n" instead.
 
-*** HTML
+*** Abbrevations
 	#+BEGIN_SRC emacs-lisp
-	  (setq skeleton-end-newline nil)
+	  (setq abbrev-file-name (expand-file-name "abbrev.defs" user-emacs-directory)
+			save-abbrevs 'silent)
 	#+END_SRC
 
-	When inserting a html tag with =sgml-tag= (=C-c C-o=), don't add
-	unnecessary newlines.
+	This setup will automatically initialize and save new abbreviations,
+	which are used for [[Writing][writing]].
 
 *** Emacs-generated files
 	#+BEGIN_SRC emacs-lisp
@@ -645,17 +660,6 @@
 	a sentence is just a publication mark, followed by white space.
 	Optionally, non-word characters are acceptable between the
 	punctuation and the whitespace, like when writing =_No!_= in Markdown.
-
-*** Emacs C source
-	#+BEGIN_SRC emacs-lisp
-	  (let ((c-source (expand-file-name "~/code/etc/emacs/src")))
-		(when (file-directory-p c-source)
-		  (setq find-function-C-source-directory c-source)))
-	#+END_SRC
-
-	In case I have the Emacs C-source locally installed, I inform my
-	current session about it, in case I want to inspect some low level
-	code.
 
 *** Mark Ring
 	#+BEGIN_SRC emacs-lisp
@@ -699,39 +703,34 @@
 	When creating new buffers, use =auto-mode-alist= to automatically set
 	the major mode. Snippet from [[https://emacs.stackexchange.com/a/2555][Stackoverflow]].
 
-*** Time Locale
+*** Writing while region is active
 	#+BEGIN_SRC emacs-lisp
-	  (setq system-time-locale "C")
+	  (delete-selection-mode t)
 	#+END_SRC
 
-	Force Emacs (especially =org-mode=) to use English timestamps.
+	When I've selected a region, and I type something, the region is
+	supposed to be deleted automatically.
 
-*** Abbrevations
+** Emacs-Subsystem Configuration
+*** Eldoc
 	#+BEGIN_SRC emacs-lisp
-	  (setq abbrev-file-name (expand-file-name "abbrev.defs" user-emacs-directory)
-			save-abbrevs 'silent)
+	  (setq eldoc-idle-delay 0.1)
 	#+END_SRC
 
-	This setup will automatically initialize and save new abbreviations,
-	which are used for [[Writing][writing]].
+	Eldoc is quite nice when programming, it shows me information about
+	the symbol the point is currently on. All I want it for it to not
+	wait for that long before it does that.
 
-*** Shell comands
+*** Uniquify
 	#+BEGIN_SRC emacs-lisp
-	  (setq-default async-shell-command-display-buffer nil
-					async-shell-command-buffer 'new-buffer)
+	  (setq uniquify-buffer-name-style 'forward
+			uniquify-after-kill-buffer-p t
+			uniquify-ignore-buffers-re "^\\*")
 	#+END_SRC
 
-	When asynchronously running commands, only create a /new/ output
-	buffer, if one is needed.
-
-*** Auto-reverting
-	#+BEGIN_SRC emacs-lisp
-	  (setq global-auto-revert-non-file-buffers t)
-	  (setq auto-revert-verbose nil)
-	#+END_SRC
-
-	Don't print messages to the minibuffer about reverting files
-	(ie. updating changes on the disk in buffers).
+	It happens far too often that I open two files with the same name,
+	eg. two =Makefile= or =.gitignore= files. To make this "mistake" more
+	pleasant, I customize the default behavior.
 
 *** Calendar
 	#+BEGIN_SRC emacs-lisp
@@ -807,14 +806,6 @@
 		(define-key calendar-mode-map (kbd "b") #'calendar-backward-day)
 		(define-key calendar-mode-map (kbd "B") #'calendar-backward-week))
 	#+END_SRC
-
-*** Writing while region is active
-	#+BEGIN_SRC emacs-lisp
-	  (delete-selection-mode t)
-	#+END_SRC
-
-	When I've selected a region, and I type something, the region is
-	supposed to be deleted automatically.
 
 ** Registers
    #+BEGIN_SRC emacs-lisp
@@ -1869,13 +1860,16 @@
 	 re-aliased for the mode to work properly.
 
 **** HTML
-	 #+BEGIN_SRC emacs-lisp
-	   (setq sgml-xml-mode t)
-	 #+END_SRC
+	  #+BEGIN_SRC emacs-lisp
+		(setq sgml-xml-mode t
+			  skeleton-end-newline nil)
+	  #+END_SRC
 
-	 For most of what I do, Emacs' built in =mhtml-mode=. The only major
-	 annoyance is it's default insistence not to close some tags (=<p>=,
-	 =<dl>/<dd>=, ...), which I here prevent.
+	  For most of what I do, Emacs' built in =mhtml-mode=. The only major
+	  annoyance is it's default insistence not to close some tags (=<p>=,
+	  =<dl>/<dd>=, ...), which I here prevent. Furthermore, when inserting
+	  a html tag with =sgml-tag= (=C-c C-o=), don't add unnecessary
+	  newlines.
 
 **** Go
 	 #+BEGIN_SRC emacs-lisp
