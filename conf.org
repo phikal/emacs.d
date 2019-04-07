@@ -2398,7 +2398,7 @@
 
 ** Swap keybindings
    #+BEGIN_SRC emacs-lisp
-	 (defun swap-keys (kb1 kb2 &optional map)
+	 (defun zge/swap-keys (kb1 kb2 &optional map)
 	   "Swap the functions behind KB1 and KB2 in MAP"
 	   (interactive "kFirst key: \nkSecond key: ")
 	   (let* ((m (or map (current-global-map)))
