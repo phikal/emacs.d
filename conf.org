@@ -661,6 +661,15 @@
 	Optionally, non-word characters are acceptable between the
 	punctuation and the whitespace, like when writing =_No!_= in Markdown.
 
+*** Searching
+	#+BEGIN_SRC emacs-lisp
+	  (setq lazy-highlight-initial-delay 0)
+	  (define-key isearch-mode-map (kbd "C-o")
+		(lambda () (interactive)
+		  (let ((case-fold-search isearch-case-fold-search))
+			(occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
+	#+END_SRC
+
 *** Mark Ring
 	#+BEGIN_SRC emacs-lisp
 	  (setq set-mark-command-repeat-pop t
@@ -2399,6 +2408,14 @@
    First mentioned [[https://lobste.rs/s/a0uem2/why_neovim_is_better_than_vim_2015#c_gfs3m7][here]], to argue for elisp v.s. vim script, I don't
    need this function that often, nevertheless I keep in here, just in
    case.
+
+   #+BEGIN_SRC emacs-lisp
+	 (zge/swap-keys (kbd "C-s") (kbd "C-M-s"))
+	 (zge/swap-keys (kbd "C-r") (kbd "C-M-r"))
+   #+END_SRC
+
+   As examples, I default isearch to use regular expressions before
+   "regular" searching.
 
 ** Roulette
    #+BEGIN_SRC emacs-lisp
