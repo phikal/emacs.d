@@ -854,6 +854,8 @@
 *** Working with PATH
 	#+BEGIN_SRC emacs-lisp
 	  (defun add-to-PATH (dir)
+		"Add `dir' to environmental variable PATH as well as
+	  `exec-path'."
 		(let ((path (split-string (getenv "PATH") ":")))
 		  (unless (member dir path)
 			(push dir path))
@@ -868,6 +870,7 @@
 
 	#+BEGIN_SRC emacs-lisp
 	  (defun remove-from-PATH (dir)
+		"Remove dir from environmental variable PATH and `exec-path'."
 		(let* ((path (split-string (getenv "PATH") ":"))
 			   (path-new (remove dir path)))
 		  (delete dir exec-path)
@@ -2511,6 +2514,8 @@
    #+BEGIN_SRC emacs-lisp
 	 (with-eval-after-load 'dired-x
 	   (defun kill-buffer-and-dired ()
+		 "Kill currently opened buffer and replace it with a dired
+	 buffer the buffer was in."
 		 (interactive)
 		 (let ((buf (current-buffer)))
 		   (dired-jump)
@@ -2550,7 +2555,10 @@
 ** Backwards functions
    #+BEGIN_SRC emacs-lisp
 	 (defmacro backwardize (func)
+	   "Create a interactive function that calls the passed function
+	 `func' with a negative argument."
 	   `(defun ,(intern (concat (symbol-name func) "-backwards")) (arg)
+		  ,(concat "Backwards version of " (symbol-name func))
 		  (interactive "p")
 		  (,func (- arg))))
    #+END_SRC
