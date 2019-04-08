@@ -664,11 +664,21 @@
 *** Searching
 	#+BEGIN_SRC emacs-lisp
 	  (setq lazy-highlight-initial-delay 0)
+	#+END_SRC
+
+	When using isearch, Emacs highlights possible matches. By default
+	this is delayed just enough to be annoying. I say: "don't wait,
+	highlight!".
+
+	#+BEGIN_SRC emacs-lisp
 	  (define-key isearch-mode-map (kbd "C-o")
 		(lambda () (interactive)
-		  (let ((case-fold-search isearch-case-fold-search))
-			(occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
+		  (occur (if isearch-regexp isearch-string (regexp-quote isearch-string)))
+		  (isearch-exit)))
 	#+END_SRC
+
+	This hack let's me easily enter occur when searching the buffer.
+	From there, one can type =e= to edit like with wdired.
 
 *** Mark Ring
 	#+BEGIN_SRC emacs-lisp
