@@ -2439,38 +2439,6 @@
    As examples, I default isearch to use regular expressions before
    "regular" searching.
 
-** Roulette
-   #+BEGIN_SRC emacs-lisp
-	 (defun roulette ()
-	   (interactive)
-	   (require 'hl-line)
-	   (goto-char (point-min))
-	   (forward-line (random (count-lines (point-min) (point-max))))
-
-	   (hl-line-mode t)
-	   (dotimes (i 50)
-		 (if (eobp)
-			 (goto-char (point-min))
-		   (forward-line))
-		 (end-of-line)
-		 (hl-line-highlight)
-		 (sit-for (* (+ 0.5 (/ (random 1000) 1250.0)) (sqrt (exp (- i 46.5))))))
-
-	   (dotimes (_ 4)
-		 (sit-for 0.5)
-		 (hl-line-highlight)
-		 (sit-for 0.5)
-		 (hl-line-unhighlight))
-	   (hl-line-mode -1))
-   #+END_SRC
-
-   This is more of a game, especially a game with the (in)famous =loop=
-   macro. The basic concept is to "select" a random line by highlighting
-   it with =hl-line-mode= and then continuing on for 50 lines getting
-   slower all the time (with a little added randomness). When it ends,
-   the "selected" line blinks four times before =hl-line-mode= is turned
-   off again.
-
 ** Curl to buffer
    #+BEGIN_SRC emacs-lisp
 	 (defun zge/curl (url)
