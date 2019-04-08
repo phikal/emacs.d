@@ -1537,47 +1537,66 @@
 *** Text Editing
 **** LaTeX
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package auctex
-		 :if (executable-find "pdflatex")
-		 :after cdlatex
-		 :defines (LaTeX-electric-left-right-brace TeX-view-program-selection
+	   (use-package latex
+		 :ensure auctex
+		 :if (or (executable-find "pdflatex")
+				 (executable-find "xelatex"))
+		 :defines (LaTeX-electric-left-right-brace
+				   preview-auto-cache-preamble electric-pair-inhibit-predicate
+				   TeX-view-program-selection TeX-parse-self TeX-master
 				   TeX-source-correlate-start-server TeX-revert-document-buffer
-				   TeX-auto-save TeX-parse-self TeX-master
-				   reftex-plug-into-AUCTeX reftex-enable-partial-scans)
+				   TeX-auto-save reftex-plug-into-AUCTeX reftex-enable-partial-scans)
 		 :config
-		 (setf LaTeX-electric-left-right-brace t
-			   (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")
-			   TeX-master 'dwim
+		 (setq-default TeX-master 'dwim)
+		 (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")
 			   TeX-auto-save t
 			   TeX-parse-self t
+			   TeX-PDF-mode t
+			   preview-auto-cache-preamble t
 			   reftex-plug-into-AUCTeX t
 			   reftex-enable-partial-scans t)
-		 (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
-		 (add-hook 'TeX-after-compilation-finished-functions
-				   #'TeX-revert-document-buffer)
+		 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+		 (add-hook 'LaTeX-mode-hook (setl electric-pair-inhibit-predicate #'ignore))
 		 :hook ((LaTeX-mode . flycheck-mode)
-				(LaTeX-mode . yas-minor-mode)
 				(LaTeX-mode . reftex-mode)
 				(LaTeX-mode . TeX-fold-mode))
-		 :mode ((rx ".tex" eos) . LaTeX-mode))
+		 :mode ((rx ".tex" eos) . TeX-latex-mode))
 	 #+END_SRC
 
-	 Partially rewritten LaTeX configuration using AUCTeX.
+	 Installing AucTeX is a bit wierd, since it doesn't quite fit the
+	 =use-package= paradigm. Most changes I make, are quite standard, the
+	 only noteworthy points are:
+	 - Use [[*PDF Viewer][=pdf-tools=]] instead of an external (usually Evience) viewer
+	 - Let =electric-pair-mode= delete adjacent parentheses, but *don't*
+       insert any. Why? Because that will make cdlatex a lot easier to
+       configure.
+	 - If AucTeX recognizes the document to be German, call my [[*Toggle dictionary][language
+       toggle function]].
+	 - Don't bother installing anything, if no latex compiler is found.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cdlatex
+		 :after auctex
 		 :config
+		 (setq cdlatex-paired-parens "$[{(")
 		 (add-to-list 'cdlatex-math-modify-alist
 					  '(?B "\\mathbb" nil t nil nil))
-		 :hook (LaTeX-mode . cdlatex-mode)
-		 :bind (:map cdlatex-mode-map
-					 ("<tab>" . indent-then-expand)
-					 ("M-<tab>" . cdlatex-tab)))
+		 (add-to-list 'cdlatex-math-modify-alist
+					  '(?F "\\mathfrak" nil t nil nil))
+		 (add-to-list 'cdlatex-math-symbol-alist
+					  '(?# ("\\equiv")))
+		 (add-to-list 'cdlatex-command-alist
+					  '("eq" "Insert \\[ \\] pair"
+						"\\[ ? \\]" cdlatex-position-cursor nil t nil))
+		 :hook (LaTeX-mode . cdlatex-mode))
 	 #+END_SRC
 
 	 Additionally, CDLaTeX provides a more comfortable input and
-	 intuitive automation, where possible.
+	 intuitive automation, where possible. I extend the tables by a few
+	 commands that I like to use more often, as to make working with TeX
+	 more comfortable. Note that these changes will also take effect in
+	 my [[*Org][Org]] configuration.
 
 **** Org
 	 #+BEGIN_SRC emacs-lisp
