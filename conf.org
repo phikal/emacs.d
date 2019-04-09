@@ -663,6 +663,16 @@
 	Optionally, non-word characters are acceptable between the
 	punctuation and the whitespace, like when writing =_No!_= in Markdown.
 
+*** Window Focus
+	#+BEGIN_SRC emacs-lisp
+	  (add-hook 'occur-mode-hook (lambda () (pop-to-buffer "*Occur*" nil t)))
+	  (add-hook 'help-mode-hook (lambda () (pop-to-buffer "*Help*" nil t)))
+	#+END_SRC
+
+	These hooks raise windows when they are created. I'm trying to find
+	a cleverer way using =display-buffer-alist=, but haven't managed to do
+	so yet.
+
 *** Searching
 	#+BEGIN_SRC emacs-lisp
 	  (setq lazy-highlight-initial-delay 0)
