@@ -88,7 +88,7 @@
    you. Not Fred, the amazing guy down the hall. I'm talking about the
    greatest software developers of our profession, the ones who changed
    the face of the industry. The James Goslings, the Donald Knuths, the
-   Paul Grahams2, the Jamie Zawinskis, the Eric Bensons. Real engineers
+   Paul Grahams, the Jamie Zawinskis, the Eric Bensons. Real engineers
    use Emacs. [...]
 
    Emacs is the 100-year editor.
