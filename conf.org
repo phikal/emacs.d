@@ -1407,14 +1407,21 @@
 ***** BBDB
 	  #+BEGIN_SRC emacs-lisp
 		(use-package bbdb
+		  :after gnus
 		  :config
 		  (setq bbdb-mua-auto-update-p nil
+				bbdb-mua-update-interactive-p '(query . create)
 				bbdb-complete-mail-allow-cycling t
 				bbdb-use-pop-up nil
 				bbdb-completion-display-record nil
+				bbdb-message-all-addresses t
 				bbdb-file (expand-file-name "bbdb" user-emacs-directory))
 		  (bbdb-initialize 'gnus 'message 'pgp)
-		  (bbdb-mua-auto-update-init 'message))
+		  (bbdb-mua-auto-update-init 'message)
+		  :bind (("C-x x b" . bbdb)
+				 ("C-x x B" . bbdb-create)
+				 :map gnus-summary-mode-map
+				 (";" . bbdb-mua-edit-field)))
 	  #+END_SRC
 
 	  Install and setup /BBDB/ (Insidious Big Brother Database) for contact
