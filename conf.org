@@ -1359,6 +1359,14 @@
 	  will be found.
 
 	  #+BEGIN_SRC emacs-lisp
+		(setq gnus-gcc-mark-as-read t)
+	  #+END_SRC
+
+	  Send messages are archived locally, but unless this variable is
+	  non-nil, will always appear as "unread", which doesn't make a lot
+	  of sense (to me).
+
+	  #+BEGIN_SRC emacs-lisp
 		:bind (("C-x x m" . gnus)))
 	  #+END_SRC
 
