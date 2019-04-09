@@ -1515,7 +1515,8 @@
 					   ("british" "[[:alpha:]]" "[^[:alpha:]]"
 						"[']" t ("-d" "en_GB") nil utf-8))
 					 flyspell-issue-welcome-flag nil
-					 flyspell-issue-message-flag nil)
+					 flyspell-issue-message-flag nil
+					 flyspell-use-meta-tab nil)
 	 #+END_SRC
 
 	 When just writing prose, or just comments, =flyspell-mode= (and
