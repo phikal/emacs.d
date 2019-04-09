@@ -2153,7 +2153,7 @@
 	 is too much). These variables are set to prevent Viper from having
 	 to set up everything every time I try to use it.
 
-**** Colorful Delimiters
+**** Colorful Parentheses
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rainbow-delimiters
 		 :after prog-mode
