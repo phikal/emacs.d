@@ -1588,13 +1588,13 @@
 		 (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")
 			   TeX-auto-save t
 			   TeX-parse-self t
-			   TeX-PDF-mode t
 			   preview-auto-cache-preamble t
 			   reftex-plug-into-AUCTeX t
 			   reftex-enable-partial-scans t)
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
 		 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-		 (add-hook 'LaTeX-mode-hook (setl electric-pair-inhibit-predicate #'ignore))
+		 (add-hook 'LaTeX-mode-hook (setl electric-pair-inhibit-predicate
+										  (lambda (&rest _) t)))
 		 :hook ((LaTeX-mode . flycheck-mode)
 				(LaTeX-mode . reftex-mode)
 				(LaTeX-mode . TeX-fold-mode))
@@ -1614,9 +1614,9 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cdlatex
-		 :after auctex
+		 :after (org latex)
 		 :config
-		 (setq cdlatex-paired-parens "$[{(")
+		 (setq cdlatex-paired-parens "$([{|<")
 		 (add-to-list 'cdlatex-math-modify-alist
 					  '(?B "\\mathbb" nil t nil nil))
 		 (add-to-list 'cdlatex-math-modify-alist
@@ -1626,6 +1626,8 @@
 		 (add-to-list 'cdlatex-command-alist
 					  '("eq" "Insert \\[ \\] pair"
 						"\\[ ? \\]" cdlatex-position-cursor nil t nil))
+		 (dolist (key '("(" "[" "{" "$" "|" "<" "C-c ?" "C-c {" "C-<return>"))
+		   (define-key cdlatex-mode-map (kbd key) nil))
 		 :hook (LaTeX-mode . cdlatex-mode))
 	 #+END_SRC
 
