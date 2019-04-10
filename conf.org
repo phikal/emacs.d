@@ -2621,6 +2621,7 @@
 					("C-x j" . jump-to-register)
 					("M-#". find-file-at-point)
 					("<print>" . other-window)
+					("C-M-<return>" . window-swap-states)
 					("C-M-<up>" . windmove-up)
 					("C-M-<down>" . windmove-down)
 					("C-M-<left>" . windmove-left)
