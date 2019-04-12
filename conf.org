@@ -987,7 +987,7 @@
 		 :commands ivy-mode
 		 :config
 		 (setq ivy-wrap t
-			   ivy-height 6
+			   ivy-height 8
 			   ivy-display-style 'fancy
 			   ivy-use-virtual-buffers t
 			   ivy-case-fold-search-default t
