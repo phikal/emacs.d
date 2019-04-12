@@ -1663,8 +1663,7 @@
 			 org-special-ctrl-k t)
 	 #+END_SRC
 
-	 Basic stylistic and movment options (especially enabling using the
-	 shift key to mark a region).
+	 Basic stylistic and movment options.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (setq org-fontify-whole-heading-line t
