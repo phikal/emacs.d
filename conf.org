@@ -2433,10 +2433,10 @@
 
 ** Toggle theme
    #+BEGIN_SRC emacs-lisp
-	 (defconst zge/light-theme 'tango
+	 (defconst zge/light-theme 'whiteboard
 	   "constant holding my perfered light theme")
 
-	 (defconst zge/dark-theme 'tango-dark
+	 (defconst zge/dark-theme 'wheatgrass
 	   "constant holding my perfered dark theme")
 
 	 (defvar zge/current-theme zge/dark-theme
