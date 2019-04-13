@@ -474,6 +474,12 @@
 
 	When re-entering a file, return to that place where I was when I
 	left it the last time.
+
+*** Display Time, Load and Mail
+	#+BEGIN_SRC emacs-lisp
+	  (display-time-mode t)
+	#+END_SRC
+
 *** Load Path
 	#+BEGIN_SRC emacs-lisp
 	  (add-to-list 'load-path
