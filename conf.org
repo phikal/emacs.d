@@ -926,6 +926,18 @@
 	hooks. To make it a bit easier to work with these, this macro
 	produces a lambda expression that just set local values to a constant.
 
+*** Quickly get Point after Operation
+	#+BEGIN_SRC emacs-lisp
+	  (defmacro point-after (func &rest args)
+		`(save-excursion
+		   (,func ,@args)
+		   (point)))
+	#+END_SRC
+
+	Sometimes I just want to know where the point will be after some
+	operation (=forward-word=, =backward-sexp=, ...), and this macro makes
+	it easy to get this information.
+
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
 	(unless (package-installed-p 'use-package)
