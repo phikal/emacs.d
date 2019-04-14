@@ -999,7 +999,7 @@
 			   ivy-display-style 'fancy
 			   ivy-use-virtual-buffers t
 			   ivy-case-fold-search-default t
-			   ivy-re-builders-alist '((t . ivy--regex))
+			   ivy-re-builders-alist '((t . ivy--regex-ignore-order))
 			   enable-recursive-minibuffers t)
 		 (ivy-mode t)
 		 :bind (:map ivy-minibuffer-map
