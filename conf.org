@@ -1580,6 +1580,24 @@
 	 Adding PDF-Tools let's me use emacs properly for opening PDFs,
 	 making me less dependant on external tools and window managers.
 
+**** Modeline Hider
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package diminish)
+	 #+END_SRC
+
+	 This package is used by many others via the =:diminish= keyword in
+	 =use-package=. It ensures that certain minor modes don't appear in
+	 the mode-line.
+
+**** HTML Exporter
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package htmlize)
+	 #+END_SRC
+
+	 =Htmlize= allows me to export files, buffers or regions as they
+	 appear to me in Emacs in HTML form. I sometimes use it myself, but
+	 for the most part it's use by [[*Org][Org]].
+
 ** Programming
 *** Text Editing
 **** LaTeX
