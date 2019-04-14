@@ -2634,6 +2634,22 @@
 
    Analogously, allow words to be deleted backwards.
 
+** Eval and Replace
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/eval-and-replace ()
+	   (interactive)
+	   (let* ((beg (point-after backward-sexp))
+			  (raw (buffer-substring beg (point)))
+			  (sexp (eval (read raw))))
+		 (delete-region beg (point))
+		 (insert (prin1-to-string sexp))))
+	 (defalias 'eval-and-replace 'zge/eval-and-replace)
+   #+END_SRC
+
+   My version of a common function one sees used in different
+   configurations. The main difference is that I don't use the
+   kill-ring, and employ my above defined [[*Quickly get Point after Operation][macro]].
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
@@ -2645,6 +2661,7 @@
 					("C-x x d" . calendar)
 					("C-x M-k" . kill-buffer-and-window)
 					("C-x x k" . bury-buffer)
+					("C-x x e" . zge/eval-and-replace)
 					("C-x j" . jump-to-register)
 					("M-#". find-file-at-point)
 					("<print>" . other-window)
