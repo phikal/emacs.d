@@ -930,7 +930,7 @@
 	#+BEGIN_SRC emacs-lisp
 	  (defmacro point-after (func &rest args)
 		`(save-excursion
-		   (,func ,@args)
+		   (ignore-errors (,func ,@args))
 		   (point)))
 	#+END_SRC
 
