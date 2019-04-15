@@ -2672,11 +2672,15 @@
    #+BEGIN_SRC emacs-lisp
 	 (defun zge/eval-and-replace ()
 	   (interactive)
-	   (let* ((beg (point-after backward-sexp))
-			  (raw (buffer-substring beg (point)))
-			  (sexp (eval (read raw))))
-		 (delete-region beg (point))
-		 (insert (prin1-to-string sexp))))
+	   (save-excursion
+		 (backward-sexp)
+		 (let* ((end (point-after forward-sexp))
+				(raw (buffer-substring (point) end))
+				(sexp (eval (read raw))))
+		   (delete-region (point) end)
+		   (insert-before-markers
+			(prin1-to-string sexp)))))
+
 	 (defalias 'eval-and-replace 'zge/eval-and-replace)
    #+END_SRC
 
