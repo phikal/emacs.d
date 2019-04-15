@@ -2593,18 +2593,23 @@
 
 ** Recreate =*scratch*= buffer
    #+BEGIN_SRC emacs-lisp
+	 (defvar zge/scratch-buf nil
+	   "Currently active scratch buffer")
+
 	 (defun new-scratch (&optional keep)
 	   "Generate a new *scratch* buffer"
 	   (interactive "P")
-	   (with-current-buffer (get-buffer-create "*scratch*")
+	   (setq zge/scratch-buf (get-buffer-create "*scratch*"))
+	   (with-current-buffer zge/scratch-buf
+		 (lisp-interaction-mode)
+		 (goto-char (point-min))
 		 (unless keep
 		   (save-mark-and-excursion
 			 (delete-region (point-min)
-							(point-max))))
-		 (lisp-interaction-mode)
-		 (goto-char (point-min))
-		 (insert (substitute-command-keys initial-scratch-message))
-		 (set-buffer-modified-p nil))
+							(point-max)))
+		   (insert (substitute-command-keys initial-scratch-message)))
+		 (set-buffer-modified-p nil)
+		 (local-set-key (kbd "<f12>") #'bury-buffer))
 	   (when (called-interactively-p 'any)
 		 (switch-to-buffer "*scratch*")))
 
@@ -2614,6 +2619,23 @@
    To prevent myself from accidentally killing my =*scratch*= buffer, I
    locally override what the =C-x k= keybinding does, emulating the
    =kill-buffer= function, without actually killing anything.
+
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/switch-to-scratch ()
+	   "Switch to active scratch buffer."
+	   (interactive)
+	   (unless zge/scratch-buf
+		 (new-scratch t))
+	   (switch-to-buffer zge/scratch-buf))
+
+	 (global-set-key (kbd "<f12>") #'zge/switch-to-scratch)
+   #+END_SRC
+
+   Contrary to what some people say, I think the scratch buffer /is/
+   useful, and I often want to use it quickly. For that reason, F12 is
+   my scratch-key: Pressing it from anywhere outside the brings me
+   there, and (as implemented above) pressing it again, buries it in the
+   buffer stack.
 
 ** Backwards functions
    #+BEGIN_SRC emacs-lisp
