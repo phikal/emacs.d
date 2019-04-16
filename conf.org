@@ -2142,7 +2142,7 @@
 **** Python
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package anaconda-mode
-		 :if (executable-find "python3")
+		 :if (executable-find "ipython3")
 		 :config
 		 (setq python-shell-interpreter "ipython3")
 		 :hook ((python-mode .anaconda-mode)
