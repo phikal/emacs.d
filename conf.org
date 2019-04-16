@@ -1028,7 +1028,6 @@
 		 :diminish
 		 :commands counsel-mode
 		 :config
-		 (setq counsel-find-file-at-point t)
 		 (counsel-mode t)
 		 (dolist (cmd '(yank-pop describe-bindings))
 		   (define-key counsel-mode-map `[remap ,cmd] nil))
