@@ -1040,15 +1040,6 @@
 	 Counsel extends this to further integrate Ivy features into default
 	 commands, such as =M-x=, =C-x b= or =C-x C-f=.
 
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package flx
-		 :after ivy
-		 :config
-		 (add-to-list 'ivy-re-builders-alist '(counsel-M-x . ivy--regex-fuzzy)))
-	 #+END_SRC
-
-	 Additionally, use flexible matching for =M-x=.
-
 **** Buffer overview
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ibuffer
