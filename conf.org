@@ -2188,8 +2188,8 @@
 **** Multiple Cursors
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package multiple-cursors
-		 :bind (("C-<" . mc/mark-previous-like-this)
-				("C->" . mc/mark-next-like-this)
+		 :bind (("C-S-n" . mc/mark-next-lines)
+				("C-S-p" . mc/mark-previous-lines)
 				("C-M-;" . mc/mark-all-like-this-dwim)))
 	 #+END_SRC
 
