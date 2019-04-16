@@ -1617,16 +1617,11 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package latex
 		 :ensure auctex
-		 :if (or (executable-find "pdflatex")
-				 (executable-find "xelatex"))
-		 :defines (LaTeX-electric-left-right-brace
-				   preview-auto-cache-preamble electric-pair-inhibit-predicate
-				   TeX-view-program-selection TeX-parse-self TeX-master
-				   TeX-source-correlate-start-server TeX-revert-document-buffer
-				   TeX-auto-save reftex-plug-into-AUCTeX reftex-enable-partial-scans)
+		 :if (executable-find "pdflatex")
 		 :config
 		 (setq-default TeX-master 'dwim)
 		 (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")
+			   LaTeX-electric-left-right-brace t
 			   TeX-auto-save t
 			   TeX-parse-self t
 			   preview-auto-cache-preamble t
