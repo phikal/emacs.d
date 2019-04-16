@@ -2650,12 +2650,12 @@
 
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-l" . downcase-dwim)
-					("<backtab>" . completion-at-point)
 					("M-c" . capitalize-dwim)
+					("M-u" . upcase-dwim)
 					("<prior>" . scroll-up-command)
 					("<next>" . scroll-down-command)
 					("<XF86WLAN>" . ignore)
-					("M-u" . upcase-dwim)
+					("<XF86Sleep>" . ignore)
 					("M-SPC" . cycle-spacing)
 					("<insert>" . ignore)
 					("C-x u" . undo-only)
