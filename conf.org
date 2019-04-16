@@ -938,6 +938,20 @@
 	operation (=forward-word=, =backward-sexp=, ...), and this macro makes
 	it easy to get this information.
 
+*** Configure /Completion At Point/
+	#+BEGIN_SRC emacs-lisp
+	  (defmacro capf-conf (mode func)
+		`(add-hook (quote ,(intern (concat
+									(symbol-name mode)
+									"-mode-hook")))
+				   (setl completion-at-point-functions
+						 (list ,func))))
+	#+END_SRC
+
+	I have written my own /completion at point/ function, and this macro
+	just makes it easier and less repetitive to set these up, for a
+	mode. Examples may be found below.
+
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
 	(unless (package-installed-p 'use-package)
@@ -1931,6 +1945,15 @@
 	 Currently my only option is to disable a "dedicated" I/O buffer,
 	 when running a debugger.
 
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package cpp-capf
+		 :ensure nil
+		 :init
+		 (capf-conf c #'cpp-completion-at-point-function))
+	 #+END_SRC
+
+	 Finally I load my own clang-based =completion-at-point= backend.
+
 **** Gnuplot
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package gnuplot
@@ -1988,10 +2011,6 @@
 					 ("M-." . godef-jump)
 					 ("C-c ." . godoc-at-point)
 					 ("C-c C-r" . go-remove-unused-imports)))
-
-	   (use-package go-eldoc
-		 :after go-mode
-		 :hook (go-mode . go-eldoc-setup))
 	 #+END_SRC
 
 	 Go can be very fragile, but after having have set up the right files
@@ -2002,6 +2021,25 @@
 	 - [[https://github.com/mdempsky/gocode][gocode]]
 	 - [[https://github.com/rogpeppe/godef][godef]]
 	 - [[https://golang.org/x/tools/cmd/goimports][goimports]]
+
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package go-eldoc
+		 :after go-mode
+		 :hook (go-mode . go-eldoc-setup))
+     #+END_SRC
+
+	 Hovering over symbols should print documentation about said symbol
+	 in the minibuffer. =godef= is required for this.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package go-capf
+		 :ensure nil
+		 :init
+		 (capf-conf go #'go-completion-at-point-function))
+	 #+END_SRC
+
+	 Just like with C above, I load my own =gocode= based completion
+	 function.
 
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
