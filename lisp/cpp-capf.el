@@ -1,5 +1,12 @@
-;;; published with CC0 into the public domain
+;;; published under CC0 into the public domain
 ;;; author: philip k. [https://zge.us.to], 2019
+;;;
+;;; based on:
+;;; - https://opensource.apple.com/source/lldb/lldb-167.2/llvm/tools/clang/utils/clang-completion-mode.el.auto.html
+;;; - https://github.com/company-mode/company-mode/blob/master/company-clang.el
+;;; - https://github.com/brianjcj/auto-complete-clang/blob/master/auto-complete-clang.el
+;;; - https://www.reddit.com/r/vim/comments/2wf3cn/basic_clang_autocompletion_query/
+;;; - https://foicica.com/wiki/cpp-clang-completion
 
 (defgroup cpp-capf nil
   "Completion back-end for C using clang."
@@ -9,8 +16,7 @@
   '("/usr/local/include"
 	"/usr/lib/llvm-7/lib/clang/7.0.1/include"
 	"/usr/include/x86_64-linux-gnu"
-	"/usr/include"
-	"." ".." "../..")
+	"/usr/include" "." ".." "../..")
   "Paths to directories with header files"
   :type 'list
   :group 'cpp-capf)
