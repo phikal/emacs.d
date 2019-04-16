@@ -2004,11 +2004,6 @@
 					 ("C-c ." . godoc-at-point)
 					 ("C-c C-r" . go-remove-unused-imports)))
 
-	   (use-package company-go
-		 :after (go-mode company)
-		 :init
-		 (add-hook 'go-mode-hook (setl company-backends '(company-go))))
-
 	   (use-package go-eldoc
 		 :after go-mode
 		 :hook (go-mode . go-eldoc-setup))
@@ -2092,7 +2087,6 @@
 		   (when (file-exists-p core)
 			 (setf (alist-get 'sbcl slime-lisp-implementations)
 				   `(("sbcl" "--core" ,core)))))
-		 (company-mode -1)
 		 :bind (:map slime-mode-map ("C-#" . slime-selector))
 		 :interpreter ("sbcl" . common-lisp-mode)
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
@@ -2110,7 +2104,6 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package haskell-mode
 		 :if (executable-find "ghc")
-		 :after company-ghc
 		 :hook ((haskell-mode . haskell-doc-mode)
 				(haskell-mode . (lambda () (yas-minor-mode -1))))
 		 :interpreter "ghc"
@@ -2119,16 +2112,6 @@
 
 	 Programming Haskell can be a very nice experience in Emacs, but as
 	 always, it has to be properly set up.
-
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package company-ghc
-		 :after company
-		 :init
-		 (add-hook 'haskell-mode-hook (setl company-backends '(company-ghc))))
-	 #+END_SRC
-
-	 For improved interaction, intelligent and informative auto
-	 completion is always appreciated.
 
 **** Idris
 	 #+BEGIN_SRC emacs-lisp
@@ -2141,8 +2124,7 @@
 		 :mode (rx ".idr" eos))
 	 #+END_SRC
 
-	 Next to Haskell, Idris is slightly easier to configure than Haskell
-	 but lacks (as of now) company support.
+	 Next to Haskell, Idris is slightly easier to configure than Haskell.
 
 **** Perl
 	 #+BEGIN_SRC emacs-lisp
@@ -2165,18 +2147,6 @@
 		 (setq python-shell-interpreter "ipython3")
 		 :hook ((python-mode .anaconda-mode)
 				(python-mode . anaconda-eldoc-mode)))
-
-	   (use-package company-anaconda
-		 :after company
-		 :init
-		 (add-hook 'python-mode-hook
-				   (setl company-backends '(company-anaconda)))
-		 :config
-		 (setq company-anaconda-annotation-function
-			   (lambda (cand)
-				 (let ((description (get-text-property 0 'description cand)))
-				   (when description
-					 (concat "<" (substring description 0 1) ">"))))))
 	 #+END_SRC
 
 	I keep my Python setup simple but functional, since I don't use Python
@@ -2184,15 +2154,14 @@
 	documentation, code exploration and completion should work as
 	expected, but other than that, I don't require too much.
 
-**** R
+**** COMMENT R
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ess
 		 :if (executable-find "R")
 		 :config
 		 (setq ess-fancy-comments nil
 			   ess-eval-visibly nil
-			   ess-ask-for-ess-directory nil
-			   ess-use-company 'script-only))
+			   ess-ask-for-ess-directory nil))
 	 #+END_SRC
 
 	 I don't use R myself currently, but I want to learn it. All
@@ -2277,29 +2246,6 @@
 	 Besides installing flycheck, also disable the Elisp warning
 	 regarding checkdoc warnings (/first line must be so and so/, /last line
 	 must contain this and that/, ...).
-
-**** Auto Completion
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package company
-		 :diminish company-mode
-		 :config
-		 (setq company-begin-commands '()
-			   company-transformers '(company-sort-by-occurrence)
-			   company-tooltip-align-annotations t
-			   company-tooltip-minimum-width 30
-			   company-tooltip-limit 20
-			   company-require-match 'never
-			   company-selection-wrap-around t)
-		 :hook (prog-mode . company-mode)
-		 :bind (:map company-mode-map
-					 ("M-<tab>" . company-complete)
-					 :map company-active-map
-					 ("C-n" . company-select-next)
-					 ("C-p" . company-select-previous)))
-	 #+END_SRC
-
-	 Generally speaking, I have had a better experiance with =company= as
-	 compared to =auto-complete-mode=. The
 
 **** Snippets
 	 #+BEGIN_SRC emacs-lisp
