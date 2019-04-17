@@ -475,14 +475,6 @@
 	When re-entering a file, return to that place where I was when I
 	left it the last time.
 
-*** Load Path
-	#+BEGIN_SRC emacs-lisp
-	  (add-to-list 'load-path
-				   (expand-file-name "lisp/" user-emacs-directory))
-	#+END_SRC
-
-	I have some custom external scripts lying in the =lisp= sub directory,
-	and for Emacs to know about them, I add it to the =load-path=.
 *** Encoding
 	#+BEGIN_SRC emacs-lisp
 	  (setq locale-coding-system 'utf-8)
@@ -1930,9 +1922,10 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cpp-capf
-		 :ensure nil
-		 :init
-		 (capf-conf c #'cpp-completion-at-point-function))
+		 :after (c++-mode c-mode)
+		 :load-path "lisp/"
+		 :init (require 'cpp-capf)
+		 :config (capf-conf c #'cpp-completion-at-point-function))
 	 #+END_SRC
 
 	 Finally I load my own clang-based =completion-at-point= backend.
@@ -2016,9 +2009,10 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-capf
-		 :ensure nil
-		 :init
-		 (capf-conf go #'go-completion-at-point-function))
+		 :after go-mode
+		 :load-path "lisp/"
+		 :init (require 'go-capf)
+		 :config (capf-conf go #'go-completion-at-point-function))
 	 #+END_SRC
 
 	 Just like with C above, I load my own =gocode= based completion
