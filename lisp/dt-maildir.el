@@ -4,15 +4,14 @@
 
 (require 'rx)
 (require 'cl-lib)
-(require 'bbdb)
 (require 'bbdb-com)
 
-(defgroup dtm nil
+(defgroup dt-maildir nil
   "Functions to check for maildir messages."
   :group 'mail
-  :prefix "dtm-")
+  :prefix "dt-maildir-")
 
-(defcustom dtm-maildir-list 
+(defcustom dt-maildir-maildir-list
   `(,(expand-file-name (or (getenv "MAILDIR")
 						   (getenv "MAIL")
 						   "~/Mail")))
@@ -20,15 +19,15 @@
   is the name (personal, job, ...), the second the relative
   path."
   :type 'list
-  :group 'dtm)
+  :group 'dt-maildir)
 
-(defcustom dtm-maildir-base-dir nil
+(defcustom dt-maildir-maildir-base-dir nil
   "Default directory to search for maildir directories in. Set to
-nil if you use absolute paths in `dtm-maildir-list'"
+nil if you use absolute paths in `dt-maildir-maildir-list'"
   :type '(file :must-match t)
-  :group 'dtm)
+  :group 'dt-maildir)
 
-(defconst dtm--from-regexp
+(defconst dt-maildir--from-regexp
   (rx bol "From: " (group (*? nonl)
 						  (group (+ (in ?_ ?- ?% word))
 								 "@"
@@ -37,32 +36,32 @@ nil if you use absolute paths in `dtm-maildir-list'"
   "Regular expression to extract the sender of a message in group
   1, and the address in group 2.")
 
-(defun dtm--check-mail (dir)
+(defun dt-maildir--check-mail (dir)
   (cddr (directory-files (expand-file-name "new" dir))))
 
-(defun dtm--mail-from (file)
+(defun dt-maildir--mail-from (file)
   (with-temp-buffer
 	(insert-file-contents-literally file)
 	(goto-char (point-min))
 	(save-match-data
-	  (when (search-forward-regexp dtm--from-regexp nil t)
+	  (when (search-forward-regexp dt-maildir--from-regexp nil t)
 		(cons (match-string 1)
 			  (match-string 2))))))
 
-(defun dtm--collect-senders (dir) 
-  (cl-loop for file in (dtm--check-mail dir)
+(defun dt-maildir--collect-senders (dir)
+  (cl-loop for file in (dt-maildir--check-mail dir)
 		   as mail = (expand-file-name file (concat dir "/new"))
-		   as from = (cdr (dtm--mail-from mail))
+		   as from = (cdr (dt-maildir--mail-from mail))
 		   when (bbdb-search (bbdb-records) :mail from)
 		   collect (bbdb-record-name (car it))))
 
-(defun dtm-who-from ()
+(defun dt-maildir-who-from ()
   "Collect information on who the unread messages are from. If
 called interactively, also print this into the minibuffer."
   (interactive)
-  (cl-loop for dir in dtm-maildir-list
-		   as path = (expand-file-name dir dtm-maildir-base-dir)
-		   when (cl-loop for from in (dtm--collect-senders path)
+  (cl-loop for dir in dt-maildir-maildir-list
+		   as path = (expand-file-name dir dt-maildir-maildir-base-dir)
+		   when (cl-loop for from in (dt-maildir--collect-senders path)
 						 concat from into list
 						 finally return (and list (format "%s (%d):%s" dir (length list)
 														  (if (string= list "") ""
@@ -74,13 +73,13 @@ called interactively, also print this into the minibuffer."
 							msg)))
 
 ;;;###autoload
-(defun dtm-mail-function ()
+(defun dt-maildir-mail-function ()
   "Function to assign to `display-time-mail-function'. Will use
-`dtm-maildir-base-dir' and `dtm-maildir-list' to check for new
+`dt-maildir-maildir-base-dir' and `dt-maildir-maildir-list' to check for new
 messages."
-  (cl-some #'dtm--check-mail
+  (cl-some #'dt-maildir--check-mail
 		   (mapcar (lambda (dir)
-					 (expand-file-name dir dtm-maildir-base-dir))
-				   dtm-maildir-list)))
+					 (expand-file-name dir dt-maildir-maildir-base-dir))
+				   dt-maildir-maildir-list)))
 
-(provide 'dtm)
+(provide 'dt-maildir)

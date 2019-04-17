@@ -1405,12 +1405,14 @@
 
 ***** Notification
 	  #+BEGIN_SRC emacs-lisp
-		(use-package dtm
-		  :ensure nil
-		  :defines (dtm-maildir-base-dir dtm-maildir-list)
-		  :init
-		  (display-time-mode)
-		  (setq display-time-mail-function #'dtm-mail-function
+		(use-package dt-maildir
+		  :load-path "lisp/"
+		  :functions (dt-maildir-mail-function)
+		  :defines (dt-maildir-maildir-base-dir dt-maildir-maildir-list)
+		  :init (require 'dt-maildir)
+		  :config
+		  (setq display-time-mail-function #'dt-maildir-mail-function
+				display-time-load-average-threshold 0.25
 				display-time-interval 20
 				display-time-string-forms
 				'("<" (format-time-string "%H:%M" now) load
@@ -1418,15 +1420,16 @@
 					  (concat
 					   " "
 					   (propertize display-time-mail-string
-								   'help-echo (dtm-who-from)
+								   'help-echo (dt-maildir-who-from)
 								   'mouse-face 'mode-line-highlight
 								   'local-map (make-mode-line-mouse-map
 											   'mouse-1 read-mail-command)))
 					"")
-				  "> "))
-		  :config
-		  (setq dtm-maildir-base-dir "~/etc/mail/"
-				dtm-maildir-list '("pers" "uni")))
+				  "> ")
+
+				dt-maildir-maildir-base-dir "~/etc/mail/"
+				dt-maildir-maildir-list '("pers" "uni"))
+		  (display-time-mode))
 	  #+END_SRC
 
 	  This loads a local, external elisp file that checks for mail on my
