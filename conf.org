@@ -475,11 +475,6 @@
 	When re-entering a file, return to that place where I was when I
 	left it the last time.
 
-*** Display Time, Load and Mail
-	#+BEGIN_SRC emacs-lisp
-	  (display-time-mode t)
-	#+END_SRC
-
 *** Load Path
 	#+BEGIN_SRC emacs-lisp
 	  (add-to-list 'load-path
@@ -1240,53 +1235,8 @@
 	  #+INCLUDE: "~/.mpoprc" src conf-space :tangle no
 
 	  I end up with two directories in =~/etc/mail= (=pers= and =uni= in my
-	  case) that are both recognized as such by gnus.
-
-	  #+BEGIN_SRC emacs-lisp
-		(defvar zge/mail-string "")
-
-		(defun zge/mail-from (file)
-		  (interactive "f")
-		  (with-current-buffer (find-file-noselect file)
-			(goto-char (point-min))
-			(when (search-forward-regexp (rx bol "From: ") nil t)
-			  (buffer-substring-no-properties (point) (point-at-eol)))))
-
-		(defun zge/format-mail (name)
-		  (let* ((dir-name (concat "~/etc/mail/" name "/new"))
-				 (dir (cddr (directory-files dir-name)))
-				 (from-list (mapconcat #'zge/mail-from dir ",")))
-			(and dir
-				 (propertize (format "%s %d" name (length dir))
-							 'mouse-face 'highlight
-							 'help-echo from-list))))
-
-		(defun zge/format-mail-string (&rest _)
-		  (let ((pers (zge/format-mail "pers"))
-				(uni (zge/format-mail "uni")))
-			(setq zge/mail-string
-				  (cond ((and pers uni)
-						 (concat " Mail: " pers ", " uni))
-						(pers (concat " Mail: " pers))
-						(uni (concat " Mail: " uni))
-						(t "")))))
-
-		(defun zge/fetch-mail ()
-		  (interactive)
-		  (async-start (lambda ()
-						 (shell-command "mpop -aQ")
-						 (when (executable-find "notmuch")
-						   (shell-command "notmuch new")))
-					   #'zge/format-mail-string))
-		(defalias 'fetch-mail 'zge/fetch-mail)
-
-		(run-at-time nil (* 60 10) #'zge/fetch-mail)
-		(add-to-list 'global-mode-string 'zge/mail-string t)
-		(advice-add 'gnus :after #'zge/format-mail-string)
-	  #+END_SRC
-
-	  Mpop should then be called every 10 minutes, in a asynchronous
-	  process. This can also be manually done by calling =fetch-mail=.
+	  case) that are both recognized as such by gnus. Mpop itself is
+	  executed externally, by a cron job.
 
 	  #+BEGIN_SRC emacs-lisp
 		(setq gnus-posting-styles
@@ -1407,6 +1357,7 @@
 				message-kill-buffer-on-exit t
 				message-forward-as-mime t
 				mail-user-agent 'gnus-user-agent
+				read-mail-command 'gnus
 				sendmail-program (executable-find "msmtp"))
 	  #+END_SRC
 
@@ -1451,6 +1402,35 @@
 
 	  Install and setup /BBDB/ (Insidious Big Brother Database) for contact
 	  management, and enable completion in message buffers.
+
+***** Notification
+	  #+BEGIN_SRC emacs-lisp
+		(use-package dtm
+		  :ensure nil
+		  :defines (dtm-maildir-base-dir dtm-maildir-list)
+		  :init
+		  (display-time-mode)
+		  (setq display-time-mail-function #'dtm-mail-function
+				display-time-interval 20
+				display-time-string-forms
+				'("<" (format-time-string "%H:%M" now) load
+				  (if mail
+					  (concat
+					   " "
+					   (propertize display-time-mail-string
+								   'help-echo (dtm-who-from)
+								   'mouse-face 'mode-line-highlight
+								   'local-map (make-mode-line-mouse-map
+											   'mouse-1 read-mail-command)))
+					"")
+				  "> "))
+		  :config
+		  (setq dtm-maildir-base-dir "~/etc/mail/"
+				dtm-maildir-list '("pers" "uni")))
+	  #+END_SRC
+
+	  This loads a local, external elisp file that checks for mail on my
+	  Maildir directories.
 
 **** IRC
 	 #+BEGIN_SRC emacs-lisp
