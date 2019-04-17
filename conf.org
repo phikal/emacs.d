@@ -331,6 +331,13 @@
 	open the standard startup buffer (with a timestamp of when I opened
 	Emacs), since I never use it anyways.
 
+*** Bell
+	#+BEGIN_SRC emacs-lisp
+	  (setq ring-bell-function #'ignore)
+	#+END_SRC
+
+	Don't make sounds when I make mistakes. I'll notice by myself,
+
 *** Whitespace and Formatting
 	#+BEGIN_SRC emacs-lisp
 	  (setq-default fill-column 72
