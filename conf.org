@@ -855,7 +855,12 @@
 		 (?o "~/doc/org/")
 		 (?n "~/doc/org/notes.org")
 		 (?p "~/doc/org/pers.org")
-		 (?j "~/doc/org/ws18.org")
+		 (?j ,(with-temp-buffer
+				(insert-file-contents "~/doc/org/.org-agenda")
+				(goto-char (point-min))
+				(expand-file-name
+				 (buffer-substring (point) (line-end-position))
+				 "~/doc/org/")))
 		 (?r "~/doc/read/")
 		 (?u "~/doc/uni/")
 		 (?l ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
@@ -1706,19 +1711,17 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (setq org-directory (expand-file-name "~/doc/org/")
-			 org-agenda-files (mapcar (lambda (f) (expand-file-name
-												   (concat org-directory f ".org")))
-									  '("ws18" "pers" "notes"))
+			 org-agenda-files ".org-agenda"
 			 org-agenda-include-diary t
 			 org-agenda-inhibit-startup t
 			 org-agenda-window-setup 'current-window
 			 org-default-notes-file (expand-file-name "notes.org" org-directory))
-
 	 #+END_SRC
 
 	 Within my documents directory (=~/doc/=) I have an =org= directory just
-	 for org files, which I notify =org-mode= of. Furthermore, I inform Org
-	 about my notes and agenda file.
+	 for org files, as set in =org-directory=. In this directory, there is
+	 another file, just called =.org-agenda=, where on each line one file
+	 is listed, to add to my agenda list.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (setq org-capture-templates
