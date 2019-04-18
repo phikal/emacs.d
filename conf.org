@@ -2094,8 +2094,9 @@
 				   (setl lisp-indent-function 'common-lisp-indent-function))
 		 :config
 		 (setq inferior-lisp-program (executable-find "sbcl")
-			   slime-completion-at-point-functions '(slime-fuzzy-complete-symbol)
-			   slime-contribs '(slime-autodoc slime-cl-indent slime-fuzzy))
+			   slime-completion-at-point-functions '(slime-complete-symbol*
+													 slime-fuzzy-complete-symbol)
+			   slime-contribs '(slime-fancy slime-autodoc slime-cl-indent slime-fuzzy))
 		 (let ((core (expand-file-name "sbcl.core-for-slime" user-emacs-directory)))
 		   (when (file-exists-p core)
 			 (setf (alist-get 'sbcl slime-lisp-implementations)
