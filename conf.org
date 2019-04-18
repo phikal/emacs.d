@@ -1411,10 +1411,10 @@
 		  :init (require 'dt-maildir)
 		  :config
 		  (setq display-time-mail-function #'dt-maildir-mail-function
-				display-time-load-average-threshold 0.25
+				display-time-default-load-average nil
 				display-time-interval 20
 				display-time-string-forms
-				'("<" (format-time-string "%H:%M" now) load
+				'("" (format-time-string "%H:%M" now)
 				  (if mail
 					  (concat
 					   " "
@@ -1424,7 +1424,7 @@
 								   'local-map (make-mode-line-mouse-map
 											   'mouse-1 read-mail-command)))
 					"")
-				  "> ")
+				  " ")
 
 				dt-maildir-maildir-base-dir "~/etc/mail/"
 				dt-maildir-maildir-list '("pers" "uni"))
