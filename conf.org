@@ -584,8 +584,8 @@
 *** Scrolling
 	#+BEGIN_SRC emacs-lisp
 	  (setq scroll-preserve-screen-position t
-			scroll-conservatively 10000
-			scroll-step 1)
+			scroll-conservatively 0
+			scroll-step 0)
 	#+END_SRC
 
 	Prevent unnecessary moving of the buffer, when windows or frames
