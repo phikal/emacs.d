@@ -1712,7 +1712,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (setq org-directory (expand-file-name "~/doc/org/")
-			 org-agenda-files ".org-agenda"
+			 org-agenda-files (expand-file-name ".org-agenda" org-directory)
 			 org-agenda-include-diary t
 			 org-agenda-inhibit-startup t
 			 org-agenda-window-setup 'current-window
