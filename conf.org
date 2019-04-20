@@ -1733,7 +1733,7 @@
 			   ("t" "Todo" entry (file+headline "pers.org" "Todo")
 				"* TODO %?\n%i")
 			   ("c" "Note" plain (file+olp+datetree ,org-default-notes-file)
-				"* %?\n  Entered on %t")
+				"* %?\n  Entered on %U")
 			   ("l" "Link" entry (file+olp+datetree ,org-default-notes-file)
 				"* %?\n\ %^L\n  Entered on %U")
 			   ("j" "Journal" entry (file+datetree "journal.org.gpg")
