@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 ;;; published under CC0 into the public domain
 ;;; author: philip k. [https://zge.us.to], 2019
 ;;;
@@ -10,19 +11,20 @@
 
 (defgroup cpp-capf nil
   "Completion back-end for C using clang."
-  :group 'completion)
+  :group 'completion
+  :prefix "cpp-capf-")
 
 (defcustom cpp-capf-include-paths
   '("/usr/local/include"
 	"/usr/lib/llvm-7/lib/clang/7.0.1/include"
 	"/usr/include/x86_64-linux-gnu"
 	"/usr/include" "." ".." "../..")
-  "Paths to directories with header files"
+  "Paths to directories with header files."
   :type 'list
   :group 'cpp-capf)
 
 (defcustom cpp-capf-extra-flags nil
-  "Additional flags to call clang with"
+  "Additional flags to call clang with."
   :type 'list
   :group 'cpp-capf)
 
@@ -32,6 +34,8 @@
   :group 'cpp-capf)
 
 (defun cpp-capf--completions (&rest _ignore)
+  "Function used for ‘completion-at-point-functions’ in by
+`cpp-completion-at-point-function'."
   (let* ((temp (generate-new-buffer " *clang*")))
 	(prog2
 		(apply
@@ -62,6 +66,8 @@
 
 ;;;###autoload
 (defun cpp-completion-at-point-function ()
+  "Return list of items for `completion-at-point' for completing
+C code."
   (unless cpp-capf-clang
 	(error "company either not installed or not in path"))
   (list (save-excursion
