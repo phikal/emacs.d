@@ -928,6 +928,8 @@
 *** Quickly get Point after Operation
 	#+BEGIN_SRC emacs-lisp
 	  (defmacro point-after (func &rest args)
+		"Execute the passed function `func' with arguments `args' and
+	  return the value of the point afterwards."
 		`(save-excursion
 		   (ignore-errors (,func ,@args))
 		   (point)))
