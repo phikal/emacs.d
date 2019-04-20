@@ -611,7 +611,7 @@
 
 *** Help-buffers
 	#+BEGIN_SRC emacs-lisp
-	  (setq help-window-select nil)
+	  (setq help-window-select t)
 	#+END_SRC
 
 	Usually when using Emacs' online-help system, it doesn't move the
@@ -666,7 +666,6 @@
 *** Window Focus
 	#+BEGIN_SRC emacs-lisp
 	  (add-hook 'occur-mode-hook (lambda () (pop-to-buffer "*Occur*" nil t)))
-	  (add-hook 'help-mode-hook (lambda () (pop-to-buffer "*Help*" nil t)))
 	#+END_SRC
 
 	These hooks raise windows when they are created. I'm trying to find
