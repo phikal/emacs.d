@@ -1217,7 +1217,8 @@
 	  #+BEGIN_SRC emacs-lisp
 		(setq gnus-use-full-window nil
 			  gnus-novice-user nil
-			  gnus-expert-user t)
+			  gnus-expert-user t
+			  read-mail-command 'gnus)
 	  #+END_SRC
 
 	  =gnus-use-full-window= prevents Gnus from disturbing my current
@@ -1362,7 +1363,6 @@
 				message-kill-buffer-on-exit t
 				message-forward-as-mime t
 				mail-user-agent 'gnus-user-agent
-				read-mail-command 'gnus
 				sendmail-program (executable-find "msmtp"))
 	  #+END_SRC
 
