@@ -1010,8 +1010,12 @@
 				("C-M-z" . avy-goto-char)))
 	 #+END_SRC
 
-	 When editing text, most time isn't (or shouldn't be) spent on
-	 manipulating text /per se/.
+	 Avy is an alternative to ace-jump, which itself is supposed to be
+	 inspired by an extention for vi. It allows me to jump to a
+	 character or word currently on the screen, by typing one or more
+	 letters. For my proposes, I most often jump to words, and
+	 occasionally to specific character -- the relative ease of the two
+	 keybindings I have chosen represents this.
 
 *** Extensions
 **** Auto-completion
