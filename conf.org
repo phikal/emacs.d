@@ -2527,20 +2527,22 @@
 
 ** Timestamp
    #+BEGIN_SRC emacs-lisp
-	 (defun zge/add-timestamp ()
-	   "Prepend a UNIX timestamp to buffer, if it doesn't alreay exits."
-	   (interactive)
+	 (defun zge/add-timestamp (keep)
+	   "Prepend a special UNIX timestamp to buffer"
+	   (interactive "P")
 	   (save-excursion
 		 (goto-char (point-min))
-		 (insert (format-time-string "%s"))
-		 (comment-region (point-min) (point))
-		 (end-of-line)
-		 (newline 2)))
+		 (insert (format-time-string
+				  (if (or keep (looking-at-p "<!--@ [[:digit:]]+ "))
+					  (progn
+						(kill-word 1)
+						"<!--@ %s")
+					"<!--@ %s -->\n\n")))))
 
 	 (defalias 'add-timestamp 'zge/add-timestamp)
    #+END_SRC
 
-   For my ad-hoc blog, I insert a UNIX timestamp
+   For my ad-hoc blog, I insert a specially formatted UNIX timestamp.
 
 ** Kill buffer and open Dired
    #+BEGIN_SRC emacs-lisp
