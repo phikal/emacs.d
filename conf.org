@@ -938,21 +938,6 @@
 	operation (=forward-word=, =backward-sexp=, ...), and this macro makes
 	it easy to get this information.
 
-*** Configure /Completion At Point/
-	#+BEGIN_SRC emacs-lisp
-	  (defmacro capf-conf (hook func)
-		"Configure a `completion-at-point' backend for a mode, by
-	  adding a function to locally append `func' to
-	  `completion-at-point-functions'."
-		`(add-hook (quote hook)
-				   (setl completion-at-point-functions
-						 (cons ,func completion-at-point-functions))))
-	#+END_SRC
-
-	I have written my own /completion at point/ function, and this macro
-	just makes it easier and less repetitive to set these up, for a
-	mode. Examples may be found below.
-
 * Packages and Other Configurations
   #+BEGIN_SRC emacs-lisp
 	(unless (package-installed-p 'use-package)
@@ -1944,10 +1929,14 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cpp-capf
-		 :after (c++-mode c-mode)
+		 :demand t
 		 :load-path "lisp/"
-		 :init
-		 :config (capf-conf c-mode-hook #'cpp-completion-at-point-function))
+		 :after cc-mode
+		 :config
+		 (require 'cpp-capf)
+		 (add-hook 'c-mode-hook
+				   (setl completion-at-point-functions
+						 (list #'cpp-completion-at-point-function))))
 	 #+END_SRC
 
 	 Finally I load my own clang-based =completion-at-point= backend.
@@ -2031,11 +2020,14 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-capf
-		 :after go-mode
+		 :demand t
 		 :load-path "lisp/"
+		 :after go-mode
 		 :config
 		 (require 'go-capf)
-		 (capf-conf go-mode-hook #'go-completion-at-point-function))
+		 (add-hook 'go-mode-hook
+				   (setl completion-at-point-functions
+						 (list #'go-completion-at-point-function))))
 	 #+END_SRC
 
 	 Just like with C above, I load my own =gocode= based completion
