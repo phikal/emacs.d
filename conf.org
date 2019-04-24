@@ -2166,17 +2166,17 @@
 **** Python
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package anaconda-mode
-		 :if (executable-find "ipython3")
+		 :if (executable-find "python3")
 		 :config
-		 (setq python-shell-interpreter "ipython3")
+		 (setq python-shell-interpreter "python3")
 		 :hook ((python-mode .anaconda-mode)
 				(python-mode . anaconda-eldoc-mode)))
 	 #+END_SRC
 
-	I keep my Python setup simple but functional, since I don't use Python
-	/that/ much, but like to have it working when I do. That means,
-	documentation, code exploration and completion should work as
-	expected, but other than that, I don't require too much.
+	 I keep my Python setup simple but functional, since I don't use
+	 Python /that/ much, but like to have it working when I do. That
+	 means, documentation, code exploration and completion should work
+	 as expected, but other than that, I don't require too much.
 
 **** COMMENT R
 	 #+BEGIN_SRC emacs-lisp
