@@ -2283,7 +2283,7 @@
 			   yas-wrap-around-region t)
 		 (defun zge/indent-then-expand ()
 		   (interactive)
-		   (if (and (eq last-command 'indent-then-expand)
+		   (if (and (eq last-command 'zge/indent-then-expand)
 					(not (nth 3 (syntax-ppss)))
 					(not (nth 4 (syntax-ppss)))
 					(looking-at-p (rx (or space eol eos))))
