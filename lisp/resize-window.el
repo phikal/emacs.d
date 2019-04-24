@@ -25,5 +25,5 @@
   :keymap resize-window-mode-map
   :global t)
 
-(provide 'resize-windows)
+(provide 'resize-window)
 ;;; resize-windows.el ends here
