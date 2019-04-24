@@ -2754,6 +2754,13 @@
    do need something else, I turn it on manually.
 
    #+BEGIN_SRC emacs-lisp
+	 (add-hook 'text-mode-hook #'abbrev-mode)
+   #+END_SRC
+
+   /Completing/ my [[*Abbrevations][above started]] =abbrev= configuration, I enable
+   =abbrev-mode= for all text-modes
+
+   #+BEGIN_SRC emacs-lisp
 	 (add-hook 'text-mode-hook #'electric-pair-local-mode)
    #+END_SRC
 
