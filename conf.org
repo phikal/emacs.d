@@ -2158,11 +2158,14 @@
 **** Python
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package anaconda-mode
-		 :if (executable-find "python3")
+		 :if (executable-find "ipython3")
 		 :config
-		 (setq python-shell-interpreter "python3")
-		 :hook ((python-mode .anaconda-mode)
-				(python-mode . anaconda-eldoc-mode)))
+		 (setq python-shell-interpreter "ipython3"
+			   python-shell-interpreter-args "--simple-prompt -i")
+		 :hook ((python-mode . anaconda-mode)
+				(inferior-python-mode . anaconda-mode)
+				(python-mode . anaconda-eldoc-mode)
+				(inferior-python-mode . anaconda-mode)))
 	 #+END_SRC
 
 	 I keep my Python setup simple but functional, since I don't use
