@@ -2091,30 +2091,26 @@
 	   (use-package slime
 		 :if (executable-find "sbcl")
 		 :after paredit
-		 :init
-		 (add-hook 'common-lisp-mode-hook
-				   (setl lisp-indent-function 'common-lisp-indent-function))
 		 :config
 		 (setq inferior-lisp-program (executable-find "sbcl")
-			   slime-completion-at-point-functions '(slime-complete-symbol*
-													 slime-fuzzy-complete-symbol)
-			   slime-contribs '(slime-fancy slime-autodoc slime-cl-indent slime-fuzzy))
-		 (let ((core (expand-file-name "sbcl.core-for-slime" user-emacs-directory)))
-		   (when (file-exists-p core)
-			 (setf (alist-get 'sbcl slime-lisp-implementations)
-				   `(("sbcl" "--core" ,core)))))
+			   slime-contribs '(slime-fancy slime-hyperdoc slime-cl-indent))
 		 :bind (:map slime-mode-map ("C-#" . slime-selector))
 		 :interpreter ("sbcl" . common-lisp-mode)
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
 				((rx ".cl" eos) . common-lisp-mode)))
 	 #+END_SRC
 
-	 Since Elisp and Common Lisp share a common ancestry in Maclisp and
-	 Franzlisp (more so that Scheme), it should be worthwhile to learn
-	 CL. Additionally, the =cl= library for Emacs seems to be quite popular
-	 -- and what better place to learn Common Lisp than in Emacs itself
-	 with the popular SLIME (The Superior Lisp Interaction Mode for
-	 Emacs) environment?
+	 Just like Org, [[https://common-lisp.net/project/slime/][SLIME]], /the/ Common Lisp development environment, is
+	 one of the best and most thorough Emacs packages that has been
+	 created some ~20 years ago. This [[https://www.youtube.com/watch?v=_B_4vhsmRRI][video demonstration]] gives a good
+	 overview of it's features, such as auto completion, debugging,
+	 documentation, etc.
+
+	 My main customisation are:
+	 - setting up [[http://www.sbcl.org/][SBCL]]
+	 - using common-lisp specific indentation,
+	 - loading additional SLIME packages (REPL, hyperspec documentation,
+       eldoc-like documentation, alternative completion mechanisms, ...)
 
 **** Haskell
 	 #+BEGIN_SRC emacs-lisp
