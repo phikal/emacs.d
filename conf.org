@@ -1883,7 +1883,7 @@
 		 :if (executable-find "cmark")
 		 :config
 		 (setq markdown-italic-underscore t
-			   markdown-command "cmark")
+			   markdown-command (executable-find "cmark"))
 		 :mode (rx (or (seq bos "README" (opt ".md"))
 					   (or ".markdown" ".mkdn" ".md"))
 				   eos))
@@ -1893,11 +1893,10 @@
 	 nowadays, and tools like [[https://pandoc.org/][Pandoc]] really bring out it's inner
 	 potential (or rather create it in the first place). =Markdown-mode=
 	 offers nice support for quite a few Pandoc features, so it's usually
-	 my default choice when I have to work with medium to longer sized
-	 documents.
+	 my default choice when I have to work with shorter to medium sized
+	 documents, and web-related content generally.
 
-	 For simple previews, I've set [[https://kristaps.bsd.lv/lowdown][lowdown]] as my markdown processor, due
-	 to it's speed (as compared to =markdown.pl= or Pandoc).
+	 I make use of [[https://github.com/commonmark/cmark][cmark]] as my default markdown to HTML converter.
 
 *** Programming Languages
 **** C
