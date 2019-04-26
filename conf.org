@@ -1918,10 +1918,11 @@
 	 I'm used to =C-c C-k= for compiling, but c-mode disagrees.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (setq gdb-display-io-nopopup t
-			 gdb-show-main t
-			 gdb-enable-debug t
-			 gdb-many-windows t)
+	   (with-eval-after-load 'gdb-mi
+		 (setq gdb-display-io-nopopup t
+			   gdb-show-main t
+			   gdb-enable-debug t
+			   gdb-many-windows t))
 	 #+END_SRC
 
 	 Currently my only option is to disable a "dedicated" I/O buffer,
