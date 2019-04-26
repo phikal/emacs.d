@@ -1481,7 +1481,6 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (setq-default browse-url-browser-function 'browse-url-firefox
 					 eww-download-directory (expand-file-name "~/dl")
-					 eww-search-prefix "https://duckduckgo.com/lite/?q="
 					 shr-use-colors nil)
 	 #+END_SRC
 
