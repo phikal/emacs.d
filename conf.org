@@ -418,6 +418,7 @@
 
 	This option make Emacs split windows in a more sane and visually
 	pleasing manner, ie. proportionally.
+
 *** Disable graphical dialogues
 	#+BEGIN_SRC emacs-lisp
 	  (setq use-dialog-box nil)
@@ -539,8 +540,8 @@
 
 *** Auto-reverting
 	#+BEGIN_SRC emacs-lisp
-	  (setq global-auto-revert-non-file-buffers t)
-	  (setq auto-revert-verbose nil)
+	  (setq global-auto-revert-non-file-buffers t
+			auto-revert-verbose nil)
 	#+END_SRC
 
 	Don't print messages to the minibuffer about reverting files
@@ -984,7 +985,7 @@
 
 	 The =expand-region= utility is a helpful function that let's the user
 	 select increasingly larger semantically meaningful regions. I've
-	 bound it to the recommended default
+	 bound it to the recommended default.
 
 **** Jump in Buffer
 	 #+BEGIN_SRC emacs-lisp
@@ -1786,21 +1787,19 @@
 	 Load languages for [[info:org#Library%20of%20Babel][Org Babel]], without the need to reconfirm.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (with-eval-after-load 'ox-html
-		 (setq org-html-mathjax-template
-			   "<link rel=\"stylesheet\"
-					  href=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css\"
-					  integrity=\"sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y\"
-					  crossorigin=\"anonymous\"/>
-				<script defer=\"defer\"
-						src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js\"
-						integrity=\"sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx\"
-						crossorigin=\"anonymous\"></script>
-			   <script defer=\"defer\"
-					   src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js\"
-					   integrity=\"sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe\"
-					   crossorigin=\"anonymous\"
-					   onload=\"renderMathInElement(document.body);\"></script>"))
+	   (setq-default
+		org-html-mathjax-template
+		"<link rel=\"stylesheet\"
+		   href=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css\"
+		   integrity=\"sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y\"
+		   crossorigin=\"anonymous\"/> <script defer=\"defer\"
+		   src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js\"
+		   integrity=\"sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx\"
+		   crossorigin=\"anonymous\"></script> <script defer=\"defer\"
+		   src=\"https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js\"
+		   integrity=\"sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe\"
+		   crossorigin=\"anonymous\"
+		   onload=\"renderMathInElement(document.body);\"></script>")
 	 #+END_SRC
 
 	 Setup KaTeX as compared to the default MathJax. Code from [[https://amitp.blogspot.com/2019/02/emacs-org-mode-and-katex.html][here]].
