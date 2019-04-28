@@ -978,7 +978,8 @@
 **** Expand Region
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package expand-region
-		 :bind ("C-=" . er/expand-region))
+	     :functions (er/expand-region)
+	     :bind ("C-=" . er/expand-region))
 	 #+END_SRC
 
 	 The =expand-region= utility is a helpful function that let's the user
@@ -1942,7 +1943,7 @@
 		 :if (executable-find "gnuplot")
 		 :interpreter ("gnuplot" . gnuplot-mode)
 		 :functions (gnuplot-send-string-to-gnuplot)
-		 :config
+		 :preface
 		 (defun zge/gnuplot-replot ()
 		   (interactive)
 		   (gnuplot-send-string-to-gnuplot "replot\n" 'line))
@@ -2134,11 +2135,12 @@
 
 **** Perl
 	 #+BEGIN_SRC emacs-lisp
-	   (add-hook 'cperl-mode-hook
-			(lambda () (setl eldoc-documentation-function
-							 (lambda ()
-							   (let (cperl-message-on-help-error)
-								 (car (cperl-get-help)))))))
+	   (with-eval-after-load 'cperl
+		(add-hook 'cperl-mode-hook
+				  (lambda () (setl eldoc-documentation-function
+								   (lambda ()
+									 (let (cperl-message-on-help-error)
+									   (car (cperl-get-help))))))))
 	 #+END_SRC
 
 	 As of now, this is my entire perl setup (along with the =defalias=
@@ -2265,10 +2267,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package yasnippet
 		 :diminish yas-minor-mode
-		 :functions (yas-expand zge/indent-then-expand)
-		 :config
-		 (setq yas-prompt-functions '(yas-dropdown-prompt yas-completing-prompt)
-			   yas-wrap-around-region t)
+		 :functions (yas-expand)
+		 :preface
 		 (defun zge/indent-then-expand ()
 		   (interactive)
 		   (if (and (eq last-command 'zge/indent-then-expand)
@@ -2407,7 +2407,7 @@
 			 (let ((lang (pcase (match-string-no-properties 1)
 						   ("en" "british")
 						   ("de" "german-new8")
-						   (other nil))))
+						   (_ nil))))
 			   (when lang
 				 (zge/toggle-dictionary lang)
 				 (message "Toggled language to \"%s\"" lang)))))))
