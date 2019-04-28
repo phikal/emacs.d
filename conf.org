@@ -1489,22 +1489,6 @@
 	 webpages (and HTML emails) with peculiar background colors render
 	 better.
 
-**** Translation
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package google-translate
-		 :config
-		 (setq google-translate-show-phonetic t
-			   google-translate-default-source-language "en"
-			   google-translate-default-target-language "de")
-		 :bind (("C-c t t" . google-translate-at-point)
-				("C-c t T" . google-translate-at-point-reverse)
-				("C-c t q" . google-translate-query-translate)
-				("C-c t Q" . google-translate-query-translate-reverse)))
-	 #+END_SRC
-
-	 When translating or writing texts, this package shows itself to be
-	 quite helpful, when I can't thing of a word.
-
 *** General Tools and Programs
 **** Spell Checking
 	 #+BEGIN_SRC emacs-lisp
