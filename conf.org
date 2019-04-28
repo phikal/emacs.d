@@ -990,7 +990,7 @@
 	   (use-package avy
 		 :config
 		 (avy-setup-default)
-		 (setq avy-background t)
+		 :custom (avy-background t)
 		 :bind (("C-z" . avy-goto-word-1)
 				("C-M-z" . avy-goto-char)))
 	 #+END_SRC
@@ -1010,21 +1010,21 @@
 		 :diminish
 		 :commands ivy-mode
 		 :config
-		 (setq ivy-wrap t
-			   ivy-height 8
-			   ivy-display-style 'fancy
-			   ivy-use-virtual-buffers t
-			   ivy-case-fold-search-default t
-			   ivy-re-builders-alist '((t . ivy--regex-ignore-order))
-			   enable-recursive-minibuffers t)
 		 (ivy-mode t)
+		 :custom ((ivy-wrap t)
+				  (ivy-height 8)
+				  (ivy-display-style 'fancy)
+				  (ivy-use-virtual-buffers t)
+				  (ivy-case-fold-search-default t)
+				  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+				  (enable-recursive-minibuffers t))
 		 :bind (:map ivy-minibuffer-map
 					 ("<RET>" . ivy-alt-done)))
 	 #+END_SRC
 
-	 I use Ivy to extend the default =find-file=, =switch-to-buffer=,
-	 etc. commands. Compared to it's alternatives, Ivy is simpler that
-	 Helm but more powerful (and faster) than Ido.
+	 I use Ivy to extend the default =find-file=, =switch-to-buffer=, etc.
+	 commands. Compared to it's alternatives, Ivy is simpler (and
+	 faster) that Helm but more powerful than Ido.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package counsel
@@ -1107,8 +1107,8 @@
 	   (use-package winner
 		 :demand
 		 :config
-		 (setq winner-dont-bind-my-keys t)
-		 (winner-mode)
+		 :custom ((winner-dont-bind-my-keys t))
+		 :config (winner-mode)
 		 :bind (:map winner-mode-map
 					 ("C-c <right>" . nil)
 					 ("C-c <left>" . nil)
@@ -1434,16 +1434,15 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rcirc
 		 :commands (rcirc-update-activity-string)
+		 :custom ((rcirc-server-alist `(("zge.us.to"
+										 :user-name "zge"
+										 :nick "zge"
+										 :password ,zge/znc-pass
+										 :port 23551
+										 :encryption tls)))
+				  (rcirc-reconnect-delay 12)
+				  (rcirc-omit-responses '("NICK" "AWAY")))
 		 :config
-		 (setq rcirc-server-alist
-			   `(("zge.us.to"
-				  :user-name "zge"
-				  :nick "zge"
-				  :password ,zge/znc-pass
-				  :port 23551
-				  :encryption tls))
-			   rcirc-reconnect-delay 12
-			   rcirc-omit-responses '("NICK" "AWAY"))
 		 (advice-add 'rcirc-abbreviate
 					 :override #'identity)
 		 (advice-add 'rcirc-next-active-buffer
@@ -1463,9 +1462,8 @@
 **** Feed Syndication
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package elfeed
-		 :config
-		 (setq elfeed-search-filter "@1-month-ago +unread"
-			   elfeed-db-directory "~/.local/share/elfeed")
+		 :custom ((elfeed-search-filter "@1-month-ago +unread")
+				  (elfeed-db-directory "~/.local/share/elfeed"))
 		 :bind ("C-x x f" . elfeed))
 	 #+END_SRC
 
@@ -1545,12 +1543,11 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ledger-mode
 		 :if (executable-find "ledger")
-		 :config
-		 (setq ledger-source-directory (expand-file-name "~/doc/ledger")
-			   ledger-reconcile-default-commodity "EUR"
-			   ledger-highlight-xact-under-point nil
-			   ledger-master-file (expand-file-name "master.lg" ledger-source-directory)
-			   ledger-use-iso-dates t)
+		 :custom ((ledger-source-directory (expand-file-name "~/doc/ledger"))
+				  (ledger-reconcile-default-commodity "EUR")
+				  (ledger-highlight-xact-under-point nil)
+				  (ledger-master-file (expand-file-name "master.lg" ledger-source-directory))
+				  (ledger-use-iso-dates t))
 		 :mode ((rx ".lg" eos) . ledger-mode))
 	 #+END_SRC
 
@@ -1562,9 +1559,9 @@
 	   (use-package pdf-tools
 		 :if window-system
 		 :config
-		 (setq pdf-view-display-size 'fit-page
-			   pdf-view-midnight-colors '("#c7c7c7" . "#232333"))
 		 (pdf-tools-install t)
+		 :custom ((pdf-view-display-size 'fit-page)
+				  (pdf-view-midnight-colors '("#c7c7c7" . "#232333")))
 		 :mode ((rx ".pdf" eos) . pdf-view-mode)
 		 :magic ("%PDF-" . pdf-view-mode)
 		 :bind (:map pdf-view-mode-map
@@ -1605,15 +1602,15 @@
 	   (use-package latex
 		 :ensure auctex
 		 :if (executable-find "pdflatex")
+		 :custom ((TeX-master 'dwim)
+				  (LaTeX-electric-left-right-brace t)
+				  (TeX-auto-save t)
+				  (TeX-parse-self t)
+				  (preview-auto-cache-preamble t)
+				  (reftex-plug-into-AUCTeX t)
+				  (reftex-enable-partial-scans t))
 		 :config
-		 (setq-default TeX-master 'dwim)
-		 (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")
-			   LaTeX-electric-left-right-brace t
-			   TeX-auto-save t
-			   TeX-parse-self t
-			   preview-auto-cache-preamble t
-			   reftex-plug-into-AUCTeX t
-			   reftex-enable-partial-scans t)
+		 (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools"))
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
 		 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 		 (add-hook 'LaTeX-mode-hook (setl electric-pair-inhibit-predicate
@@ -1880,9 +1877,8 @@
      #+BEGIN_SRC emacs-lisp
 	   (use-package markdown-mode
 		 :if (executable-find "cmark")
-		 :config
-		 (setq markdown-italic-underscore t
-			   markdown-command (executable-find "cmark"))
+		 :custom ((markdown-italic-underscore t)
+				  (markdown-command (executable-find "cmark")))
 		 :mode (rx (or (seq bos "README" (opt ".md"))
 					   (or ".markdown" ".mkdn" ".md"))
 				   eos))
@@ -2128,9 +2124,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package idris-mode
 		 :if (executable-find "idris")
-		 :config
-		 (setq idris-stay-in-current-window-on-compiler-error t
-			   idris-prover-restore-window-configuration t)
+		 :custom ((idris-stay-in-current-window-on-compiler-error t)
+				  (idris-prover-restore-window-configuration t))
 		 :interpreter "idris"
 		 :mode (rx ".idr" eos))
 	 #+END_SRC
@@ -2153,14 +2148,17 @@
 **** Python
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package anaconda-mode
-		 :if (executable-find "ipython3")
-		 :config
-		 (setq python-shell-interpreter "ipython3"
-			   python-shell-interpreter-args "--simple-prompt -i")
+		 :if (executable-find "python3")
+		 :after flycheck
+		 :custom ((python-shell-interpreter "ipython3")
+				  (python-shell-interpreter-args "--simple-prompt -i")
+				  (flycheck-python-pylint-executable (executable-find "pylint3")))
 		 :hook ((python-mode . anaconda-mode)
 				(inferior-python-mode . anaconda-mode)
 				(python-mode . anaconda-eldoc-mode)
-				(inferior-python-mode . anaconda-mode)))
+				(inferior-python-mode . anaconda-mode))
+		 :bind (:map inferior-python-mode-map
+					 ("M-<tab>" . completion-at-point)))
 	 #+END_SRC
 
 	 I keep my Python setup simple but functional, since I don't use
@@ -2279,7 +2277,10 @@
 					(looking-at-p (rx (or space eol eos))))
 			   (yas-expand)
 			 (indent-for-tab-command)))
-		 (define-key yas-minor-mode-map (kbd "<tab>") #'zge/indent-then-expand)
+		 :custom ((yas-prompt-functions '(yas-completing-prompt))
+				  (yas-wrap-around-region t))
+		 :bind (:map yas-minor-mode-map
+					 ("<tab>" . zge/indent-then-expand))
 		 :hook (prog-mode . yas-minor-mode))
 	 #+END_SRC
 
@@ -2309,9 +2310,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package magit
 		 :if (executable-find "git")
-		 :config
-		 (setq magit-diff-options "-b --patience"
-			   magit-save-repository-buffers 'dontask)
+		 :custom ((magit-diff-options "-b --patience")
+				  (magit-save-repository-buffers 'dontask))
 		 :bind ("C-x g" . magit-status))
 	 #+END_SRC
 
@@ -2350,11 +2350,10 @@
 		 :commands projectile-mode
 		 :init
 		 (projectile-mode t)
-		 :config
-		 (setq projectile-enable-caching t
-			   projectile-require-project-root nil
-			   projectile-switch-project-action 'projectile-dired
-			   projectile-completion-system 'default)
+		 :custom ((projectile-enable-caching t)
+				  (projectile-require-project-root nil)
+				  (projectile-switch-project-action 'projectile-dired)
+				  (projectile-completion-system 'default))
 		 :bind ("C-c p" . projectile-command-map))
 	 #+END_SRC
 
