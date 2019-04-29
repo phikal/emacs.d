@@ -2703,6 +2703,14 @@
    After modifying the programming keymap, make sure a list of minor
    modes are added started in every programming environment.
 
+** Interpreters
+   #+BEGIN_SRC emacs-lisp
+	 (add-hook 'comint-mode-hook #'electric-pair-local-mode)
+   #+END_SRC
+
+   Inferior shells, interpreters, etc. should pair parentheses and other
+   characters as needed.
+
 ** Writing
    #+BEGIN_SRC emacs-lisp
 	 (add-hook 'text-mode-hook
