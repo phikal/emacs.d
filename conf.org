@@ -1552,6 +1552,7 @@
 		 (diminish 'hs-minor-mode)
 		 (diminish 'eldoc-mode)
 		 (diminish 'flyspell-mode)
+		 (diminish 'abbrev-mode)
 		 (diminish 'auto-revert-mode)
 		 (diminish 'auto-fill-mode))
 	 #+END_SRC
