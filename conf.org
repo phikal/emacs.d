@@ -1621,6 +1621,8 @@
 						"\\[ ? \\]" cdlatex-position-cursor nil t nil))
 		 (dolist (key '("(" "[" "{" "$" "|" "<" "C-c ?" "C-c {" "C-<return>"))
 		   (define-key cdlatex-mode-map (kbd key) nil))
+		 :bind (:map cdlatex-mode-map
+					 ("<backtab>" . indent-according-to-mode))
 		 :hook (LaTeX-mode . cdlatex-mode))
 	 #+END_SRC
 
