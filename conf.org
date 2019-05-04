@@ -2513,7 +2513,7 @@
 ** Kill buffer and open Dired
    #+BEGIN_SRC emacs-lisp
 	 (with-eval-after-load 'dired-x
-	   (defun kill-buffer-and-dired ()
+	   (defun zge/kill-buffer-and-dired ()
 		 "Kill currently opened buffer and replace it with a dired
 	 buffer the buffer was in."
 		 (interactive)
@@ -2521,7 +2521,7 @@
 		   (dired-jump)
 		   (kill-buffer buf)))
 
-	   (global-set-key (kbd "C-x x j") #'kill-buffer-and-dired))
+	   (global-set-key (kbd "C-x x j") #'zge/kill-buffer-and-dired))
    #+END_SRC
 
    The function name says it all. If I want to kill a file, but stay in
