@@ -434,9 +434,6 @@
 			savehist-save-minibuffer-history t
 			savehist-additional-variables '(kill-ring
 											search-ring
-											eshell-history-ring
-											compile-command
-											recentf-list
 											calc-stack)
 			savehist-ignored-variables '(tmm--history
 										 yes-or-no-p-history))
