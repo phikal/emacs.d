@@ -1552,10 +1552,7 @@
 		 :config
 		 (diminish 'hs-minor-mode)
 		 (diminish 'eldoc-mode)
-		 (diminish 'flyspell-mode)
-		 (diminish 'abbrev-mode)
-		 (diminish 'auto-revert-mode)
-		 (diminish 'auto-fill-mode))
+		 (diminish 'flyspell-mode))
 	 #+END_SRC
 
 	 This package is used by many others via the =:diminish= keyword in
