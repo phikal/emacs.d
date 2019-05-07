@@ -9,14 +9,16 @@
 
   To load this configuration, make sure you have the ~.org~ file locally
   on your system, and call it using ~org-babel-load-file~. Furthermore,
-  make sure that you've loaded the ~cl-lib~ module with ~require~.
+  make sure that you've loaded the ~cl-lib~ module with ~require~. An
+  example of how I initialize my configuration is given [[*Why use org/babel?][below]].
 
   This document, it's code and comments, are in the [[https://creativecommons.org/publicdomain/zero/1.0/deed][public domain]].
 
   The following configuration has been tested on a few different
-  systems, with different Emacs versions, but nothing below 25. Ideally
-  don't just copy the everything but read and adopt the code snippets
-  you think will help /your/ configuration work better for /your/ use case.
+  systems, with different Emacs versions, but nothing below 25, and
+  practically assuming 26.1. Ideally don't just copy the everything but
+  read and adopt the code snippets you think will help /your/
+  configuration work better for /your/ use case.
 
   This configuration is more regularly updated [[https://zge.us.to/emacs.d.html][on my website]], and the
   [[https://zge.us.to/git/emacs.d/][Git history]] (+source) is also public (alternatively also to be found
@@ -26,9 +28,9 @@
 
 ** Personal Emacs History
    My first encounters with Emacs must have been somewhere around late
-   2014, when I was looking around to find a proper text
-   editor. Overwhelmed by the options, I tried a lot of things out, such
-   as Sublime Text or Geany, but all of them felt missing, faulted
+   2013, when I was looking around to find a proper text editor.
+   Overwhelmed by the options, I tried a lot of things out, such as
+   Sublime Text or Geany, but all of them felt missing, faulted
    incomplete or simply wrong. It didn't take long for me to understand
    that the two main players turned out to be some of the oldest ones:
    vi (ie. vim) and Emacs (ie. GNU Emacs).
@@ -57,7 +59,7 @@
    change the theme (using the menu bar) and then close Emacs (=C-x
    C-x=). That was pretty much all I knew.
 
-   But somewhere around early 2015 (if not earlier) for some reason I
+   But somewhere around mid-2014 (if not earlier) for some reason I
    can't quite remember I was drawn towards Emacs. Possibilities could
    be
    1. Me having have met "real" Emacs users, and drawing my attention to
@@ -76,8 +78,8 @@
    ever get why (I did eventually). But for some reason I didn't stop
    using Emacs, but neither did I go too deep.
 
-   After some 2 1/2 years of bare survival, ups and downs, I started to
-   find out that people were writing literate configurations.
+   After a few years of bare survival, ups and downs, I started to find
+   out that people were writing literate configurations.
 
    Then I read [[https://sites.google.com/site/steveyegge2/tour-de-babel][an article]], that said the following:
 
