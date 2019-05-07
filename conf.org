@@ -825,6 +825,15 @@
 		(define-key calendar-mode-map (kbd "B") #'calendar-backward-week))
 	#+END_SRC
 
+*** Images
+	#+BEGIN_SRC emacs-lisp
+	  (define-key image-mode-map (kbd "H") #'image-transform-fit-to-height)
+	  (define-key image-mode-map (kbd "W") #'image-transform-fit-to-width)
+	#+END_SRC
+
+	For some reason, these two functions are not bound by default in
+	=image-mode=, but since they are quite useful, I do so instead.
+
 ** Registers
    #+BEGIN_SRC emacs-lisp
 	 (defvar zge/registers
