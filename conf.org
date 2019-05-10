@@ -2070,6 +2070,8 @@
 		 :after paredit
 		 :config
 		 (setq inferior-lisp-program (executable-find "sbcl")
+			   slime-completion-at-point-functions
+			   '(slime-filename-completion slime-simple-completion-at-point)
 			   slime-contribs '(slime-fancy slime-hyperdoc slime-cl-indent))
 		 :bind (:map slime-mode-map ("C-#" . slime-selector))
 		 :interpreter ("sbcl" . common-lisp-mode)
