@@ -1581,8 +1581,8 @@
 **** LaTeX
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package latex
-		 :ensure auctex
 		 :if (executable-find "pdflatex")
+		 :ensure auctex
 		 :custom ((TeX-master 'dwim)
 				  (LaTeX-electric-left-right-brace t)
 				  (TeX-auto-save t)
@@ -1591,7 +1591,8 @@
 				  (reftex-plug-into-AUCTeX t)
 				  (reftex-enable-partial-scans t))
 		 :config
-		 (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools"))
+		 (when (fboundp 'pdf-view-mode)
+		   (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")))
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
 		 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 		 (add-hook 'LaTeX-mode-hook (setl electric-pair-inhibit-predicate
