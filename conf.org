@@ -1508,14 +1508,15 @@
 
 **** RPN Calculator
 	 #+BEGIN_SRC emacs-lisp
-	   (setq-default calc-angle-mode 'rad
-					 calc-shift-prefix t
-					 calc-infinite-mode t
-					 calc-vector-brackets nil
-					 calc-vector-commas nil
-					 calc-matrix-just 'right
-					 calc-matrix-brackets '(R O)
-					 calc-complex-format 'i)
+	   (with-eval-after-load 'calc-mode
+		 (setq calc-angle-mode 'rad
+			   calc-shift-prefix t
+			   calc-infinite-mode t
+			   calc-vector-brackets nil
+			   calc-vector-commas nil
+			   calc-matrix-just 'right
+			   calc-matrix-brackets '(R O)
+			   calc-complex-format 'i))
 	 #+END_SRC
 
 	 I have grown fond of Emacs Calc, even though it might is be big
