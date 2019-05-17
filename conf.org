@@ -981,9 +981,11 @@
 	   (use-package avy
 		 :config
 		 (avy-setup-default)
-		 :custom (avy-background t)
+		 :custom ((avy-background t)
+				  (avy-style 'de-bruijn))
 		 :bind (("C-z" . avy-goto-word-1)
-				("C-M-z" . avy-goto-char)))
+				("C-M-z" . avy-resume)))
+
 	 #+END_SRC
 
 	 Avy is an alternative to ace-jump, which itself is supposed to be
