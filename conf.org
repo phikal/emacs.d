@@ -2569,8 +2569,8 @@
 	 (defun zge/switch-to-scratch ()
 	   "Switch to active scratch buffer."
 	   (interactive)
-	   (unless zge/scratch-buf
-		 (new-scratch t))
+	   (unless (buffer-live-p zge/scratch-buf)
+		 (new-scratch nil))
 	   (switch-to-buffer zge/scratch-buf))
 
 	 (global-set-key (kbd "<f12>") #'zge/switch-to-scratch)
