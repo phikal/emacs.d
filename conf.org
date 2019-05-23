@@ -1583,6 +1583,20 @@
 	 appear to me in Emacs in HTML form. I sometimes use it myself, but
 	 for the most part it's use by [[*Org][Org]].
 
+
+**** Kamoji
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package kamoji
+		 :load-path "lisp/"
+		 :bind ("C-x 8 k" . kamoji-insert))
+	 #+END_SRC
+
+	 Kamojis are eastern emoticons (something like "(b ᵔ▽ᵔ)b"), that are
+	 usually quite creative but hard to write. I've collected a few
+	 functions to easily insert these into the current buffer, where the
+	 main one, =kamoji-insert= let's me choose between multiple different
+	 categories.
+
 ** Programming
 *** Text Editing
 **** LaTeX

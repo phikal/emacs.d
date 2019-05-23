@@ -77,9 +77,9 @@ kamoji."
 No prefix argument opens a category then kamoji menu, a single
 prefix argument re-opens the last category, and a double prefix
 argument lists the last used kamojis."
-  (cond ((and (<= arg 16) (< 0 (ring-size kamoji--last-used)))
+  (cond ((and (>= arg 16) (< 0 (ring-size kamoji--last-used)))
 		 (completing-read "Last inserted Kamojis: " (ring-elements kamoji--last-used)))
-		((<= arg 4) (kamoji--select-kamoji kamoji--last-category))
+		((>= arg 4) (kamoji--select-kamoji kamoji--last-category))
 		(t (kamoji--select-kamoji nil))))
 
 (defun kamoji-insert-kill-ring (arg)
