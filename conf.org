@@ -1118,6 +1118,16 @@
 	 since this conflicts with my muscle memory for flycheck's
 	 next/previous error, so I use rebound the keys.
 
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package resize-window
+	 	 :load-path "lisp/"
+	 	 :bind (("C-x x RET" . resize-window-mode)))
+	 #+END_SRC
+
+	 I have written a little (global) minor mode to easily resize opened
+	 windows by overriding the arrow keys, and adding a few keys to
+	 easily split and delete other windows.
+
 *** OS Management and Tools
 **** Directory Managment
 	 #+BEGIN_SRC emacs-lisp

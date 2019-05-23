@@ -5,7 +5,7 @@
 
 (defvar resize-window-mode-map
   (let ((m (make-sparse-keymap)))
-	(dolist (k '(("<down>" . enlare-window)
+	(dolist (k '(("<down>" . enlarge-window)
 				 ("<up>" . shrink-window)
 				 ("<right>" . enlarge-window-horizontally)
 				 ("<left>" . shrink-window-horizontally)
