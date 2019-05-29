@@ -9,7 +9,7 @@
 				 ("<up>" . shrink-window)
 				 ("<right>" . enlarge-window-horizontally)
 				 ("<left>" . shrink-window-horizontally)
-				 ("C-<up>" . delete-other-windows)
+				 ("C-<up>" . other-window)
 				 ("C-<left>" . split-window-below)
 				 ("C-<right>" . split-window-right)
 				 ("C-<down>" . delete-window)
