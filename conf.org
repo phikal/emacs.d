@@ -734,6 +734,17 @@
 	When I've selected a region, and I type something, the region is
 	supposed to be deleted automatically.
 
+*** Cycle Spaces
+	#+BEGIN_SRC emacs-lisp
+	  (advice-add 'cycle-spacing :around
+				  (lambda (old arg &rest _) (funcall old (- arg))))
+	#+END_SRC
+
+	I use =cycle-spacing= a lot, and most of these are to remove empty
+	newlines, which can be done with a negative prefix argument. Hence,
+	I wrap the function with a default negative argument, to save me a
+	few keystrokes.
+
 ** Emacs-Subsystem Configuration
 *** Eldoc
 	#+BEGIN_SRC emacs-lisp
