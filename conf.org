@@ -1641,7 +1641,7 @@
 		 :config
 		 (setq cdlatex-paired-parens "$([{|<")
 		 (add-to-list 'cdlatex-math-modify-alist
-					  '(?B "\\mathbb" nil t nil nil))
+					  '(?# "\\mathbb" nil t nil nil))
 		 (add-to-list 'cdlatex-math-modify-alist
 					  '(?F "\\mathfrak" nil t nil nil))
 		 (add-to-list 'cdlatex-math-symbol-alist
