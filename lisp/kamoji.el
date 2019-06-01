@@ -12,22 +12,26 @@
 
 
 (defun kamoji--parse-buffer (buf)
-  "Parse a buffer creating a alist."
+  "Parse a buffer creating a alist.
+
+Categories are delimited by an group separator (ASCII 35), which
+are in turn split into tags and kamojis. These two are kept apart
+by a record separator (ASCII 36). Both tags and kamojis split
+their unit components by unit separators (ASCII 37)."
   (with-current-buffer buf
 	(let (records end)
 	  (goto-char (point-min))
-	  (while (save-excursion
-			   (setq end (search-forward "" nil t)))
+	  (while (save-excursion (setq end (search-forward "" nil t)))
 		(save-restriction
 		  (narrow-to-region (point) end)
-		  (let* ((sep (1- (search-forward "")))
-				 (names (split-string (buffer-substring
-									   (point-min) sep) ""))
+		  (let* ((names (split-string (buffer-substring
+									   (point-min)
+									   (1- (search-forward "")))
+									  ""))
 				 (kamojis (split-string (buffer-substring
 										 (point) (point-max)) "")))
 			(dolist (name names)
-			  (push (cons (string-trim-left name)
-						  (nbutlast kamojis 1))
+			  (push (cons name (nbutlast kamojis 1))
 					records))))
 		(goto-char end))
 	  records)))
