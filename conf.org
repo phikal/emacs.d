@@ -2682,6 +2682,8 @@
 					("C-x j" . jump-to-register)
 					("M-#". find-file-at-point)
 					("<print>" . other-window)
+					("M-F" . forward-to-word)
+					("M-B" . backward-to-word)
 					("C-M-<return>" . window-swap-states)
 					("C-M-<up>" . windmove-up)
 					("C-M-<down>" . windmove-down)
