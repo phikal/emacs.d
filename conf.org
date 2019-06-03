@@ -2666,6 +2666,24 @@
    configurations. The main difference is that I don't use the
    kill-ring, and employ my above defined [[*Quickly get Point after Operation][macro]].
 
+** Move from Downloads directory
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/move-from-dl ()
+	   (interactive)
+	   (let* ((file (read-file-name "Move: " "~/dl" nil t))
+			  (nfile (expand-file-name
+					  (file-name-nondirectory file)
+					  default-directory)))
+		 (rename-file file nfile)))
+
+	 (global-set-key (kbd "C-x x .") #'zge/move-from-dl)
+   #+END_SRC
+
+   Sometimes I have downloaded a file I would like to move to the
+   current directory I'm currently working in, but since this happens
+   quite a lot, this function makes it easier, by suggesting the right
+   files, right away.
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
