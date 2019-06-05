@@ -1561,10 +1561,11 @@
 		 (pdf-tools-install t)
 		 :custom ((pdf-view-display-size 'fit-page)
 				  (pdf-view-use-unicode-ligther nil)
-				  (pdf-view-midnight-colors '("#c7c7c7" . "#232333")))
+				  (pdf-view-midnight-colors '("#ffffff" . "#000000")))
 		 :mode ((rx ".pdf" eos) . pdf-view-mode)
 		 :magic ("%PDF-" . pdf-view-mode)
 		 :bind (:map pdf-view-mode-map
+					 ("i" . pdf-view-midnight-minor-mode)
 					 ("c" . pdf-annot-add-text-annotation)))
 	 #+END_SRC
 
