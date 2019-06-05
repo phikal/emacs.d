@@ -1449,15 +1449,15 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rcirc
 		 :commands (rcirc-update-activity-string)
-		 :custom ((rcirc-server-alist `(("zge.us.to"
-										 :user-name "zge"
-										 :nick "zge"
-										 :password ,zge/znc-pass
-										 :port 23551
-										 :encryption tls)))
-				  (rcirc-reconnect-delay 12)
+		 :custom ((rcirc-reconnect-delay 12)
 				  (rcirc-omit-responses '("NICK" "AWAY")))
 		 :config
+		 (setq rcirc-server-alist `(("zge.us.to"
+									 :user-name "zge"
+									 :nick "zge"
+									 :password ,zge/znc-pass
+									 :port 23551
+									 :encryption tls)))
 		 (advice-add 'rcirc-abbreviate
 					 :override #'identity)
 		 (advice-add 'rcirc-next-active-buffer
