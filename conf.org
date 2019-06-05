@@ -2673,7 +2673,7 @@
 	   (let* ((file (read-file-name "Move: " "~/dl" nil t))
 			  (nfile (expand-file-name
 					  (file-name-nondirectory file)
-					  default-directory)))
+					  (or dired-directory default-directory))))
 		 (rename-file file nfile)))
 
 	 (global-set-key (kbd "C-x x .") #'zge/move-from-dl)
