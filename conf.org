@@ -1138,6 +1138,23 @@
 	 windows by overriding the arrow keys, and adding a few keys to
 	 easily split and delete other windows.
 
+**** Per-Mode Colors
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package face-shift
+		 :demand t
+		 :load-path "lisp/"
+		 :config
+		 (add-hook 'prog-mode-hook (face-shift 'green))
+		 (add-hook 'text-mode-hook (face-shift 'yellow))
+		 (add-hook 'dired-mode-hook (face-shift 'blue))
+		 (add-hook 'eshell-mode-hook (face-shift 'pink))
+		 (add-hook 'comint-mode-map (face-shift 'pink)))
+	 #+END_SRC
+	 
+	 I like to have the buffer have a different tone, depending on what
+	 specifically it contains. In my case programming is slightly more
+	 green, while text has a yellow hue, etc.
+
 *** OS Management and Tools
 **** Directory Managment
 	 #+BEGIN_SRC emacs-lisp
