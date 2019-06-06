@@ -1437,8 +1437,7 @@
 		(use-package dt-maildir
 		  :demand t
 		  :load-path "lisp/"
-		  :init
-		  (require 'dt-maildir)
+		  :config
 		  (setq display-time-mail-function #'dt-maildir-mail-function
 				display-time-default-load-average nil
 				display-time-interval 20
@@ -1958,7 +1957,6 @@
 		 :load-path "lisp/"
 		 :after cc-mode
 		 :config
-		 (require 'cpp-capf)
 		 (add-hook 'c-mode-hook
 				   (setl completion-at-point-functions
 						 (list #'cpp-completion-at-point-function))))
@@ -2049,7 +2047,6 @@
 		 :load-path "lisp/"
 		 :after go-mode
 		 :config
-		 (require 'go-capf)
 		 (add-hook 'go-mode-hook
 				   (setl completion-at-point-functions
 						 (list #'go-completion-at-point-function))))
