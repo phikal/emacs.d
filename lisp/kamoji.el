@@ -31,7 +31,8 @@ their unit components by unit separators (ASCII 37)."
 				 (kamojis (split-string (buffer-substring
 										 (point) (point-max)) "")))
 			(dolist (name names)
-			  (push (cons name (nbutlast kamojis 1))
+			  (push (cons (string-trim-left name)
+						  (nbutlast kamojis 1))
 					records))))
 		(goto-char end))
 	  records)))
