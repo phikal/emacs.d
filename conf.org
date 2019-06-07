@@ -2391,7 +2391,7 @@
 				  (projectile-require-project-root nil)
 				  (projectile-switch-project-action 'projectile-dired)
 				  (projectile-completion-system 'default))
-		 :bind ("C-c p" . projectile-command-map))
+		 :bind ("C-x p" . projectile-command-map))
 	 #+END_SRC
 
 	 While I for the most part dislike using global modes, it seems like
