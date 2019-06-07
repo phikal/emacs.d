@@ -2460,36 +2460,6 @@
    exporting) and turns on that language for this buffer, similarly to
    what =LaTeX-language-de-hook= does.
 
-** Toggle theme
-   #+BEGIN_SRC emacs-lisp
-	 (defconst zge/light-theme 'whiteboard
-	   "constant holding my perfered light theme")
-
-	 (defconst zge/dark-theme 'wheatgrass
-	   "constant holding my perfered dark theme")
-
-	 (defvar zge/current-theme zge/dark-theme
-	   "variable holding my current theme")
-
-	 (defun zge/toggle-theme ()
-	   "Toggle the current theme from light to dark and vice versa"
-	   (interactive)
-	   (disable-theme zge/current-theme)
-	   (load-theme (setq zge/current-theme
-						 (if (eq zge/current-theme zge/light-theme)
-							 zge/dark-theme zge/light-theme)) t))
-   #+END_SRC
-
-   Analogously to =toggle-dictionary=, this function is a quick way to
-   switch between the two variations of the theme I use (see
-   [[Appearance]]).
-
-   #+BEGIN_SRC emacs-lisp
-	 (load-theme zge/current-theme)
-   #+END_SRC
-
-   Finally, load the current theme, while Emacs is still starting.
-
 ** Swap keybindings
    #+BEGIN_SRC emacs-lisp
 	 (defun zge/swap-keys (kb1 kb2 &optional map)
@@ -2713,8 +2683,7 @@
 	(dolist (bind '(("M-\"" . eshell)
 					("<f2>" . window-configuration-to-register)
 					("<f5>" . zge/toggle-dictionary)
-					("<f6>" . zge/toggle-theme)
-					("<f7>" . toggle-truncate-lines)
+					("<f6>" . toggle-truncate-lines)
 					("C-c <C-return>" . man)
 					("C-x x d" . calendar)
 					("C-x M-k" . kill-buffer-and-window)
