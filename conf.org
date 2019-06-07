@@ -2150,6 +2150,7 @@
 	   (use-package haskell-mode
 		 :if (executable-find "ghc")
 		 :hook ((haskell-mode . haskell-doc-mode)
+				(haskell-mode . haskell-indent-mode)
 				(haskell-mode . (lambda () (yas-minor-mode -1))))
 		 :interpreter "ghc"
 		 :mode (rx ".hs" eos))
