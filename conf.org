@@ -1144,11 +1144,11 @@
 		 :demand t
 		 :load-path "lisp/"
 		 :config
+		 (add-hook 'text-mode-hook (face-shift 'yellow '(message-mode)))
 		 (add-hook 'prog-mode-hook (face-shift 'green))
-		 (add-hook 'text-mode-hook (face-shift 'yellow))
 		 (add-hook 'dired-mode-hook (face-shift 'blue))
-		 (add-hook 'eshell-mode-hook (face-shift 'pink))
-		 (add-hook 'comint-mode-map (face-shift 'pink)))
+		 (add-hook 'eshell-mode-hook (face-shift 'purple))
+		 (add-hook 'comint-mode-hook (face-shift 'purple)))
 	 #+END_SRC
 	 
 	 I like to have the buffer have a different tone, depending on what
