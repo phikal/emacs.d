@@ -1,6 +1,11 @@
 ;;; -*- lexical-binding: t -*-
 ;;; published under CC0 into the public domain
 ;;; author: philip k. [https://zge.us.to], 2019
+;;;
+;;; file KAMOJIS based on:
+;;; - https://wikileaks.org/ciav7p1/cms/page_17760284.html
+;;; - http://kaomoji.ru/en/
+;;; - https://en.wikipedia.org/wiki/List_of_emoticons
 
 (require 'ring)
 
