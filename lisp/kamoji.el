@@ -27,7 +27,7 @@ their unit components by unit separators (ASCII 37)."
 	(let (records end)
 	  (goto-char (point-min))
 	  (while (save-excursion (setq end (search-forward "" nil t)))
-		(save-restriction
+ 		(save-restriction
 		  (narrow-to-region (point) end)
 		  (let* ((names (split-string (buffer-substring
 									   (point-min)
@@ -36,8 +36,7 @@ their unit components by unit separators (ASCII 37)."
 				 (kamojis (split-string (buffer-substring
 										 (point) (point-max)) "")))
 			(dolist (name names)
-			  (push (cons (string-trim-left name)
-						  (nbutlast kamojis 1))
+			  (push (cons (string-trim-left name) kamojis)
 					records))))
 		(goto-char end))
 	  records)))
@@ -53,7 +52,7 @@ their unit components by unit separators (ASCII 37)."
 				  (file-name-directory load-file-name)
 				default-directory))
 		 (file (expand-file-name "KAMOJIS" dir)))
-	  (kamoji-parse-file file))
+	(kamoji-parse-file file))
   "Alist of various kamojis.")
 
 
