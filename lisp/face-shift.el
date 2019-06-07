@@ -79,19 +79,28 @@ colour behind PROP by MAT in an RGB colour space."
 	  (face-remap-add-relative face `(,prop ,ncolor)))
 	ncolor))
 
-(defun face-shift (color)
+(defun face-shift (color &optional ignore)
   "Produce a function that will shift all background and
 foreground colours behind the faces listed in `face-shift-faces',
 that can then be added to a hook. COLOR should index a
-transformation from the `face-shift-colors' alist."
+transformation from the `face-shift-colors' alist.
+
+If IGNORE is non-nil, it has to be a list of modes that should be
+ignored by this hook. For example
+
+   (face-shift 'green '(mail-mode))
+
+will apply the green shift, unless the mode of the hook it was
+added to is mail-mode or a derivative."
   (let ((mat (cl-sublis
 			  `((int . ,face-shift-intensity)
 				(max . ,face-shift-maximum)
 				(min . ,face-shift-minimum))
 			  (cdr (assq color face-shift-colors)))))
 	(lambda ()
-	  (dolist (face face-shift-faces)
-		(face-shift-by face :foreground mat)
-		(face-shift-by face :background mat)))))
+	  (unless (cl-some #'derived-mode-p ignore)
+		(dolist (face face-shift-faces)
+		  (face-shift-by face :foreground mat)
+		  (face-shift-by face :background mat))))))
 
 (provide 'face-shift)
