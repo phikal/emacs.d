@@ -5,7 +5,6 @@
 (require 'color)
 (eval-when-compile (require 'cl-lib))
 
-(defvar face-shift--hooks nil)
 
 (defvar face-shift-intensity 0.9
   "Value to replace a `int' symbol with in `face-shift-colors'.")
@@ -35,9 +34,6 @@
 		   (face-list)))
   "Faces that `face-shift' should distort.")
 
-(defun face-shift-clear-hook (hook)
-  (dolist (fn face-shift--hooks)
-	(delq fn hook)))
 
 (defun face-shift-by (face prop mat)
   "Call `face-remap-add-relative' on FACE by distorting the
@@ -63,10 +59,9 @@ that can then be added to a hook."
 				(max . ,face-shift-maximum)
 				(min . ,face-shift-minimum))
 			  (cdr (assq color face-shift-colors)))))
-	(car (push (lambda ()
-				 (dolist (face face-shift-faces)
-				   (face-shift-by face :foreground mat)
-				   (face-shift-by face :background mat)))
-			   face-shift--hooks))))
+	(lambda ()
+	  (dolist (face face-shift-faces)
+		(face-shift-by face :foreground mat)
+		(face-shift-by face :background mat)))))
 
 (provide 'face-shift)
