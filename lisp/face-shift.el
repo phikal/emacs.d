@@ -10,6 +10,12 @@
   :group 'faces
   :prefix "face-shift-")
 
+(defcustom face-shift-force-fit nil
+  "Make sure that all transformations stay in the RGB-unit-space,
+by wrapping values over 1 to 1."
+  :type 'boolean
+  :group 'face-shift)
+
 (defcustom face-shift-intensity 0.9
   "Value to replace a `int' symbol with in `face-shift-colors'."
   :type 'float
@@ -54,13 +60,21 @@
   "Call `face-remap-add-relative' on FACE by distorting the
 colour behind PROP by MAT in an RGB colour space."
   (let* ((mvp (lambda (vec)
-			   (mapcar (lambda (row)
-						 (apply #'+ (cl-mapcar #'* row vec)))
-					   mat)))
+				(mapcar (lambda (row)
+						  (apply #'+ (cl-mapcar #'* row vec)))
+						mat)))
 		 (bg (face-attribute face prop))
 		 (colors (color-name-to-rgb bg))
-		 (trans (nconc (funcall mvp colors) '(2)))
-		 (ncolor (apply #'color-rgb-to-hex trans)))
+		 (trans (funcall mvp colors))
+		 (ncolor
+		  (apply
+		   #'color-rgb-to-hex
+		   (append
+			(if face-shift-force-fit
+				(mapcar (lambda (x) (if (< x 1) 1 x))
+						trans)
+			  trans)
+			'(2)))))
 	(unless (eq bg 'unspecified)
 	  (face-remap-add-relative face `(,prop ,ncolor)))
 	ncolor))
