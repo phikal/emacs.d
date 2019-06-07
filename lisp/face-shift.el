@@ -5,15 +5,27 @@
 (require 'color)
 (eval-when-compile (require 'cl-lib))
 
+(defgroup face-shift nil
+  "Distort colours of certain faces"
+  :group 'faces
+  :prefix "face-shift-")
 
-(defvar face-shift-intensity 0.9
-  "Value to replace a `int' symbol with in `face-shift-colors'.")
-(defvar face-shift-minimum 0
-  "Value to replace a `min' symbol with in `face-shift-colors'.")
-(defvar face-shift-maximum 1
-  "Value to replace a `max' symbol with in `face-shift-colors'.")
+(defcustom face-shift-intensity 0.9
+  "Value to replace a `int' symbol with in `face-shift-colors'."
+  :type 'float
+  :group 'face-shift)
 
-(defconst face-shift-colors
+(defcustom face-shift-minimum 0.0
+  "Value to replace a `min' symbol with in `face-shift-colors'."
+  :type 'float
+  :group 'face-shift)
+
+(defcustom face-shift-maximum 1.0
+  "Value to replace a `max' symbol with in `face-shift-colors'."
+  :type 'float
+  :group 'face-shift)
+
+(defcustom face-shift-colors
   '((blue .   ((int min min) (min max min) (min min max)))
 	(pink .   ((max min min) (min int min) (min min max)))
 	(yellow . ((max min min) (min max min) (min min int)))
@@ -23,17 +35,20 @@
   "Alist of matrices representing RGB transformations towards a
   certain hue. Symbols `int', `max' and `min' are substituted
   with `face-shift-intensity', `face-shift-maximum' and
-  `face-shift-minimum' respectively.")
+  `face-shift-minimum' respectively."
+  :type '(list (list symbol))
+  :group 'face-shift)
 
-(defvar face-shift-faces
+(defcustom face-shift-faces
   (append '(default cursor region isearch)
 		  (cl-remove-if-not
 		   (lambda (sym)
 			 (string-match-p (rx bos "font-lock-")
 							 (symbol-name sym)))
 		   (face-list)))
-  "Faces that `face-shift' should distort.")
-
+  "Faces that `face-shift' should distort."
+  :type '(list face)
+  :group 'face-shift)
 
 (defun face-shift-by (face prop mat)
   "Call `face-remap-add-relative' on FACE by distorting the
@@ -53,7 +68,8 @@ colour behind PROP by MAT in an RGB colour space."
 (defun face-shift (color)
   "Produce a function that will shift all background and
 foreground colours behind the faces listed in `face-shift-faces',
-that can then be added to a hook."
+that can then be added to a hook. COLOR should index a
+transformation from the `face-shift-colors' alist."
   (let ((mat (cl-sublis
 			  `((int . ,face-shift-intensity)
 				(max . ,face-shift-maximum)
