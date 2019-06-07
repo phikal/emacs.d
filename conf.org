@@ -2091,6 +2091,15 @@
 	 Additionally, /cargo/ and /racer/ are lazily loaded, as soon as rust is
 	 required.
 
+**** Emacs Lisp
+	 #+BEGIN_SRC emacs-lisp
+	   (define-key lisp-interaction-mode-map (kbd "C-c C-r") #'eval-region)
+	 #+END_SRC
+
+	 Most of the Elisp defaults are quite fine, so I don't have to add a
+	 lot. The only real thing I want is, as many other language do, to
+	 evaluate a region.
+
 **** Scheme
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package geiser
