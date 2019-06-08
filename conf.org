@@ -1155,6 +1155,22 @@
 	 specifically it contains. In my case programming is slightly more
 	 green, while text has a yellow hue, etc.
 
+**** Intelligent =shell-command=
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package bang
+		 :load-path "lisp/"
+		 :bind ("M-!" . bang))
+	 #+END_SRC
+
+	 "Bang" is a =shell-command= substitute that melds =shell-command= and
+	 =shell-command-on-region= by looking at the first character of the
+	 input. A =<= or =>= redirects the region in or out of the command, a =|=
+	 substitutes it and =!= can be used to address previous commands.
+
+	 I stole most of the implementation from [[http://chneukirchen.org/dotfiles/.emacs][Leah Neukirchen's .emacs]]
+	 (where it's just commented with "sam(1)-like M-!"), and extended it
+	 with to handle =!=-Prefixed commands like a regular shell.
+
 *** OS Management and Tools
 **** Directory Managment
 	 #+BEGIN_SRC emacs-lisp
