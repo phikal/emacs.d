@@ -736,7 +736,9 @@
 *** Cycle Spaces
 	#+BEGIN_SRC emacs-lisp
 	  (advice-add 'cycle-spacing :around
-				  (lambda (old arg &rest _) (funcall old (- arg))))
+				  (lambda (old arg &rest _)
+					(funcall old (if (numberp arg)
+									 (- arg) arg))))
 	#+END_SRC
 
 	I use =cycle-spacing= a lot, and most of these are to remove empty
