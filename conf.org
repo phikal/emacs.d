@@ -1662,8 +1662,9 @@
 		   (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")))
 		 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
 		 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-		 (add-hook 'LaTeX-mode-hook (setl electric-pair-inhibit-predicate
-										  (lambda (&rest _) t)))
+		 (add-hook 'LaTeX-mode-hook (setl post-self-insert-hook
+										  (remq #'electric-pair-post-self-insert-function
+												post-self-insert-hook)))
 		 :hook ((LaTeX-mode . flycheck-mode)
 				(LaTeX-mode . reftex-mode)
 				(LaTeX-mode . TeX-fold-mode))
