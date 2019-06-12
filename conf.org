@@ -994,10 +994,10 @@
 **** Jump in Buffer
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package avy
-		 :config
-		 (avy-setup-default)
 		 :custom ((avy-background t)
 				  (avy-style 'de-bruijn))
+		 :config
+		 (avy-setup-default)
 		 :bind (("C-z" . avy-goto-word-1)
 				("C-M-z" . avy-resume)))
 
@@ -1017,8 +1017,6 @@
 		 :demand
 		 :diminish
 		 :commands ivy-mode
-		 :config
-		 (ivy-mode t)
 		 :custom ((ivy-wrap t)
 				  (ivy-height 8)
 				  (ivy-display-style 'fancy)
@@ -1026,6 +1024,8 @@
 				  (ivy-case-fold-search-default t)
 				  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
 				  (enable-recursive-minibuffers t))
+		 :config
+		 (ivy-mode t)
 		 :bind (:map ivy-minibuffer-map
 					 ("<RET>" . ivy-alt-done)))
 	 #+END_SRC
@@ -1116,7 +1116,8 @@
 		 :demand
 		 :config
 		 :custom ((winner-dont-bind-my-keys t))
-		 :config (winner-mode)
+		 :config
+		 (winner-mode)
 		 :bind (:map winner-mode-map
 					 ("C-c <right>" . nil)
 					 ("C-c <left>" . nil)
@@ -1591,11 +1592,11 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package pdf-tools
 		 :if window-system
-		 :config
-		 (pdf-tools-install t)
 		 :custom ((pdf-view-display-size 'fit-page)
 				  (pdf-view-use-unicode-ligther nil)
 				  (pdf-view-midnight-colors '("#ffffff" . "#000000")))
+		 :config
+		 (pdf-tools-install t)
 		 :mode ((rx ".pdf" eos) . pdf-view-mode)
 		 :magic ("%PDF-" . pdf-view-mode)
 		 :bind (:map pdf-view-mode-map
@@ -2404,12 +2405,12 @@
 		 :diminish
 		 :after ivy
 		 :commands projectile-mode
-		 :init
-		 (projectile-mode t)
 		 :custom ((projectile-enable-caching t)
 				  (projectile-require-project-root nil)
 				  (projectile-switch-project-action 'projectile-dired)
 				  (projectile-completion-system 'default))
+		 :init
+		 (projectile-mode t)
 		 :bind ("C-x p" . projectile-command-map))
 	 #+END_SRC
 
