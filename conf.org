@@ -674,7 +674,7 @@
 	highlight!".
 
 	#+BEGIN_SRC emacs-lisp
-	  (define-key isearch-mode-map (kbd "M-o")
+	  (define-key isearch-mode-map (kbd "C-o")
 		(lambda () (interactive)
 		  (occur (if isearch-regexp isearch-string (regexp-quote isearch-string)))
 		  (isearch-exit)))
