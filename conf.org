@@ -1038,7 +1038,6 @@
 		 (dolist (cmd '(yank-pop describe-bindings))
 		   (define-key counsel-mode-map `[remap ,cmd] nil))
 		 :bind (("C-c s" . counsel-rg)
-				("C-c f" . counsel-locate)
 				("C-x C-/" . counsel-org-goto-all)))
 	 #+END_SRC
 
