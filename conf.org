@@ -1981,7 +1981,6 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package gnuplot
 		 :if (executable-find "gnuplot")
-		 :interpreter ("gnuplot" . gnuplot-mode)
 		 :functions (gnuplot-send-string-to-gnuplot)
 		 :preface
 		 (defun zge/gnuplot-replot ()
@@ -2121,7 +2120,6 @@
 		 (setq geiser-repl-use-other-window nil
 			   geiser-active-implementations '(guile))
 		 :hook (scheme-mode . geiser-mode)
-		 :interpreter ("guile" . scheme-mode)
 		 :mode ((rx ".scm" eos) . scheme-mode))
 	 #+END_SRC
 
@@ -2141,7 +2139,6 @@
 			   '(slime-filename-completion slime-simple-completion-at-point)
 			   slime-contribs '(slime-fancy slime-hyperdoc slime-cl-indent))
 		 :bind (:map slime-mode-map ("C-#" . slime-selector))
-		 :interpreter ("sbcl" . common-lisp-mode)
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
 				((rx ".cl" eos) . common-lisp-mode)))
 	 #+END_SRC
@@ -2165,7 +2162,6 @@
 		 :hook ((haskell-mode . haskell-doc-mode)
 				(haskell-mode . haskell-indent-mode)
 				(haskell-mode . (lambda () (yas-minor-mode -1))))
-		 :interpreter "ghc"
 		 :mode (rx ".hs" eos))
 	 #+END_SRC
 
@@ -2178,7 +2174,6 @@
 		 :if (executable-find "idris")
 		 :custom ((idris-stay-in-current-window-on-compiler-error t)
 				  (idris-prover-restore-window-configuration t))
-		 :interpreter "idris"
 		 :mode (rx ".idr" eos))
 	 #+END_SRC
 
