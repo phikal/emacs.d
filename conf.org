@@ -2067,8 +2067,7 @@
 		 :after go-mode
 		 :config
 		 (add-hook 'go-mode-hook
-				   (setl completion-at-point-functions
-						 (list #'go-completion-at-point-function))))
+				   (setl completion-at-point-functions (list #'go-capf))))
 	 #+END_SRC
 
 	 Just like with C above, I load my own =gocode= based completion
