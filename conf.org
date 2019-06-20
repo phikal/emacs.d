@@ -2686,6 +2686,27 @@
    quite a lot, this function makes it easier, by suggesting the right
    files, right away.
 
+** Open Mailto Links
+   #+BEGIN_SRC emacs-lisp
+	 (defvar zge/mailto-location "/tmp/emacs.mailto"
+	   "Path to `zge/load-mailto' file.")
+
+	 (defun zge/load-mailto ()
+	   (interactive)
+	   (when (file-exists-p zge/mailto-location)
+		 (with-temp-buffer
+		   (insert-file-contents zge/mailto-location)
+		   (browse-url-mail (buffer-string)))
+		 (delete-file zge/mailto-location)))
+
+	 (define-key special-event-map [sigusr1] #'zge/load-mailto)
+   #+END_SRC
+
+   On SIGUSR1, Emacs checks a specified file for a mailto link, and
+   opens it if it exists. An external script constructs this file and
+   sends Emacs the signal. This is done to avoid having to run the Emacs
+   server.
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
