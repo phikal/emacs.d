@@ -2544,19 +2544,12 @@
 
 ** Timestamp
    #+BEGIN_SRC emacs-lisp
-	 (defun zge/add-timestamp (keep)
+	 (defun zge/insert-timestamp (arg)
 	   "Prepend a special UNIX timestamp to buffer"
 	   (interactive "P")
-	   (save-excursion
-		 (goto-char (point-min))
-		 (insert (format-time-string
-				  (if (or keep (looking-at-p "<!--@ [[:digit:]]+ "))
-					  (progn
-						(kill-word 1)
-						"<!--@ %s")
-					"<!--@ %s -->\n\n")))))
+	   (insert (format-time-string "%d%h%y")))
 
-	 (defalias 'add-timestamp 'zge/add-timestamp)
+	 (defalias 'insert-timestamp 'zge/add-timestamp)
    #+END_SRC
 
    For my ad-hoc blog, I insert a specially formatted UNIX timestamp.
