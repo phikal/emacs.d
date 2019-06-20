@@ -733,6 +733,13 @@
 	When I've selected a region, and I type something, the region is
 	not supposed to be deleted automatically.
 
+*** Selecting with Shift
+	#+BEGIN_SRC emacs-lisp
+	  (setq shift-select-mode  nil)
+	#+END_SRC
+
+	Don't select region with shift.
+
 *** Cycle Spaces
 	#+BEGIN_SRC emacs-lisp
 	  (advice-add 'cycle-spacing :around
