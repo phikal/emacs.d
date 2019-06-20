@@ -2530,7 +2530,8 @@
 		   (while (not (eobp))
 			 (let ((char (following-char)))
 			   (delete-char 1)
-			   (insert (format "&#x%X;" char)))))))
+			   (insert-before-markers-and-inherit
+				(format "&#x%X;" char)))))))
 
 	 (defalias 'xml-hexify #'zge/xml-hexify)
    #+END_SRC
