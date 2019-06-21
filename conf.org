@@ -1240,7 +1240,8 @@
 	  #+BEGIN_SRC emacs-lisp
 		(use-package gnus
 		  :if (and (executable-find "mpop")
-				   (executable-find "msmtp"))
+				   (executable-find "msmtp")
+				   (file-directory-p "~/etc/mail"))
 		  :config
 		  (require 'bbdb)
       #+END_SRC
