@@ -1051,6 +1051,14 @@
 
 	 Counsel extends this to further integrate Ivy features into default
 	 commands, such as =M-x=, =C-x b= or =C-x C-f=.
+**** Search
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package swiper
+		 :bind ("C-o" . swiper))
+	 #+END_SRC
+
+	 Related to [[*Auto-completion][Ivy]], swiper offers a more graphical alternative to the
+	 standard isearch.
 
 **** Buffer overview
 	 #+BEGIN_SRC emacs-lisp
