@@ -2032,6 +2032,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-mode
 		 :if (executable-find "go")
+		 :hook (go-mode . subword-mode)
 		 :init
 		 (add-hook 'go-mode-hook
 				   (setl compile-command
