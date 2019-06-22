@@ -728,6 +728,7 @@
 *** Writing while region is active
 	#+BEGIN_SRC emacs-lisp
 	  (delete-selection-mode -1)
+	  (setq delete-active-region nil)
 	#+END_SRC
 
 	When I've selected a region, and I type something, the region is
