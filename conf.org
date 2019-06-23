@@ -1966,7 +1966,7 @@
 	 to properly set up my C editing environment.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (define-key c-mode-map (kbd "C-c C-k") #'compile))
+	   (define-key c-mode-base-map (kbd "C-c C-k") #'compile))
 	 #+END_SRC
 
 	 I'm used to =C-c C-k= for compiling, but c-mode disagrees.
