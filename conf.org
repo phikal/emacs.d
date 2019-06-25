@@ -2034,6 +2034,10 @@
 	   (use-package go-mode
 		 :if (executable-find "go")
 		 :hook (go-mode . subword-mode)
+		 :preface
+		 (defmacro go-install (url cmd)
+		   `(unless (executable-find ,cmd)
+			  (shell-command (concat "go get " ,url "/" ,cmd))))
 		 :init
 		 (add-hook 'go-mode-hook
 				   (setl compile-command
@@ -2042,11 +2046,12 @@
 				   (lambda () (add-hook 'before-save-hook
 										#'gofmt-before-save t t)))
 		 :config
-		 (setq gofmt-command "goimports")
 		 (let* ((go-path  "/home/phi/code/go")
 				(go-bin (expand-file-name "bin" go-path)))
 		   (setenv "GOPATH" go-path)
 		   (add-to-PATH go-bin))
+		 (go-install "golang.org/x/tools/cmd" "goimports")
+		 (setq gofmt-command "goimports")
 		 :mode (rx ".go" eos)
 		 :bind (:map go-mode-map
 					 ("M-." . godef-jump)
@@ -2054,23 +2059,25 @@
 					 ("C-c C-r" . go-remove-unused-imports)))
 	 #+END_SRC
 
-	 Go can be very fragile, but after having have set up the right files
-	 and installed the right extensions, my setup gives a fairly smooth
-	 editing experience.
+	 I tend to use [[https://golang.org][Go]] more often than I would want to, so I have made
+	 sure to have a comfortable environment with all the things one
+	 would assume (completion, documentation, error checking, etc.). A
+	 critical component for this is [[https://github.com/dominikh/go-mode.el][=go-mode=]].
 
-	 Currently, the following packages are installed
-	 - [[https://github.com/mdempsky/gocode][gocode]]
-	 - [[https://github.com/rogpeppe/godef][godef]]
-	 - [[https://golang.org/x/tools/cmd/goimports][goimports]]
+	 I also automatically install all cli-tools that Go depends on with
+	 my =go-install= macro -- but all of this is only done /if/ the go
+	 binary is found during startup.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-eldoc
 		 :after go-mode
+		 :config
+		 (go-install "github.com/rogpeppe" "godef")
 		 :hook (go-mode . go-eldoc-setup))
      #+END_SRC
 
 	 Hovering over symbols should print documentation about said symbol
-	 in the minibuffer. =godef= is required for this.
+	 in the minibuffer. [[https://github.com/rogpeppe/godef][=godef=]] is required for this.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-capf
@@ -2078,12 +2085,21 @@
 		 :load-path "lisp/"
 		 :after go-mode
 		 :config
+		 (go-install "github.com/mdempsky" "gocode")
 		 (add-hook 'go-mode-hook
 				   (setl completion-at-point-functions (list #'go-capf))))
 	 #+END_SRC
 
-	 Just like with C above, I load my own =gocode= based completion
+	 Just like with C above, I load my own [[https://github.com/mdempsky/gocode][=gocode=]] based completion
 	 function.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package go-dlv
+		 :config
+		 (go-install "github.com/go-delve/delve/cmd" "dlv"))
+	 #+END_SRC
+
+	 [[https://github.com/go-delve/delve][Delve]] is a debugger for go, and =go-dlv= is it's GUD/GDB interface.
 
 **** Rust
 	 #+BEGIN_SRC emacs-lisp
