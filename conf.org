@@ -2081,7 +2081,6 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package go-capf
 		 :demand t
-		 :load-path "lisp/"
 		 :after go-mode
 		 :config
 		 (go-install "github.com/mdempsky" "gocode")
