@@ -1985,12 +1985,11 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package cpp-capf
 		 :demand t
-		 :load-path "lisp/"
 		 :after cc-mode
 		 :config
 		 (add-hook 'c-mode-hook
 				   (setl completion-at-point-functions
-						 (list #'cpp-completion-at-point-function))))
+						 (list #'cpp-capf))))
 	 #+END_SRC
 
 	 Finally I load my own clang-based =completion-at-point= backend.
