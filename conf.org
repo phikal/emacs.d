@@ -1640,12 +1640,10 @@
 	 appear to me in Emacs in HTML form. I sometimes use it myself, but
 	 for the most part it's use by [[*Org][Org]].
 
-
 **** Kamoji
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package kamoji
-		 :load-path "lisp/"
-		 :bind ("C-x 8 k" . kamoji-insert))
+	   (use-package insert-kaomoji
+		 :bind ("C-x 8 k" . insert-kaomoji))
 	 #+END_SRC
 
 	 Kamojis are eastern emoticons (something like "(b ᵔ▽ᵔ)b"), that are
