@@ -2733,7 +2733,7 @@
 					("C-x x e" . zge/eval-and-replace)
 					("C-x M-k" . kill-buffer-and-window)
 					("C-x j" . jump-to-register)
-					("C-:" . imenu)
+					("C-x x SPC" . imenu)
 					("M-#". find-file-at-point)
 					("M-F" . forward-to-word)
 					("M-B" . backward-to-word)
