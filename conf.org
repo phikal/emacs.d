@@ -1592,6 +1592,7 @@
 				  (ledger-highlight-xact-under-point nil)
 				  (ledger-master-file (expand-file-name "master.lg" ledger-source-directory))
 				  (ledger-use-iso-dates t))
+		 :bind (:map ledger-mode-map ("M-<tab>" . complete-symbol))
 		 :mode ((rx ".lg" eos) . ledger-mode))
 	 #+END_SRC
 
