@@ -850,6 +850,18 @@
 		(define-key calendar-mode-map (kbd "B") #'calendar-backward-week))
 	#+END_SRC
 
+*** Auto-Pairing Parentheses
+	#+BEGIN_SRC emacs-lisp
+	  (electric-pair-mode t)
+	#+END_SRC
+
+	While I usually am not too much of a fan of global minor modes, I
+	use =electric-pair-mode= practically everywhere, and miss it if it
+	it's not found. The main advantage as compared to manually using
+	=M-(=, asides from not having to manually use the meta key, is that it
+	also removed adjacent matching parentheses with just one keystroke
+	-- as soon as you get used to this, you'll miss it everywhere.
+
 ** Registers
    #+BEGIN_SRC emacs-lisp
 	 (defvar zge/registers
@@ -1510,7 +1522,6 @@
 					 :after (lambda (&rest _)
 							  (rcirc-update-activity-string)))
 		 :hook ((rcirc-mode . flyspell-mode)
-				(rcirc-mode . electric-pair-local-mode)
 				(rcirc-mode . rcirc-track-minor-mode))
 		 :bind (("C-x x x" . rcirc-next-active-buffer)
 				:map rcirc-mode-map
@@ -2792,7 +2803,6 @@
    #+BEGIN_SRC emacs-lisp
 	 (dolist (m '(hs-minor-mode
 				  electric-indent-local-mode
-				  electric-pair-local-mode
 				  flycheck-mode
 				  flyspell-prog-mode))
 	   (add-hook 'prog-mode-hook m))
@@ -2800,14 +2810,6 @@
 
    After modifying the programming keymap, make sure a list of minor
    modes are added started in every programming environment.
-
-** Interpreters
-   #+BEGIN_SRC emacs-lisp
-	 (add-hook 'comint-mode-hook #'electric-pair-local-mode)
-   #+END_SRC
-
-   Inferior shells, interpreters, etc. should pair parentheses and other
-   characters as needed.
 
 ** Writing
    #+BEGIN_SRC emacs-lisp
@@ -2826,13 +2828,6 @@
 
    /Completing/ my [[*Abbrevations][above started]] =abbrev= configuration, I enable
    =abbrev-mode= for all text-modes
-
-   #+BEGIN_SRC emacs-lisp
-	 (add-hook 'text-mode-hook #'electric-pair-local-mode)
-   #+END_SRC
-
-   All text buffers, except for LaTeX-buffers, should automatically
-   close opening parentheses.
 
    #+BEGIN_SRC emacs-lisp
 	 (add-hook 'text-mode-hook #'turn-on-auto-fill)
