@@ -1119,7 +1119,7 @@
 							   (name . ,(rx bos "*Help*" eos))
 							   (name . ,(rx bos "*Apropos*" eos))))
 				  ("Emacs Source"
-				   (or (directory . ,(rx bos "~/code/etc/emacs/src/"))
+				   (or (directory . ,(rx bos "~/code/etc/emacs/"))
 					   (directory . ,(rx bos "/usr/share/emacs/26.1/"))))
 				  ("Gnus" (or (mode . message-mode)
 							  (mode . bbdb-mode)
