@@ -852,15 +852,16 @@
 
 *** Auto-Pairing Parentheses
 	#+BEGIN_SRC emacs-lisp
-	  (electric-pair-mode t)
+	  (add-hook 'minibuffer-setup-hook #'electric-pair-local-mode)
+	  (add-hook 'text-mode-hook #'electric-pair-local-mode)
+	  (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 	#+END_SRC
 
-	While I usually am not too much of a fan of global minor modes, I
-	use =electric-pair-mode= practically everywhere, and miss it if it
-	it's not found. The main advantage as compared to manually using
-	=M-(=, asides from not having to manually use the meta key, is that it
-	also removed adjacent matching parentheses with just one keystroke
-	-- as soon as you get used to this, you'll miss it everywhere.
+	The main advantage of =electric-pair-mode= as compared to manually
+	using =M-(=, asides from not having to manually use the meta key, is
+	that it also removed adjacent matching parentheses with just one
+	keystroke -- as soon as you get used to this, you'll miss it
+	everywhere.
 
 ** Registers
    #+BEGIN_SRC emacs-lisp
