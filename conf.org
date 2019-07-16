@@ -844,10 +844,10 @@
 	that it readable at all.
 
 	#+BEGIN_SRC emacs-lisp
-		(define-key calendar-mode-map (kbd "f") #'calendar-forward-day)
-		(define-key calendar-mode-map (kbd "F") #'calendar-forward-week)
-		(define-key calendar-mode-map (kbd "b") #'calendar-backward-day)
-		(define-key calendar-mode-map (kbd "B") #'calendar-backward-week))
+	  (define-key calendar-mode-map (kbd "f") #'calendar-forward-day)
+	  (define-key calendar-mode-map (kbd "n") #'calendar-forward-week)
+	  (define-key calendar-mode-map (kbd "b") #'calendar-backward-day)
+	  (define-key calendar-mode-map (kbd "p") #'calendar-backward-week))
 	#+END_SRC
 
 *** Auto-Pairing Parentheses
