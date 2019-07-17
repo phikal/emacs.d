@@ -1557,7 +1557,9 @@
 
 **** Browser
 	 #+BEGIN_SRC emacs-lisp
-	   (setq-default browse-url-browser-function 'browse-url-firefox
+	   (setq-default browse-url-browser-function
+					 '(("^file:///usr/share/doc/hyperspec/" . eww-browse-url)
+					   ("" . browse-url-default-browser))
 					 eww-download-directory (expand-file-name "~/dl")
 					 shr-use-colors nil)
 	 #+END_SRC
