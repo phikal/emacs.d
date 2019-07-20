@@ -2333,7 +2333,7 @@
 		 :hook ((scheme-mode . paredit-mode)
 				(lisp-mode . paredit-mode)
 				(emacs-lisp-mode . paredit-mode)
-				(slime-repl-mode-hook . paredit-mode))
+				(slime-repl-mode . paredit-mode))
 		 :bind (:map paredit-mode-map
 					 ("M-\"" . nil)
 					 ("M-s" . nil)
