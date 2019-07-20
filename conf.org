@@ -573,16 +573,6 @@
 
 	Don't warn me about /larger-but-not-actually-that-large/ files.
 
-*** Scrolling
-	#+BEGIN_SRC emacs-lisp
-	  (setq scroll-preserve-screen-position t
-			scroll-conservatively 0
-			scroll-step 0)
-	#+END_SRC
-
-	Prevent unnecessary moving of the buffer, when windows or frames
-	change.
-
 *** Prefer newer Bytecode
 	#+BEGIN_SRC emacs-lisp
 	  (setq load-prefer-newer t)
