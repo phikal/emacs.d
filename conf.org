@@ -2008,18 +2008,6 @@
 	 Currently my only option is to disable a "dedicated" I/O buffer,
 	 when running a debugger.
 
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package cpp-capf
-		 :demand t
-		 :after cc-mode
-		 :config
-		 (add-hook 'c-mode-hook
-				   (setl completion-at-point-functions
-						 (list #'cpp-capf))))
-	 #+END_SRC
-
-	 Finally I load my own clang-based =completion-at-point= backend.
-
 **** Gnuplot
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package gnuplot
