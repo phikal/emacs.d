@@ -2180,10 +2180,11 @@
 		 :if (executable-find "sbcl")
 		 :after paredit
 		 :config
-		 (setq inferior-lisp-program (executable-find "sbcl")
-			   slime-completion-at-point-functions
-			   '(slime-filename-completion slime-simple-completion-at-point)
-			   slime-contribs '(slime-fancy slime-hyperdoc slime-cl-indent))
+		 (setq-default inferior-lisp-program (executable-find "sbcl")
+					   common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/"
+					   slime-completion-at-point-functions
+					   '(slime-filename-completion slime-simple-completion-at-point)
+					   slime-contribs '(slime-fancy slime-hyperdoc slime-mdot-fu slime-cl-indent))
 		 :bind (:map slime-mode-map ("C-#" . slime-selector))
 		 :mode (((rx ".lisp" eos) . common-lisp-mode)
 				((rx ".cl" eos) . common-lisp-mode)))
