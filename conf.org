@@ -857,7 +857,7 @@
 ** Registers
    #+BEGIN_SRC emacs-lisp
 	 (defvar zge/registers
-	   `((?~ "~")
+	   `((?h "~")
 		 (?d "~/dl/")
 		 (?b "~/etc/bin/")
 		 (?\; "~/code")
