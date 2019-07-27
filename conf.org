@@ -1984,11 +1984,6 @@
 
 ***** Semantic
 	  #+BEGIN_SRC emacs-lisp
-		(dolist (hook '(c-mode-hook c++-mode-hook))
-		  (add-hook hook #'semantic-mode))
-	  #+END_SRC
-
-	  #+BEGIN_SRC emacs-lisp
 		(with-eval-after-load 'semantic
 		  (add-hook 'semantic-mode-hook
 					(setl completion-at-point-functions '(semantic-analyze-completion-at-point-function)))
