@@ -2,7 +2,6 @@
 ;;; published under CC0 into the public domain
 ;;; author: philip k. [https://zge.us.to], 2019
 
-(require 'rx)
 (require 'cl-lib)
 
 (defgroup dt-maildir nil
