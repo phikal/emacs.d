@@ -1747,7 +1747,6 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (setq org-use-speed-commands t
-			 org-hide-emphasis-markers t
 			 org-yank-adjusted-subtrees t
 			 org-startup-folded nil
 			 org-return-follows-link t
