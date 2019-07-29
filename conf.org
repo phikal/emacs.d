@@ -2226,17 +2226,6 @@
 	 Programming Haskell can be a very nice experience in Emacs, but as
 	 always, it has to be properly set up.
 
-**** Idris
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package idris-mode
-		 :if (executable-find "idris")
-		 :custom ((idris-stay-in-current-window-on-compiler-error t)
-				  (idris-prover-restore-window-configuration t))
-		 :mode (rx ".idr" eos))
-	 #+END_SRC
-
-	 Next to Haskell, Idris is slightly easier to configure than Haskell.
-
 **** Perl
 	 #+BEGIN_SRC emacs-lisp
 	   (with-eval-after-load 'cperl
