@@ -199,6 +199,10 @@
 		configurations I have found in a while, leveraging =use-package=
         but also showing and explaining quite interesting variables I
         have also chosen to adopt myself.
+   - [[https://github.com/stsquad/my-emacs-stuff][Alex Bennée's configuration]] :: A classical (non-literate)
+        configuration that touches on many different packages and
+        options.
+
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
