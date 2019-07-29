@@ -1982,6 +1982,17 @@
 
 	 I'm used to =C-c C-k= for compiling, but c-mode disagrees.
 
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package c-insert
+		 :after cc-mode
+		 :load-path "lisp/"
+		 :config
+		 (define-key c-mode-map (kbd "C-c C-a") #'c-insert-header))
+	 #+END_SRC
+
+	 This local package allows me to insert a C header from anywhere in
+	 a file.
+
 ***** Semantic
 	  #+BEGIN_SRC emacs-lisp
 		(with-eval-after-load 'semantic
