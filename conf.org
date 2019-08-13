@@ -1230,6 +1230,8 @@
 					`(,(rx "." (or "png" "jpg" "jpeg") eos) "feh"))
 	   (add-to-list 'dired-guess-shell-alist-user
 					`(,(rx "." (or "mp4" "webm" "m4a") eos) "mpv --really-quiet"))
+	   (add-to-list 'dired-guess-shell-alist-user
+					`(,(rx "." "wav" eos) "aplay"))
 	   (add-hook 'dired-mode-hook 'auto-revert-mode)
 	 #+END_SRC
 
