@@ -2760,12 +2760,28 @@
    sends Emacs the signal. This is done to avoid having to run the Emacs
    server.
 
+** Open XTerm
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/run-in-xterm (command)
+	   (interactive "MRun (or start shell with RET): ")
+	   (start-process "xterm" nil "xterm"
+					  "-e" (if (string= "" command)
+							   (getenv "SHELL") command)))
+
+	 (defalias 'run-in-xterm #'zge/run-in-xterm)
+   #+END_SRC
+
+   Sometimes it's easier to run a few commands in a "proper" terminal,
+   and since I currently use xterm, this command let's me do this
+   quickly.
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
 					("<f2>" . window-configuration-to-register)
 					("<f5>" . zge/toggle-dictionary)
 					("<f6>" . toggle-truncate-lines)
+					("<f7>" . zge/run-in-xterm)
 					("C-c <C-return>" . man)
 					("C-x x d" . calendar)
 					("C-x x k" . bury-buffer)
