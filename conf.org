@@ -1993,14 +1993,13 @@
 	 to properly set up my C editing environment.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (define-key c-mode-base-map (kbd "C-c C-k") #'compile))
+	   (define-key c-mode-base-map (kbd "C-c C-k") #'compile)
 	 #+END_SRC
 
 	 I'm used to =C-c C-k= for compiling, but c-mode disagrees.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package c-insert
-		 :after cc-mode
 		 :load-path "lisp/"
 		 :config
 		 (define-key c-mode-map (kbd "C-c C-a") #'c-insert-header))
@@ -2016,12 +2015,19 @@
 					(setl completion-at-point-functions '(semantic-analyze-completion-at-point-function)))
 	  #+END_SRC
 
+	  Semantic mode parses the current buffer and using it's information
+	  allows me to complete functions. All that's missing for my setup
+	  is to set the CAPF function.
+
 	  #+BEGIN_SRC emacs-lisp
 		(define-key semantic-mode-map (kbd "C-#") nil)
 		(define-key semantic-mode-map (kbd "C-# #") #'semantic-ia-show-doc)
 		(define-key semantic-mode-map (kbd "C-# C-#") #'semantic-ia-show-summary)
-		(define-key semantic-mode-map (kbd "C-# RET") #'semantic-ia-fast-jump))
+		(define-key semantic-mode-map (kbd "C-# RET") #'semantic-ia-fast-jump)))
 	  #+END_SRC
+
+	  By default these keybindings aren't bound by Semantic mode, so I
+	  bind them to =C-#=, which is otherwise not used by C.
 
 **** GDB
 	 #+BEGIN_SRC emacs-lisp
