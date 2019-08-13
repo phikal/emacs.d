@@ -1200,6 +1200,16 @@
 	 (where it's just commented with "sam(1)-like M-!"), and extended it
 	 with to handle =!=-Prefixed commands like a regular shell.
 
+**** Writable Grep
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package wgrep
+		 :custom ((wgrep-enable-key  (kbd "C-x C-q"))))
+	 #+END_SRC
+
+	 Analogously to Wdired, [[https://github.com/mhayashi1120/Emacs-wgrep][Wgrep]] allows the user to interactively edit
+	 the results of a grep buffer, and have them written back to their
+	 original files.
+
 *** OS Management and Tools
 **** Directory Managment
 	 #+BEGIN_SRC emacs-lisp
