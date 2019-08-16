@@ -2780,7 +2780,7 @@
 					("<f2>" . window-configuration-to-register)
 					("<f5>" . zge/toggle-dictionary)
 					("<f6>" . toggle-truncate-lines)
-					("<f7>" . zge/run-in-xterm)
+					("M-RET" . zge/run-in-xterm)
 					("C-c <C-return>" . man)
 					("C-x x d" . calendar)
 					("C-x x k" . bury-buffer)
