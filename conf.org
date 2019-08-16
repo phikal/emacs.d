@@ -609,14 +609,12 @@
 *** Aliases
 	#+BEGIN_SRC emacs-lisp
 	  (defalias 'yes-or-no-p 'y-or-n-p)
-	  (defalias 'perl-mode 'cperl-mode)
 	  (defalias 'ff 'find-file)
 	  (defalias 'ffo 'find-file-other-window)
 	#+END_SRC
 
-	Don't use =perl-mode=, but =cperl-mode=! And instead of having to type
-	"yes" or "no" when emacs asks a question, respectively accept "y" or
-	"n" instead.
+	Instead of having to type "yes" or "no" when emacs asks a question,
+	respectively accept "y" or "n" instead.
 
 *** Abbrevations
 	#+BEGIN_SRC emacs-lisp
@@ -2251,16 +2249,16 @@
 **** Perl
 	 #+BEGIN_SRC emacs-lisp
 	   (with-eval-after-load 'cperl
-		(add-hook 'cperl-mode-hook
-				  (lambda () (setl eldoc-documentation-function
-								   (lambda ()
-									 (let (cperl-message-on-help-error)
-									   (car (cperl-get-help))))))))
+		 (defalias 'perl-mode 'cperl-mode)
+		 (add-hook 'cperl-mode-hook
+				   (lambda () (setl eldoc-documentation-function
+									(lambda ()
+									  (let (cperl-message-on-help-error)
+										(car (cperl-get-help))))))))
 	 #+END_SRC
 
-	 As of now, this is my entire perl setup (along with the =defalias=
-	 command [[*Aliases][above]]), and for the most purposes, cperl-mode is quite
-	 enough.
+	 As of now, this is my entire perl setup, and for the most purposes,
+	 cperl-mode is quite enough.
 
 **** Python
 	 #+BEGIN_SRC emacs-lisp
