@@ -25,17 +25,13 @@ nil if you use absolute paths in `dt-maildir-maildir-list'"
   :type '(file :must-match t)
   :group 'dt-maildir)
 
-(defun dt-maildir--check-mail (dir)
-  (cddr (directory-files (expand-file-name "new" dir))))
-
 ;;;###autoload
 (defun dt-maildir-mail-function ()
   "Function to assign to `display-time-mail-function'. Will use
 `dt-maildir-maildir-base-dir' and `dt-maildir-maildir-list' to check for new
 messages."
-  (cl-some #'dt-maildir--check-mail
-		   (mapcar (lambda (dir)
-					 (expand-file-name dir dt-maildir-maildir-base-dir))
-				   dt-maildir-maildir-list)))
+  (cl-loop for name in dt-maildir-maildir-list
+		   for dir = (expand-file-name name dt-maildir-maildir-base-dir)
+		   thereis (cddr (directory-files (expand-file-name "new" dir)))))
 
 (provide 'dt-maildir)
