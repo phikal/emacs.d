@@ -93,7 +93,7 @@ When FORCE is set, don't use cache and rebuild the list."
 	  (let (headers)
 		(while (search-forward-regexp c-insert--header-regexp nil t)
 		  (cl-pushnew (match-string-no-properties 2)
-					  (alist-get (or (match-string-no-properties 1) "")
+					  (alist-get (match-string-no-properties 1)
 								 headers nil nil #'equal)
 					  :test #'string=))
 		(delete-region beg end)
@@ -109,6 +109,7 @@ When FORCE is set, don't use cache and rebuild the list."
 
  ;; INTERACTIVE FUNCTIONS
 
+;;;###autoload
 (defun c-insert-order-headers ()
   "Rearrange c headers."
   (interactive)
@@ -122,6 +123,7 @@ When FORCE is set, don't use cache and rebuild the list."
 		  (forward-line))
 		(c-insert--order-headers-in-region begin (point))))))
 
+;;;###autoload
 (defun c-insert-local-header (file &optional arg)
   "Add `file' to the top of the current file.
 
@@ -135,11 +137,13 @@ To prevent the automatic sorting of headers, press \\[universal-argument]"
 	(when file (insert (format "#include \"%s\"\n" file)))
 	(unless arg (c-insert-order-headers))))
 
+;;;###autoload
 (defun c-insert-header-at-point (header)
   (interactive (list (completing-read "Header: " (c-insert--load-headers))))
   (beginning-of-line)
   (insert (format "#include <%s>\n" header)))
 
+;;;###autoload
 (defun c-insert-header (header &optional arg)
   "Add `header' to the top of the current file.
 
