@@ -2196,8 +2196,10 @@
 		 :config
 		 (setq geiser-repl-use-other-window nil
 			   geiser-active-implementations '(guile))
+		 (when (file-exists-p "/usr/local/share/guile/site/2.2")
+		   (setenv "GUILE_LOAD_PATH" "/usr/local/share/guile/site/2.2:..."))
 		 :hook (scheme-mode . geiser-mode)
-		 :mode ((rx ".scm" eos) . scheme-mode))
+		 :mode ((rx (or ".scm" ".sxml") eos) . scheme-mode))
 	 #+END_SRC
 
 	 When properly set up, geiser gives an MIT Scheme-like editing
