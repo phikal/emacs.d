@@ -1169,14 +1169,8 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package face-shift
 		 :if (display-graphic-p nil)
-		 :demand t
-		 :load-path "lisp/"
 		 :config
-		 (add-hook 'text-mode-hook (face-shift 'yellow))
-		 (add-hook 'prog-mode-hook (face-shift 'green))
-		 (add-hook 'dired-mode-hook (face-shift 'blue))
-		 (add-hook 'eshell-mode-hook (face-shift 'peach))
-		 (add-hook 'comint-mode-hook (face-shift 'peach)))
+		 (face-shift-mode t))
 	 #+END_SRC
 	 
 	 I like to have the buffer have a different tone, depending on what
