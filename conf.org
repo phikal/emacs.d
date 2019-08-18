@@ -1270,6 +1270,19 @@
 
 	 Don't keep the buffer around as soon as the process ends.
 
+**** Bash Completions
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package bash-completion
+		 :if (file-exists-p "/etc/bash_completion")
+		 :init
+		 (bash-completion-setup))
+	 #+END_SRC
+
+	 Bash has usually very good command completion facilities, which
+	 aren't accessible by default from Emacs (except by running =M-x
+	 term=). This package integrates them into regular commands such as
+	 =shell-command= and =shell=.
+
 *** Networking
 **** Mail
 ***** Gnus
