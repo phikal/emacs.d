@@ -103,6 +103,8 @@
    enthusiasm began to blossom somewhere around that time. And so, since
    February 2018 I have been maintaining this file.
 
+   PS. Here's [[http://wenshanren.org/?p=418][an interesting list]] of famous Emacs users.
+
 ** Why use org/babel?
    While it might appear to be a inconvenience at first, extracting ones
    configuration into a format like this one has multiple advantages, of
