@@ -1008,7 +1008,7 @@
 		 :config
 		 (avy-setup-default)
 		 :bind (("C-z" . avy-goto-word-1)
-				("M-z" . avy-goto-char-2)
+				("M-z" . avy-goto-char)
 				("C-M-z" . avy-resume)))
 	 #+END_SRC
 
