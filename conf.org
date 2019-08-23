@@ -2837,6 +2837,20 @@
   These on the other hand, overrride existing, /default/ keybindings with
   different, or better (eg. =M-SPC= to cycle-spacing) commands.
 
+  #+BEGIN_SRC emacs-lisp
+	(dolist (bind '(("H-f" . find-file)
+					("H-e" . eval-last-sexp)
+					("H-x" . eval-defun)
+					("H-n" . next-line)
+					("H-p" . previous-line)
+					("H-f" . forward-char)
+					("H-b" . backward-char)))
+	  (global-set-key (kbd (car bind)) (cdr bind)))
+  #+END_SRC
+
+  When the Hyper key is enabled, these keybindings help avoid a few
+  keystrokes.
+
 * Hooks
   Most of the mode specific hooks were already set up in the [[Packages%20and%20Other%20Configurations][Packages
   and Other Configurations]] section, so this part only adds a few more
