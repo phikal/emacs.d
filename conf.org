@@ -2266,10 +2266,10 @@
 	   (with-eval-after-load 'cperl
 		 (defalias 'perl-mode 'cperl-mode)
 		 (add-hook 'cperl-mode-hook
-				   (lambda () (setl eldoc-documentation-function
-									(lambda ()
-									  (let (cperl-message-on-help-error)
-										(car (cperl-get-help))))))))
+				   (setl eldoc-documentation-function
+						 (lambda ()
+						   (let (cperl-message-on-help-error)
+							 (car (cperl-get-help)))))))
 	 #+END_SRC
 
 	 As of now, this is my entire perl setup, and for the most purposes,
