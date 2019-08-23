@@ -1182,7 +1182,10 @@
 **** Intelligent =shell-command=
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package bang
-		 :bind ("M-!" . bang))
+		 :after dired
+		 :bind (("M-!" . bang)
+				:map dired-mode-map
+				("M-!" . bang)))
 	 #+END_SRC
 
 	 "Bang" is a =shell-command= substitute that melds =shell-command= and
