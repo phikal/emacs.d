@@ -2847,13 +2847,23 @@
   different, or better (eg. =M-SPC= to cycle-spacing) commands.
 
   #+BEGIN_SRC emacs-lisp
-	(dolist (bind '(("H-f" . find-file)
+	(dolist (bind `(("H-f" . find-file)
+					("H-g" . keyboard-escape-quit)
 					("H-e" . eval-last-sexp)
-					("H-x" . eval-defun)
+					,@(mapcan (lambda (key)
+								(let* ((kbd (format "C-x C-%c" key))
+									   (fn (key-binding (kbd kbd))))
+								  (when fn
+									`((,(format "H-%c" key) . ,fn)))))
+							  (number-sequence ?! ?~))
+					("H-s" . isearch-forward)
+					("H-r" . isearch-backward)
 					("H-n" . next-line)
 					("H-p" . previous-line)
-					("H-f" . forward-char)
-					("H-b" . backward-char)))
+					("H-N" . forward-paragraph)
+					("H-P" . backward-paragraph)
+					("H-SPC" . counsel-M-x)
+					("H-x" . pop-global-mark)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
