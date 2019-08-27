@@ -2023,6 +2023,25 @@
 
 	 This local package allows me to insert a C header from anywhere in
 	 a file.
+***** Macro Expansion
+	  #+BEGIN_SRC emacs-lisp
+		(with-eval-after-load 'cmacexp
+		  (when (executable-find "clang-format")
+			(advice-add 'c-macro-expand :after
+						(lambda (start end subst)
+						  (unless subst
+							(read-only-mode -1)
+							(shell-command-on-region
+							 (point-min) (point-max)
+							 "clang-format" nil t nil)
+							(set-buffer-modified-p nil)
+							(read-only-mode -1))))))
+	  #+END_SRC
+
+	  When the C preprocessor expands macros, it's usually hard to read,
+	  probably because it's not primarily made for humans. This little
+	  piece of advice will try to use =clang-format= (if installed) to
+	  re-format the output.
 
 ***** Semantic
 	  #+BEGIN_SRC emacs-lisp
