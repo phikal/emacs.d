@@ -2343,6 +2343,10 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package paredit
 		 :diminish
+		 :configure
+		 (advice-add 'paredit-reindent-defun
+					 :override (lambda (&rest _)
+								 (fill-paragraph)))
 		 :hook ((scheme-mode . paredit-mode)
 				(lisp-mode . paredit-mode)
 				(emacs-lisp-mode . paredit-mode)
