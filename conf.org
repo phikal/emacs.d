@@ -2303,20 +2303,6 @@
 	 As of now, this is my entire perl setup, and for the most purposes,
 	 cperl-mode is quite enough.
 
-**** COMMENT R
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package ess
-		 :if (executable-find "R")
-		 :config
-		 (setq ess-fancy-comments nil
-			   ess-eval-visibly nil
-			   ess-ask-for-ess-directory nil))
-	 #+END_SRC
-
-	 I don't use R myself currently, but I want to learn it. All
-	 configuration options were found in various other configs over the
-	 internet, so I can't say how helpful or on they are.
-
 *** Enchantments
 **** Viper
 	 #+BEGIN_SRC emacs-lisp
