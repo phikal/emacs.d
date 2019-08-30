@@ -2851,7 +2851,10 @@
 					("H-N" . forward-paragraph)
 					("H-P" . backward-paragraph)
 					("H-SPC" . counsel-M-x)
-					("H-x" . pop-global-mark)))
+					("H-M-SPC" . mark-sexp)
+					("H-x" . pop-global-mark)
+					("H-]" . forward-paragraph)
+					("H-[" . backward-paragraph)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
 
