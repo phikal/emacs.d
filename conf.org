@@ -2303,27 +2303,6 @@
 	 As of now, this is my entire perl setup, and for the most purposes,
 	 cperl-mode is quite enough.
 
-**** Python
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package anaconda-mode
-		 :if (executable-find "python3")
-		 :after flycheck
-		 :custom ((python-shell-interpreter "ipython3")
-				  (python-shell-interpreter-args "--simple-prompt -i")
-				  (flycheck-python-pylint-executable (executable-find "pylint3")))
-		 :hook ((python-mode . anaconda-mode)
-				(inferior-python-mode . anaconda-mode)
-				(python-mode . anaconda-eldoc-mode)
-				(inferior-python-mode . anaconda-mode))
-		 :bind (:map inferior-python-mode-map
-					 ("M-<tab>" . completion-at-point)))
-	 #+END_SRC
-
-	 I keep my Python setup simple but functional, since I don't use
-	 Python /that/ much, but like to have it working when I do. That
-	 means, documentation, code exploration and completion should work
-	 as expected, but other than that, I don't require too much.
-
 **** COMMENT R
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ess
