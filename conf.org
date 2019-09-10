@@ -1177,7 +1177,7 @@
 				 (prog-mode . "#ccffcc")
 				 (dired-mode . "#ccffff")
 				 (comint-mode . "#ccccff")
-				 (eshell-mode . "#ffcccc")))
+				 (eshell-mode . "#ccccff")))
 		 (face-shift-mode t))
 	 #+END_SRC
 	 
