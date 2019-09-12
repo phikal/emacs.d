@@ -58,8 +58,8 @@
    unhandy: everything was different. From names over the workflow
    (which I didn't even understand) to the keybindings. All I used to
    do, was open a file (=C-x C-f=), maybe move up and down (=M-v= and =C-v=)
-   change the theme (using the menu bar) and then close Emacs (=C-x
-   C-x=). That was pretty much all I knew.
+   change the theme (using the menu bar) and then close Emacs (=C-x C-c=).
+   That was pretty much all I knew.
 
    But somewhere around mid-2014 (if not earlier) for some reason I
    can't quite remember I was drawn towards Emacs. Possibilities could
