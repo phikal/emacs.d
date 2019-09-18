@@ -2294,13 +2294,15 @@
 
 **** Perl
 	 #+BEGIN_SRC emacs-lisp
-	   (with-eval-after-load 'cperl
-		 (defalias 'perl-mode 'cperl-mode)
+	   (use-package cperl-mode
+		 :config
 		 (add-hook 'cperl-mode-hook
 				   (setl eldoc-documentation-function
 						 (lambda ()
 						   (let (cperl-message-on-help-error)
-							 (car (cperl-get-help)))))))
+							 (car (cperl-get-help))))))
+		 :mode (((rx ".pl" eos) . cperl-mode)
+				((rx "." (? "d") "cgi" eos) . cperl-mode)))
 	 #+END_SRC
 
 	 As of now, this is my entire perl setup, and for the most purposes,
