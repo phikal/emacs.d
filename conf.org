@@ -669,14 +669,11 @@
 	highlight!".
 
 	#+BEGIN_SRC emacs-lisp
-	  (define-key isearch-mode-map (kbd "C-o")
-		(lambda () (interactive)
-		  (occur (if isearch-regexp isearch-string (regexp-quote isearch-string)))
-		  (isearch-exit)))
+	  (setq search-default-mode 'char-fold-to-regexp)
 	#+END_SRC
 
-	This hack let's me easily enter occur when searching the buffer.
-	From there, one can type =e= to edit like with wdired.
+	Also, don't make any distinctions between classical ASCII letters an
+	their siblings (such as =a= and =ä=).
 
 *** Mark Ring
 	#+BEGIN_SRC emacs-lisp
