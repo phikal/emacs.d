@@ -2560,8 +2560,6 @@
    case.
 
    #+BEGIN_SRC emacs-lisp
-	 (zge/swap-keys (kbd "C-s") (kbd "C-M-s"))
-	 (zge/swap-keys (kbd "C-r") (kbd "C-M-r"))
 	 (zge/swap-keys (kbd "M-%") (kbd "C-M-%"))
    #+END_SRC
 
