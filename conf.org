@@ -2022,6 +2022,7 @@
 	   (use-package c-insert
 		 :load-path "lisp/"
 		 :config
+		 (setq c-insert-order-by-default nil)
 		 (define-key c-mode-map (kbd "C-c C-a") #'c-insert-header))
 	 #+END_SRC
 
