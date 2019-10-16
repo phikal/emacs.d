@@ -2792,12 +2792,11 @@
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
-					("<f2>" . window-configuration-to-register)
 					("<f5>" . zge/toggle-dictionary)
 					("<f6>" . toggle-truncate-lines)
 					("<f7>" . zge/run-in-xterm)
-					("<f8>" . recompile)
-					("C-<f8>" . compile)
+					("<f2>" . recompile)
+					("C-<f2>" . compile)
 					("C-c <C-return>" . man)
 					("C-x x d" . calendar)
 					("C-x x k" . bury-buffer)
