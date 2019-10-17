@@ -2790,6 +2790,46 @@
    and since I currently use xterm, this command let's me do this
    quickly.
 
+** Change Mail Sender
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/mail-toggle-account ()
+	   (interactive)
+	   (catch 'never-mind
+		 (save-excursion
+		   (goto-char (point-min))
+		   (search-forward-regexp "^From: ")
+		   (let* ((from (point)) (to (line-end-position))
+				  (current (buffer-substring from to))
+				  new-addr new-sig)
+			 (delete-region from to)
+			 (cond ((string-match-p (rot13-string "@snh\\.qr") current)
+					(setq new-addr user-mail-address
+						  new-sig
+						  (cadr (assq 'signature-file (cdar gnus-posting-styles)))))
+				   ((string-match-p (rot13-string "@jnecznvy\\.arg") current)
+					(setq new-addr
+						  (cadr (assq 'address (cdadr gnus-posting-styles)))
+						  new-sig
+						  (cadr (assq 'signature-file (cdadr gnus-posting-styles)))))
+				   (t (throw 'never-mind nil)))
+			 (insert new-addr)
+			 (goto-char (point-max))
+			 (search-backward-regexp "^--")
+			 (forward-line 1)
+			 (delete-region (point) (point-max))
+			 (insert (with-temp-buffer
+					   (insert-file-contents new-sig)
+					   (buffer-string)))))))
+
+	 (defalias 'mail-toggle-account #'zge/mail-toggle-account)
+	 (with-eval-after-load 'message-mode
+	   (define-key message-mode-map (kbd "C-c TAB") #'zge/mail-toggle-account))
+   #+END_SRC
+
+   Since I use two different Email addresses, and Emacs defaults to my
+   personal one, I use this (ugly) function to allow me easy switching
+   between the two, when a message buffer is already opened.
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
