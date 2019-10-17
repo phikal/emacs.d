@@ -2050,24 +2050,15 @@
 
 ***** Semantic
 	  #+BEGIN_SRC emacs-lisp
-		(with-eval-after-load 'semantic
+		(use-package semantic
+		  :config
 		  (add-hook 'semantic-mode-hook
-					(setl completion-at-point-functions '(semantic-analyze-completion-at-point-function)))
+					(setl completion-at-point-functions '(semantic-analyze-completion-at-point-function))))
 	  #+END_SRC
 
 	  Semantic mode parses the current buffer and using it's information
 	  allows me to complete functions. All that's missing for my setup
 	  is to set the CAPF function.
-
-	  #+BEGIN_SRC emacs-lisp
-		(define-key semantic-mode-map (kbd "C-#") nil)
-		(define-key semantic-mode-map (kbd "C-# #") #'semantic-ia-show-doc)
-		(define-key semantic-mode-map (kbd "C-# C-#") #'semantic-ia-show-summary)
-		(define-key semantic-mode-map (kbd "C-# RET") #'semantic-ia-fast-jump)))
-	  #+END_SRC
-
-	  By default these keybindings aren't bound by Semantic mode, so I
-	  bind them to =C-#=, which is otherwise not used by C.
 
 **** GDB
 	 #+BEGIN_SRC emacs-lisp
