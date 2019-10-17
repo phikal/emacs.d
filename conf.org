@@ -2473,8 +2473,7 @@
 		 :diminish
 		 :after ivy
 		 :commands projectile-mode
-		 :custom ((projectile-enable-caching t)
-				  (projectile-require-project-root nil)
+		 :custom ((projectile-require-project-root nil)
 				  (projectile-switch-project-action 'projectile-dired)
 				  (projectile-completion-system 'default))
 		 :init
