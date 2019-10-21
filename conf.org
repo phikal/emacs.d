@@ -2813,13 +2813,11 @@
 			 (search-backward-regexp "^--")
 			 (forward-line 1)
 			 (delete-region (point) (point-max))
-			 (insert (with-temp-buffer
-					   (insert-file-contents new-sig)
-					   (buffer-string)))))))
+			 (insert-file-contents new-sig)))))
 
 	 (defalias 'mail-toggle-account #'zge/mail-toggle-account)
-	 (with-eval-after-load 'message-mode
-	   (define-key message-mode-map (kbd "C-c TAB") #'zge/mail-toggle-account))
+	 (with-eval-after-load 'message
+	   (define-key message-mode-map (kbd "C-RET") #'zge/mail-toggle-account))
    #+END_SRC
 
    Since I use two different Email addresses, and Emacs defaults to my
