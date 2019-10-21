@@ -2612,7 +2612,7 @@
 	   (interactive "P")
 	   (insert (format-time-string "%d%h%y")))
 
-	 (defalias 'insert-timestamp 'zge/add-timestamp)
+	 (defalias 'insert-timestamp #'zge/add-timestamp)
    #+END_SRC
 
    For my ad-hoc blog, I insert a specially formatted UNIX timestamp.
