@@ -2302,6 +2302,26 @@
 	 As of now, this is my entire perl setup, and for the most purposes,
 	 cperl-mode is quite enough.
 
+**** APL
+	 #+BEGIN_SRC emacs-lisp
+			  (use-package gnu-apl-mode
+				:load-path "lisp/gnu-apl-mode/"
+				:commands 'gnu-apl
+				:config
+				(setq gnu-apl-show-apl-welcome nil
+					  gnu-apl-show-tips-on-start nil)
+				(set-face-font 'gnu-apl-default "xft:-acds-APL385 Unicode-normal-normal-normal-*-14-*-*-*-*-0-iso10646-1")
+				(defun zge/gnu-apl-init ()
+				  (setq-local default-input-method "APL-Z")
+				  (toggle-input-method)
+				  (setq-local buffer-face-mode-face 'gnu-apl-default)
+				  (buffer-face-mode))
+				(add-hook 'gnu-apl-interactive-mode-hook #'zge/gnu-apl-init)
+				(add-hook 'gnu-apl-mode-hook 'zge/gnu-apl-init)
+				(defalias 'apl #'gnu-apl)
+				:mode ((rx ".a" (? "pl") eos) . gnu-apl-mode))
+	 #+END_SRC
+
 *** Enchantments
 **** Viper
 	 #+BEGIN_SRC emacs-lisp
