@@ -1983,9 +1983,11 @@
 **** Markdown
      #+BEGIN_SRC emacs-lisp
 	   (use-package markdown-mode
-		 :if (executable-find "cmark")
+		 :if (or (executable-find "cmark")
+				 (executable-find "pandoc"))
 		 :custom ((markdown-italic-underscore t)
-				  (markdown-command (executable-find "cmark")))
+				  (markdown-command (or (executable-find "cmark")
+										(executable-find "pandoc"))))
 		 :mode (rx (or (seq bos "README" (opt ".md"))
 					   (or ".markdown" ".mkdn" ".md"))
 				   eos))
@@ -1998,7 +2000,7 @@
 	 my default choice when I have to work with shorter to medium sized
 	 documents, and web-related content generally.
 
-	 I make use of [[https://github.com/commonmark/cmark][cmark]] as my default markdown to HTML converter.
+	 I make use of [[https://github.com/commonmark/cmark][cmark]] (or pandoc) as my default markdown to HTML converter.
 
 *** Programming Languages
 **** C
