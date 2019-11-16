@@ -2246,14 +2246,14 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package slime
 		 :if (executable-find "sbcl")
-		 :after paredit
+		 :custom ((common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
+				  (slime-completion-at-point-functions
+				   '(slime-filename-completion slime-simple-completion-at-point))
+				  (slime-contribs
+				   '(slime-fancy slime-hyperdoc slime-mdot-fu slime-cl-indent)))
 		 :config
-		 (setq inferior-lisp-program (executable-find "sbcl")
-			   common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/"
-			   slime-completion-at-point-functions
-			   '(slime-filename-completion slime-simple-completion-at-point)
-			   slime-contribs '(slime-fancy slime-hyperdoc slime-mdot-fu slime-cl-indent))
-		 :bind (:map slime-mode-map ("C-#" . slime-selector))
+		 (setq inferior-lisp-program (executable-find "sbcl"))
+		 :bind (:map slime-mode-map ("C-c #" . slime-selector))
 		 :mode ((rx (or ".lisp" ".cl") eos) . common-lisp-mode))
 	 #+END_SRC
 
