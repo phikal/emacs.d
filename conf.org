@@ -1719,6 +1719,7 @@
 		 :ensure auctex
 		 :custom ((TeX-master 'dwim)
 				  (LaTeX-electric-left-right-brace t)
+				  (LaTeX-syntactic-comments nil)
 				  (TeX-auto-save t)
 				  (TeX-parse-self t)
 				  (preview-auto-cache-preamble t)
