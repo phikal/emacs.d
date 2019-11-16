@@ -1702,6 +1702,14 @@
 	 main one, =kamoji-insert= let's me choose between multiple different
 	 categories.
 
+**** Dictionary
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package dictionary
+		 :config
+		 (setq dictionary-server "localhost")
+		 :bind (("<f8>". dictionary-search)
+				("<f9>". dictionary-match-words)))
+	 #+END_SRC
 ** Programming
 *** Text Editing
 **** LaTeX
