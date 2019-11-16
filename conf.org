@@ -2844,6 +2844,19 @@
    personal one, I use this (ugly) function to allow me easy switching
    between the two, when a message buffer is already opened.
 
+** Indent Defun
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/indent-defun ()
+	   (interactive)
+	   (if (nth 4 (syntax-ppss))
+		   (fill-paragraph)
+		 (save-restriction
+		   (narrow-to-defun)
+		   (indent-region-line-by-line (point-min) (point-max)))))
+
+	 (define-key prog-mode-map (kbd "M-q") #'zge/indent-defun)
+   #+END_SRC
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
