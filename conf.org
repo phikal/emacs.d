@@ -245,7 +245,6 @@
    - msmtp, mpop, notmuch :: [[*Mail][Mail]]
    - gpg :: authinfo.gpg de-/encyrption
    - curl :: [[*Feed Syndication][Feed Syndication]]
-   - ledger :: [[*Accounting][Double-entry Accounting]]
    - git :: [[*Version%20Control][Version Control]] (eg. for this file)
    - aspell :: [[Spell%20Checking][Spell Checking]]
    - rg :: [[*Project Managment][Project Managment]] and [[*Goto Source][Source Discovery]]
@@ -874,8 +873,6 @@
 		 (?j "~/doc/org/uni.org")
 		 (?r "~/doc/read/")
 		 (?u "~/doc/uni/")
-		 (?l ,(format-time-string "~/doc/ledger/%Y/%m.lg"))
-		 (?L ,"~/doc/ledger/")
 		 (?m "~/media/")
 		 (?U "/ssh:uni:")
 		 (?I "/ssh:ibis:"))
@@ -1102,7 +1099,6 @@
 				  ("Dired" (mode . dired-mode))
 				  ("Org" (mode . org-mode))
 				  ("IRC" (mode . rcirc-mode))
-				  ("Ledger" (mode . ledger-mode))
 				  ("PDF" (mode . pdf-view-mode))
 				  ("Man Pages" (mode . Man-mode))
 				  ("Emacs" (or (name . ,(rx bos "*scratch*" eos))
@@ -1632,22 +1628,6 @@
 	 I have grown fond of Emacs Calc, even though it might is be big
 	 complicated to go beyond the basics. Most of these options have been
 	 taken from the auto generated =calc.el= file.
-
-**** Accounting
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package ledger-mode
-		 :if (executable-find "ledger")
-		 :custom ((ledger-source-directory (expand-file-name "~/doc/ledger"))
-				  (ledger-reconcile-default-commodity "EUR")
-				  (ledger-highlight-xact-under-point nil)
-				  (ledger-master-file (expand-file-name "master.lg" ledger-source-directory))
-				  (ledger-use-iso-dates t))
-		 :bind (:map ledger-mode-map ("M-<tab>" . complete-symbol))
-		 :mode ((rx ".lg" eos) . ledger-mode))
-	 #+END_SRC
-
-	 In an effort to use ledger, I have set up =ledger-mode= with some
-	 sane defaults.
 
 **** PDF Viewer
 	 #+BEGIN_SRC emacs-lisp
