@@ -2294,23 +2294,33 @@
 
 **** APL
 	 #+BEGIN_SRC emacs-lisp
-			  (use-package gnu-apl-mode
-				:load-path "lisp/gnu-apl-mode/"
-				:commands 'gnu-apl
-				:config
-				(setq gnu-apl-show-apl-welcome nil
-					  gnu-apl-show-tips-on-start nil)
-				(set-face-font 'gnu-apl-default "xft:-acds-APL385 Unicode-normal-normal-normal-*-14-*-*-*-*-0-iso10646-1")
-				(defun zge/gnu-apl-init ()
-				  (setq-local default-input-method "APL-Z")
-				  (toggle-input-method)
-				  (setq-local buffer-face-mode-face 'gnu-apl-default)
-				  (buffer-face-mode))
-				(add-hook 'gnu-apl-interactive-mode-hook #'zge/gnu-apl-init)
-				(add-hook 'gnu-apl-mode-hook 'zge/gnu-apl-init)
-				(defalias 'apl #'gnu-apl)
-				:mode ((rx ".a" (? "pl") eos) . gnu-apl-mode))
+	   (use-package gnu-apl-mode
+		 :if (executable-find "apl")
+		 :load-path "lisp/gnu-apl-mode/"
+		 :commands 'gnu-apl
+		 :custom ((gnu-apl-show-apl-welcome nil)
+				  (gnu-apl-key-prefix ?`)
+				  (gnu-apl-show-tips-on-start nil))
+		 :init
+		 (defalias 'apl #'gnu-apl)
+		 :config
+		 (set-face-font 'gnu-apl-default "xft:-acds-APL385 Unicode-normal-normal-normal-*-14-*-*-*-*-0-iso10646-1")
+		 (defun zge/gnu-apl-init ()
+		   (setq-local default-input-method "APL-Z")
+		   (toggle-input-method)
+		   (setq-local buffer-face-mode-face 'gnu-apl-default)
+		   (buffer-face-mode))
+		 (add-hook 'gnu-apl-interactive-mode-hook #'zge/gnu-apl-init)
+		 (add-hook 'gnu-apl-mode-hook 'zge/gnu-apl-init)
+		 :mode ((rx ".a" (? "pl") eos) . gnu-apl-mode))
 	 #+END_SRC
+
+	 This package isn't found in ELPA/MELPA, so I had to manual clone it
+	 to my local lisp directory. Find the source repository [[https://github.com/lokedhs/gnu-apl-mode][here]].
+
+	 My main changes are activating the APL input method with my
+	 preferred prefix key, as to use the necessary symbols (⍳, ⍬, ⎕,
+	 ...) and changing the font to the [[https://www.dyalog.com/apl-font-keyboard.htm#FONTS][Dyalog APL]] font.
 
 *** Enchantments
 **** Viper
