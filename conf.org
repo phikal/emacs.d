@@ -2302,7 +2302,7 @@
 				  (gnu-apl-key-prefix ?`)
 				  (gnu-apl-show-tips-on-start nil))
 		 :init
-		 (defalias 'apl #'gnu-apl)
+		 (defalias 'run-apl #'gnu-apl)
 		 :config
 		 (set-face-font 'gnu-apl-default "xft:-acds-APL385 Unicode-normal-normal-normal-*-14-*-*-*-*-0-iso10646-1")
 		 (defun zge/gnu-apl-init ()
