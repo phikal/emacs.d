@@ -2868,6 +2868,17 @@
 	 (define-key prog-mode-map (kbd "M-q") #'zge/indent-defun)
    #+END_SRC
 
+** Dark Mode
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/toggle-dark-mode ()
+	   (interactive)
+	   (invert-face 'default))
+   #+END_SRC
+
+   A cheep dark mode for my configuration. Just inverts the "default
+   face", ie what most buffers use for regular text, and all faces that
+   are based on the "default face".
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
