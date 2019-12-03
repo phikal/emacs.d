@@ -8,9 +8,8 @@
   all the relevant code snippets, ignoring the documenting comments.
 
   To load this configuration, make sure you have the ~.org~ file locally
-  on your system, and call it using ~org-babel-load-file~. Furthermore,
-  make sure that you've loaded the ~cl-lib~ module with ~require~. An
-  example of how I initialize my configuration is given [[*Why use org/babel?][below]].
+  on your system, and call it using ~org-babel-load-file~. An example of
+  how I initialize my configuration is given [[*Why use org/babel?][below]].
 
   This document, it's code and comments, are in the [[https://creativecommons.org/publicdomain/zero/1.0/deed][public domain]].
 
@@ -23,8 +22,8 @@
   This configuration is more regularly updated [[https://zge.us.to/emacs.d.html][on my website]], and the
   source can be found in the [[https://git.sr.ht/~zge/emacs.d][git history]].
 
-  A shortened version of this configuration can be found [[https://wwwcip.cs.fau.de/~oj14ozun/src+etc/init.el][on my
-  university homepage]], in German.
+  A shortened, simplified, alternative version of this configuration can
+  be found [[https://wwwcip.cs.fau.de/~oj14ozun/src+etc/init.el][on my university homepage]], in German.
 
   Time of export: {{{time(%c)}}}.
 
