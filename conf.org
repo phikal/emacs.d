@@ -1554,7 +1554,8 @@
 					 :after (lambda (&rest _)
 							  (rcirc-update-activity-string)))
 		 :hook ((rcirc-mode . flyspell-mode)
-				(rcirc-mode . rcirc-track-minor-mode))
+				(rcirc-mode . rcirc-track-minor-mode)
+				(rcirc-mode . electric-pair-local-mode))
 		 :bind (("C-x x x" . rcirc-next-active-buffer)
 				:map rcirc-mode-map
 				("C-x k" . bury-buffer)))
