@@ -2246,6 +2246,7 @@
 									slime-references
 									slime-mdot-fu
 									slime-xref-browser
+									slime-presentations
 									slime-cl-indent
 									slime-fancy-inspector
 									slime-fontifying-fu
