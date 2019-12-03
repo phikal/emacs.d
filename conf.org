@@ -1253,6 +1253,17 @@
 	 Eshell works quite well out of the box, all I want is to turn off
 	 the banner and simplify the prompt.
 
+	 #+BEGIN_SRC emacs-lisp
+	   (with-eval-after-load 'eshell
+		 (require 'ansi-color)
+		 (add-hook 'eshell-preoutput-filter-functions!
+				   #'ansi-color-apply))
+	 #+END_SRC
+
+	 Using =ansi-color=, I allow [[https://en.wikipedia.org/wiki/ANSI_escape_code][ansi-escape codes]] to be processed in
+	 the Eshell, meaning that (some) color-codes are transformed into
+	 their proper text attributes.
+
 **** Terminal Emulation
 	 #+BEGIN_SRC emacs-lisp
 	   (setq explicit-shell-file-name (executable-find "sh"))
