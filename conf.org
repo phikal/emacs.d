@@ -2057,7 +2057,12 @@
 		(use-package semantic
 		  :config
 		  (add-hook 'semantic-mode-hook
-					(setl completion-at-point-functions '(semantic-analyze-completion-at-point-function))))
+					(setl completion-at-point-functions '(semantic-analyze-completion-at-point-function)))
+		  (setq semantic-default-submodes
+				'(global-semantic-idle-scheduler-mode
+				  global-semantic-idle-summary-mode
+				  global-semanticdb-minor-mode
+				  global-semantic-stickyfunc-mode)))
 	  #+END_SRC
 
 	  Semantic mode parses the current buffer and using it's information
