@@ -2119,6 +2119,7 @@
 		   (setenv "GOPATH" go-path)
 		   (add-to-PATH go-bin))
 		 (go-install "golang.org/x/tools/cmd" "goimports")
+		 (go-install "golang.org/x/tools/cmd" "godoc")
 		 (setq gofmt-command "goimports")
 		 :mode (rx ".go" eos)
 		 :bind (:map go-mode-map
