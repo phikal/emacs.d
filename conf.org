@@ -1558,7 +1558,8 @@
 									 :nick "zge"
 									 :password ,zge/znc-pass
 									 :port 25331
-									 :encryption tls)))
+									 :encryption tls
+									 :channels ,zge/znc-channels)))
 		 (advice-add 'rcirc-abbreviate
 					 :override #'identity)
 		 (advice-add 'rcirc-next-active-buffer
