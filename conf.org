@@ -1175,24 +1175,6 @@
 	 windows by overriding the arrow keys, and adding a few keys to
 	 easily split and delete other windows.
 
-**** Per-Mode Colors
-	 #+BEGIN_SRC emacs-lisp
-	   (use-package face-shift
-		 :if (display-graphic-p nil)
-		 :config
-		 (setq face-shift-shifts
-			   '((text-mode . "#ffffcc")
-				 (prog-mode . "#ccffcc")
-				 (dired-mode . "#ccffff")
-				 (comint-mode . "#ccccff")
-				 (eshell-mode . "#ccccff")))
-		 (face-shift-mode t))
-	 #+END_SRC
-	 
-	 I like to have the buffer have a different tone, depending on what
-	 specifically it contains. In my case programming is slightly more
-	 green, while text has a yellow hue, etc.
-
 **** Intelligent =shell-command=
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package bang
