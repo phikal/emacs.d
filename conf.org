@@ -1698,7 +1698,7 @@
 		 :config
 		 (setq dictionary-server "localhost")
 		 :bind (("<f8>". dictionary-search)
-				("<f9>". dictionary-match-words)))
+				("C-<f8>". dictionary-match-words)))
 	 #+END_SRC
 ** Programming
 *** Text Editing
