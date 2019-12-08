@@ -1253,7 +1253,7 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (with-eval-after-load 'eshell
 		 (require 'ansi-color)
-		 (add-hook 'eshell-preoutput-filter-functions!
+		 (add-hook 'eshell-preoutput-filter-functions
 				   #'ansi-color-apply))
 	 #+END_SRC
 
