@@ -2896,6 +2896,10 @@
    face", ie what most buffers use for regular text, and all faces that
    are based on the "default face".
 
+   #+BEGIN_SRC emacs-lisp
+	 (global-set-key (kbd "<f9>") #'zge/toggle-dark-mode)
+   #+END_SRC
+
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
