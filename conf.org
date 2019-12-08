@@ -854,6 +854,22 @@
 	keystroke -- as soon as you get used to this, you'll miss it
 	everywhere.
 
+*** Local Code Transformation
+	#+BEGIN_SRC emacs-lisp
+	  (setq-default glasses-uncapitalize-p t
+					glasses-separate-capital-groups nil
+					glasses-separate-parentheses-p nil)
+	  (with-eval-after-load 'cc-mode
+		(add-hook 'c++-mode-hook #'glasses-mode))
+	#+END_SRC
+
+	I don't really like camel-case. I much prefer snake- or kebab- case.
+	Glasses mode I can let actual camel-case code /look/ like snake
+	case, without the actual file content changing. My configuration
+	furthermore turns camel-case capitals into their lower case
+	equivalents, and inhibits the insertion of white-spaces before
+	parentheses.
+
 ** Registers
    #+BEGIN_SRC emacs-lisp
 	 (defvar zge/registers
