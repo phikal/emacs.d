@@ -203,7 +203,11 @@
    - [[https://github.com/stsquad/my-emacs-stuff][Alex Bennée's configuration]] :: A classical (non-literate)
         configuration that touches on many different packages and
         options.
-
+   - [[https://protesilaos.com/dotemacs/][Protesilaos Stavrou's dotemacs]] :: Very well written and clean
+        confirmation. Check ouf [[https://www.youtube.com/channel/UC0uTPqBCFIpZxlz_Lv1tk_g][Protesilaos's]] YouTube channel for more
+        live demonstrations of what he talks about here.
+   - [[https://gitlab.com/link0ff/emacs-init/blob/master/emacs.el][Juri Linkov's emacs-init]] :: On the longer side of most
+        configurations listed here, written on top of that in pure Elisp.
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
