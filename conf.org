@@ -511,7 +511,8 @@
 
 *** RFC
 	#+BEGIN_SRC emacs-lisp
-	  (setq ffap-rfc-directories '("/usr/share/doc/RFC/links/"))
+	  (when (file-directory-p "/usr/share/doc/RFC/links/")
+		(setq ffap-rfc-directories '("/usr/share/doc/RFC/links/")))
 	#+END_SRC
 
 	Since I've installed [[https://packages.debian.org/sid/doc-rfc][doc-rfc]] on my system, I have all RFCs installed
