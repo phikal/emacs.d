@@ -2500,7 +2500,15 @@
 	   (use-package magit
 		 :if (executable-find "git")
 		 :custom ((magit-diff-options "-b --patience")
-				  (magit-save-repository-buffers 'dontask))
+				  (magit-save-repository-buffers 'dontask)
+				  (magit-diff-refine-hunk t)
+				  (git-commit-known-pseudo-headers
+				   '("Signed-off-by" "Acked-by" "Modified-by" "Cc"
+					 "Suggested-by" "Reported-by" "Tested-by"
+					 "Reviewed-by"))
+				  (git-commit-style-convention-checks
+				   '(non-empty-second-line
+					 overlong-summary-line)))
 		 :bind ("C-x g" . magit-status))
 	 #+END_SRC
 
