@@ -2653,18 +2653,6 @@
 
    Idea taken from the [[http://www.pell.portland.or.us/~orc/Code/discount/][Discount]] Markdown parser.
 
-** Timestamp
-   #+BEGIN_SRC emacs-lisp
-	 (defun zge/insert-timestamp (arg)
-	   "Prepend a special UNIX timestamp to buffer"
-	   (interactive "P")
-	   (insert (format-time-string "%d%h%y")))
-
-	 (defalias 'insert-timestamp #'zge/insert-timestamp)
-   #+END_SRC
-
-   For my ad-hoc blog, I insert a specially formatted UNIX timestamp.
-
 ** Kill buffer and open Dired
    #+BEGIN_SRC emacs-lisp
 	 (with-eval-after-load 'dired-x
