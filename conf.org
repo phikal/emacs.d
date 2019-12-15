@@ -870,6 +870,24 @@
 	equivalents, and inhibits the insertion of white-spaces before
 	parentheses.
 
+*** Timestamps
+	#+BEGIN_SRC emacs-lisp
+	  (add-hook 'before-save-hook #'time-stamp)
+	#+END_SRC
+
+	If files have timestamps, make sure that they are updated every time
+	a buffer is saved.
+
+	This will search the first few lines of a file for a line that
+	contains like one of the following:
+
+	#+BEGIN_EXAMPLE
+	  Time-stamp: <>
+	  Time-stamp: " "
+	#+END_EXAMPLE
+
+	and insert a timestamp + username.
+
 ** Registers
    #+BEGIN_SRC emacs-lisp
 	 (defvar zge/registers
