@@ -859,8 +859,6 @@
 	  (setq-default glasses-uncapitalize-p t
 					glasses-separate-capital-groups nil
 					glasses-separate-parentheses-p nil)
-	  (with-eval-after-load 'cc-mode
-		(add-hook 'c++-mode-hook #'glasses-mode))
 	#+END_SRC
 
 	I don't really like camel-case. I much prefer snake- or kebab- case.
