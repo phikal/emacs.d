@@ -3021,6 +3021,19 @@
    After modifying the programming keymap, make sure a list of minor
    modes are added started in every programming environment.
 
+   #+BEGIN_SRC emacs-lisp
+	 (add-hook 'prog-mode-map
+			   (lambda ()
+				 (add-hook 'before-save-hook
+						   #'delete-trailing-whitespace
+						   nil t)))
+   #+END_SRC
+
+   Most programming languages are whitespace insignificant, and if they
+   are not, they /usually/ don't care about the whitespaces at the end
+   of a line. For that reason, Emacs shall make sure that these are
+   removed before saving a file.
+
 ** Writing
    #+BEGIN_SRC emacs-lisp
 	 (add-hook 'text-mode-hook
@@ -3052,3 +3065,15 @@
    width) Emacs would scroll without scrolling back. To remedy this
    issue, I automatically scroll-right, whenever a paragraph is
    auto-fill'ed (currently a bit buggy).
+
+   #+BEGIN_SRC emacs-lisp
+	 (add-hook 'text-mode-map
+			   (lambda ()
+				 (add-hook 'before-save-hook
+						   #'delete-trailing-whitespace
+						   nil t)))
+   #+END_SRC
+
+   Just as with programming modes above, trailing whitespaces have no
+   need to exist in text files. They should be deleted before saving a
+   file.
