@@ -2920,6 +2920,7 @@
 * Global Keybindings
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
+					("C-M-(" . delete-pair)
 					("<f5>" . zge/toggle-dictionary)
 					("<f6>" . toggle-truncate-lines)
 					("<f7>" . zge/run-in-xterm)
