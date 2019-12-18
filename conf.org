@@ -731,7 +731,7 @@
 
 *** Selecting with Shift
 	#+BEGIN_SRC emacs-lisp
-	  (setq shift-select-mode  nil)
+	  (setq shift-select-mode nil)
 	#+END_SRC
 
 	Don't select region with shift.
