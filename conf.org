@@ -2176,6 +2176,7 @@
 		   (add-to-PATH go-bin))
 		 (go-install "golang.org/x/tools/cmd" "goimports")
 		 (go-install "golang.org/x/tools/cmd" "godoc")
+		 (go-install "golang.org/x/lint" "golint")
 		 (setq gofmt-command "goimports")
 		 :mode (rx ".go" eos)
 		 :bind (:map go-mode-map
