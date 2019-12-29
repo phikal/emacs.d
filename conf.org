@@ -2506,7 +2506,7 @@
 	 aligned.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package yasnippet-snippets :after yasnippet)
+	   (use-package yasnippet-classic-snippets :after yasnippet)
 	 #+END_SRC
 
 	 Furthermore, make sure a few extra major modes as supported.
