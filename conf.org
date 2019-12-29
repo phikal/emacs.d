@@ -2122,17 +2122,36 @@
 	 file extention for gnuplot files, as few things have to be
 	 re-aliased for the mode to work properly.
 
-**** HTML
+**** Web
+***** HTML
+	   #+BEGIN_SRC emacs-lisp
+		 (use-package sgml-mode
+		   :custom (sgml-xml-mode t))
+	   #+END_SRC
+
+	   For most of what I do, Emacs' built in =mhtml-mode=. The only major
+	   annoyance is it's default insistence not to close some tags (=<p>=,
+	   =<dl>/<dd>=, ...), which I here prevent.
+
+	   #+BEGIN_SRC emacs-lisp
+		 (use-package skeleton
+		   :config
+		   (setq skeleton-end-newline nil))
+	   #+END_SRC
+
+	   Furthermore, when inserting a html tag with =sgml-tag= (=C-c
+	   C-o=), don't add unnecessary newlines.
+
+***** CSS
 	  #+BEGIN_SRC emacs-lisp
-		(setq sgml-xml-mode t
-			  skeleton-end-newline nil)
+		(use-package css-mode
+		  :bind (:map css-mode-map ("C-c C-h" . css-lookup-symbol)))
 	  #+END_SRC
 
-	  For most of what I do, Emacs' built in =mhtml-mode=. The only major
-	  annoyance is it's default insistence not to close some tags (=<p>=,
-	  =<dl>/<dd>=, ...), which I here prevent. Furthermore, when inserting
-	  a html tag with =sgml-tag= (=C-c C-o=), don't add unnecessary
-	  newlines.
+	  Emacs CSS mode has a helpful little function called
+	  =css-lookup-symbol=, that allows me to open a readable [[https://developer.mozilla.org/en-US/][MDN]] page
+	  with a description of how to use a symbol, and so on, in EWW.
+	  Since it is initially unbound, I add a keybindings for it here.
 
 **** Go
 	 #+BEGIN_SRC emacs-lisp
