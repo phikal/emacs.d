@@ -2494,6 +2494,7 @@
 		 :custom ((yas-prompt-functions '(yas-completing-prompt))
 				  (yas-wrap-around-region t))
 		 :bind (:map yas-minor-mode-map
+					 ("<backtab>" . yas-expand)
 					 ("<tab>" . zge/indent-then-expand))
 		 :hook (prog-mode . yas-minor-mode))
 	 #+END_SRC
