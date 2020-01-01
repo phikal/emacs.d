@@ -1055,7 +1055,7 @@
 **** Auto-completion
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package ivy
-		 :demand
+		 :demand t
 		 :diminish
 		 :commands ivy-mode
 		 :custom ((ivy-wrap t)
@@ -1168,7 +1168,7 @@
 **** Window Management
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package winner
-		 :demand
+		 :demand t
 		 :config
 		 :custom ((winner-dont-bind-my-keys t))
 		 :config
