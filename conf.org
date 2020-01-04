@@ -2467,11 +2467,7 @@
 
 **** Error Checking
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package flycheck
-		 :config
-		 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-		 :bind (("C-c <right>" . next-error)
-				("C-c <left>" . previous-error)))
+	   (use-package flycheck)
 	 #+END_SRC
 
 	 Besides installing flycheck, also disable the Elisp warning
