@@ -2651,6 +2651,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rcirc
+		 :if (boundp 'zge/znc-pass)
 		 :commands (rcirc-update-activity-string)
 		 :custom ((rcirc-reconnect-delay 12)
 				  (rcirc-omit-responses '("NICK" "AWAY"))
