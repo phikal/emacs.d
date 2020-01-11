@@ -729,7 +729,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package savehist
-		 :defer nil
+		 :demand t
 		 :custom ((history-delete-duplicates t)
 				  (savehist-save-minibuffer-history t)
 				  (savehist-additional-variables '(kill-ring
@@ -750,7 +750,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package desktop
-		 :defer nil
+		 :demand t
 		 :custom ((desktop-restore-eager 8)
 				  (desktop-globals-to-save nil)
 				  (desktop-files-not-to-save
@@ -766,7 +766,8 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package saveplace
-		 :defer nil
+		 :demand t
+		 :config
 		 (save-place-mode t))
 	 #+END_SRC
 
@@ -920,10 +921,10 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package paren
-		 :defer nil
+		 :demand
 		 :custom ((show-paren-delay 0))
 		 :config
-		 (show-paren-mode 0))
+		 (show-paren-mode t))
 	 #+END_SRC
 
 **** Auto-completion
@@ -1080,7 +1081,7 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package dired
-		  :after dired-x
+		  :demand t
 		  :custom ((dired-dwim-target t)
 				   (dired-recursive-copies 'always)
 				   (dired-recursive-deletes 'top)
@@ -1090,6 +1091,7 @@
 											   "-FAhl"
 											 "-NAhl --group-directories-first")))
 		  :config
+		  (require 'dired-x)
 		  (add-to-list 'dired-guess-shell-alist-user
 					   `(,(rx "." (or "epub" "pdf") eos) "mupdf"))
 		  (add-to-list 'dired-guess-shell-alist-user
@@ -2302,6 +2304,7 @@
 				 (text-mode-hook electric-pair-local-mode)
 				 (prog-mode-hook electric-pair-local-mode)
 				 (comint-mode-hook electric-pair-local-mode)))
+		  :demand t
 	  #+END_SRC
 
 **** Writing While Region is Active
