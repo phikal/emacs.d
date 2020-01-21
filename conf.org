@@ -1646,15 +1646,16 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package geiser
-		  :if (executable-find "guile")
+		  :if (or (executable-find "guile")
+				  (executable-find "scheme")
+				  (executable-find "mit-scheme"))
 		  :ensure t
+		  :custom ((geiser-repl-use-other-window nil))
 		  :config
-		  (setq geiser-repl-use-other-window nil
-				geiser-active-implementations '(guile))
 		  (when (file-exists-p "/usr/local/share/guile/site/2.2")
 			(setenv "GUILE_LOAD_PATH" "/usr/local/share/guile/site/2.2:..."))
 		  :hook (scheme-mode . geiser-mode)
-		  :mode ((rx (or ".scm" ".sxml") eos) . scheme-mode))
+		  :mode ((rx ".scm" eos) . scheme-mode))
 	  #+END_SRC
 
 ***** Common Lisp
