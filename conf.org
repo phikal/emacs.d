@@ -2388,171 +2388,19 @@
 	 #+END_SRC
 
 **** Mail
-***** Gnus
-	  Gnus will be configured, only if =mpop= and =msmtp= (see below) are
-	  found as executable.
-
+***** TODO Rmail
 	  #+BEGIN_SRC emacs-lisp
-		(use-package gnus
-		  :if (and (executable-find "mpop")
-				   (executable-find "msmtp")
-				   (file-directory-p "~/etc/mail"))
-		  :config
-		  (require 'bbdb)
-	  #+END_SRC
-
-	  Before anything happens, I specify my directories in accordance
-	  to [[*Short%20note%20on%20my%20directory%20structure]["Short note on my directory structure"]].
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq message-directory "~/etc/mail/"
-			  gnus-directory "~/etc/news/")
-	  #+END_SRC
-
-	  =gnus-use-full-window= prevents Gnus from disturbing my current
-	  window setup, and instead tries to just use the current window.
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq gnus-use-full-window nil
-			  gnus-novice-user nil
-			  gnus-expert-user t
-			  read-mail-command 'gnus)
-	  #+END_SRC
-
-	  The last two options make sure that Gnus doesn't have to prompt me
-	  all the time. Note that their names doesn't reflect the actual
-	  abilities of the user.
-
-	  I have two accounts I use (personal and university Email), and bot
-	  are synchronized via [[https://marlam.de/mpop/][mpop]], my [[https://zge.us.to/files/scripts/authinfo][authinfo]] script and the following
-	  configuration:
-
-	  #+INCLUDE: "~/.mpoprc" src conf-space :tangle no
-
-	  I end up with two directories in =~/etc/mail= (=pers= and =uni= in my
-	  case) that are both recognized as such by gnus. Mpop itself is
-	  executed externally, by a cron job.
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq gnus-select-method '(nnmaildir "mail"
-											 (directory "~/etc/mail/")
-											 (nnir-search-engine notmuch)))
-	  #+END_SRC
-
-	  Additionally, I add the following "posting styles" (ie. what to
-	  append to the end of a message):
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq gnus-posting-styles
-			  `((".*" (signature-file "~/.signature"))
-				("uni"
-				 (address ,(rot13-string "cuvyvc.xnyhqrepvp@snh.qr"))
-				 (name ,(rot13-string "Cuvyvc Xnyhqrepvp"))
-				 (signature-file "~/.uni-signature"))))
-	  #+END_SRC
-
-	  To make the default summaries a bit easier to parse and read, I
-	  have changed the default column formatting and made
-	  tree-formatting look better using some Unicode.
-
-	  The group buffer line format has also been changed, to discard
-	  information I don't need, since /topic mode/ is turned on.
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq gnus-summary-line-format "%U%R │ %d% │ %4k: %4{%-23,23F%} │%(%B%S%)\n"
-			  gnus-sum-thread-tree-single-indent    "   "
-			  gnus-sum-thread-tree-false-root       "   "
-			  gnus-sum-thread-tree-root             " • "
-			  gnus-sum-thread-tree-vertical         " ↓ "
-			  gnus-sum-thread-tree-leaf-with-other  " ↳ "
-			  gnus-sum-thread-tree-single-leaf      " ↳ "
-			  gnus-sum-thread-tree-indent           "   ")
-		(advice-add 'gnus-group-select-group :after #'end-of-buffer)
-	  #+END_SRC
-
-	  Generally, I don't use Gnus' scoring system. Everything I care
-	  about is the temporal order in which I received messages,
-	  ie. their "number".
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq gnus-thread-sort-functions '(gnus-thread-sort-by-number))
-	  #+END_SRC
-
-	  For no other reason than personal preference, I enable [[https://en.wikipedia.org/wiki/Gravatar][Gravatar]].
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq gnus-treat-from-gravatar 'head
-			  gnus-treat-mail-gravatar 'head)
-	  #+END_SRC
-
-	  There is no reason to prefer HTML mail (at least for me), since it
-	  just makes it harder and more complicated to display properly and
-	  good readability. Hence I'll try to avoid these, if possible.
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq mm-discouraged-alternatives '("text/html" "text/richtext"))
-	  #+END_SRC
-
-	  By default Gnus wants to use external tools to open "larger"
-	  images, when they're attached to a mail. Since I don't need this,
-	  I force inline opening in all cases.
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq mm-inline-large-images t)
-	  #+END_SRC
-
-	  Setup Gnus' encryption, signing and verification system.
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq mml-secure-openpgp-signers (list user-mail-address)
-			  mml-secure-openpgp-encrypt-to-self t
-			  mm-verify-option 'known
-			  mm-decrypt-option 'known
-			  gnus-message-replyencrypt t
-			  gnus-buttonized-mime-types '("multipart/signed"))
-
-		(add-hook 'message-send-hook #'mml-secure-message-sign-pgpmime)
-	  #+END_SRC
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq epa-pinentry-mode 'loopback)
-	  #+END_SRC
-
-	  Since my =.authsource= is encrypted, I have to enter my password from
-	  time to time to access my mail. This also requires
-	  =~/.gnupg/.gpg-agent.conf= to contain the following two lines,
-
-	  #+INCLUDE: "~/.gnupg/gpg-agent.conf" src conf :tangle no
-
-	  so that "pintetry" is used for query my paraphrase.
-
-	  As configured above, I use [[https://notmuchmail.org/][notmuch]] to index and search (=G G=) my
-	  mail. But if the above variable is not correctly set, no results
-	  will be found.
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq nnir-notmuch-remove-prefix (expand-file-name "~/etc/mail/"))
-	  #+END_SRC
-
-	  Send messages are archived locally, but unless this variable is
-	  non-nil, will always appear as "unread", which doesn't make a lot
-	  of sense (to me).
-
-	  #+BEGIN_SRC emacs-lisp
-		(setq gnus-gcc-mark-as-read t)
-	  #+END_SRC
-
-	  When in [[*Directory Managment][Dired]], allow me to mark files that I want to send in a
-	  message.
-
-	  #+BEGIN_SRC emacs-lisp
-		(add-hook 'dired-mode-hook #'turn-on-gnus-dired-mode)
-	  #+END_SRC
-
-	  Finally keybindings are set up.
-
-	  #+BEGIN_SRC emacs-lisp
-		:bind (("C-x x m" . gnus)))
+		(use-package rmail
+		  :if (and (executable-find "movemail")
+				   (executable-find "mpop"))
+		  :custom ((rmail-file-name "~/etc/mail/rmail")
+				   (rmail-mime-attachment-dirs-alist '(("" "~/dl")))
+				   (rmail-summary-window-size 12)
+				   (rmail-nonignored-headers nil)
+				   (rmail-primary-inbox-list
+					'("mbox://~/etc/mail/in/pers.mbox"
+					  "mbox://~/etc/mail/in/uni.mbox")))
+		  :bind (("C-x x m" . rmail)))
 	  #+END_SRC
 
 ***** SMTP
@@ -2608,7 +2456,7 @@
 				bbdb-message-all-addresses t
 				bbdb-file (expand-file-name "bbdb" user-emacs-directory)
 				compose-mail-user-agent-warnings nil)
-		  (bbdb-initialize 'gnus 'message 'pgp)
+		  (bbdb-initialize 'rmail 'message 'pgp)
 		  (bbdb-mua-auto-update-init 'message)
 		  :bind (("C-x x b" . bbdb)
 				 ("C-x x B" . bbdb-create)
@@ -2621,26 +2469,11 @@
 	  Maildir directories.
 
 	  #+BEGIN_SRC emacs-lisp
-		(use-package dt-maildir
+		(use-package time
 		  :demand t
-		  :load-path "lisp/"
-		  :custom ((display-time-mail-function #'dt-maildir-mail-function)
+		  :custom ((display-time-mail-directory "~/etc/mail/in")
 				   (display-time-default-load-average nil)
-				   (display-time-interval 20)
-				   (display-time-string-forms
-					'("" (format-time-string "%H:%M" now)
-					  (if mail
-						  (concat
-						   " "
-						   (propertize display-time-mail-string
-									   'mouse-face 'mode-line-highlight
-									   'local-map (make-mode-line-mouse-map
-												   'mouse-1 read-mail-command)))
-						"")
-					  " "))
-
-				   (dt-maildir-maildir-base-dir "~/etc/mail/")
-				   (dt-maildir-maildir-list '("pers" "uni")))
+				   (display-time-interval 20))
 		  :config
 		  (display-time-mode t))
 	  #+END_SRC
