@@ -2715,6 +2715,8 @@
 		   (set-input-method (cdr next-im))))
 	   (unless no-check
 		 (flyspell-region (point-min) (point-max))))
+
+	 (global-set-key (kbd "<f5>") #'zge/toggle-dictionary)
    #+END_SRC
 
    Most of the time, empirical studies have found, I use
@@ -2890,6 +2892,7 @@
 			(prin1-to-string sexp)))))
 
 	 (defalias 'eval-and-replace 'zge/eval-and-replace)
+	 (global-set-key (kbd "C-x x e") #'zge/eval-and-replace)
    #+END_SRC
 
 ** Move from Downloads directory
@@ -2944,6 +2947,7 @@
 							   (getenv "SHELL") command)))
 
 	 (defalias 'run-in-xterm #'zge/run-in-xterm)
+	 (global-set-key (kbd "<f7>") #'zge/run-in-xterm)
    #+END_SRC
 
 ** Change Mail Sender
@@ -3043,14 +3047,11 @@
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
 					("C-M-(" . delete-pair)
-					("<f5>" . zge/toggle-dictionary)
 					("<f6>" . toggle-truncate-lines)
-					("<f7>" . zge/run-in-xterm)
 					("<f2>" . recompile)
 					("C-<f2>" . compile)
 					("C-c <C-return>" . man)
 					("C-x x k" . bury-buffer)
-					("C-x x e" . zge/eval-and-replace)
 					("C-x M-k" . kill-buffer-and-window)
 					("C-x j" . jump-to-register)
 					("C-x x SPC" . imenu)
