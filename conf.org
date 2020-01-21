@@ -1769,7 +1769,6 @@
 		(use-package gnu-apl-mode
 		  :if (executable-find "apl")
 		  :load-path "lisp/gnu-apl-mode/"
-		  :ensure t
 		  :commands 'gnu-apl
 		  :custom ((gnu-apl-show-apl-welcome nil)
 				   (gnu-apl-key-prefix ?`)
@@ -2194,7 +2193,6 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package replace
-		  :ensure t
 		  :commands occur
 		  :config
 		  (add-hook 'occur-mode-hook
