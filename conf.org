@@ -1392,7 +1392,7 @@
 
 ***** Project Managment
 	  :PROPERTIES:
-	  :WEBSITE:  websihttps://github.com/bbatsov/projectil
+	  :WEBSITE:  https://github.com/bbatsov/projectile
 	  :AUTHOR:   Bozhidar Batsov
 	  :END:
 
