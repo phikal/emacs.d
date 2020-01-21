@@ -2300,11 +2300,11 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package elec-pair
-		  :hook ((minibuffer-setup-hook electric-pair-local-mode)
-				 (text-mode-hook electric-pair-local-mode)
-				 (prog-mode-hook electric-pair-local-mode)
-				 (comint-mode-hook electric-pair-local-mode)))
 		  :demand t
+		  :hook ((minibuffer-setup . electric-pair-local-mode)
+				 (text-mode . electric-pair-local-mode)
+				 (prog-mode . electric-pair-local-mode)
+				 (comint-mode . electric-pair-local-mode)))
 	  #+END_SRC
 
 **** Writing While Region is Active
