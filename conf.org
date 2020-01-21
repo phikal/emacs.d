@@ -2215,7 +2215,8 @@
 	  #+BEGIN_SRC emacs-lisp
 		(use-package isearch
 		  :custom ((lazy-highlight-initial-delay 0)
-				   (search-default-mode 'char-fold-to-regexp)))
+				   (search-default-mode 'char-fold-to-regexp))
+		  :bind (("M-*" . isearch-forward-symbol-at-point)))
 	  #+END_SRC
 
 ***** Mark Ring
