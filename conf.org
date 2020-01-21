@@ -1836,7 +1836,7 @@
 	   #+BEGIN_SRC emacs-lisp
 		 (use-package latex
 		   :if (executable-find "pdflatex")
-		   :ensure t
+		   :ensure auctex
 		   :custom ((TeX-master 'dwim)
 					(LaTeX-electric-left-right-brace t)
 					(LaTeX-syntactic-comments nil)
