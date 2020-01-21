@@ -2319,9 +2319,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package simple
-		 :custom ((delete-active-region nil))
-		 :config
-		 (delete-selection-mode -1))
+		 :custom ((delete-active-region nil)))
 	 #+END_SRC
 
 **** Selecting with Shift
