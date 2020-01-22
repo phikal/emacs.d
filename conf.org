@@ -1126,41 +1126,29 @@
 				   (wdired-allow-to-redirect-links t)))
 	  #+END_SRC
 
-***** Integrated Shell
-	  #+BEGIN_SRC emacs-lisp
-		(setq-default eshell-banner-message ""
-					  eshell-prompt-function (lambda (&rest _) "$ ")
-					  eshell-prompt-regexp "^$ ")
-	  #+END_SRC
+***** Shells and Terminal Emulation
+	  Emacs has (at least) three built-in /terminals/ or /shells/, or
+	  if one is strict two shells (eshell, shell) and one terminal
+	  emulator (term). I manly use Eshell, so I don't need a real
+	  configuration for the other two.
 
-	  Eshell works quite well out of the box, all I want is to turn off
-	  the banner and simplify the prompt.
+	  As I have mentioned, I generally prefer Eshell. It's the most
+	  unusual of the bunch, but precisely for that reason the most
+	  interesting too. Instead of communicating with a background
+	  process, it just does "shell stuff" (creating processes,
+	  starting programmes), when enter is pressed, and otherwise it's
+	  /just a text buffer/.
 
-	  #+BEGIN_SRC emacs-lisp
-		(with-eval-after-load 'eshell
-		  (require 'ansi-color)
-		  (add-hook 'eshell-preoutput-filter-functions
-					#'ansi-color-apply))
-	  #+END_SRC
-
-	  Using =ansi-color=, I allow [[https://en.wikipedia.org/wiki/ANSI_escape_code][ansi-escape codes]] to be processed in
-	  the Eshell, meaning that (some) color-codes are transformed into
-	  their proper text attributes.
-
-***** Terminal Emulation
-	  #+BEGIN_SRC emacs-lisp
-		(setq explicit-shell-file-name (executable-find "sh"))
-	  #+END_SRC
-
-	  Use =sh= instead of =bash= as the =term= subshell.
+	  All my changes are regarding default appearance. I ask Emacs to
+	  not generate a banner and to shorten the prompt to a single
+	  dollar sign.
 
 	  #+BEGIN_SRC emacs-lisp
-		(advice-add 'term-handle-exit :after
-					(lambda (&rest _)
-					  (kill-buffer (current-buffer))))
+		(use-package eshell
+		  :custom ((eshell-banner-message "")
+				   (eshell-prompt-function (lambda (&rest _) "$ "))
+				   (eshell-prompt-regexp "^$ ")))
 	  #+END_SRC
-
-	  Don't keep the buffer around as soon as the process ends.
 
 ***** Bash Completions
 	  :PROPERTIES:
