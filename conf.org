@@ -387,8 +387,7 @@
 
 	#+BEGIN_SRC emacs-lisp
 	  (setq user-full-name "Philip K."
-			user-mail-address
-			(format "%s%c%s.net" "philip" (- ?A 1) "warpmail"))
+			user-mail-address (rot13-string "cuvyvc@jnecznvy.arg"))
 	#+END_SRC
 
 *** Bell
@@ -854,7 +853,7 @@
 						   filename-and-process)
 					 (mark " " (name 16 -1) " " filename)))
 				  (ibuffer-show-empty-filter-groups nil)
-				  (ibuffer-hidden-filter-groups '("Dired" "IRC" "Gnus"))
+				  (ibuffer-hidden-filter-groups '("Dired" "IRC" "Mail"))
 				  (ibuffer-saved-filter-groups
 				   `(("default"
 					  ("Dired" (mode . dired-mode))
@@ -871,14 +870,10 @@
 					  ("Emacs Source"
 					   (or (directory . ,(rx bos "~/code/etc/emacs/"))
 						   (directory . ,(rx bos "/usr/share/emacs/26.1/"))))
-					  ("Gnus" (or (mode . message-mode)
-								  (mode . bbdb-mode)
-								  (mode . mail-mode)
-								  (mode . gnus-group-mode)
-								  (mode . gnus-summary-mode)
-								  (mode . gnus-article-mode)
-								  (name . ,(rx bos ".bbdb" eos))
-								  (name . ,(rx bos ".newsrc-dribble"))))))))
+					  ("Mail"
+					   (or (mode . message-mode)
+						   (mode . bbdb-mode)
+						   (directory . ,(rx bos "~/etc/mail/"))))))))
 		 :config
 		 (define-ibuffer-column size-human (:name "Size" :inline t)
 		   (cond ((> (buffer-size) (lsh 1 20))
@@ -1072,6 +1067,24 @@
 					 flyspell-issue-welcome-flag nil
 					 flyspell-issue-message-flag nil
 					 flyspell-use-meta-tab nil)
+	 #+END_SRC
+
+**** Encryption
+	 To use GPG in Emacs, I configure EPA. The only thing I need it to
+	 do is to query my via the minibuffer for my password (be it for
+	 my public key or a symmetrically encrypted file) and then proceed
+	 as usual.
+
+	 This requires some work on GPG's side, enabled by adding this to
+	 my =~/.gnupg/gpg-agent.conf= file...
+
+	 #+INCLUDE: "~/.gnupg/gpg-agent.conf" src conf :tangle no
+
+	 ... and setting this option in Emacs:
+
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package epa
+		 :custom ((epa-pinentry-mode 'loopback)))
 	 #+END_SRC
 
 **** OS Management and Tools
@@ -2386,91 +2399,174 @@
 	 #+END_SRC
 
 **** Mail
-***** TODO Rmail
+	 Managing Email from within Emacs is certainly doable, thought
+	 certainly not for everyone. I played around with it for quite a
+	 while, trying different clients (mu4e, notmuch, Gnus) using IMAP,
+	 POP3, Maildir, but have now found a quite nice setup using the
+	 packages and tools I am about to introduce.
+
+***** Reading Mail
+	  Reading Email in Emacs can be hard. Usually people consider
+	  Gnus, as it's a quite advanced mailreader, with an extensive
+	  abstraction mechanism.
+
+	  I used Gnus for a while (~2-3 years), but I never really
+	  mastered it. Part of the reason were the confusing [[https://www.emacswiki.org/emacs/GnusMnemonics][keybindings]],
+	  but also its general complexity. There is a seemingly
+	  innumerable amount of variables, hooks, documentation and
+	  related sub-modules -- and that's not considering the changes
+	  between versions.
+
+	  Eventually (<2020-01-20 Mon>) I decided to try out [[info:emacs#Rmail][Rmail]], the
+	  "official" but commonly dismissed mail reader for Emacs. It's a
+	  lot simpler than Gnus, but as I have realised, it's simple
+	  enough.
+
+	  My setup requires two mail sources, and coincidentally involves
+	  two programmes: [[https://marlam.de/mpop/][mpop]] and [[info:emacs#Movemail][movemail]]. The first is used to fetch
+	  mail from my mail servers and store it in local mbox files (via
+	  a regular cron job), the later is used by Rmail to move and
+	  merge these into one "main" inbox (=inbox.mbox=). The benefit to
+	  this approach is that =display-mail-mode= can easily be
+	  configured to check new mail, as explained below.
+
+	  All in all, reading and displaying mail works as it should. I
+	  just ask for the summary buffer to be a bit smaller, list my
+	  email addresses, prioritise non-HTML mail and restrict the
+	  number of headers to be shown by default.
+
+	  The last thing I have to do is to configure my "secondary
+	  mailboxes", ie. where I move mail from the inbox into. I choose
+	  a sub-directory (=out=, where all files end with =.mbox=) and
+	  make sure that Rmail will not copy, but actually "move" the
+	  messages.
+
 	  #+BEGIN_SRC emacs-lisp
 		(use-package rmail
-		  :if (and (executable-find "movemail")
-				   (executable-find "mpop"))
-		  :custom ((rmail-file-name "~/etc/mail/rmail")
-				   (rmail-mime-attachment-dirs-alist '(("" "~/dl")))
-				   (rmail-summary-window-size 12)
-				   (rmail-nonignored-headers nil)
-				   (rmail-primary-inbox-list
+		  :if (executable-find "movemail")
+		  :custom ((rmail-primary-inbox-list
 					'("mbox://~/etc/mail/in/pers.mbox"
-					  "mbox://~/etc/mail/in/uni.mbox")))
+					  "mbox://~/etc/mail/in/uni.mbox"))
+				   (rmail-file-name "~/etc/mail/inbox.mbox")
+				   (rmail-summary-window-size 12)
+				   (rmail-user-mail-address-regexp
+					(rx (or (eval (rot13-string "cuvyvc@jnecznvy.arg"))
+							(eval (rot13-string "cuvyvc.xnyhqrepvp@snh.qr")))))
+				   (rmail-mime-prefer-html nil)
+				   (rmail-mime-attachment-dirs-alist '(("" "~/dl")))
+				   (rmail-displayed-headers
+					(rx bol (or "To" "Cc" "From" "Date" "Subject") ":"))
+				   (rmail-secondary-file-directory "~/etc/mail/old/")
+				   (rmail-secondary-file-regexp "\\.mbox\\'")
+				   (rmail-delete-after-output t)
+				   (rmail-default-file "~/etc/mail/old/"))
 		  :bind (("C-x x m" . rmail)))
 	  #+END_SRC
 
-***** SMTP
-	  Instead of using Emacs' internal SMTP service, I use [[https://marlam.de/msmtp/][msmtp]], simply
-	  for the sake of speed. Additionally, this setup automatically
-	  chooses what server to contact, based on the =From:= field.
+***** Sending Mail
+	  Emacs can send mail without external dependencies, but currently
+	  this means that you would only have one SMTP server with one
+	  account. A simple solution to this problem is to use [[https://marlam.de/msmtp/][msmtp]], that
+	  simply resends messages and is a bit faster than Emacs' SMTP
+	  implementation.
 
-	  #+BEGIN_SRC emacs-lisp
-		(with-eval-after-load 'message
-		  (setq message-send-mail-function #'message-send-mail-with-sendmail
-				message-sendmail-extra-arguments '("--read-envelope-from")
-				message-sendmail-f-is-evil t
-				message-sendmail-envelope-from 'header
-				message-kill-buffer-on-exit t
-				message-forward-as-mime t
-				mail-user-agent 'gnus-user-agent
-				sendmail-program (executable-find "msmtp"))
-	  #+END_SRC
-
-	  My msmtp configuration is as follows:
+	  For this to work, I require a simple configuration, found in
+	  =~/.msmtprc=:
 
 	  #+INCLUDE: "~/.msmtprc" src conf-space :tangle no
 
-	  As already mentioned, this requires a [[https://zge.us.to/files/scripts/authinfo][special script]] I wrote to
-	  extract password-data from =~/.authinfo.gpg=.
+	  This uses my [[https://zge.us.to/files/scripts/authinfo][authinfo]] script to extract my password from
+	  =~/.authinfo.gpg=.
 
-	  Furthermore, =orgstruct= is enabled to help writing and structuring
-	  emails similarly to =org-mode= buffers.
+	  Emacs now has to be set up to work with msmtp. The trick is that
+	  msmtp implements [[https://en.wikipedia.org/wiki/Sendmail][sendmail]]'s CLI interface, that is supported by
+	  Emacs (See =message-send-mail-function=). A few more options are
+	  required to make msmtp work as expected, but otherwise it's
+	  nothing extraordinary.
 
 	  #+BEGIN_SRC emacs-lisp
-		(add-hook 'message-mode-hook #'turn-on-orgstruct++)
-		(add-hook 'message-mode-hook #'turn-on-orgtbl))
+		(use-package message
+		  :custom ((sendmail-program (executable-find "msmtp"))
+				   (message-send-mail-function 'message-send-mail-with-sendmail)
+				   (message-sendmail-extra-arguments '("--read-envelope-from"))
+				   (message-sendmail-envelope-from 'header)
+				   (message-mail-user-agent nil)
+				   (message-kill-buffer-on-exit t)
+				   (message-forward-as-mime t)))
 	  #+END_SRC
 
-***** BBDB
+***** Searching Mail
+	  Rmail has a simple filtering mechanism, but more complex
+	  queries, over multiple mail boxes aren't supported. For this
+	  use-case I use [[https://github.com/vandry/mairix][mairix]]. It's a quick external tool that regularly
+	  re-scans my mailboxes (again, using cron). It requires some, but
+	  not too much configuration. In my case it looks like this
+
+	  #+INCLUDE: "~/.mairixrc" src conf-space :tangle no
+
+	  Read =mairixrc(1)= for more details.
+
+	  The Emacs configuration only has to be told to respect my
+	  directory preferences, and keep everything mail related in
+	  =~/etc/mail=.
+
+	  #+BEGIN_SRC emacs-lisp
+		(use-package mairix
+		  :if (executable-find "mairix")
+		  :custom ((mairix-file-path "~/etc/mail/")
+				   (mairix-search-file "search.mbox"))
+		  :bind (("C-x x s" . mairix-search)))
+	  #+END_SRC
+
+***** Contacts
 	  :PROPERTIES:
 	  :WEBSITE:  https://www.emacswiki.org/emacs/CategoryBbdb
 	  :AUTHOR:   Roland Winkler
 	  :END:
-	  Install and setup /BBDB/ (Insidious Big Brother Database) for contact
-	  management, and enable completion in message buffers.
+	  When sending messages to someone you know, it's helpful to have
+	  a manageable list of contacts. This is provided by the
+	  /Insidious Big Brother Database/, BBDB.
+
+	  It stores all contacts in a file (=~/etc/mail/contacts=), but
+	  this file is never edited manually. Instead the database buffer
+	  is opened, viewed and manipulated by running the command =bbdb=.
+
+	  Most of the configuration is changing appearance and some basic
+	  behaviour. The important lines are in the =:config= section,
+	  where BBDB is initiated for reading mail, sending messages
+	  (autocompletion) and encryption.
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package bbdb
-		  :after gnus
 		  :ensure t
+		  :custom ((bbdb-complete-mail-allow-cycling t)
+				   (bbdb-completion-display-record nil)
+				   (bbdb-message-all-addresses t)
+				   (bbdb-layout 'one-line)
+				   (bbdb-file "~/etc/mail/contacts"))
 		  :config
-		  (setq bbdb-mua-auto-update-p t
-				bbdb-mua-update-interactive-p '(query . create)
-				bbdb-complete-mail-allow-cycling t
-				bbdb-use-pop-up nil
-				bbdb-completion-display-record nil
-				bbdb-message-all-addresses t
-				bbdb-file (expand-file-name "bbdb" user-emacs-directory)
-				compose-mail-user-agent-warnings nil)
-		  (bbdb-initialize 'rmail 'message 'pgp)
-		  (bbdb-mua-auto-update-init 'message)
-		  :bind (("C-x x b" . bbdb)
-				 ("C-x x B" . bbdb-create)
-				 :map gnus-summary-mode-map
-				 (";" . bbdb-mua-edit-field)))
+		  (bbdb-initialize 'rmail 'message)
+		  :bind (("C-x x b" . bbdb)))
 	  #+END_SRC
 
 ***** Notification
-	  This loads a local, external elisp file that checks for mail on my
-	  Maildir directories.
+	  Since my mail is fetched outside of Emacs, I don't (usually)
+	  have to worry about receiving mail. The only thing that's
+	  missing is a system to notify me that there /is/ new mail.
+
+	  This is built into Emacs, but a bit hidden behind minor mode
+	  =display-time-mode=. When the variable
+	  =display-time-mail-directory= is set, the minor mode will check
+	  if there is a non-empty file in the described path. If yes, a
+	  little "Mail" notification pops up in every mode line.
+
+	  And while I'm at it, increase the update-frequency from once a
+	  minute to three times a minute.
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package time
 		  :demand t
 		  :custom ((display-time-mail-directory "~/etc/mail/in")
-				   (display-time-default-load-average nil)
 				   (display-time-interval 20))
 		  :config
 		  (display-time-mode t))
