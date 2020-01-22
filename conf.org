@@ -3183,24 +3183,24 @@
 	 (global-set-key (kbd "<f9>") #'zge/toggle-dark-mode)
    #+END_SRC
 
-*** Empty Lines
- This option makes Emacs populate the left-hand fringe with little
- lines indicating space the frame uses, but the buffer doesn't. This
- only makes sense for buffers I edit manually, like text or programs
- (less so in Eshell and Magit) so I enable it using a hook.
+** Empty Lines
+   This option makes Emacs populate the left-hand fringe with little
+   lines indicating space the frame uses, but the buffer doesn't. This
+   only makes sense for buffers I edit manually, like text or programs
+   (less so in Eshell and Magit) so I enable it using a hook.
 
- #+BEGIN_SRC emacs-lisp
-   (defun zge/handle-whitespaces ()
-	 (add-hook 'before-save-hook
-			   #'delete-trailing-whitespace
-			   nil t)
-	 (setq indicate-empty-lines t))
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/handle-whitespaces ()
+	   (add-hook 'before-save-hook
+				 #'delete-trailing-whitespace
+				 nil t)
+	   (setq indicate-empty-lines t))
 
-   (add-hook 'prog-mode-hook #'zge/handle-whitespaces)
-   (add-hook 'text-mode-hook #'zge/handle-whitespaces)
-   (add-hook 'dired-mode-hook #'zge/handle-whitespaces)
-   (add-hook 'comint-mode-hook #'zge/handle-whitespaces)
- #+END_SRC
+	 (add-hook 'prog-mode-hook #'zge/handle-whitespaces)
+	 (add-hook 'text-mode-hook #'zge/handle-whitespaces)
+	 (add-hook 'dired-mode-hook #'zge/handle-whitespaces)
+	 (add-hook 'comint-mode-hook #'zge/handle-whitespaces)
+   #+END_SRC
 
 * Global Keybindings
   These are juts a few self-explanatory global, /personal/ keybindings, I
