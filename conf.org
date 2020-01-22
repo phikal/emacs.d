@@ -1403,6 +1403,62 @@
 		  :bind ("C-x g" . magit-status))
 	  #+END_SRC
 
+***** Compilation
+	  The =compile= and =recompile= commands let the user start an
+	  asynchronous process, such as a compiler or anything like that
+	  to run in the background. =recompile= will re-use the last
+	  command entered into =compile=. When compilers print error
+	  messages or warnings, =next-error= and =previous-error= can be
+	  used to jump to where they were generated.
+
+	  Binding =compile= and =recompile= to =C-f2= and =f2= makes it
+	  quick and easy to invoke the commands.
+
+	  #+BEGIN_SRC emacs-lisp
+		(use-package compile
+		  :custom ((compilation-scroll-output 'first-error)
+				   (compilation-ask-about-save nil))
+		  :bind (("<f2>" . recompile)
+				 ("C-<f2>" . compile)))
+	  #+END_SRC
+
+***** Code Discovery
+	  :PROPERTIES:
+	  :WEBSITE:  https://github.com/leoliu/ggtags
+	  :AUTHOR:   Leo Liu
+	  :END:
+
+	  If [[https://www.gnu.org/software/global/][GNU Global]] is installed, I prepare the ggtags package. This
+	  will enable the =ggtags-mode= minor mode if a C project is
+	  recognised as a GNU Global project.
+
+	  When =ggtags-mode= is enabled, I plug it into various Emacs
+	  subsystems, such as hippie-expand, imenu and CAPF
+	  autocompletion.
+
+	  #+BEGIN_SRC emacs-lisp
+		(use-package ggtags
+		  :if (executable-find "global")
+		  :config
+		  (add-hook 'c-mode-common-hook
+					(lambda ()
+					  (when (ggtags-find-project)
+						(ggtags-mode))))
+		  (add-hook 'ggtags-mode-hook
+					(setl hippie-expand-try-functions-list
+						  (cons #'ggtags-try-complete-tag
+								hippie-expand-try-functions-list)))
+		  (add-hook 'ggtags-mode-hook
+					(setl eldoc-documentation-function
+						  #'ggtags-eldoc-function))
+		  (add-hook 'ggtags-mode-hook
+					(setl imenu-create-index-function
+						  #'ggtags-build-imenu-index))
+		  (add-hook 'ggtags-mode-hook
+					(setl completion-at-point-functions
+						  '(ggtags-completion-at-point))))
+	  #+END_SRC
+
 ***** Project Managment
 	  :PROPERTIES:
 	  :WEBSITE:  https://github.com/bbatsov/projectile
@@ -1429,6 +1485,19 @@
 		  :init
 		  (projectile-mode t)
 		  :bind ("C-x p" . projectile-command-map))
+	  #+END_SRC
+
+***** Quick Jumping
+	  Certain modes offer a simple indexing mechanism that allows the
+	  user to quickly jump in-between a list of top-level constructs
+	  (in programming languages, usually functions, global variables,
+	  global classes/structs, ...). This functionality is exposed by
+	  the =imenu= command, that I bind to an easily accessible
+	  keybinding.
+
+	  #+BEGIN_SRC emacs-lisp
+		(use-package imenu
+		  :bind (("C-M-," . imenu)))
 	  #+END_SRC
 
 **** Programming Modes
@@ -3142,13 +3211,10 @@
 	(dolist (bind '(("M-\"" . eshell)
 					("C-M-(" . delete-pair)
 					("<f6>" . toggle-truncate-lines)
-					("<f2>" . recompile)
-					("C-<f2>" . compile)
 					("C-c <C-return>" . man)
 					("C-x C-z" . bury-buffer)
 					("C-x M-k" . kill-buffer-and-window)
 					("C-x j" . jump-to-register)
-					("C-x x SPC" . imenu)
 					("C-<" . zap-up-to-char)
 					("C->" . zap-to-char)
 					("M-F" . forward-to-word)
