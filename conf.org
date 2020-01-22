@@ -2243,12 +2243,12 @@
 	  :AUTHOR:   Oleh Krehel
 	  :END:
 
-	  Avy is an alternative to [[https://www.emacswiki.org/emacs/AceJump][ace-jump]], which itself is supposed to be
-	  inspired by an extention for vi. It allows me to jump to a
+	  Avy is an alternative to [[https://www.emacswiki.org/emacs/AceJump][ace-jump]], which itself is supposed to
+	  be inspired by an extension for vim. It allows me to jump to a
 	  character or word currently on the screen, by typing one or more
 	  letters. For my proposes, I most often jump to words, and
-	  occasionally to specific character -- the relative ease of the two
-	  keybindings I have chosen represents this.
+	  occasionally to specific character -- the relative ease of the
+	  two keybindings I have chosen represents this.
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package avy
