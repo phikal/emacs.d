@@ -2663,8 +2663,7 @@
 	   (use-package rcirc
 		 :if (boundp 'zge/znc-pass)
 		 :commands (rcirc-update-activity-string)
-		 :custom ((rcirc-reconnect-delay 30)
-				  (rcirc-omit-responses '("NICK" "AWAY"))
+		 :custom ((rcirc-omit-responses '("NICK" "AWAY"))
 				  (rcirc-server-alist `(("zge.us.to"
 										 :user-name "zge"
 										 :password ,zge/znc-pass
