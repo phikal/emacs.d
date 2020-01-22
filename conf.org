@@ -2630,18 +2630,27 @@
 	  #+END_SRC
 
 **** IRC
-	 For IRC, I use rcirc The =zge/znc-pass= variables is declared in my
-	 [[*Local or Private Configurations][=custom.el=]] file.
+	 I am usually connected to a few IRC servers via a bouncer. To
+	 connect to the bouncer (ZNC), I use rcirc, one of the two bundled
+	 IRC clients in Emacs. To connect to my bouncer, I describe the
+	 connection in =rcirc-server-alist=.
+
+	 Other things I change are:
+	 - Hide certain message types that I don't really care about.
+	 - Enable a mode-line indicator for new messages, and don't
+       abbreviate channel names.
+	 - Enable electric-pair-mode and flyspell-mode in rcirc buffers.
+	 - Bind =C-x x x= to a function that directly takes me to the next
+       IRC buffer, where something has changed.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package rcirc
 		 :if (boundp 'zge/znc-pass)
 		 :commands (rcirc-update-activity-string)
-		 :custom ((rcirc-reconnect-delay 12)
+		 :custom ((rcirc-reconnect-delay 30)
 				  (rcirc-omit-responses '("NICK" "AWAY"))
 				  (rcirc-server-alist `(("zge.us.to"
 										 :user-name "zge"
-										 :nick "zge"
 										 :password ,zge/znc-pass
 										 :port 25331
 										 :encryption tls
@@ -2655,9 +2664,7 @@
 		 :hook ((rcirc-mode . flyspell-mode)
 				(rcirc-mode . rcirc-track-minor-mode)
 				(rcirc-mode . electric-pair-local-mode))
-		 :bind (("C-x x x" . rcirc-next-active-buffer)
-				:map rcirc-mode-map
-				("C-x k" . bury-buffer)))
+		 :bind (("C-x x x" . rcirc-next-active-buffer)))
 	 #+END_SRC
 
 **** Feed Syndication
