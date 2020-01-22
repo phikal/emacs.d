@@ -3145,7 +3145,7 @@
 					("<f2>" . recompile)
 					("C-<f2>" . compile)
 					("C-c <C-return>" . man)
-					("C-x x k" . bury-buffer)
+					("C-x C-z" . bury-buffer)
 					("C-x M-k" . kill-buffer-and-window)
 					("C-x j" . jump-to-register)
 					("C-x x SPC" . imenu)
