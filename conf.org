@@ -2561,11 +2561,11 @@
 				   (message-sendmail-envelope-from 'header)
 				   (message-kill-buffer-on-exit t)
 				   (message-sendmail-f-is-evil t)
-				   (message-mail-user-agent nil)
 				   (message-forward-as-mime t)
 				   (message-default-headers
 					(lambda ()
-					  (format-time-string "FCC: ~/etc/mail/out/%Y-%h.mbox")))))
+					  (downcase
+					   (format-time-string "FCC: ~/etc/mail/out/%Y-%h.mbox"))))))
 	  #+END_SRC
 
 ***** Searching Mail
