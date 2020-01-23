@@ -2634,12 +2634,15 @@
 	  little "Mail" notification pops up in every mode line.
 
 	  And while I'm at it, increase the update-frequency from once a
-	  minute to three times a minute.
+	  minute to three times a minute, set the time to 24h-mode and
+	  hide the load average.
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package time
 		  :demand t
 		  :custom ((display-time-mail-directory "~/etc/mail/in")
+				   (display-time-24hr-format t)
+				   (display-time-default-load-average nil)
 				   (display-time-interval 20))
 		  :config
 		  (display-time-mode t))
