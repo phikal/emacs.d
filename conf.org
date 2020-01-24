@@ -2703,19 +2703,18 @@
 	 :AUTHOR:   Christopher Wellons
 	 :END:
 
-	 My newsreader is even in Emacs! What a supp rise. Elfeed almost
-	 certainly the most popular package for this task, and I can highly
-	 recommend it, especially if ones gets a bit bored in between doing
-	 "work".
+	 A popular solution to reading RSS/Atom feeds in Emacs is Elfeed.
+	 Compared to bundeled alternatives (newsticker, Gnus nnrss) it
+	 feels faster and more natural to use.
 
-	 My =elfeed-feeds= variable isn't specified here, but it's kept in my
-	 =custom.el= file.
+	 Elfeed's defaults work quite well, so there's no need to change
+	 much usability-wise. I just tell elfeed not to store it's
+	 metadata in my home directory.
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package elfeed
 		 :ensure t
-		 :custom ((elfeed-search-filter "@1-month-ago +unread")
-				  (elfeed-db-directory "~/.local/share/elfeed"))
+		 :custom ((elfeed-db-directory "~/.local/share/elfeed"))
 		 :bind ("C-x x f" . elfeed))
 	 #+END_SRC
 
