@@ -1435,9 +1435,8 @@
 	  :AUTHOR:   Leo Liu
 	  :END:
 
-	  If [[https://www.gnu.org/software/global/][GNU Global]] is installed, I prepare the ggtags package. This
-	  will enable the =ggtags-mode= minor mode if a C project is
-	  recognised as a GNU Global project.
+	  If [[https://www.gnu.org/software/global/][GNU Global]] is installed, I prepare the ggtags package. It
+	  will /not/ automatically be turned on, to avoid confusion.
 
 	  When =ggtags-mode= is enabled, I plug it into various Emacs
 	  subsystems, such as hippie-expand, imenu and CAPF
@@ -1447,10 +1446,6 @@
 		(use-package ggtags
 		  :if (executable-find "global")
 		  :config
-		  (add-hook 'c-mode-common-hook
-					(lambda ()
-					  (when (ggtags-find-project)
-						(ggtags-mode))))
 		  (add-hook 'ggtags-mode-hook
 					(setl hippie-expand-try-functions-list
 						  (cons #'ggtags-try-complete-tag
