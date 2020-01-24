@@ -2569,6 +2569,10 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package message
+		  :preface
+		  (defun zge/message-add-fcc ()
+			(format "FCC: ~/etc/mail/out/%s.mbox"
+					(downcase (format-time-string "%Y-%h") )))
 		  :custom ((sendmail-program (executable-find "msmtp"))
 				   (message-send-mail-function 'message-send-mail-with-sendmail)
 				   (message-sendmail-extra-arguments '("--read-envelope-from"))
@@ -2576,10 +2580,8 @@
 				   (message-kill-buffer-on-exit t)
 				   (message-sendmail-f-is-evil t)
 				   (message-forward-as-mime t)
-				   (message-default-headers
-					(lambda ()
-					  (downcase
-					   (format-time-string "FCC: ~/etc/mail/out/%Y-%h.mbox"))))))
+				   (message-interactive nil)
+				   (message-default-headers #'zge/message-add-fcc)))
 	  #+END_SRC
 
 ***** Searching Mail
