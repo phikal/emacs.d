@@ -662,6 +662,25 @@
 	 operation (=forward-word=, =backward-sexp=, ...), and this macro makes
 	 it easy to get this information.
 
+**** Lookup Password
+	 The [[info:auth#Top][auth-source]] library lets users store passwords in (possibly
+	 encrypted) external files. Sadly it doesn't seem to have a simple
+	 programming interface, to access these passwords.
+
+	 This function, =lookup-password=, copied from [[https://github.com/jwiegley/dot-emacs/blob/master/init.el#L27][John Wiegley]]'s
+	 configuration, makes it easy to request them from within Emacs.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (require 'auth-source)
+	   (require 'auth-source-pass)
+
+	   (defun lookup-password (host &optional user port)
+		 (if-let* ((auth (auth-source-search :host host :user user :port port))
+				   (secretf (plist-get (car auth) :secret)))
+			 (funcall secretf)
+		   (error "No secret found")))
+	 #+END_SRC
+
 ** Packages and Modules
    One of the distinctive features of Emacs is next to it's ability to
    be extended, the culture that surrounding this fact. The modern way
