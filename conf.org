@@ -2666,39 +2666,35 @@
 
 **** IRC
 	 I am usually connected to a few IRC servers via a bouncer. To
-	 connect to the bouncer (ZNC), I use rcirc, one of the two bundled
-	 IRC clients in Emacs. To connect to my bouncer, I describe the
-	 connection in =rcirc-server-alist=.
+	 connect to the bouncer (ZNC), I use [[info:erc#Top][ERC]], one of the two bundled
+	 IRC clients in Emacs (the other one is [[info:rcirc#Top][rcirc]]). My bouncer only
+	 hosts one connection, so this might not work for more complex
+	 configurations.
 
-	 Other things I change are:
-	 - Hide certain message types that I don't really care about.
-	 - Enable a mode-line indicator for new messages, and don't
-       abbreviate channel names.
-	 - Enable electric-pair-mode and flyspell-mode in rcirc buffers.
-	 - Bind =C-x x x= to a function that directly takes me to the next
-       IRC buffer, where something has changed.
+	 It is worth noting that I overwrite the =irc= function, that
+	 usually is an alias to =rcirc=. This is because I used to use
+	 =rcirc=, and I am used to starting IRC with that command.
+	 Internally it uses the [[*Lookup Password][=lookup-password=]] function, defined above.
 
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package rcirc
-		 :if (boundp 'zge/znc-pass)
-		 :commands (rcirc-update-activity-string)
-		 :custom ((rcirc-omit-responses '("NICK" "AWAY"))
-				  (rcirc-server-alist `(("zge.us.to"
-										 :user-name "zge"
-										 :password ,zge/znc-pass
-										 :port 25331
-										 :encryption tls
-										 :channels ,zge/znc-channels))))
+	   (use-package erc
+		 :custom ((erc-email-userid "zge")
+				  (erc-nick "zge")
+				  (erc-server "zge.us.to")
+				  (erc-port 25331)
+				  (erc-rename-buffers t)
+				  (erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
+				  (erc-track-enable-keybindings t)
+				  (erc-track-shorten-aggressively t)
+				  (erc-track-showcount t)
+				  (erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+											 "324" "329" "332" "333" "353" "477")))
 		 :config
-		 (advice-add 'rcirc-abbreviate
-					 :override #'identity)
-		 (advice-add 'rcirc-next-active-buffer
-					 :after (lambda (&rest _)
-							  (rcirc-update-activity-string)))
-		 :hook ((rcirc-mode . flyspell-mode)
-				(rcirc-mode . rcirc-track-minor-mode)
-				(rcirc-mode . electric-pair-local-mode))
-		 :bind (("C-x x x" . rcirc-next-active-buffer)))
+		 (defun irc ()
+		   (interactive)
+		   (erc-spelling-mode t)
+		   (erc-tls :password (lookup-password erc-server)))
+		 :hook ((erc-mode . electric-pair-local-mode)))
 	 #+END_SRC
 
 **** Feed Syndication
