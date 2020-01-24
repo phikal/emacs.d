@@ -1523,17 +1523,16 @@
 	   re-format the output.
 
 	   #+BEGIN_SRC emacs-lisp
-		 (with-eval-after-load 'cmacexp
-		   (when (executable-find "clang-format")
-			 (advice-add 'c-macro-expand :after
-						 (lambda (start end subst)
-						   (unless subst
-							 (read-only-mode -1)
-							 (shell-command-on-region
-							  (point-min) (point-max)
-							  "clang-format" nil t nil)
-							 (set-buffer-modified-p nil)
-							 (read-only-mode -1))))))
+		 (use-package cmacexp
+		   :if (executable-find "clang-format")
+		   :config
+		   (defun zge/clang-format (start end subst)
+			 (unless subst
+			   (let ((inhibit-read-only t))
+				 (shell-command-on-region (point-min) (point-max)
+										  "clang-format"
+										  nil t nil))))
+		   (advice-add 'c-macro-expand :after #'zge/clang-format))
 	   #+END_SRC
 
 ****** Semantic
