@@ -2633,8 +2633,7 @@
 				   (bbdb-layout 'one-line)
 				   (bbdb-file "~/etc/mail/contacts"))
 		  :config
-		  (bbdb-initialize 'rmail 'message)
-		  :bind (("C-x x b" . bbdb)))
+		  (bbdb-initialize 'rmail 'message))
 	  #+END_SRC
 
 ***** Notification
