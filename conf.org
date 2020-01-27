@@ -2681,15 +2681,20 @@
 				  (erc-nick "zge")
 				  (erc-server "zge.us.to")
 				  (erc-port 25331)
-				  (erc-rename-buffers t)
-				  (erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
+				  (erc-join-buffer 'bury)
+				  (erc-server-auto-reconnect t)
+				  (erc-server-reconnect-timeout 30)
+				  (erc-hide-list
+				   '("324" "329" "332" "333" "353" "477"
+					 "PART" "MODE" "QUIT"))
 				  (erc-track-enable-keybindings t)
 				  (erc-track-shorten-aggressively t)
-				  (erc-track-showcount t)
-				  (erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-											 "324" "329" "332" "333" "353" "477")))
-		 :config
-		 (defun irc ()
+				  (erc-track-exclude-server-buffer t)
+				  (erc-track-exclude-types
+				   (append erc-hide-list
+						   '("JOIN" "NICK" "305" "306"))))
+		 :init
+		 (defun iirc ()
 		   (interactive)
 		   (erc-spelling-mode t)
 		   (erc-tls :password (lookup-password erc-server)))
