@@ -2825,7 +2825,6 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package calc
-		 :after savehist
 		 :config
 		 (setq calc-angle-mode 'rad
 			   calc-shift-prefix t
