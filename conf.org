@@ -2215,6 +2215,7 @@
 		   :ensure t
 		   :custom ((markdown-italic-underscore t)
 					(markdown-command (executable-find "pandoc")))
+		   :custom-face (markdown-code-face ((t (:inherit fixed-pitch))))
 		   :mode (rx (or (seq bos "README" (opt ".md"))
 						 (or ".markdown" ".mkdn" ".md"))
 					 eos))
