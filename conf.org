@@ -1894,7 +1894,7 @@
 		  :hook ((text-mode . turn-on-auto-fill)
 				 (text-mode . (lambda ()
 								(unless (derived-mode-p 'org-mode)
-								  (turn-on-flyspell))))))
+								  (flyspell-mode t))))))
 	  #+END_SRC
 
 ****** LaTeX
