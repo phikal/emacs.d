@@ -2847,7 +2847,10 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package tramp
-		 :custom (tramp-backup-directory-alist backup-directory-alist))
+		 :custom (tramp-backup-directory-alist backup-directory-alist)
+		 :config
+		 (add-to-list 'backup-directory-alist
+					  (cons tramp-file-name-regexp nil)))
 	 #+END_SRC
 
 **** Kamoji
