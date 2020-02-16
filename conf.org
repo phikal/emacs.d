@@ -3194,7 +3194,8 @@
    #+BEGIN_SRC emacs-lisp
 	 (defun zge/toggle-dark-mode ()
 	   (interactive)
-	   (invert-face 'default))
+	   (dolist (face '(default header-line fringe))
+		 (invert-face face)))
 
 	 (global-set-key (kbd "<f9>") #'zge/toggle-dark-mode)
    #+END_SRC
