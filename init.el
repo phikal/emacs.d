@@ -2,6 +2,7 @@
 (require 'cl-lib)
 (require 'subr-x)
 (let ((file-name-handler-alist nil)
+	  (frame-inhibit-implied-resize t)
       (package-enable-at-startup nil)
       (message-log-max 16384)
       (gc-cons-threshold (lsh 1 30))
