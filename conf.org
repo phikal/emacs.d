@@ -2248,11 +2248,11 @@
 		(use-package avy
 		  :ensure t
 		  :custom ((avy-background t)
-				   (avy-style 'de-bruijn))
+				   (avy-style 'at-full))
 		  :config
 		  (avy-setup-default)
-		  :bind (("C-z" . avy-goto-word-1)
-				 ("M-z" . avy-goto-char)
+		  :bind (("C-z" . avy-goto-char)
+				 ("M-z" . avy-goto-line)
 				 ("C-M-z" . avy-resume)))
 	  #+END_SRC
 
