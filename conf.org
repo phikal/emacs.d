@@ -2804,6 +2804,19 @@
 		 (winner-mode))
 	 #+END_SRC
 
+	 Furthermore, =windmove= lets one switch from one window to
+	 another. This is useful when one wants to avoid =C-x o='ing
+	 around the screen all the time. =Windmove= provides no minor
+	 mode, but instead wants a special function to be called, that
+	 globally defines "shift-arrow key" keybindings, to match the
+	 direction one wants to move in.
+
+	 #+BEGIN_SRC emacs-lisp
+	   (use-package windmove
+		 :config
+		 (windmove-default-keybindings))
+	 #+END_SRC
+
 **** RPN Calculator
 	 Emacs has two calculators, of which =calc= is the better one. It
 	 offers a full [[https://en.wikipedia.org/wiki/Reverse_Polish_notation][RPN]] /experience/, with linear algebra, symbolic
@@ -3220,10 +3233,6 @@
 					("M-F" . forward-to-word)
 					("M-B" . backward-to-word)
 					("C-M-<return>" . window-swap-states)
-					("C-c <up>" . windmove-up)
-					("C-c <down>" . windmove-down)
-					("C-c <left>" . windmove-left)
-					("C-c <right>" . windmove-right)
 					("C-c <backspace>" . delete-region)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
