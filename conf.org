@@ -876,7 +876,7 @@
 				   `(("default"
 					  ("Dired" (mode . dired-mode))
 					  ("Org" (mode . org-mode))
-					  ("IRC" (mode . rcirc-mode))
+					  ("IRC" (mode . erc-mode))
 					  ("PDF" (mode . pdf-view-mode))
 					  ("Man Pages" (mode . Man-mode))
 					  ("Emacs" (or (name . ,(rx bos "*scratch*" eos))
@@ -2879,7 +2879,7 @@
 	   "list of dictionaries")
 	 (defconst zge/input-alist '(("british" . nil)
 								 ("german-new8" . "german-postfix")))
-	 (defconst zge/toggle-dict-modes '(text-mode rcirc-mode))
+	 (defconst zge/toggle-dict-modes '(text-mode erc-mode))
 	 (defvar-local zge/dict-ring nil)
 
 	 (defun zge/toggle-dictionary (&optional lang no-check)
