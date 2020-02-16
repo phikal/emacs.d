@@ -3194,9 +3194,6 @@
 
    #+BEGIN_SRC emacs-lisp
 	 (defun zge/handle-whitespaces ()
-	   (add-hook 'before-save-hook
-				 #'delete-trailing-whitespace
-				 nil t)
 	   (setq indicate-empty-lines t))
 
 	 (add-hook 'prog-mode-hook #'zge/handle-whitespaces)
