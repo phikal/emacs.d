@@ -1345,19 +1345,12 @@
 		  :ensure t
 		  :diminish yas-minor-mode
 		  :functions (yas-expand)
-		  :preface
-		  (defun zge/indent-then-expand ()
-			(interactive)
-			(if (and (eq last-command 'zge/indent-then-expand)
-					 (not (nth 8 (syntax-ppss)))
-					 (looking-at-p (rx (or (not word) eol eos))))
-				(yas-expand)
-			  (indent-for-tab-command)))
 		  :custom ((yas-prompt-functions '(yas-completing-prompt))
 				   (yas-wrap-around-region t))
 		  :bind (:map yas-minor-mode-map
-					  ("<backtab>" . yas-expand)
-					  ("<tab>" . zge/indent-then-expand))
+					  ("<tab>" . nil)
+					  ("TAB" . nil)
+					  ("<backtab>" . yas-expand))
 		  :hook (prog-mode . yas-minor-mode))
 	  #+END_SRC
 
