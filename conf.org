@@ -3250,7 +3250,7 @@
 					("<XF86WLAN>" . ignore)
 					("<XF86Sleep>" . ignore)
 					("M-SPC" . cycle-spacing)
-					("<insert>" . ignore)
+					("<insert>" . open-line)
 					("C-x u" . undo-only)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
