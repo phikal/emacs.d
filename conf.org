@@ -1430,24 +1430,16 @@
 	  If [[https://www.gnu.org/software/global/][GNU Global]] is installed, I prepare the ggtags package. It
 	  will /not/ automatically be turned on, to avoid confusion.
 
-	  When =ggtags-mode= is enabled, I plug it into various Emacs
-	  subsystems, such as hippie-expand, imenu and CAPF
-	  autocompletion.
+	  When =ggtags-mode= is enabled, I plug it into Emacs subsystems,
+	  such as completion-at-point and eldoc.
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package ggtags
 		  :if (executable-find "global")
 		  :config
 		  (add-hook 'ggtags-mode-hook
-					(setl hippie-expand-try-functions-list
-						  (cons #'ggtags-try-complete-tag
-								hippie-expand-try-functions-list)))
-		  (add-hook 'ggtags-mode-hook
 					(setl eldoc-documentation-function
 						  #'ggtags-eldoc-function))
-		  (add-hook 'ggtags-mode-hook
-					(setl imenu-create-index-function
-						  #'ggtags-build-imenu-index))
 		  (add-hook 'ggtags-mode-hook
 					(setl completion-at-point-functions
 						  '(ggtags-completion-at-point))))
