@@ -2791,7 +2791,6 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package winner
 		 :demand t
-		 :custom ((winner-dont-bind-my-keys t))
 		 :config
 		 (winner-mode))
 	 #+END_SRC
