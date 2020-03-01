@@ -594,7 +594,8 @@
 					  (?j "~/doc/org/uni.org")
 					  (?r "~/doc/read/")
 					  (?u "~/doc/uni/")
-					  (?m "~/media/")
+					  (?i "~/media/img/")
+					  (?m "~/etc/mail/")
 					  (?U "/ssh:uni:")
 					  (?I "/ssh:ibis:"))))
 	#+END_SRC
