@@ -2513,8 +2513,8 @@
 				   (rmail-file-name "~/etc/mail/inbox.mbox")
 				   (rmail-summary-window-size 12)
 				   (rmail-user-mail-address-regexp
-					(rx (or (eval (rot13-string "cuvyvc@jnecznvy.arg"))
-							(eval (rot13-string "cuvyvc.xnyhqrepvp@snh.qr")))))
+					(rx (or "philip.kaludercic@fau.de"
+							"philip@warpmail.net")))
 				   (rmail-mime-prefer-html nil)
 				   (rmail-mime-attachment-dirs-alist '(("" "~/dl")))
 				   (rmail-displayed-headers
@@ -2522,7 +2522,8 @@
 				   (rmail-secondary-file-directory "~/etc/mail/old/")
 				   (rmail-secondary-file-regexp "\\.mbox\\'")
 				   (rmail-delete-after-output t)
-				   (rmail-default-file "~/etc/mail/old/"))
+				   (rmail-default-file "~/etc/mail/old/")
+				   (mail-dont-reply-to-names rmail-user-mail-address-regexp))
 		  :bind (("C-x x m" . rmail)))
 	  #+END_SRC
 
