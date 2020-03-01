@@ -2845,7 +2845,9 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package tramp
-		 :custom (tramp-backup-directory-alist backup-directory-alist)
+		 :demand t
+		 :custom ((tramp-backup-directory-alist backup-directory-alist)
+				  (enable-remote-dir-locals t))
 		 :config
 		 (add-to-list 'backup-directory-alist
 					  (cons tramp-file-name-regexp nil)))
