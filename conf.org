@@ -3178,17 +3178,45 @@
    #+END_SRC
 
 ** Dark Mode
-   A cheep dark mode for my configuration. Just inverts the "default
-   face", ie what most buffers use for regular text, and all faces that
-   are based on the "default face".
+   A cheep dark mode for my configuration. Calculates and applies the
+   RGB complements for a list of faces.
 
    #+BEGIN_SRC emacs-lisp
 	 (defun zge/toggle-dark-mode ()
 	   (interactive)
-	   (dolist (face '(default header-line fringe))
-		 (invert-face face)))
+	   (dolist (face '(mode-line default))
+		 (zge/reverse-face face)))
 
 	 (global-set-key (kbd "<f9>") #'zge/toggle-dark-mode)
+   #+END_SRC
+
+   The actual logic behind reverting, is done by =reverse-face=, a
+   lightly altered version of =invert-face=, that instead of swapping
+   fore- and background colors, replaced the fore- and background of a
+   face with it's RGB complement.
+
+   #+BEGIN_SRC emacs-lisp
+	 (defun zge/reverse-color (color)
+	   (require 'color)
+	   (apply #'color-rgb-to-hex (color-complement color)))
+
+	 (defun zge/reverse-face (face &optional frame)
+	   (interactive (list (read-face-name "Reverse face" (face-at-point t))))
+	   (let* ((fg (face-attribute face :foreground frame))
+			  (bg (face-attribute face :background frame)))
+		 (set-face-attribute
+		  face frame
+		  :foreground
+		  (zge/reverse-color
+		   (if (eq fg 'unspecified)
+			   (face-attribute 'default :foreground frame)
+			 fg))
+		  :background
+		  (zge/reverse-color
+		   (if (eq bg 'unspecified)
+			   (face-attribute 'default :background frame)
+			 bg))))
+	   face)
    #+END_SRC
 
 ** Empty Lines
