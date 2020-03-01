@@ -3264,6 +3264,7 @@
 	(dolist (bind '(("M-l" . downcase-dwim)
 					("M-c" . capitalize-dwim)
 					("M-u" . upcase-dwim)
+					("M-k" . kill-paragraph)
 					("<prior>" . previous-buffer)
 					("<next>" . next-buffer)
 					("<XF86WLAN>" . ignore)
