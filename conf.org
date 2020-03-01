@@ -1908,7 +1908,6 @@
 					(LaTeX-syntactic-comments nil)
 					(TeX-auto-save t)
 					(TeX-parse-self t)
-					(TeX-source-correlate-mode t)
 					(preview-auto-cache-preamble t)
 					(reftex-plug-into-AUCTeX t)
 					(reftex-enable-partial-scans t))
