@@ -1115,6 +1115,11 @@
 		(use-package dired
 		  :demand t
 		  :custom ((dired-dwim-target t)
+				   (dired-no-confirm
+					'(byte-compile
+					  chgrp chmod chown copy
+					  hardlink load move
+					  shell touch symlink))
 				   (dired-recursive-copies 'always)
 				   (dired-recursive-deletes 'top)
 				   (dired-ls-F-marks-symlinks t)
