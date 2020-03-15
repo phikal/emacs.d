@@ -3199,10 +3199,6 @@
    face with it's RGB complement.
 
    #+BEGIN_SRC emacs-lisp
-	 (defun zge/reverse-color (color)
-	   (require 'color)
-	   (apply #'color-rgb-to-hex (color-complement color)))
-
 	 (defun zge/reverse-face (face &optional frame)
 	   (interactive (list (read-face-name "Reverse face" (face-at-point t))))
 	   (let* ((fg (face-attribute face :foreground frame))
@@ -3210,12 +3206,12 @@
 		 (set-face-attribute
 		  face frame
 		  :foreground
-		  (zge/reverse-color
+		  (color-complement-hex
 		   (if (eq fg 'unspecified)
 			   (face-attribute 'default :foreground frame)
 			 fg))
 		  :background
-		  (zge/reverse-color
+		  (color-complement-hex
 		   (if (eq bg 'unspecified)
 			   (face-attribute 'default :background frame)
 			 bg))))
