@@ -3245,7 +3245,7 @@
 
   #+BEGIN_SRC emacs-lisp
 	(dolist (bind '(("M-\"" . eshell)
-					("C-M-(" . delete-pair)
+					("C-(" . delete-pair)
 					("<f6>" . toggle-truncate-lines)
 					("C-c <C-return>" . man)
 					("C-x C-z" . bury-buffer)
