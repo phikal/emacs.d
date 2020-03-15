@@ -2958,24 +2958,6 @@
 	 (zge/swap-keys (kbd "M-%") (kbd "C-M-%"))
    #+END_SRC
 
-** Curl to buffer
-   Sometimes I just want to easily view some code in emacs (eg. a raw
-   github gist), and this functions just makes it easier.
-
-   #+BEGIN_SRC emacs-lisp
-	 (defun zge/curl (url)
-	   "Paste the content behind URL into a new buffer."
-	   (interactive "Murl: ")
-	   (let* ((bufname (file-name-base url)))
-		 (with-current-buffer (generate-new-buffer (if (string-empty-p bufname)
-													   "*curl*" bufname))
-		   (shell-command (concat "curl --silent " url) (current-buffer))
-		   (pop-to-buffer (current-buffer))
-		   (set-auto-mode t))))
-
-	 (defalias 'url 'zge/curl)
-   #+END_SRC
-
 ** Replace Region with Hex Charachter References
    When fuzzing Email addresses, replacing ASCII text with Hexadecimal
    [[https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Character_reference_overview][XML Charachter References]] can make it a bit harder for spiders and
