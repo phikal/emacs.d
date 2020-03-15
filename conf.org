@@ -2882,8 +2882,6 @@
    input method is changed based on =zge/input-alist=.
 
    #+BEGIN_SRC emacs-lisp
-	 (defconst zge/dicts '("german-new8" "british")
-	   "list of dictionaries")
 	 (defconst zge/input-alist '(("british" . nil)
 								 ("german-new8" . "german-postfix")))
 	 (defconst zge/toggle-dict-modes '(text-mode erc-mode))
@@ -2891,21 +2889,22 @@
 
 	 (defun zge/toggle-dictionary (&optional lang no-check)
 	   "Toggle the Ispell dictionary from English to German and vice versa."
-	   (interactive (list nil (not current-prefix-arg)))
+	   (interactive (list nil current-prefix-arg))
 	   (unless zge/dict-ring
-		 (setq zge/dict-ring
-			   (let ((ring (make-ring (length zge/dicts))))
-				 (mapc (apply-partially #'ring-insert ring) zge/dicts)
-				 ring)))
-	   (let* ((next-dict (or lang (ring-remove zge/dict-ring)))
-			  (next-im (assoc next-dict zge/input-alist)))
-		 (ispell-change-dictionary next-dict)
-		 (ring-insert zge/dict-ring next-dict)
-		 (when (and next-im (eval `(or ,@(mapcar (lambda (m) (fboundp (derived-mode-p m)))
-												 zge/toggle-dict-modes))))
-		   (set-input-method (cdr next-im))))
-	   (unless no-check
-		 (flyspell-region (point-min) (point-max))))
+		 (setq zge/dict-ring (ring-convert-sequence-to-ring
+							  (mapcar #'car zge/input-alist))))
+	   (unless lang
+		 (setq lang (ring-remove zge/dict-ring))
+		 (ring-insert zge/dict-ring lang))
+	   (ispell-change-dictionary lang)
+	   (when (delq nil (mapcar (lambda (m) (derived-mode-p m))
+							   zge/toggle-dict-modes))
+		 (let* ((next-im (assoc lang zge/input-alist)))
+		   (when next-im
+			 (set-input-method (cdr next-im)))))
+	   (unless (or no-check (> (- (point-max) (point-min)) 10000))
+		 (save-mark-and-excursion
+		   (flyspell-large-region (point-min) (point-max)))))
 
 	 (global-set-key (kbd "<f5>") #'zge/toggle-dictionary)
    #+END_SRC
