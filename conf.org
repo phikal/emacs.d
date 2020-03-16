@@ -1634,10 +1634,8 @@
 		  (defmacro go-install (url cmd)
 			`(unless (executable-find ,cmd)
 			   (shell-command (concat "go get " ,url "/" ,cmd))))
+		  :custom ((gofmt-command "goimports"))
 		  :init
-		  (add-hook 'go-mode-hook
-					(setl compile-command
-						  "go generate && go build -v && go test -v && go vet"))
 		  (add-hook 'go-mode-hook
 					(lambda () (add-hook 'before-save-hook
 										 #'gofmt-before-save t t)))
@@ -1648,14 +1646,14 @@
 			(add-to-PATH go-bin))
 		  (go-install "golang.org/x/tools/cmd" "goimports")
 		  (go-install "golang.org/x/tools/cmd" "godoc")
+		  (go-install "golang.org/x/tools/cmd" "guru")
 		  (go-install "golang.org/x/lint" "golint")
-		  (setq gofmt-command "goimports")
-		  :mode (rx ".go" eos)
-		  :hook (go-mode . subword-mode)
+		  :hook ((go-mode . subword-mode))
 		  :bind (:map go-mode-map
 					  ("M-." . godef-jump)
 					  ("C-c ." . godoc-at-point)
-					  ("C-c C-r" . go-remove-unused-imports)))
+					  ("C-c C-r" . go-remove-unused-imports))
+		  :mode (rx ".go" eos))
 	  #+END_SRC
 
 	  Hovering over symbols should print documentation about said symbol
