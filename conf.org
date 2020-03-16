@@ -247,7 +247,7 @@
 
    - msmtp, mpop, mairix :: [[*Mail][Mail]]
    - gpg :: authinfo.gpg de-/encyrption
-   - curl :: [[*Feed Syndication][Feed Syndication]]
+   - curl :: [[*Feed Reader][Feed Reader]]
    - git :: [[*Version%20Control][Version Control]] (eg. for this file)
    - aspell :: [[Spell%20Checking][Spell Checking]]
    - rg :: [[*Project Managment][Project Managment]] and [[*Goto Source][Source Discovery]]
@@ -2686,7 +2686,7 @@
 		 :hook ((erc-mode . electric-pair-local-mode)))
 	 #+END_SRC
 
-**** Feed Syndication
+**** Feed Reader
 	 :PROPERTIES:
 	 :WEBSITE:  https://github.com/skeeto/elfeed
 	 :AUTHOR:   Christopher Wellons
