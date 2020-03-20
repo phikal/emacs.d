@@ -2542,7 +2542,8 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package message
-		  :preface
+		  :if (executable-find "msmtp")
+		  :config
 		  (defun zge/message-add-fcc ()
 			(format "FCC: ~/etc/mail/out/%s.mbox"
 					(downcase (format-time-string "%Y-%h") )))
