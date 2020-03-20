@@ -2507,6 +2507,7 @@
 				   (rmail-delete-after-output t)
 				   (rmail-default-file "~/etc/mail/old/")
 				   (mail-dont-reply-to-names rmail-user-mail-address-regexp))
+		  :mode ((rx ".mbox" eos) . rmail-mode)
 		  :bind (("C-x x m" . rmail)))
 	  #+END_SRC
 
