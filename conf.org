@@ -2230,13 +2230,9 @@
 	  #+BEGIN_SRC emacs-lisp
 		(use-package avy
 		  :ensure t
-		  :custom ((avy-background t)
-				   (avy-style 'at-full))
-		  :config
-		  (avy-setup-default)
+		  :custom ((avy-background t))
 		  :bind (("C-z" . avy-goto-char)
-				 ("M-z" . avy-goto-line)
-				 ("C-M-z" . avy-resume)))
+				 ("M-z" . avy-resume)))
 	  #+END_SRC
 
 **** Searching
