@@ -1780,13 +1780,12 @@
 		(use-package haskell-mode
 		  :if (executable-find "ghc")
 		  :ensure t
+		  :custom ((haskell-process-type 'stack-ghci))
 		  :hook ((haskell-mode . haskell-doc-mode)
 				 (haskell-mode . haskell-indentation-mode)
 				 (haskell-mode . interactive-haskell-mode)
 				 (haskell-mode . (lambda () (yas-minor-mode -1)))
 				 (haskell-interactive-mode . electric-pair-mode))
-		  :config
-		  (setq haskell-process-type 'stack-ghci)
 		  :mode (rx ".hs" eos))
 	  #+END_SRC
 
