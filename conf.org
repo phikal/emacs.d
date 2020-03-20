@@ -2495,7 +2495,6 @@
 					'("mbox://~/etc/mail/in/pers.mbox"
 					  "mbox://~/etc/mail/in/uni.mbox"))
 				   (rmail-file-name "~/etc/mail/inbox.mbox")
-				   (rmail-summary-window-size 12)
 				   (rmail-user-mail-address-regexp
 					(rot13-string (rx (or "cuvyvc.xnyhqrepvp@snh.qr"
 										  "cuvyvc@jnecznvy.arg"))))
