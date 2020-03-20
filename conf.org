@@ -2657,21 +2657,24 @@
 				  (erc-join-buffer 'bury)
 				  (erc-server-auto-reconnect t)
 				  (erc-server-reconnect-timeout 30)
-				  (erc-hide-list
-				   '("324" "329" "332" "333" "353" "477"
-					 "PART" "MODE" "QUIT"))
+				  (erc-hide-list '("PART" "MODE" "QUIT"))
 				  (erc-track-enable-keybindings t)
 				  (erc-track-shorten-aggressively t)
 				  (erc-track-exclude-server-buffer t)
 				  (erc-track-exclude-types
 				   (append erc-hide-list
-						   '("JOIN" "NICK" "305" "306"))))
+						   '("JOIN" "NICK" "324" "329"
+							 "332" "333" "353" "477"
+							 "305" "306"))))
 		 :init
-		 (defun iirc ()
+		 (defun zge/irc-init ()
 		   (interactive)
 		   (erc-spelling-mode t)
 		   (erc-tls :password (lookup-password erc-server)))
-		 :hook ((erc-mode . electric-pair-local-mode)))
+		 (defalias 'irc #'zge/irc-init)
+		 :hook ((erc-mode . electric-pair-local-mode))
+		 :bind (:map erc-mode-map
+					 ("M-<tab>" . completion-at-point)))
 	 #+END_SRC
 
 **** Feed Reader
