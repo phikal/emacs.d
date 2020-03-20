@@ -2501,8 +2501,8 @@
 				   (rmail-file-name "~/etc/mail/inbox.mbox")
 				   (rmail-summary-window-size 12)
 				   (rmail-user-mail-address-regexp
-					(rx (or "philip.kaludercic@fau.de"
-							"philip@warpmail.net")))
+					(rot13-string (rx (or "cuvyvc.xnyhqrepvp@snh.qr"
+										  "cuvyvc@jnecznvy.arg"))))
 				   (rmail-mime-prefer-html nil)
 				   (rmail-mime-attachment-dirs-alist '(("" "~/dl")))
 				   (rmail-displayed-headers
