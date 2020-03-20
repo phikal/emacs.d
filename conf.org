@@ -2433,7 +2433,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package dictionary
-		 :if (executable-find "dictd")
+		 :if (file-exists-p "/etc/dictd")
 		 :ensure t
 		 :config
 		 (setq dictionary-server "localhost")
