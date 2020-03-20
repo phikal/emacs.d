@@ -2406,7 +2406,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package pdf-tools
-		 :if window-system
+		 :if (display-graphic-p)
 		 :ensure t
 		 :custom ((pdf-view-display-size 'fit-page)
 				  (pdf-view-use-unicode-ligther nil)
