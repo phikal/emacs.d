@@ -3080,7 +3080,10 @@
 	 (define-key special-event-map [sigusr1] #'zge/load-mailto)
    #+END_SRC
 
+   The shell script I have to invoke this special event is just the
+   following:
 
+   #+INCLUDE: "~/etc/bin/emacs-mailto" src sh :tangle no
 
 ** Change Mail Sender
    Since I use two different Email addresses, and Emacs defaults to my
