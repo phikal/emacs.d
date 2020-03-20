@@ -1691,17 +1691,6 @@
 		  (go-install "github.com/go-delve/delve/cmd" "dlv"))
 	  #+END_SRC
 
-***** Emacs Lisp
-	  Most of the Elisp defaults are quite fine, so I don't have to add a
-	  lot. The only real thing I want is, as many other language do, to
-	  evaluate a region.
-
-	  #+BEGIN_SRC emacs-lisp
-		(use-package elisp-mode
-		  :bind (:map emacs-lisp-mode-map
-					  ("C-c C-r" . eval-region)))
-	  #+END_SRC
-
 ***** Scheme
 	  :PROPERTIES:
 	  :WEBSITE:  http://www.nongnu.org/geiser/
