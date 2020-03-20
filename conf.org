@@ -1396,6 +1396,8 @@
 		  :ensure t
 		  :custom ((magit-diff-options "-b --patience")
 				   (magit-save-repository-buffers 'dontask)
+				   (magit-display-buffer-function
+					'magit-display-buffer-same-window-except-diff-v1)
 				   (magit-diff-refine-hunk t)
 				   (git-commit-known-pseudo-headers
 					'("Signed-off-by" "Acked-by" "Modified-by" "Cc"
