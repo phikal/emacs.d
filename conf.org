@@ -9,7 +9,7 @@
 
   To load this configuration, make sure you have the ~.org~ file locally
   on your system, and call it using ~org-babel-load-file~. An example of
-  how I initialize my configuration is given [[*Why use org/babel?][below]].
+  how I initialise my configuration is given [[*Why use org/babel?][below]].
 
   This document, it's code and comments, are in the [[https://creativecommons.org/publicdomain/zero/1.0/deed][public domain]].
 
@@ -39,8 +39,8 @@
    Knowing nothing, I trusted common opinion and went with Vi(m). And it
    was cool -- a +sin+ penance to say in an Emacs configuration. But while
    the foundations were good, it had problems with being extended,
-   personalized, etc. Ultimately, I came to the conclusion that one
-   shouldn't customize Vi(m), or at the very least keep it as minimal as
+   personalised, etc. Ultimately, I came to the conclusion that one
+   shouldn't customise Vi(m), or at the very least keep it as minimal as
    possible (hence I use =nvi= and =vis= instead of Vim nowadays).
 
    Yet this conclusion wasn't achieved by itself. It took Emacs to prove
@@ -48,7 +48,7 @@
    me...
 
    I remember that there was a bit of a gap between installing and using
-   Emacs. For a while I even had issues remembering and recognizing the
+   Emacs. For a while I even had issues remembering and recognising the
    name! A particularly vivid memory is me looking through the Gnome (or
    Unity?) configuration program, and encountering the "input method"
    option, among which "Emacs" was an option -- I assumed it was related
@@ -64,7 +64,7 @@
    can't quite remember I was drawn towards Emacs. Possibilities could
    be
    1. Me having have met "real" Emacs users, and drawing my attention to
-	  the Editor, making me realize that it's not just a notepad with
+	  the Editor, making me realise that it's not just a notepad with
 	  inconvenient keybindings.
    2. Me having have engaged with Lisp, while to be fair not knowing all
 	  it's potential understanding it's beauty.
@@ -75,7 +75,7 @@
    copied a few things from some blogs, a few things from some dotfile,
    some stuff from YouTube descriptions and others from Stackoverflow
    questions -- to put it simply, it was a mess, and stuff broke quite
-   freqently. I kept on reading that Org mode was great, but I didn't
+   frequently. I kept on reading that Org mode was great, but I didn't
    ever get why (I did eventually). But for some reason I didn't stop
    using Emacs, but neither did I go too deep.
 
@@ -142,72 +142,27 @@
    probably won't find any of this in my config), I list here other very
    interesting configurations:
 
-   - [[http://archive.is/qw0r8][Org Mode -- Organize Your Life in Plain Text!]] :: this is not
-        strictly a config, but it's an overall great =org-mode=
-        overview. Less on the topic of configurations, and more on the
-        topic of =org-mode=, [[http://home.fnal.gov/~neilsen/notebook/orgExamples/org-examples.html][Eric H. Neilsen's example page]] is very
-        useful to fall back on.
-   - [[https://www.freebsd.org/doc/en/books/developers-handbook/emacs.html][Using Emacs as a Development Environment]] :: this offered a few
-        =c-mode= related tricks
-   - [[https://www.dgp.toronto.edu/~ghali/emacs.html][Sheruf Ghali's Emacs config]] :: recommendable due to being an
-		expansive document with good (although not "literate")
-		documentation and commentary.
-   - [[https://caolan.org/dotfiles/emacs.html][Caolan McMahon's Emacs Configuration]] :: A lot of packages with
-		helpful commentary. Very well structured.
-   - [[https://github.com/jwiegley/dot-emacs][John Wiegley's (=use-package= creator) "dot-emacs"]] :: Always up to
-		date and permanently changing, this configuration shows a lot of
-		maturity.
-   - [[https://tuhdo.github.io/emacs-tutor3.html][Tu Do's "Emacs Mini Manual (PART 3)"]] :: Part of a series that
-		starts from nothing and gives a great introduction to Emacs. The
-		last part (linked here) introduces and explains a lot of useful
-		packages, as well as basic elisp concepts (=defun=, =add-to-list=,
-		=mapc=, ...)
-   - [[https://gitlab.com/j3kyl/dots/blob/master/gnu/.emacs.d/init.el][j3kyl's =init.el=]] :: Very extensive and occasionally obscure
-		settings, structured and documented well enough to be
-		understandable (sadly offline).
-   - [[https://github.com/larstvei/dot-emacs/][Lard Tveito's "dot-emacs"]] :: Another literate configuration that
-		demonstrates multiple packages with well written and helpful
-		comments.
-   - [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][Harry R. Schwarz' (hrs) "dotfiles"]] :: Part of his overall
-		configuration, hrs (Organizer of the NYC Emacs meetup) provides
-		an extensive list of packages, tricks and tips.
-   - [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]] :: /Very/ comprehensive but a bit
-		disordered (IMO) literate configuration by the maintainer of the
-		(very recommendable) [[http://sachachua.com/blog/category/emacs/][Emacs News]] newsletter.
-   - [[https://github.com/codemac/config/blob/master/emacs.d/boot.org][Jeff Mickey's (codemac) Emacs]] :: A bit untidy but extensive/long
-		and quite clever literate configuration. Many variables worth
-		knowing about, as well as good, thoughtful commentary.
-   - [[https://mrblog.nl/emacs/config.html][Marcel van der Boom's "Orgmode configuration"]] :: Impressively long
-        configuration with more-than-average commentary and many custom
-        functions to extend the default behavior of the many packages
-        mentioned. Seems to be written with a German keyboard in mind.
-   - [[http://home.thep.lu.se/~karlf/emacs.html][Karl Fogelmark's .emacs]] :: A lot of functions and keybinding-tables
-        and otherwise helpful comments, yet written with pre-Emacs 24.1
-        in mind so the configuration is a bit verbose.
-   - [[https://git.sr.ht/~jakob/.emacs.d][Jakob L. Kreuze's .emacs.d]] :: Despite being described as "little
-        rough around the edges", I found this a very interesting
-        configurations to read (as of writing, <2018-12-30 Sun>). There
-        are quite a few unusual options that are played around with,
-        that I've adopted in the following document too.
-   - [[https://github.com/wasamasa/dotemacs/blob/master/init.org][Vasilij Schneidermann's dotemacs]] :: More of a classical literate
-        configuration, both in standing as well as style. Well worth
-        reading for various hacks or just for learning.
-   - [[http://chneukirchen.org/dotfiles/.emacs][Leah Neukirchen's .emacs]] :: A fairly old configuration (from 2001)
-        that has been maintained up until fairly recently (2018, as of
-        writing). Interesting for unusual functions and
-        macros. Especially interesting: the =bang= Function.
-   - [[https://github.com/danielmai/.emacs.d/blob/master/config.org][Daniel Mai's .emacs.d]] :: Certainly one of the better literate Emacs
-		configurations I have found in a while, leveraging =use-package=
-        but also showing and explaining quite interesting variables I
-        have also chosen to adopt myself.
-   - [[https://github.com/stsquad/my-emacs-stuff][Alex Bennée's configuration]] :: A classical (non-literate)
-        configuration that touches on many different packages and
-        options.
-   - [[https://protesilaos.com/dotemacs/][Protesilaos Stavrou's dotemacs]] :: Very well written and clean
-        confirmation. Check ouf [[https://www.youtube.com/channel/UC0uTPqBCFIpZxlz_Lv1tk_g][Protesilaos's]] YouTube channel for more
-        live demonstrations of what he talks about here.
-   - [[https://gitlab.com/link0ff/emacs-init/blob/master/emacs.el][Juri Linkov's emacs-init]] :: On the longer side of most
-        configurations listed here, written on top of that in pure Elisp.
+   - [[http://archive.is/qw0r8][Org Mode -- Organize Your Life in Plain Text!]]
+   - [[https://www.freebsd.org/doc/en/books/developers-handbook/emacs.html][Using Emacs as a Development Environment]]
+   - [[https://www.dgp.toronto.edu/~ghali/emacs.html][Sheruf Ghali's Emacs config]]
+   - [[https://caolan.org/dotfiles/emacs.html][Caolan McMahon's Emacs Configuration]]
+   - [[https://github.com/jwiegley/dot-emacs][John Wiegley's (=use-package= creator) "dot-emacs"]]
+   - [[https://tuhdo.github.io/emacs-tutor3.html][Tu Do's "Emacs Mini Manual (PART 3)"]]
+   - [[https://gitlab.com/j3kyl/dots/blob/master/gnu/.emacs.d/init.el][j3kyl's =init.el=]]
+   - [[https://github.com/larstvei/dot-emacs/][Lard Tveito's "dot-emacs"]]
+   - [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][Harry R. Schwarz' (hrs) "dotfiles"]]
+   - [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
+   - [[https://github.com/codemac/config/blob/master/emacs.d/boot.org][Jeff Mickey's (codemac) Emacs]]
+   - [[https://mrblog.nl/emacs/config.html][Marcel van der Boom's "Orgmode configuration"]]
+   - [[http://home.thep.lu.se/~karlf/emacs.html][Karl Fogelmark's .emacs]]
+   - [[https://git.sr.ht/~jakob/.emacs.d][Jakob L. Kreuze's .emacs.d]]
+   - [[https://github.com/wasamasa/dotemacs/blob/master/init.org][Vasilij Schneidermann's dotemacs]]
+   - [[http://chneukirchen.org/dotfiles/.emacs][Leah Neukirchen's .emacs]]
+   - [[https://github.com/danielmai/.emacs.d/blob/master/config.org][Daniel Mai's .emacs.d]]
+   - [[https://github.com/stsquad/my-emacs-stuff][Alex Bennée's configuration]]
+   - [[https://protesilaos.com/dotemacs/][Protesilaos Stavrou's dotemacs]]
+   - [[https://gitlab.com/link0ff/emacs-init/blob/master/emacs.el][Juri Linkov's emacs-init]]
+   - [[https://www.markus-gattol.name/ws/.emacs.html][Markus Gattol's .emacs]]
 
    All of these configurations are worth reading and re-reading from
    time to time, since one can always find out something new to adopt
@@ -398,23 +353,15 @@
 	  (setq ring-bell-function #'ignore)
 	#+END_SRC
 
-*** Tab width
-	If you ask me, a tab with 4 characters wide. Emacs use to disagree,
-	but eventually I prevailed.
-
-	#+BEGIN_SRC emacs-lisp
-	  (setq-default tab-width 4)
-	#+END_SRC
-
 *** Encoding
 	There is almost nothing I do that doesn't use UT-8, so I tell Emacs
 	to use UTF everywhere. If that is the case, I can manually change it
 	later on (=set-file-name-coding-system=).
 
 	#+BEGIN_SRC emacs-lisp
-	  (setq locale-coding-system 'utf-8)
-	  (set-selection-coding-system 'utf-8)
-	  (prefer-coding-system 'utf-8)
+	  (setq locale-coding-system 'utf-8-unix)
+	  (set-selection-coding-system 'utf-8-unix)
+	  (prefer-coding-system 'utf-8-unix)
 	#+END_SRC
 
 *** Pager
@@ -492,7 +439,7 @@
 	life a bit easier.
 
 	#+BEGIN_SRC emacs-lisp
-	  (setq help-window-select t)
+	  (setq help-window-select nil)
 	#+END_SRC
 
 *** Local or Private Configurations
@@ -575,7 +522,7 @@
 
 	#+BEGIN_SRC emacs-lisp
 	  (setq register-alist
-			(mapcar (pcase-lambda (ent)
+			(mapcar (lambda (ent)
 					  (cons (car ent)
 							(cons 'file (cadr ent))))
 					`((?h "~")
@@ -596,8 +543,8 @@
 					  (?i "~/media/img/")
 					  (?m "~/etc/mail/")
 					  (?t "/tmp/")
-					  (?U "/ssh:uni:")
-					  (?I "/ssh:ibis:"))))
+					  (?U "/scp:uni:")
+					  (?I "/scp:ibis:"))))
 	#+END_SRC
 
 *** Helper Functions and Macros
@@ -613,7 +560,7 @@
 	   `exec-path'."
 		 (let ((path (split-string (getenv "PATH") ":")))
 		   (unless (member dir path)
-			 (push dir path))
+			 (setq path (append path (list dir))))
 		   (add-to-list 'exec-path dir)
 		   (setf (getenv "PATH") (string-join path ":"))))
 	 #+END_SRC
@@ -850,61 +797,15 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package time-stamp
-		 :hook ((before-save . time-stamp)))
+		 :hook (before-save))
 	 #+END_SRC
 
-**** Buffer overview
-	 Ibuffer has turned out to be quite a nifty alternative to
-	 =list-buffers=. Not only does it support filter-groups, as presented
-	 here, but buffers can be filtered by modes, content or miscellaneous
-	 attributes. This presents itself as very helpful, when managing a
-	 large amount (more than 100) of buffer.
+**** TODO Buffer overview
+
 
 	 #+BEGIN_SRC emacs-lisp
-	   (use-package ibuffer
-		 :after ibuf-ext
-		 :custom ((ibuffer-expert t)
-				  (ibuffer-formats
-				   '((mark modified read-only locked " "
-						   (name 18 18 :left :elide) " "
-						   (size-human 9 -1 :right) " "
-						   (mode 16 16 :left :elide) " "
-						   filename-and-process)
-					 (mark " " (name 16 -1) " " filename)))
-				  (ibuffer-show-empty-filter-groups nil)
-				  (ibuffer-hidden-filter-groups '("Dired" "IRC" "Mail"))
-				  (ibuffer-saved-filter-groups
-				   `(("default"
-					  ("Dired" (mode . dired-mode))
-					  ("Org" (mode . org-mode))
-					  ("IRC" (mode . erc-mode))
-					  ("PDF" (mode . pdf-view-mode))
-					  ("Man Pages" (mode . Man-mode))
-					  ("Emacs" (or (name . ,(rx bos "*scratch*" eos))
-								   (name . ,(rx bos "*Messages*" eos))
-								   (name . ,(rx bos "*Backtrace*" eos))
-								   (name . ,(rx bos "*info*" (? "<" (+ digit) ">") eos))
-								   (name . ,(rx bos "*Help*" eos))
-								   (name . ,(rx bos "*Apropos*" eos))))
-					  ("Emacs Source"
-					   (or (directory . ,(rx bos "~/code/etc/emacs/"))
-						   (directory . ,(rx bos "/usr/share/emacs/26.1/"))))
-					  ("Mail"
-					   (or (mode . message-mode)
-						   (mode . bbdb-mode)
-						   (directory . ,(rx bos "~/etc/mail/"))))))))
-		 :config
-		 (define-ibuffer-column size-human (:name "Size" :inline t)
-		   (cond ((> (buffer-size) (lsh 1 20))
-				  (format "%7.1fM" (/ (buffer-size) (lsh 1 20))))
-				 ((> (buffer-size) (lsh 1 12))
-				  (format "%7.0fk" (/ (buffer-size) (lsh 1 10))))
-				 ((> (buffer-size) (lsh 1 10))
-				  (format "%7.1fk" (/ (buffer-size) (lsh 1 10))))
-				 (t (format "%8d" (buffer-size)))))
-		 :hook ((ibuffer . (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
-				(ibuffer . ibuffer-auto-mode))
-		 :bind ("C-x C-b" . ibuffer))
+	   (use-package bs
+		 :bind ("C-x C-b" . bs-show))
 	 #+END_SRC
 
 **** Writable Grep
@@ -935,10 +836,9 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package paren
-		 :demand
-		 :custom ((show-paren-delay 0))
-		 :config
-		 (show-paren-mode t))
+		 :demand t
+		 :custom ((show-paren-delay 0)
+				  (show-paren-mode t)))
 	 #+END_SRC
 
 **** Auto-completion
@@ -956,16 +856,14 @@
 		 :demand t
 		 :ensure t
 		 :diminish
-		 :commands ivy-mode
 		 :custom ((ivy-wrap t)
 				  (ivy-height 8)
 				  (ivy-display-style 'fancy)
 				  (ivy-use-virtual-buffers t)
 				  (ivy-case-fold-search-default t)
 				  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
-				  (enable-recursive-minibuffers t))
-		 :config
-		 (ivy-mode t)
+				  (enable-recursive-minibuffers t)
+				  (ivy-mode t))
 		 :bind (:map ivy-minibuffer-map
 					 ("<RET>" . ivy-alt-done)))
 	 #+END_SRC
@@ -976,11 +874,10 @@
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package counsel
 		 :after ivy
+		 :demand t
 		 :ensure t
 		 :diminish
-		 :commands counsel-mode
-		 :init
-		 (counsel-mode t)
+		 :custom ((counsel-mode t))
 		 :config
 		 (defun zge/counsel-start-file-jump ()
 		   "Switch to counsel-file-jump, preserving current input."
@@ -988,7 +885,7 @@
 		   (ivy-quit-and-run (counsel-file-jump nil ivy--directory)))
 		 (dolist (cmd '(yank-pop describe-bindings))
 		   (define-key counsel-mode-map `[remap ,cmd] nil))
-		 :bind (("C-c s" . counsel-rg)
+		 :bind (("C-x C-r" . counsel-rg)
 				("C-x C-/" . counsel-org-goto-all)
 				("C-x C-]" . counsel-file-jump)
 				:map counsel-find-file-map
@@ -1001,7 +898,7 @@
 	 :AUTHOR:   Martin Yrjölä
 	 :END:
 
-	 This package is used by many others via the =:diminish= keyword in
+	 This package is used by /many/ others via the =:diminish= keyword in
 	 =use-package=. It ensures that certain minor modes don't appear in
 	 the mode-line.
 
@@ -1076,16 +973,19 @@
 	 albeit a bit slow and cumbersome from time to time...
 
 	 #+BEGIN_SRC emacs-lisp
-	   (setq-default ispell-program-name (executable-find "aspell")
-					 ispell-extra-args '("--sug-mode=normal" "--keyboard=standard")
-					 ispell-local-dictionary-alist
-					 '(("german-new8" "[[:alpha:]]" "[^[:alpha:]]"
-						"[']" t ("-d" "de_DE") nil utf-8)
-					   ("british" "[[:alpha:]]" "[^[:alpha:]]"
-						"[']" t ("-d" "en_GB") nil utf-8))
-					 flyspell-issue-welcome-flag nil
-					 flyspell-issue-message-flag nil
-					 flyspell-use-meta-tab nil)
+	   (use-package flyspell
+		 :custom ((ispell-program-name (executable-find "aspell"))
+				  (ispell-extra-args '("--sug-mode=bad-spellers"
+									   "--keyboard=standard"
+									   "--guess"))
+				  (ispell-local-dictionary-alist
+				   '(("german-new8" "[[:alpha:]]" "[^[:alpha:]]"
+					  "[']" t ("-d" "de_DE") nil utf-8)
+					 ("british" "[[:alpha:]]" "[^[:alpha:]]"
+					  "[']" t ("-d" "en_GB") nil utf-8)))
+				  (flyspell-issue-welcome-flag nil)
+				  (flyspell-issue-message-flag nil)
+				  (flyspell-use-meta-tab nil)))
 	 #+END_SRC
 
 **** Encryption
@@ -1248,9 +1148,7 @@
 	  #+BEGIN_SRC emacs-lisp
 		(use-package multiple-cursors
 		  :ensure t
-		  :bind (("C-S-n" . mc/mark-next-lines)
-				 ("C-S-p" . mc/mark-previous-lines)
-				 ("C-M-;" . mc/mark-all-like-this-dwim)))
+		  :bind (("C-M-;" . mc/mark-all-like-this-dwim)))
 	  #+END_SRC
 
 ***** Structural Editing
@@ -1470,14 +1368,12 @@
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package projectile
-		  :after ivy
+		  :demand t
 		  :ensure t
-		  :commands projectile-mode
-		  :diminish
+		  :diminish projectile-mode
 		  :custom ((projectile-switch-project-action 'projectile-dired)
-				   (projectile-completion-system 'default))
-		  :init
-		  (projectile-mode t)
+				   (projectile-completion-system 'default)
+				   (projectile-mode t))
 		  :bind ("C-x p" . projectile-command-map))
 	  #+END_SRC
 
@@ -1499,10 +1395,9 @@
 	  From what one can see, it is obvious that I still have to get around
 	  to properly set up my C editing environment.
 
-      #+BEGIN_SRC emacs-lisp
+	  #+BEGIN_SRC emacs-lisp
 		(use-package cc-mode
-		  :custom ((c-delete-function #'backward-delete-char)
-				   (c-delete-function #'delete-char)
+		  :custom ((c-delete-function #'delete-char)
 				   (c-default-style '((java-mode . "java")
 									  (awk-mode . "awk")
 									  (other . "k&r")))))
@@ -1534,14 +1429,13 @@
 
 	   #+BEGIN_SRC emacs-lisp
 		 (use-package semantic
+		   :custom ((semantic-default-submodes
+					 '(global-semantic-idle-scheduler-mode
+					   global-semantic-idle-summary-mode
+					   global-semanticdb-minor-mode)))
 		   :config
 		   (add-hook 'semantic-mode-hook
-					 (setl completion-at-point-functions '(semantic-analyze-completion-at-point-function)))
-		   (setq semantic-default-submodes
-				 '(global-semantic-idle-scheduler-mode
-				   global-semantic-idle-summary-mode
-				   global-semanticdb-minor-mode
-				   global-semantic-stickyfunc-mode)))
+					 (setl completion-at-point-functions '(semantic-analyze-completion-at-point-function))))
 	   #+END_SRC
 
 ***** GDB
@@ -1585,23 +1479,22 @@
 
 ***** Web
 ****** HTML
-		For most of what I do, Emacs' built in =mhtml-mode=. The only major
-		annoyance is it's default insistence not to close some tags (=<p>=,
-		=<dl>/<dd>=, ...), which I here prevent.
+	   For most of what I do, Emacs' built in =mhtml-mode=. The only major
+	   annoyance is it's default insistence not to close some tags (=<p>=,
+	   =<dl>/<dd>=, ...), which I here prevent.
 
-		#+BEGIN_SRC emacs-lisp
-		  (use-package sgml-mode
-			:custom ((sgml-xml-mode t)))
-		#+END_SRC
+	   #+BEGIN_SRC emacs-lisp
+		 (use-package sgml-mode
+		   :custom ((sgml-xml-mode t)))
+	   #+END_SRC
 
-		Furthermore, when inserting a html tag with =sgml-tag= (=C-c
-		C-o=), don't add unnecessary newlines.
+	   Furthermore, when inserting a html tag with =sgml-tag= (=C-c
+	   C-o=), don't add unnecessary newlines.
 
-		#+BEGIN_SRC emacs-lisp
-		  (use-package skeleton
-			:config
-			(setq skeleton-end-newline nil))
-		#+END_SRC
+	   #+BEGIN_SRC emacs-lisp
+		 (use-package skeleton
+		   :custom ((skeleton-end-newline nil)))
+	   #+END_SRC
 
 ****** CSS
 	   Emacs CSS mode has a helpful little function called
@@ -1638,10 +1531,6 @@
 			`(unless (executable-find ,cmd)
 			   (shell-command (concat "go get " ,url "/" ,cmd))))
 		  :custom ((gofmt-command "goimports"))
-		  :init
-		  (add-hook 'go-mode-hook
-					(lambda () (add-hook 'before-save-hook
-										 #'gofmt-before-save t t)))
 		  :config
 		  (let* ((go-path  "/home/phi/code/go")
 				 (go-bin (expand-file-name "bin" go-path)))
@@ -1651,7 +1540,10 @@
 		  (go-install "golang.org/x/tools/cmd" "godoc")
 		  (go-install "golang.org/x/tools/cmd" "guru")
 		  (go-install "golang.org/x/lint" "golint")
-		  :hook ((go-mode . subword-mode))
+		  :hook ((go-mode . subword-mode)
+				 (go-mode
+				  . (lambda () (add-hook 'before-save-hook
+										 #'gofmt-before-save t t))))
 		  :bind (:map go-mode-map
 					  ("M-." . godef-jump)
 					  ("C-c ." . godoc-at-point)
@@ -1669,14 +1561,13 @@
 		  :config
 		  (go-install "github.com/rogpeppe" "godef")
 		  :hook (go-mode . go-eldoc-setup))
-      #+END_SRC
+	  #+END_SRC
 
 	  Just like with C above, I load my own [[https://github.com/mdempsky/gocode][=gocode=]] based completion
 	  function.
 
 	  #+BEGIN_SRC emacs-lisp
 		(use-package go-capf
-		  :demand t
 		  :ensure t
 		  :after go-mode
 		  :config
@@ -1734,37 +1625,36 @@
 	  documentation, etc.
 
 	  My main customisation are:
-	  - setting up [[http://www.sbcl.org/][SBCL]]
-	  - using common-lisp specific indentation,
-	  - loading additional SLIME packages (REPL, hyperspec documentation,
-		eldoc-like documentation, alternative completion mechanisms, ...)
+			  - setting up [[http://www.sbcl.org/][SBCL]]
+			  - using common-lisp specific indentation,
+			  - loading additional SLIME packages (REPL, hyperspec documentation,
+				eldoc-like documentation, alternative completion mechanisms, ...)
 
-	  #+BEGIN_SRC emacs-lisp
-		(use-package slime
-		  :if (executable-find "sbcl")
-		  :ensure t
-		  :commands 'slime
-		  :custom ((common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
-				   (slime-completion-at-point-functions
-					'(slime-simple-completion-at-point slime-filename-completion))
-				   (slime-contribs '(slime-hyperdoc
-									 slime-repl
-									 slime-autodoc
-									 slime-macrostep
-									 slime-references
-									 slime-mdot-fu
-									 slime-xref-browser
-									 slime-presentations
-									 slime-cl-indent
-									 slime-fancy-inspector
-									 slime-fontifying-fu
-									 slime-trace-dialog)))
-		  :init
-		  (setq inferior-lisp-program (executable-find "sbcl"))
-		  :bind (:map slime-mode-map ("C-<return>" . slime-selector)
-				 :map slime-repl-mode-map ("DEL" . nil))
-		  :mode ((rx (or ".lisp" ".cl") eos) . common-lisp-mode))
-	  #+END_SRC
+				#+BEGIN_SRC emacs-lisp
+				  (use-package slime
+					:if (executable-find "sbcl")
+					:ensure t
+					:commands 'slime
+					:custom ((common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
+							 (slime-completion-at-point-functions
+							  '(slime-simple-completion-at-point slime-filename-completion))
+							 (slime-contribs '(slime-hyperdoc
+											   slime-repl
+											   slime-autodoc
+											   slime-macrostep
+											   slime-references
+											   slime-mdot-fu
+											   slime-xref-browser
+											   slime-presentations
+											   slime-cl-indent
+											   slime-fancy-inspector
+											   slime-fontifying-fu
+											   slime-trace-dialog))
+							 (inferior-lisp-program (executable-find "sbcl")))
+					:bind (:map slime-mode-map ("C-<return>" . slime-selector)
+								:map slime-repl-mode-map ("DEL" . nil))
+					:mode ((rx (or ".lisp" ".cl") eos) . common-lisp-mode))
+				#+END_SRC
 
 ***** Haskell
 	  :PROPERTIES:
@@ -1783,11 +1673,10 @@
 		(use-package haskell-mode
 		  :if (executable-find "ghc")
 		  :ensure t
-		  :custom ((haskell-process-type 'stack-ghci))
+		  :custom ((haskell-completing-read-function 'completing-read))
 		  :hook ((haskell-mode . haskell-doc-mode)
 				 (haskell-mode . haskell-indentation-mode)
 				 (haskell-mode . interactive-haskell-mode)
-				 (haskell-mode . (lambda () (yas-minor-mode -1)))
 				 (haskell-interactive-mode . electric-pair-mode))
 		  :mode (rx ".hs" eos))
 	  #+END_SRC
@@ -1892,58 +1781,58 @@
 		 toggle function]].
 	   - Don't bother installing anything, if no latex compiler is found.
 
-	   #+BEGIN_SRC emacs-lisp
-		 (use-package latex
-		   :if (executable-find "pdflatex")
-		   :ensure auctex
-		   :custom ((TeX-master 'dwim)
-					(LaTeX-electric-left-right-brace t)
-					(LaTeX-syntactic-comments nil)
-					(TeX-auto-save t)
-					(TeX-parse-self t)
-					(preview-auto-cache-preamble t)
-					(reftex-plug-into-AUCTeX t)
-					(reftex-enable-partial-scans t))
-		   :config
-		   (when (fboundp 'pdf-view-mode)
-			 (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")))
-		   (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
-		   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-		   (add-hook 'LaTeX-mode-hook (setl post-self-insert-hook
-											(remq #'electric-pair-post-self-insert-function
-												  post-self-insert-hook)))
-		   :hook ((LaTeX-mode . reftex-mode)
-				  (LaTeX-mode . TeX-fold-mode))
-		   :mode ((rx ".tex" eos) . TeX-latex-mode))
-	   #+END_SRC
+		 #+BEGIN_SRC emacs-lisp
+		   (use-package latex
+			 :if (executable-find "pdflatex")
+			 :ensure auctex
+			 :custom ((TeX-master 'dwim)
+					  (LaTeX-electric-left-right-brace t)
+					  (LaTeX-syntactic-comments nil)
+					  (TeX-auto-save t)
+					  (TeX-parse-self t)
+					  (preview-auto-cache-preamble t)
+					  (reftex-plug-into-AUCTeX t)
+					  (reftex-enable-partial-scans t))
+			 :config
+			 (when (fboundp 'pdf-view-mode)
+			   (setf (alist-get 'output-pdf TeX-view-program-selection) '("PDF Tools")))
+			 (add-hook 'LaTeX-language-de-hook (lambda () (zge/toggle-dictionary "de")))
+			 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+			 (add-hook 'LaTeX-mode-hook (setl post-self-insert-hook
+											  (remq #'electric-pair-post-self-insert-function
+													post-self-insert-hook)))
+			 :hook ((LaTeX-mode . reftex-mode)
+					(LaTeX-mode . TeX-fold-mode))
+			 :mode ((rx ".tex" eos) . TeX-latex-mode))
+		 #+END_SRC
 
-	   Additionally, CDLaTeX provides a more comfortable input and
-	   intuitive automation, where possible. I extend the tables by a few
-	   commands that I like to use more often, as to make working with TeX
-	   more comfortable. Note that these changes will also take effect in
-	   my [[*Org][Org]] configuration.
+		 Additionally, CDLaTeX provides a more comfortable input and
+		 intuitive automation, where possible. I extend the tables by a few
+		 commands that I like to use more often, as to make working with TeX
+		 more comfortable. Note that these changes will also take effect in
+		 my [[*Org][Org]] configuration.
 
-	   #+BEGIN_SRC emacs-lisp
-		 (use-package cdlatex
-		   :after (org latex)
-		   :ensure t
-		   :config
-		   (setq cdlatex-paired-parens "$([{|<")
-		   (add-to-list 'cdlatex-math-modify-alist
-						'(?# "\\mathbb" nil t nil nil))
-		   (add-to-list 'cdlatex-math-modify-alist
-						'(?F "\\mathfrak" nil t nil nil))
-		   (add-to-list 'cdlatex-math-symbol-alist
-						'(?# ("\\equiv")))
-		   (add-to-list 'cdlatex-command-alist
-						'("eq" "Insert \\[ \\] pair"
-						  "\\[ ? \\]" cdlatex-position-cursor nil t nil))
-		   (dolist (key '("(" "[" "{" "$" "|" "<" "C-c ?" "C-c {" "C-<return>"))
-			 (define-key cdlatex-mode-map (kbd key) nil))
-		   :bind (:map cdlatex-mode-map
-					   ("<backtab>" . indent-according-to-mode))
-		   :hook (LaTeX-mode . cdlatex-mode))
-	   #+END_SRC
+		 #+BEGIN_SRC emacs-lisp
+		   (use-package cdlatex
+			 :after (org latex)
+			 :ensure t
+			 :custom ((cdlatex-paired-parens "$([{|<"))
+			 :config
+			 (add-to-list 'cdlatex-math-modify-alist
+						  '(?# "\\mathbb" nil t nil nil))
+			 (add-to-list 'cdlatex-math-modify-alist
+						  '(?F "\\mathfrak" nil t nil nil))
+			 (add-to-list 'cdlatex-math-symbol-alist
+						  '(?# ("\\equiv")))
+			 (add-to-list 'cdlatex-command-alist
+						  '("eq" "Insert \\[ \\] pair"
+							"\\[ ? \\]" cdlatex-position-cursor nil t nil))
+			 (dolist (key '("(" "[" "{" "$" "|" "<" "C-c ?" "C-c {" "C-<return>"))
+			   (define-key cdlatex-mode-map (kbd key) nil))
+			 :bind (:map cdlatex-mode-map
+						 ("<backtab>" . indent-according-to-mode))
+			 :hook (LaTeX-mode . cdlatex-mode))
+		 #+END_SRC
 
 ****** Org
 	   The following configuration is wrapped in a =use-package= macro...
@@ -2103,25 +1992,25 @@
 			 onload=\"renderMathInElement(document.body);\"></script>")
 	   #+END_SRC
 
-       Adding this code to =org-structure-template-alist=, makes it easier
-       to maintain files like these, since expands =<E= to a source block
-       with emacs-lisp automatically chosen as the language. Due to a
-       org-mode bug, this has to be evaluated after the document has been
-       loaded.
+	   Adding this code to =org-structure-template-alist=, makes it easier
+	   to maintain files like these, since expands =<E= to a source block
+	   with emacs-lisp automatically chosen as the language. Due to a
+	   org-mode bug, this has to be evaluated after the document has been
+	   loaded.
 
-       #+BEGIN_SRC emacs-lisp
+	   #+BEGIN_SRC emacs-lisp
 		 (add-to-list 'org-structure-template-alist
 					  '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"
 						"<src lang=\"emacs-lisp\">\n\n</src>"))
-       #+END_SRC
+	   #+END_SRC
 
-       LaTeX previews can be a bit small and clutter the working
-       directory, so the following options should migrate these issues.
+	   LaTeX previews can be a bit small and clutter the working
+	   directory, so the following options should migrate these issues.
 
-       #+BEGIN_SRC emacs-lisp
+	   #+BEGIN_SRC emacs-lisp
 		 (setq org-preview-latex-image-directory "/tmp/ltxpng/")
 		 (plist-put org-format-latex-options :scale 1.5)
-       #+END_SRC
+	   #+END_SRC
 
 	   Open links in the current frame.
 
@@ -2138,22 +2027,22 @@
 					  '(org-goto . local))
 	   #+END_SRC
 
-       Here I set a few convenient keybindings for globally interacting
-       with my org ecosystem.
+	   Here I set a few convenient keybindings for globally interacting
+	   with my org ecosystem.
 
-       #+BEGIN_SRC emacs-lisp
+	   #+BEGIN_SRC emacs-lisp
 		 :bind (("C-c c" . org-capture)
 				("C-c a" . org-agenda)
 				("C-c l" . org-store-link)
 				:map org-agenda-mode-map
 				("<tab>" . org-next-link)
 				("<S-iso-lefttab>" . org-previous-link)))
-       #+END_SRC
+	   #+END_SRC
 
-       Also: [[*Spell Checking][Spell Checking]] sadly shadows org's auto-complete functionality,
-       with an alternative I never use. When instead re-binding =pcomplete=,
-       one get's a lot more out of Org, without having to look up
-       everyhing in the manual.
+	   Also: [[*Spell Checking][Spell Checking]] sadly shadows org's auto-complete functionality,
+	   with an alternative I never use. When instead re-binding =pcomplete=,
+	   one get's a lot more out of Org, without having to look up
+	   everyhing in the manual.
 
 ******* HTML Exporter
 		:PROPERTIES:
@@ -2185,7 +2074,7 @@
 
 	   I make use of [[https://pandoc.org][pandoc]] as my default markdown to HTML converter.
 
-       #+BEGIN_SRC emacs-lisp
+	   #+BEGIN_SRC emacs-lisp
 		 (use-package markdown-mode
 		   :if (executable-find "pandoc")
 		   :ensure t
@@ -2195,7 +2084,7 @@
 		   :mode (rx (or (seq bos "README" (opt ".md"))
 						 (or ".markdown" ".mkdn" ".md"))
 					 eos))
-       #+END_SRC
+	   #+END_SRC
 
 **** Movement
 ***** Expand Region
@@ -2232,7 +2121,7 @@
 		(use-package avy
 		  :ensure t
 		  :custom ((avy-background t))
-		  :bind (("C-z" . avy-goto-char)
+		  :bind (("C-z" . avy-goto-word-1)
 				 ("M-z" . avy-resume)))
 	  #+END_SRC
 
@@ -2386,7 +2275,6 @@
 		 :custom ((shift-select-mode nil)))
 	 #+END_SRC
 
-
 *** Subsystems
 **** PDF Viewer
 	 :PROPERTIES:
@@ -2432,8 +2320,7 @@
 	   (use-package dictionary
 		 :if (file-exists-p "/etc/dictd")
 		 :ensure t
-		 :config
-		 (setq dictionary-server "localhost")
+		 :custom ((dictionary-server "localhost"))
 		 :bind (("<f8>". dictionary-search)
 				("C-<f8>". dictionary-match-words)))
 	 #+END_SRC
@@ -2508,6 +2395,7 @@
 				   (rmail-delete-after-output t)
 				   (rmail-default-file "~/etc/mail/old/")
 				   (mail-dont-reply-to-names rmail-user-mail-address-regexp))
+		  :hook ((rmail-mode . visual-line-mode))
 		  :mode ((rx ".mbox" eos) . rmail-mode)
 		  :bind (("C-x x m" . rmail)))
 	  #+END_SRC
@@ -2605,7 +2493,7 @@
 				   (bbdb-layout 'one-line)
 				   (bbdb-file "~/etc/mail/contacts"))
 		  :config
-		  (bbdb-initialize 'rmail 'message))
+		  (bbdb-initialize 'rmail 'message 'pgp))
 	  #+END_SRC
 
 ***** Notification
@@ -2795,6 +2683,7 @@
 
 	 #+BEGIN_SRC emacs-lisp
 	   (use-package windmove
+		 :defer nil
 		 :config
 		 (windmove-default-keybindings))
 	 #+END_SRC
@@ -3092,7 +2981,7 @@
 	 (defvar zge/mail-accounts
 	   (let* ((accounts '("cuvyvc@jnecznvy.arg"
 						  "cuvyvc.xnyhqrepvp@snh.qr"))
-			 (ring (make-ring (length accounts))))
+			  (ring (make-ring (length accounts))))
 		 (dolist (acc accounts ring)
 		   (ring-insert ring (rot13-string acc)))))
 
@@ -3225,3 +3114,7 @@
 					("C-x u" . undo-only)))
 	  (global-set-key (kbd (car bind)) (cdr bind)))
   #+END_SRC
+
+# Local Variables:
+# tab-width: 4
+# End:
